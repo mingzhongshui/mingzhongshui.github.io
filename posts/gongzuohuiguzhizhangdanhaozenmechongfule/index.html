@@ -1,0 +1,75 @@
+<!doctype html><html><head lang=en><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>工作回顾之账单号怎么重复了？ - My New Hugo Project</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="一引言不管是在电商系统还是物业系统中都会存在一个账单的东西，"><meta property="og:image" content="https://example.org/"><meta property="og:url" content="https://example.org/posts/gongzuohuiguzhizhangdanhaozenmechongfule/"><meta property="og:site_name" content="My New Hugo Project"><meta property="og:title" content="工作回顾之账单号怎么重复了？"><meta property="og:description" content="一引言不管是在电商系统还是物业系统中都会存在一个账单的东西，"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="记录"><meta name=twitter:card content="summary"><meta name=twitter:title content="工作回顾之账单号怎么重复了？"><meta name=twitter:description content="一引言不管是在电商系统还是物业系统中都会存在一个账单的东西，"><link href=https://example.org/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://example.org/css/main.92c7e6f6f5baede55d6238ba492bcbd00e10ca39a6bbdec527692bfc9564a927.css></head><body><div class=content><header><div class=main><a href=https://example.org/>My New Hugo Project</a></div><nav></nav></header><main><article><div class=post-container><div class=post-content><div class=title><h1 class=title>工作回顾之账单号怎么重复了？</h1><div class=meta>Posted on Jan 1, 1</div></div><section class=body><h2 id=一引言>一、引言</h2><p>不管是在电商系统、还是物业系统中都会存在一个账单的东西，账单号是每一个账单的标识，这个标识是唯一的、且不可重复的。</p><p>在电商系统中，账单号就等同于订单号；在物业系统中，账单号就是每一次向业主催缴费的账单。</p><p>这个账单号一旦重复结果可以说是灾难级的，在物业系统中，收费的时候，明明不是这个业主的钱，怎么多算了；而另一个业主的钱甚至少算，或者该缴的费用被其他业主缴了等等，涉及到钱的问题那就是大问题了。</p><p>这篇文章，我们就来具体分析下这个问题，并给出解决方案。</p><h2 id=二发现问题从用户反馈到技术排查>二、发现问题：从用户反馈到技术排查</h2><h3 id=21-来自用户的反馈>2.1 来自用户的反馈</h3><p>在某个阳光明媚的上午，我正在工位前快马加鞭的完成今天的工作任务，突然一个身影“不合事宜”的出现在了我的旁边，我转头一看原来是客成（客户成功团队：负责项目咨询、问题反馈，相当于售后了）同事</p><p>：“咋了？”</p><p>：“客户那边反馈有个问题，你帮忙看一下呗”</p><p>：“啥问题”</p><p>：“客户说自己的业主有笔账单，本来一个月的物业费应该是321块，结果翻了双倍，变成了600多”</p><p>我眉头紧锁，心里想：这啥情况啊，钱还会算错？！</p><p>一看是钱的问题，我就在心里默默地把优先级排到了最高！（今天的工作事项？你可去一边儿等会儿吧）</p><blockquote><p>我们负责的物业系统是多租户模式的，如果有一个租户出现了问题，那么其他租户也可能有相同的问题发生</p></blockquote><p>：“好，让客户先提个工单过来，描述下具体问题，我再看一下”</p><p>一句话把同事先“打发”走，没过一会儿，企微上消息甩了过来，是刚刚聊的问题已经建立了工单，我立刻流转了状态，进入到问题排查中&mldr;</p><h3 id=22-问题定位>2.2 问题定位</h3><p>排查问题三步走</p><p>一看业务代码：如果只看业务代码就能看到问题所在，那说明这个问题很容易就能解决</p><p>二看数据：通过查看业务代码，把账单费用计算的逻辑知晓，然后自己再计算一遍最后的金额。我自己算了一遍之后发现金额确实不对，把相关的SQL整理出来，甩到数据库客户端工具中（我最常用的还是Navicat Premium了）</p><p>不查不知道，一查吓一跳，一个账单号在账单主表中重复出现了两次？而且业主id竟然不是同一个人（啥情况？我的大脑差点宕机&mldr; ）再看账单号字段，竟然没配置唯一索引？</p><p>三问老大：“*哥，这个账单表中的账单号字段为啥没加唯一索引啊？！”</p><p>：“嗯&mldr;”</p><p>经过漫长的嗯之后：“可能是历史遗留问题了，你自己看下解决一下啦”</p><p>又是历史遗留问题，这个项目的历史问题可太多了</p><p>回到自己的工位上，把生成账单的代码又仔仔细细看了一遍，感觉有点猫腻啊！伪代码如下：</p><pre tabindex=0><code>// 获取code
+public function getCode()
+{
+    $redis = new Redis();
+    $billCode = &#39;&#39;;
+    
+    try {
+        if (empty($redis-&gt;get(&#39;bill_code&#39;))) {
+            $redis-&gt;set(&#39;bill_code&#39;, 1);
+            $lastBillCode = $this-&gt;getLastBillCode();
+            $redis-&gt;clear(&#39;bill_code&#39;);
+            return $lastBillCode++;
+        } 
+    	throw new Exception(&#39;生成code失败！&#39;);
+    } catch (\Exception $e) {
+        throw new Exception(&#39;生成code失败！&#39;);
+    } 
+}
+
+// 获取账单表中最后一条记录的code
+public function getLastBillCode()
+{
+     return $PDO-&gt;select(&#34;select code from bill order by datetime DESC limit 1&#34;);     
+}
+</code></pre><p>上面的代码不仔细看还真看不出什么问题，但是好在我多年的经验练就了慧眼如炬，问题基本上清晰了。这段代码要实现逻辑其实很清晰</p><ol><li>通过redis获取指定key</li><li>如果指定key不存在，设置指定key为1</li><li>获取最后一笔账单的code，自增+1返回</li><li>如果指定key已被设置，直接返回失败</li></ol><p>这段代码不难理解为什么要这么写，应该是当时的开发者想要为当前生成账单code的行为设置一个锁，直到code生成成功，再把这个锁释放掉。这样如果有其他进程也想生成code，那再进来的时候先判断指定key是否被设置，如果已被设置，则返回失败。</p><p>这样的操作在大部分情况几乎没啥问题，但是在高并发的情况下，很容易就产生重复的code，因为查询和设置的动作不是原子性的；</p><p>既然问题已经确定了，那解决起来就很容易了。</p><p>以这个场景为例，其实我们需要的就是一个分布式锁了。</p><h2 id=三分布式锁>三、分布式锁</h2><h3 id=什么是分布式锁>什么是分布式锁？</h3><blockquote><p>分布式锁是一种在分布式系统中（多节点、多进程、多服务）中协调共享资源的访问机制，确保在任一时刻只有一个客户端（节点）能访问资源（如数据库、文件、服务等），从而避免数据竞争和不一致问题。</p></blockquote><h3 id=使用场景>使用场景</h3><ul><li>防止重复操作，例如：用户提交订单，确保订单只处理一次</li><li>库存扣减，避免超卖：多个服务同时扣减库存，保证原子性</li><li>定时任务调度，在分布式系统中，确保集群中只有一个服务能执行定时任务（如每天的数据统计、库存刷新等）</li><li>分布式缓存更新，多个节点同时更新缓存，避免脏数据</li></ul><h3 id=特性>特性</h3><h4 id=互斥性>互斥性</h4><p>同一时间，只有一个客户端可以持有锁</p><h4 id=防死锁>防死锁</h4><p>即使客户端崩溃，到了指定时间也能释放（通过超时机制）</p><h4 id=高可用>高可用</h4><p>锁服务需具备容错能力（如redis集群）</p><h2 id=四解决问题>四、解决问题</h2><p>那了解了什么是分布式锁，那基于我们这个场景，其实就很适用了。生成账单code，同一时间只能有一个生成账单的服务运行。那redis中是如何实现呢？</p><p>首先先了解redis的两个命令</p><h3 id=redis两个命令>redis两个命令</h3><h4 id=nx>NX</h4><p>NX全称Not Exists，表示只有键不存在时，才执行操作，比如设置值。
+用法：实现分布式锁，或避免覆盖已有数据。
+举例：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>SET key <span style=color:#e6db74>&#34;value&#34;</span> NX
+</span></span></code></pre></div><ul><li>如果key不存在，则设置key值为value，返回OK</li><li>如果key存在，则操作失败，返回nil</li></ul><h4 id=px>PX</h4><p><code>PX</code>即毫秒级过期时间，作用是为键设置毫秒级的过期时间（<code>TTL</code>）</p><p>redis设置过期时间命令的不只有PX，还有<code>EX</code>，<code>EX</code>设置秒级过期时间，<code>PX</code>设置毫秒级过期时间（10000毫秒为10秒）</p><p>举例：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>SET key <span style=color:#e6db74>&#34;value&#34;</span> PX <span style=color:#ae81ff>10000</span>  <span style=color:#75715e># 10秒后自动删除</span>
+</span></span></code></pre></div><h3 id=结合来用>结合来用</h3><p><code>NX</code> + <code>PX</code> 的组合常用于带超时的分布式锁</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>SET lock:resource <span style=color:#e6db74>&#34;value&#34;</span> NX PX <span style=color:#ae81ff>10000</span>
+</span></span></code></pre></div><p>以上代码表示如果锁<code>lock:resource</code>不存在，则设置值，并10秒后释放。如果锁已存在，则获取锁失败。</p><p>那在php中如何使用呢，参考以下代码</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>$redis <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Redis</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$redis<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>connect</span>(<span style=color:#e6db74>&#39;127.0.0.1&#39;</span>, <span style=color:#ae81ff>6379</span>); <span style=color:#75715e>// 连接 Redis
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$script <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;return redis.call(&#34;SET&#34;, KEYS[1], ARGV[1], &#34;NX&#34;, &#34;PX&#34;, ARGV[2])&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$result <span style=color:#f92672>=</span> $redis<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>eval</span>($script, [<span style=color:#e6db74>&#39;lock_create_code&#39;</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>5000</span>], <span style=color:#ae81ff>1</span>); <span style=color:#75715e>// 最后一个参数是 KEYS 的数量
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> ($result <span style=color:#f92672>===</span> <span style=color:#66d9ef>false</span>) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>throw</span> <span style=color:#a6e22e>Exception</span> <span style=color:#e6db74>&#34;获取锁失败!~&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 执行业务逻辑
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;生成订单code中...</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>sleep</span>(<span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 释放锁（需校验value）
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$unlockScript <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    if redis.call(&#34;GET&#34;, KEYS[1]) == ARGV[1] then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        return redis.call(&#34;DEL&#34;, KEYS[1])
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    else
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        return 0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    end
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$redis<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>eval</span>($unlockScript, [<span style=color:#e6db74>&#39;lock:create_code&#39;</span>, <span style=color:#ae81ff>1</span>], <span style=color:#ae81ff>1</span>);
+</span></span></code></pre></div><p>redis会单线程执行整个脚本，所以不用担心并发问题。</p><h2 id=五总结>五、总结</h2><p>好啦，以上就是遇到生成订单号重复的解决方案，可能也有更优的解决方案，但是目前这个方案个人感觉是最适合这个业务场景的。</p></section><div class=post-tags><nav class="nav tags"><ul class=tags><li><a href=/tags/%E8%AE%B0%E5%BD%95/>记录</a></li></ul></nav></div></div></div></article></main><footer><div style=display:flex></div><div class=footer-info>2026 <a href=https://github.com/athul/archie>Archie Theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></footer></div></body></html>

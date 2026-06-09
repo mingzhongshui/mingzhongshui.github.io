@@ -1,0 +1,110 @@
+<!doctype html><html><head lang=en><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>聊一聊我是如何从0到1搭建公司爬虫项目的 - My New Hugo Project</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="一前言在工作的这么多年中，其实有很少能接触到挑战自我的项目。"><meta property="og:image" content="https://example.org/"><meta property="og:url" content="https://example.org/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/"><meta property="og:site_name" content="My New Hugo Project"><meta property="og:title" content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta property="og:description" content="一前言在工作的这么多年中，其实有很少能接触到挑战自我的项目。"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="回忆"><meta name=twitter:card content="summary"><meta name=twitter:title content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta name=twitter:description content="一前言在工作的这么多年中，其实有很少能接触到挑战自我的项目。"><link href=https://example.org/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://example.org/css/main.92c7e6f6f5baede55d6238ba492bcbd00e10ca39a6bbdec527692bfc9564a927.css></head><body><div class=content><header><div class=main><a href=https://example.org/>My New Hugo Project</a></div><nav></nav></header><main><article><div class=post-container><div class=post-content><div class=title><h1 class=title>聊一聊我是如何从0到1搭建公司爬虫项目的</h1><div class=meta>Posted on Jan 1, 1</div></div><section class=body><h2 id=一前言>一、前言</h2><p>在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。</p><p>在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。</p><p>今天就来讲一下我是怎么从0到1实现整个爬虫架构的。</p><blockquote><p>首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。</p></blockquote><h2 id=二起因>二、起因</h2><p>在加入C公司一年后，到了年终总结阶段，项目经理要找团队的每个人聊过去的一年中主要的业绩和贡献，其实就是谈绩效了。在对话中我清晰的记得，当项目经理问到我</p><p>：“对自身有什么规划或者对自己在团队内的职责有什么想说的”</p><p>的时候，我脑海中一个想法已经酝酿了好久，我说</p><p>：“我想多做一些有挑战性的事情”</p><p>其实不太敢明说，目前在工作中的事情太顺风顺水了，不怎么用点脑子就能完成（因为主要负责的是公司内部系统的开发，所以高并发、分布式什么的几乎接触不到）</p><p>就是这样一句话在不久后起了波澜</p><p>公司主要是做跨境电商的，在亚马逊平台销售自己的产品。既然是电商行业，那就少不了要爬取竞品数据，分析对手的产品、评价、销量等，这时候就需要爬虫出马了。上层有了这个决定之后，落实下来就到了我们小组身上了。</p><p>最开始是计划用php做爬虫的，但是后面了解到爬虫不是php的长处，python才是。而且python提供非常完整的生态链来处理爬虫。下面我列举下我当时了解到python为什么适合爬虫的原因，而且也是我后面说服leader用python做爬虫的理由：</p><h2 id=三python优势>三、Python优势</h2><h3 id=1语言层面的优势>1、语言层面的优势</h3><h4 id=字符串处理能力>字符串处理能力</h4><p>原生支持正则表达式（re模块），举个例子：</p><p>python中获取页面中的单价</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> re
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;price:(\d+)&#39;</span>, html)  <span style=color:#75715e># 一行代码提取价格</span>
+</span></span></code></pre></div><h4 id=开发效率>开发效率</h4><p>动态类型 + 丰富的内置数据结构（字典/列表/集合），可以更快的编写爬虫代码</p><p>再举个例子，python提取a标签中的href</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>links <span style=color:#f92672>=</span> [a[<span style=color:#e6db74>&#39;href&#39;</span>] <span style=color:#66d9ef>for</span> a <span style=color:#f92672>in</span> soup<span style=color:#f92672>.</span>select(<span style=color:#e6db74>&#39;a&#39;</span>)]
+</span></span></code></pre></div><p>php实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>$doc <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>DOMDocument</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>@</span>$doc<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>loadHTML</span>($html); <span style=color:#75715e>// @抑制解析警告
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$links <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$anchorTags <span style=color:#f92672>=</span> $doc<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getElementsByTagName</span>(<span style=color:#e6db74>&#39;a&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>foreach</span> ($anchorTags <span style=color:#66d9ef>as</span> $a) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $href <span style=color:#f92672>=</span> $a<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getAttribute</span>(<span style=color:#e6db74>&#39;href&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#66d9ef>empty</span>($href)) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        $links[] <span style=color:#f92672>=</span> $href;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 输出结果
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>print_r</span>($links);
+</span></span></code></pre></div><p>python一行解决的问题，php需要8行。哪个便利一目了然吧</p><h3 id=2生态工具链>2、生态工具链</h3><table><thead><tr><th>工具</th><th>作用</th><th>优势</th></tr></thead><tbody><tr><td>Requests</td><td>HTTP请求</td><td>人类友好的API，会话保持自动处理</td></tr><tr><td>BeautifulSoup</td><td>HTML解析</td><td>容错性强，find_all比xpath更直观</td></tr><tr><td>Scrapy</td><td>全功能爬虫框架</td><td>内置异步、中间件、管道等完整架构</td></tr><tr><td>Selenuim</td><td>动态页面渲染</td><td>模拟浏览器行为</td></tr><tr><td>PyQuery</td><td>JQuery式选择器</td><td>对前端开发者更友好</td></tr></tbody></table><h4 id=应对爬虫的灵活性>应对爬虫的灵活性</h4><p>快速切换解析方案</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 应对网站改版，快速更换解析方式</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>parse</span>(html):
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> css_select(html)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span> ParseError:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> xpath_parse(html)  <span style=color:#75715e># 备用方案</span>
+</span></span></code></pre></div><h4 id=动态执行js>动态执行js</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 使用PyExecJS执行加密算法</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> execjs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ctx <span style=color:#f92672>=</span> execjs<span style=color:#f92672>.</span>compile(<span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    function decrypt(t) {
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        return CryptoJS.AES.decrypt(t, &#39;key&#39;).toString();
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>decrypted <span style=color:#f92672>=</span> ctx<span style=color:#f92672>.</span>call(<span style=color:#e6db74>&#34;decrypt&#34;</span>, encrypted_str)
+</span></span></code></pre></div><h4 id=ip轮换便捷性>IP轮换便捷性</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 使用代理中间件示例（Scrapy）</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ProxyMiddleware</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>process_request</span>(self, request, spider):
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        request<span style=color:#f92672>.</span>meta[<span style=color:#e6db74>&#39;proxy&#39;</span>] <span style=color:#f92672>=</span> random<span style=color:#f92672>.</span>choice(proxy_pool)
+</span></span></code></pre></div><h3 id=3大数据处理>3、大数据处理</h3><h4 id=分布式扩展>分布式扩展</h4><ul><li>Scrapy-Redis 实现分布式爬虫</li><li>celery调度异步任务</li></ul><h4 id=无缝对接数据管道>无缝对接数据管道</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 爬取后直接进入分析流程</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> pandas <span style=color:#66d9ef>as</span> pd
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>data <span style=color:#f92672>=</span> pd<span style=color:#f92672>.</span>DataFrame(scraped_items)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>data<span style=color:#f92672>.</span>groupby(<span style=color:#e6db74>&#39;category&#39;</span>)<span style=color:#f92672>.</span>sum()<span style=color:#f92672>.</span>plot(kind<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;bar&#39;</span>)
+</span></span></code></pre></div><p>基于以上优势，在当时做爬虫用python可以说是最好的选择了。</p><h2 id=四学习>四、学习</h2><p>那确定了语言，现在就开始准备了，团队内没有会python的咋整？</p><p>学呗！</p><p>我和团队内的另外一个php同事开始自学起了python，首先确定学习路线</p><ol><li>python语法</li><li>python爬虫框架scrapy</li><li>Xpath语法</li><li>反爬</li><li>代理</li></ol><p>就这样用了一个月时间，基本上把这些东西都过了一遍，一个月之间我总结了一些关于python及爬虫的知识：</p><ul><li><a href=https://www.cxiansheng.cn/server/550>Python scrapy框架学习笔记及简单实战 - 命中水</a></li><li><a href=https://www.cxiansheng.cn/server/561>Python学习笔记（基础） - 命中水</a></li><li><a href=https://www.cxiansheng.cn/server/563>Python学习笔记（常用扩展） - 命中水</a></li></ul><p>后面又整理了反爬的套路及应对措施：<a href=https://www.cxiansheng.cn/server/569>Python爬虫研究 - 命中水</a></p><p>以上都是接口爬虫，后面了解到需要爬页面，然后又学习了页面爬虫</p><ul><li><a href=https://www.cxiansheng.cn/server/580>Python如何爬取动态网站？ - 命中水</a></li></ul><p>在学习的过程中，尝试爬了自己的网站，源码在<a href=https://gitee.com/mingzhongshui/Python-scrapy-demo>Python scrapy demo: Python scrapy框架实战demo</a></p><p>这一个月中走到哪都是我学习爬虫的身影，地铁上刷B站视频、晚上回家学习python语法、周末自己练习爬爬简书啥的，甚至做梦都梦到爬虫成功了。现在回忆起来真是佩服我自己</p><h2 id=五简单实战>五、简单实战</h2><p>接下来，产品经理需求下来了，根据亚马逊商品ASIN爬评论，看看学习成果咋样（一个月中另一个php同事没啥进展，后面就我自己开发了）</p><ol><li>基于scrapy开发的爬虫脚本</li><li>初始化爬取链接</li><li>xpath获取关键数据</li><li>数据通过管道写入mongodb</li></ol><p>基于scrapy我很快完成了ASIN评论的爬取，但是因为评论过多，有时候爬取到一两页就显示爬取失败了，因为我没加代理，然后选择了快代理作为我们最开始的代理方（没有建立自己的代理ip库是因为当时自己参考过一版别人的源码，做出来的效果发现那些免费的代理ip质量都不太高，所以后面就选择了收费的），快代理有多种模式可选择，具体可以去官网参考下<a href=https://www.kuaidaili.com/>快代理 - 企业级HTTP代理IP云服务_专注IP代理11年</a></p><p>既然方案没问题，那就开始大刀阔斧的干了</p><h2 id=六着手开发>六、着手开发</h2><p>需求是提前往内部系统里录ASIN，然后每天定时根据这些ASIN爬取评论数据，重复的替换掉</p><p>OK，既然需求定了，那就开始整理下设计架构了（这时候公司招的专业的python同事入场了）经过了多次的沟通，整理架构如下：</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/3396164285.png alt=爬虫架构图.png></p><p>于此，框架基本完成，主要增加：</p><ol><li>使用scrapy-redis分布式爬虫增加爬取效率</li><li>接口API使用Flask框架</li><li>接口采用celery异步队列</li></ol><h3 id=关键问题>关键问题</h3><p>过了一段时间， 此架构基本落地了，但是遇到个问题，就算使用了专业的ip代理工具，但是有时候爬取质量和效率还不是那么好。不得不说，亚马逊的反爬机制还是挺厉害的。基于此前提下，我们产生了更换ip代理商的想法，于是我们发现了scrapy_crawlera。</p><h3 id=scrapy-crawlera>Scrapy-Crawlera</h3><p>Scrapy-Crawlera 是一个 <strong>Scrapy 中间件</strong>，用于与 Crawlera（Smart Proxy）服务集成，帮助爬虫开发者高效处理反爬机制（如 IP 封禁、验证码、动态渲染等）。Crawlera 是 Zyte（原 Scrapinghub）提供的 <strong>智能代理服务</strong>，可以自动管理代理池、处理请求头、执行 JavaScript 渲染等</p><h4 id=crawlear的核心功能>Crawlear的核心功能</h4><h5 id=智能代理轮换>智能代理轮换</h5><ul><li><p>自动切换 <strong>全球代理 IP</strong>（覆盖 100+ 国家）</p></li><li><p>避免 IP 被封，支持高并发请求</p></li><li><p>自动重试失败的请求</p></li></ul><h5 id=自动反反爬>自动反反爬</h5><ul><li>动态调整请求头（User-Agent、Referer、Cookies）</li><li>处理 JavaScript 渲染（类似无头浏览器）</li><li>绕过 Cloudflare、Akamai 等防护</li></ul><h5 id=请求优化>请求优化</h5><ul><li>自动管理会话（Session）</li><li>支持 HTTP/HTTPS/SOCKS5</li><li>提供 <strong>请求统计</strong>（成功率、延迟、封禁率）</li></ul><h4 id=安装与配置>安装与配置</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>pip install scrapy-crawlera
+</span></span></code></pre></div><h6 id=scrapy配置>scrapy配置</h6><pre tabindex=0><code># 启用 Crawlera 中间件
+DOWNLOADER_MIDDLEWARES = {
+    &#39;scrapy_crawlera.CrawleraMiddleware&#39;: 300
+}
+
+# 设置 Crawlera API Key（需注册 Zyte 获取）
+CRAWLERA_ENABLED = True
+CRAWLERA_APIKEY = &#39;你的API_KEY&#39;
+
+# 调整爬虫并发（Crawlera 默认限制 5 并发）
+CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
+AUTOTHROTTLE_ENABLED = False  # 关闭自动限速
+</code></pre><h4 id=适用场景>适用场景</h4><ul><li><strong>企业级爬虫</strong>（需要高稳定性）</li><li><strong>反爬严格的网站</strong>（如电商、社交媒体）</li><li><strong>不想管理代理池</strong>（减少运维成本）</li></ul><p>使用scrapy-clawlera的前提，就是需要去<a href=https://dash.scrapinghub.com/account/signup>Zyte</a>注册一个用户（我之前用的时候叫scrapyinghub，现在改名了），然后购买付费，按请求收费。比如200W个请求，<strong>400美刀</strong>，我记得我们巅峰时期一个月的代理费都干到过<strong>4000多</strong>人民币。但是这钱花的也值，爬取效率杠杠的！</p><p>scrapy-clawlear除了贵几乎没有缺点。</p><h2 id=七需求升级>七、需求升级</h2><p>过了没多久，新需求又来了，公司在亚马逊有店铺，运营同学每次都要去亚马逊后台下载报表数据，我们有7、8个店铺的数据，亚马逊要求又很严格，每个店铺、站点都只能在同一个IP登录，如果不同IP登录了店铺后台，亚马逊可能会封禁账号，到时候申诉就会很麻烦。</p><p>所以需要这不就来了，要求爬虫自动抓取后台报表数据。保存在数据库，运营在同学在内部系统直接查看即可。</p><p>因为这个是需要登录账号之后进行的操作，所以接下来的处理就是需要模仿浏览器用户行为了，也就是页面爬虫。</p><p>说起页面爬虫，那就不得不提到selenimu了</p><h3 id=selenium>selenium</h3><blockquote><p><strong>Selenium</strong> 是一个用于 <strong>自动化 Web 浏览器操作</strong> 的开源工具集，主要用于 <strong>Web 应用程序测试</strong> 和 <strong>浏览器自动化</strong>。它支持多种编程语言（如 Python、Java、C#、JavaScript 等），可以模拟用户在浏览器中的操作，如点击、输入、导航等。</p></blockquote><p>通俗点来讲就是你可以编写程序来模仿浏览器的用户行为，比如有个网站有个签到功能，每天签到可以得积分，然后你就可以用程序模拟这个动作，每天打开网页，在指定位置，点击签到。这个行为用户可以是无感知的，用户就算在操作电脑，也不会发现你运行了脚本，打开了网页。因为这些动作都是后台运行的。</p><p>python使用selenium代码如下：</p><pre tabindex=0><code># -*- coding: utf-8 -*-
+
+# 引入selenium webdriver类
+from selenium import webdriver
+
+# 引入火狐浏览器配置类
+from selenium.webdriver import FirefoxOptions
+# 实例化一个配置项
+options = FirefoxOptions()
+# 设置无需打开浏览器（如何想调试就把这个配置注释掉）
+options.add_argument(&#39;--headless&#39;)
+
+# 设置浏览器类型为火狐
+browser = webdriver.Firefox(firefox_options=options)
+
+# 打开一个网址
+browser.get(&#39;https://item.jd.com/100008348542.html&#39;)
+# 获取网页源码
+source = browser.page_source
+
+print(source)
+</code></pre><p>具体如何使用详情参考我之前的文章：<a href=https://www.cxiansheng.cn/server/580>Python如何爬取动态网站？ - 命中水</a></p><p>除了selenium之外呢，python还有另外一种方式也可以获取页面上的数据</p><h3 id=splash>Splash</h3><blockquote><p><strong>Splash</strong> 是一个基于 <strong>Lua</strong> 的轻量级 JavaScript 渲染服务，由 Scrapy 团队开发，主要用于 <strong>动态网页的抓取</strong>。它通过 <strong>HTTP API</strong> 或 <strong>Scrapy-Splash 中间件</strong> 与爬虫集成，能够执行 JavaScript 并返回渲染后的页面内容。</p></blockquote><h4 id=核心功能>核心功能</h4><ul><li>渲染 JavaScript 动态内容（如 React、Vue 生成的页面）。</li><li>支持截图、延迟加载、自定义 Lua 脚本。</li><li>通过 Docker 快速部署，资源占用较低。</li></ul><p>那我们到底该如何选择呢？请看下面splash和selenium的对比</p><h4 id=splash-和-selenium-的区别>Splash 和 Selenium 的区别</h4><table><thead><tr><th style=text-align:left><strong>特性</strong></th><th style=text-align:left><strong>Splash</strong></th><th style=text-align:left><strong>Selenium</strong></th></tr></thead><tbody><tr><td style=text-align:left><strong>定位</strong></td><td style=text-align:left>专为爬虫设计的轻量级渲染服务</td><td style=text-align:left>浏览器自动化工具，兼顾测试和爬虫</td></tr><tr><td style=text-align:left><strong>架构</strong></td><td style=text-align:left>基于 HTTP API 的无头浏览器服务</td><td style=text-align:left>直接控制本地/远程浏览器实例</td></tr><tr><td style=text-align:left><strong>性能</strong></td><td style=text-align:left>更高（无图形界面，资源占用少）</td><td style=text-align:left>较低（启动完整浏览器）</td></tr><tr><td style=text-align:left><strong>编程语言支持</strong></td><td style=text-align:left>通过 Lua 脚本或 HTTP 请求交互</td><td style=text-align:left>支持多语言（Python/Java/C#等）</td></tr><tr><td style=text-align:left><strong>JavaScript 执行</strong></td><td style=text-align:left>高效，但功能有限（依赖 Lua 脚本）</td><td style=text-align:left>完整支持，可模拟用户操作</td></tr><tr><td style=text-align:left><strong>部署复杂度</strong></td><td style=text-align:left>需 Docker 或独立服务</td><td style=text-align:left>需浏览器驱动（如 chromedriver）</td></tr><tr><td style=text-align:left><strong>适用场景</strong></td><td style=text-align:left>大规模爬虫（高并发、无交互需求）</td><td style=text-align:left>需要交互的测试或爬虫（如点击登录）</td></tr></tbody></table><p>通过以上表格我们可以看出：</p><ul><li><strong>爬虫优先 Splash</strong>：轻量、高效、适合大规模数据采集</li><li><strong>交互优先 Selenium</strong>：功能全面、适合测试或复杂操作</li><li><strong>反爬严格时</strong>：Selenium 更接近真实用户，但 Splash 可通过 Lua 脚本伪装请求头。</li></ul><p>以我们那个场景为例，涉及到用户交互的动作（登录），最终我们选择了selenium。</p><h3 id=后续>后续</h3><p>后续就是这个需求以selenium登录，然后拿到登录用户信息，再调用报表接口查询数据。</p><p>然后将这个脚本放在windows任务计划中，每天定时去执行。数据上传到接口，保存到数据库中。</p><p>建立异常机制，页面改变或接口报错，发邮件到负责人或开发人邮箱中。</p><h4 id=坑>坑</h4><p>哦对了，这里还有一个坑，我记得当时我离职前也都没有解决。</p><p>因为亚马逊后台登录地址的限制，每个账号只能在同一个IP登录，所以我们是部署了跟站点数量相对应的虚拟机，比如我们有8个站点账号，就部署了8个windows虚拟机。每次都要从远程桌面中登录进去，一旦代码有什么地方要调整或者定时任务要调整，那就要耗费大量的时间去一个一个登录进去操作，windows远程桌面有时候还很卡，所以每次操作都很痛苦。</p><p>至于为什么要搭建远程windows虚拟主机，是因为运营同学也是用这个方式登录后台的。</p><h2 id=八不足之处>八、不足之处</h2><p>虽然项目已经成功上线，并运行了一年多，但是还是有不足的。针对这个项目来说</p><ol><li>亚马逊页面有时候会变化，过一两个月就会调整，所以有时候爬取失败了我们是后知后觉</li><li>后台页面爬虫，维护是个硬伤</li></ol><p>针对问题1，现在来看的话我觉得可以引入以下几点：</p><ul><li>设置警报当关键元素获取失败率超过阈值时通知</li><li>保留详细的错误日志和页面快照</li><li>定期运行测试爬虫检查关键元素是否存在</li><li>训练模型识别页面各元素位置</li><li>使用视觉定位(如Selenium截图后分析)</li></ul><p>前几个还好说，就是费点力，代码调整+人工。后两个的话，就要再花费一番功夫了。</p><p>针对问题2，我记得当时是没有在虚拟机上搭建git的，原因也不记得了，如果要调整的话</p><ol><li>虚拟主机搭建git，远程仓库代码更新时，自动同步更新虚拟主机代码</li></ol><h2 id=九总结>九、总结</h2><p>以上就是我当时在接触到爬虫项目的全部过程了，真的是参与感满满了。上线的时候就是那种看着自己的孩子一步一步长大成人的感觉。</p><p>好了，以上就是本文的全部内容了，下次再见吧！~</p><hr><p><strong>作者</strong>：命中水
+<strong>版权声明</strong>：转载请注明出处，欢迎技术交流</p></section><div class=post-tags><nav class="nav tags"><ul class=tags><li><a href=/tags/%E5%9B%9E%E5%BF%86/>回忆</a></li></ul></nav></div></div></div></article></main><footer><div style=display:flex></div><div class=footer-info>2026 <a href=https://github.com/athul/archie>Archie Theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></footer></div></body></html>
