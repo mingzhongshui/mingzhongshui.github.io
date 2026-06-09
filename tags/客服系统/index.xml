@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>客服系统 on 命中水、</title><link>https://mingzhongshui.github.io/tags/%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/</link><description>Recent content in 客服系统 on 命中水、</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 23 Dec 2025 10:59:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml"/><item><title>聊一聊我第一个由 AI 深度参与完成的真实项目</title><link>https://mingzhongshui.github.io/posts/liaoyiliaowodiyigeyou_ai_shenducanyuwanchengdezhenshixiangmu/</link><pubDate>Tue, 23 Dec 2025 10:59:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/liaoyiliaowodiyigeyou_ai_shenducanyuwanchengdezhenshixiangmu/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;我不是前端工程师。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;但这次，我一个人完成了一个包含&lt;strong&gt;聊天窗口、WebSocket 实时推送、多语言翻译、复杂 UI 状态管理&lt;/strong&gt;的前端项目。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;说实话，如果没有 AI，这个项目我大概率会延期，甚至放弃一些体验上的细节。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="一前言"&gt;一、前言&lt;/h2&gt;
+&lt;p&gt;前端时间接了一个前端聊天+后端管理后台的项目，两个项目都是我自己一个人完成。&lt;/p&gt;
+&lt;p&gt;说起来后端还好，但是前端html+css那套我最开始入行的时候学了一点，但是后面正式工作后主要还是围绕后端语言来展开，前端的那套样式语法就渐渐地放下了；&lt;/p&gt;
+&lt;p&gt;但这次是一个全新的机会，也是一个新的挑战，需要自己写前端。那如何快速写前端项目，并快速交付呢？于是我想到了AI这个帮手，之前总拿它来排查问题，但是写一个项目行不行呢？ 我抱着怀疑的态度开始了这项“挑战”，并最终“有惊无险”的落地完成，顺利完成交付；&lt;/p&gt;
+&lt;p&gt;本篇文章，我想详细的复盘下这次经历：如何与AI沟通？ 如何合理利用AI完成代码的实现？以及举例一些聊天系统中实现的业务关键点！&lt;/p&gt;</description></item></channel></rss>

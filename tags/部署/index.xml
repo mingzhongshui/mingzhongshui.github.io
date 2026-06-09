@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>部署 on 命中水、</title><link>https://mingzhongshui.github.io/tags/%E9%83%A8%E7%BD%B2/</link><description>Recent content in 部署 on 命中水、</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 23 Oct 2020 21:04:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E9%83%A8%E7%BD%B2/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次上线方（流）案（程）</title><link>https://mingzhongshui.github.io/posts/jiyicishangxianfangliuancheng/</link><pubDate>Fri, 23 Oct 2020 21:04:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/jiyicishangxianfangliuancheng/</guid><description>&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;为了简化后续爬虫项目上线的步骤和流程，把爬虫API和定时任务的项目整合在一块了，由于涉及到相关的服务较多，也需要遵循修改服务、启动的先后顺序（不然该启动的服务没开，后续相关的服务受影响就尴尬了），所以在上线前，用了将近一个上午的时间，整理了一个上线流程。在上线时能够提供一些清晰的帮助。&lt;/p&gt;
+&lt;h2 id="上线步骤"&gt;上线步骤&lt;/h2&gt;
+&lt;h3 id="包安装"&gt;包安装&lt;/h3&gt;
+&lt;p&gt;安装grequests、itemadapter包&lt;/p&gt;</description></item></channel></rss>

@@ -1,40 +1,129 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>记录 on 命中水的个人博客</title><link>https://mingzhongshui.github.io/tags/%E8%AE%B0%E5%BD%95/</link><description>Recent content in 记录 on 命中水的个人博客</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 23 Dec 2025 10:59:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml"/><item><title>聊一聊我第一个由 AI 深度参与完成的真实项目</title><link>https://mingzhongshui.github.io/posts/liaoyiliaowodiyigeyou_ai_shenducanyuwanchengdezhenshixiangmu/</link><pubDate>Tue, 23 Dec 2025 10:59:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/liaoyiliaowodiyigeyou_ai_shenducanyuwanchengdezhenshixiangmu/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;我不是前端工程师。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;但这次，我一个人完成了一个包含&lt;strong&gt;聊天窗口、WebSocket 实时推送、多语言翻译、复杂 UI 状态管理&lt;/strong&gt;的前端项目。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;说实话，如果没有 AI，这个项目我大概率会延期，甚至放弃一些体验上的细节。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="一前言"&gt;一、前言&lt;/h2&gt;
-&lt;p&gt;前端时间接了一个前端聊天+后端管理后台的项目，两个项目都是我自己一个人完成。&lt;/p&gt;
-&lt;p&gt;说起来后端还好，但是前端html+css那套我最开始入行的时候学了一点，但是后面正式工作后主要还是围绕后端语言来展开，前端的那套样式语法就渐渐地放下了；&lt;/p&gt;
-&lt;p&gt;但这次是一个全新的机会，也是一个新的挑战，需要自己写前端。那如何快速写前端项目，并快速交付呢？于是我想到了AI这个帮手，之前总拿它来排查问题，但是写一个项目行不行呢？ 我抱着怀疑的态度开始了这项“挑战”，并最终“有惊无险”的落地完成，顺利完成交付；&lt;/p&gt;
-&lt;p&gt;本篇文章，我想详细的复盘下这次经历：如何与AI沟通？ 如何合理利用AI完成代码的实现？以及举例一些聊天系统中实现的业务关键点！&lt;/p&gt;</description></item><item><title>工作回顾之优化开户流程</title><link>https://mingzhongshui.github.io/posts/gongzuohuiguzhiyouhuakaihuliucheng/</link><pubDate>Thu, 10 Apr 2025 14:16:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/gongzuohuiguzhiyouhuakaihuliucheng/</guid><description>&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
-&lt;p&gt;众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐放，啥样的优化方式都有。而我虽然天天干着CURD的工作，和SQL天天打交道，其实说句实话，对SQL优化确实所会不多，只能算的上是皮毛。&lt;/p&gt;
-&lt;p&gt;这不，什么不会就来什么，刚入职还在试用期的时候，老大派来一个任务&lt;/p&gt;
-&lt;p&gt;：“小陈，我们有个开户的流程，从其他平台迁移过来，你对接下”&lt;/p&gt;
-&lt;p&gt;：“好的，老大”&lt;/p&gt;
-&lt;p&gt;：“对了，还有一个开户的动作，特别慢，要半小时甚至更久才能完成，你顺便优化一下”&lt;/p&gt;
-&lt;p&gt;：“好的”&lt;/p&gt;
-&lt;p&gt;什么开户？什么流程？什么优化，刚接到这个问题的我也是一头雾水，后面再深入了解了一下，大概明白了这个问题的来龙去脉&lt;/p&gt;</description></item><item><title>工作回顾之账单号怎么重复了？</title><link>https://mingzhongshui.github.io/posts/gongzuohuiguzhizhangdanhaozenmechongfule/</link><pubDate>Wed, 05 Mar 2025 22:43:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/gongzuohuiguzhizhangdanhaozenmechongfule/</guid><description>&lt;h2 id="一引言"&gt;一、引言&lt;/h2&gt;
-&lt;p&gt;不管是在电商系统、还是物业系统中都会存在一个账单的东西，账单号是每一个账单的标识，这个标识是唯一的、且不可重复的。&lt;/p&gt;
-&lt;p&gt;在电商系统中，账单号就等同于订单号；在物业系统中，账单号就是每一次向业主催缴费的账单。&lt;/p&gt;
-&lt;p&gt;这个账单号一旦重复结果可以说是灾难级的，在物业系统中，收费的时候，明明不是这个业主的钱，怎么多算了；而另一个业主的钱甚至少算，或者该缴的费用被其他业主缴了等等，涉及到钱的问题那就是大问题了。&lt;/p&gt;
-&lt;p&gt;这篇文章，我们就来具体分析下这个问题，并给出解决方案。&lt;/p&gt;</description></item><item><title>聊聊redis在电商系统中的实战应用</title><link>https://mingzhongshui.github.io/posts/liaoliaorediszaidianshangxitongzhongdeshizhanyingyong/</link><pubDate>Wed, 08 Jan 2025 22:31:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/liaoliaorediszaidianshangxitongzhongdeshizhanyingyong/</guid><description>&lt;h2 id="一前言"&gt;一、前言&lt;/h2&gt;
-&lt;p&gt;在我从事的工作经历中，其实接触的电商行业还挺多的，大概占经历的6、70%左右。&lt;/p&gt;
-&lt;p&gt;而在电商项目中，用到缓存的场景就很多了，像数据缓存、CDN缓存、页面缓存等等，redis是最常用的key-value数据库了，memechache虽然和redis同样都是内存数据库，但是使用的最多的还是redis。&lt;/p&gt;
-&lt;p&gt;在使用redis之前，先简单了解下redis的特点和数据结构吧；&lt;/p&gt;</description></item><item><title>【Git】工作中99%能用到的git命令</title><link>https://mingzhongshui.github.io/posts/gitgongzuozhong99nengyongdaodegitmingling/</link><pubDate>Mon, 25 Feb 2019 11:52:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/gitgongzuozhong99nengyongdaodegitmingling/</guid><description>&lt;p&gt;&lt;img src="https://www.cxiansheng.cn/usr/uploads/2019/02/4149774481.jpg" alt="git"&gt;&lt;/p&gt;</description></item><item><title>PHP相关面试题总结</title><link>https://mingzhongshui.github.io/posts/phpxiangguanmianshitizongjie/</link><pubDate>Mon, 28 May 2018 21:46:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/phpxiangguanmianshitizongjie/</guid><description>&lt;h2 id="数据库"&gt;数据库&lt;/h2&gt;
-&lt;h3 id="btree和hash索引的区别"&gt;Btree和hash索引的区别&lt;/h3&gt;
-&lt;p&gt;Hash&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点&lt;/p&gt;
-&lt;/blockquote&gt;</description></item><item><title>细数那些年PHP我们踩过的 “坑”</title><link>https://mingzhongshui.github.io/posts/xishunaxienianphpwomencaiguode_keng/</link><pubDate>Fri, 23 Mar 2018 15:29:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/xishunaxienianphpwomencaiguode_keng/</guid><description>&lt;p&gt;    在编写代码的过程中，常常会踩到到各种坑，小坑小错啥的也经常犯，为什么呢？我想主要还是对PHP这门语言的不熟练啊，文档看的少&amp;hellip;一些函数用到就查，用不到就烂在手册里了。这篇文章，主要记录一下PHP日常开发中遇到的“坑”（持续更新···）&lt;/p&gt;</description></item><item><title>微信开发之录音上传、下载、转码</title><link>https://mingzhongshui.github.io/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/</link><pubDate>Thu, 08 Mar 2018 00:06:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/</guid><description>&lt;p&gt;&lt;img src="https://www.cxiansheng.cn/usr/uploads/2018/03/3169903264.jpg" alt="wechat"&gt;&lt;/p&gt;
-&lt;p&gt;    一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔&amp;hellip;），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。&lt;/p&gt;</description></item><item><title>MySQL 【去重留一】一条sql语句完成 思路总结</title><link>https://mingzhongshui.github.io/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</link><pubDate>Sun, 03 Dec 2017 20:09:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</guid><description>&lt;p&gt;&lt;img src="https://www.cxiansheng.cn/usr/uploads/2017/12/1663589426.jpg" alt="MySQL.jpg"&gt;&lt;/p&gt;
-&lt;p&gt;    前几天在做一个需求的时候，需要清理mysql中重复的记录，当时的想法是通过代码遍历写出来，然后觉得太复杂，心里想着应该可以通过一个sql语句来解决问题的。查了资料，请教了大佬之后得出了一个很便利的sql语句，这里分享下这段sql语句和思路。&lt;/p&gt;</description></item><item><title>PHP-PSR 现代PHPer的开发规范</title><link>https://mingzhongshui.github.io/posts/phppsr_xiandaiphperdekaifaguifan/</link><pubDate>Sun, 17 Sep 2017 11:55:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/phppsr_xiandaiphperdekaifaguifan/</guid><description>&lt;p&gt;    PSR是PHP Standards Recommendation的简称，意为PHP推荐标准。要想了解PSR，首先得知道制定这一标准的人/组织是谁————PHP-FIG。&lt;/p&gt;</description></item><item><title>微信开发之微信公众号支付</title><link>https://mingzhongshui.github.io/posts/weixinkaifazhiweixingongzhonghaozhifu/</link><pubDate>Fri, 04 Aug 2017 19:11:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/weixinkaifazhiweixingongzhonghaozhifu/</guid><description>&lt;p&gt;    上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用&lt;strong&gt;通&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;俗&lt;/strong&gt;(&lt;code&gt;里&lt;/code&gt;)&lt;strong&gt;易&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;懂&lt;/strong&gt;(&lt;code&gt;嗦&lt;/code&gt;)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现&lt;/p&gt;</description></item><item><title>微信开发之微信登录</title><link>https://mingzhongshui.github.io/posts/weixinkaifazhiweixindenglu/</link><pubDate>Sat, 01 Jul 2017 16:33:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/weixinkaifazhiweixindenglu/</guid><description>&lt;p&gt;    记得以前做微信开发还是在学习期间做过的微信项目，作为学习，仅完成了其中自定义菜单的部分，如今在工作中由于项目需要，所以重新拿起了微信这部分。整合前面学习的过程中又完成了一些新的功能。这篇就记录一下，关于微信登录这部分的实现。&lt;/p&gt;</description></item><item><title>Laravel学习笔记—数据库操作的三种方式</title><link>https://mingzhongshui.github.io/posts/laravelxuexibijishujukucaozuodesanzhongfangshi/</link><pubDate>Sun, 07 May 2017 19:26:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/laravelxuexibijishujukucaozuodesanzhongfangshi/</guid><description>&lt;h2 id="新建模型"&gt;新建模型&lt;/h2&gt;
-&lt;p&gt;在上篇文章[Laraver学习笔记—框架基本介绍][1]中有介绍模型是在&lt;code&gt;app&lt;/code&gt;目录下，假设在&lt;code&gt;app&lt;/code&gt;目录新建&lt;code&gt;User.php&lt;/code&gt;为用户模型，下文将以&lt;code&gt;user模型&lt;/code&gt;为例介绍在laravel中数据库操作多种方式&lt;/p&gt;</description></item><item><title>windows下批处理定时备份MySql数据库</title><link>https://mingzhongshui.github.io/posts/windowsxiapichulidingshibeifenmysqlshujuku/</link><pubDate>Wed, 19 Oct 2016 15:56:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/windowsxiapichulidingshibeifenmysqlshujuku/</guid><description>&lt;p&gt;    数据库是我们项目的一个存储器，我们项目中绝大多数信息都会保存在数据库中，如果我们的数据库某一天遭到破坏了，如何解决和恢复？这时候我们就要用到批处理+定时任务了，在每天某一个时间段自动备份数据库信息。&lt;/p&gt;</description></item><item><title>PHPExcel类库使用说明</title><link>https://mingzhongshui.github.io/posts/phpexcelleikushiyongshuoming/</link><pubDate>Sun, 16 Oct 2016 16:23:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/phpexcelleikushiyongshuoming/</guid><description>&lt;p&gt;    众所周知，在项目的开发过程中经常会遇到用excel做功能的时候，比如一个商城导出订单列表，办公系统导出考勤记录，还有一些excel表格内容批量上传到数据库的情况。那么这么一款强大的类库到底该如何使用它？类库又在哪里下载，本文将一一奉上。&lt;/p&gt;</description></item><item><title>JS实现页面搜索+定位</title><link>https://mingzhongshui.github.io/posts/jsshixianyemiansousuodingwei/</link><pubDate>Wed, 28 Sep 2016 18:33:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/jsshixianyemiansousuodingwei/</guid><description>&lt;p&gt;相信很多小伙伴，在页面中不止一次用到过网页组合键ctrl+F的搜索功能吧，那它到底是怎么实现的呢？在一次项目中我也遇到了同样的问题，由于自己js基础甚差，索性求助于百度，几小时的搜索和整理终于劳有所获，整理了一段完整的js实现代码，贴出来，以便自己日后参考。&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>记录 on 命中水、</title>
+		<link>http://localhost:1859/tags/%E8%AE%B0%E5%BD%95/</link>
+		<description>Recent content in 记录 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 23 Dec 2025 10:59:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1859/tags/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>聊一聊我第一个由 AI 深度参与完成的真实项目</title>
+				<link>http://localhost:1859/posts/liaoyiliaowodiyigeyou_ai_shenducanyuwanchengdezhenshixiangmu/</link>
+				<pubDate>Tue, 23 Dec 2025 10:59:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/liaoyiliaowodiyigeyou_ai_shenducanyuwanchengdezhenshixiangmu/</guid>
+				<description>&lt;blockquote&gt;&#xA;&lt;p&gt;我不是前端工程师。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;但这次，我一个人完成了一个包含&lt;strong&gt;聊天窗口、WebSocket 实时推送、多语言翻译、复杂 UI 状态管理&lt;/strong&gt;的前端项目。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;说实话，如果没有 AI，这个项目我大概率会延期，甚至放弃一些体验上的细节。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;&#xA;&lt;p&gt;前端时间接了一个前端聊天+后端管理后台的项目，两个项目都是我自己一个人完成。&lt;/p&gt;&#xA;&lt;p&gt;说起来后端还好，但是前端html+css那套我最开始入行的时候学了一点，但是后面正式工作后主要还是围绕后端语言来展开，前端的那套样式语法就渐渐地放下了；&lt;/p&gt;&#xA;&lt;p&gt;但这次是一个全新的机会，也是一个新的挑战，需要自己写前端。那如何快速写前端项目，并快速交付呢？于是我想到了AI这个帮手，之前总拿它来排查问题，但是写一个项目行不行呢？ 我抱着怀疑的态度开始了这项“挑战”，并最终“有惊无险”的落地完成，顺利完成交付；&lt;/p&gt;&#xA;&lt;p&gt;本篇文章，我想详细的复盘下这次经历：如何与AI沟通？ 如何合理利用AI完成代码的实现？以及举例一些聊天系统中实现的业务关键点！&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>工作回顾之优化开户流程</title>
+				<link>http://localhost:1859/posts/gongzuohuiguzhiyouhuakaihuliucheng/</link>
+				<pubDate>Thu, 10 Apr 2025 14:16:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/gongzuohuiguzhiyouhuakaihuliucheng/</guid>
+				<description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐放，啥样的优化方式都有。而我虽然天天干着CURD的工作，和SQL天天打交道，其实说句实话，对SQL优化确实所会不多，只能算的上是皮毛。&lt;/p&gt;&#xA;&lt;p&gt;这不，什么不会就来什么，刚入职还在试用期的时候，老大派来一个任务&lt;/p&gt;&#xA;&lt;p&gt;：“小陈，我们有个开户的流程，从其他平台迁移过来，你对接下”&lt;/p&gt;&#xA;&lt;p&gt;：“好的，老大”&lt;/p&gt;&#xA;&lt;p&gt;：“对了，还有一个开户的动作，特别慢，要半小时甚至更久才能完成，你顺便优化一下”&lt;/p&gt;&#xA;&lt;p&gt;：“好的”&lt;/p&gt;&#xA;&lt;p&gt;什么开户？什么流程？什么优化，刚接到这个问题的我也是一头雾水，后面再深入了解了一下，大概明白了这个问题的来龙去脉&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>工作回顾之账单号怎么重复了？</title>
+				<link>http://localhost:1859/posts/gongzuohuiguzhizhangdanhaozenmechongfule/</link>
+				<pubDate>Wed, 05 Mar 2025 22:43:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/gongzuohuiguzhizhangdanhaozenmechongfule/</guid>
+				<description>&lt;h2 id=&#34;一引言&#34;&gt;一、引言&lt;/h2&gt;&#xA;&lt;p&gt;不管是在电商系统、还是物业系统中都会存在一个账单的东西，账单号是每一个账单的标识，这个标识是唯一的、且不可重复的。&lt;/p&gt;&#xA;&lt;p&gt;在电商系统中，账单号就等同于订单号；在物业系统中，账单号就是每一次向业主催缴费的账单。&lt;/p&gt;&#xA;&lt;p&gt;这个账单号一旦重复结果可以说是灾难级的，在物业系统中，收费的时候，明明不是这个业主的钱，怎么多算了；而另一个业主的钱甚至少算，或者该缴的费用被其他业主缴了等等，涉及到钱的问题那就是大问题了。&lt;/p&gt;&#xA;&lt;p&gt;这篇文章，我们就来具体分析下这个问题，并给出解决方案。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>聊聊redis在电商系统中的实战应用</title>
+				<link>http://localhost:1859/posts/liaoliaorediszaidianshangxitongzhongdeshizhanyingyong/</link>
+				<pubDate>Wed, 08 Jan 2025 22:31:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/liaoliaorediszaidianshangxitongzhongdeshizhanyingyong/</guid>
+				<description>&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;&#xA;&lt;p&gt;在我从事的工作经历中，其实接触的电商行业还挺多的，大概占经历的6、70%左右。&lt;/p&gt;&#xA;&lt;p&gt;而在电商项目中，用到缓存的场景就很多了，像数据缓存、CDN缓存、页面缓存等等，redis是最常用的key-value数据库了，memechache虽然和redis同样都是内存数据库，但是使用的最多的还是redis。&lt;/p&gt;&#xA;&lt;p&gt;在使用redis之前，先简单了解下redis的特点和数据结构吧；&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>【Git】工作中99%能用到的git命令</title>
+				<link>http://localhost:1859/posts/gitgongzuozhong99nengyongdaodegitmingling/</link>
+				<pubDate>Mon, 25 Feb 2019 11:52:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/gitgongzuozhong99nengyongdaodegitmingling/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./4149774481.jpg&#34; alt=&#34;git&#34;&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>PHP相关面试题总结</title>
+				<link>http://localhost:1859/posts/phpxiangguanmianshitizongjie/</link>
+				<pubDate>Mon, 28 May 2018 21:46:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/phpxiangguanmianshitizongjie/</guid>
+				<description>&lt;h2 id=&#34;数据库&#34;&gt;数据库&lt;/h2&gt;&#xA;&lt;h3 id=&#34;btree和hash索引的区别&#34;&gt;Btree和hash索引的区别&lt;/h3&gt;&#xA;&lt;p&gt;Hash&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+			</item>
+			<item>
+				<title>细数那些年PHP我们踩过的 “坑”</title>
+				<link>http://localhost:1859/posts/xishunaxienianphpwomencaiguode_keng/</link>
+				<pubDate>Fri, 23 Mar 2018 15:29:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/xishunaxienianphpwomencaiguode_keng/</guid>
+				<description>&lt;p&gt;    在编写代码的过程中，常常会踩到到各种坑，小坑小错啥的也经常犯，为什么呢？我想主要还是对PHP这门语言的不熟练啊，文档看的少&amp;hellip;一些函数用到就查，用不到就烂在手册里了。这篇文章，主要记录一下PHP日常开发中遇到的“坑”（持续更新···）&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>微信开发之录音上传、下载、转码</title>
+				<link>http://localhost:1859/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/</link>
+				<pubDate>Thu, 08 Mar 2018 00:06:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./3169903264.jpg&#34; alt=&#34;wechat&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;    一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔&amp;hellip;），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>MySQL 【去重留一】一条sql语句完成 思路总结</title>
+				<link>http://localhost:1859/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</link>
+				<pubDate>Sun, 03 Dec 2017 20:09:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./1663589426.jpg&#34; alt=&#34;MySQL.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;    前几天在做一个需求的时候，需要清理mysql中重复的记录，当时的想法是通过代码遍历写出来，然后觉得太复杂，心里想着应该可以通过一个sql语句来解决问题的。查了资料，请教了大佬之后得出了一个很便利的sql语句，这里分享下这段sql语句和思路。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>PHP-PSR 现代PHPer的开发规范</title>
+				<link>http://localhost:1859/posts/phppsr_xiandaiphperdekaifaguifan/</link>
+				<pubDate>Sun, 17 Sep 2017 11:55:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/phppsr_xiandaiphperdekaifaguifan/</guid>
+				<description>&lt;p&gt;    PSR是PHP Standards Recommendation的简称，意为PHP推荐标准。要想了解PSR，首先得知道制定这一标准的人/组织是谁————PHP-FIG。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>微信开发之微信公众号支付</title>
+				<link>http://localhost:1859/posts/weixinkaifazhiweixingongzhonghaozhifu/</link>
+				<pubDate>Fri, 04 Aug 2017 19:11:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/weixinkaifazhiweixingongzhonghaozhifu/</guid>
+				<description>&lt;p&gt;    上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用&lt;strong&gt;通&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;俗&lt;/strong&gt;(&lt;code&gt;里&lt;/code&gt;)&lt;strong&gt;易&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;懂&lt;/strong&gt;(&lt;code&gt;嗦&lt;/code&gt;)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>微信开发之微信登录</title>
+				<link>http://localhost:1859/posts/weixinkaifazhiweixindenglu/</link>
+				<pubDate>Sat, 01 Jul 2017 16:33:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/weixinkaifazhiweixindenglu/</guid>
+				<description>&lt;p&gt;    记得以前做微信开发还是在学习期间做过的微信项目，作为学习，仅完成了其中自定义菜单的部分，如今在工作中由于项目需要，所以重新拿起了微信这部分。整合前面学习的过程中又完成了一些新的功能。这篇就记录一下，关于微信登录这部分的实现。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Laravel学习笔记—数据库操作的三种方式</title>
+				<link>http://localhost:1859/posts/laravelxuexibijishujukucaozuodesanzhongfangshi/</link>
+				<pubDate>Sun, 07 May 2017 19:26:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/laravelxuexibijishujukucaozuodesanzhongfangshi/</guid>
+				<description>&lt;h2 id=&#34;新建模型&#34;&gt;新建模型&lt;/h2&gt;&#xA;&lt;p&gt;在上篇文章[Laraver学习笔记—框架基本介绍][1]中有介绍模型是在&lt;code&gt;app&lt;/code&gt;目录下，假设在&lt;code&gt;app&lt;/code&gt;目录新建&lt;code&gt;User.php&lt;/code&gt;为用户模型，下文将以&lt;code&gt;user模型&lt;/code&gt;为例介绍在laravel中数据库操作多种方式&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>windows下批处理定时备份MySql数据库</title>
+				<link>http://localhost:1859/posts/windowsxiapichulidingshibeifenmysqlshujuku/</link>
+				<pubDate>Wed, 19 Oct 2016 15:56:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/windowsxiapichulidingshibeifenmysqlshujuku/</guid>
+				<description>&lt;p&gt;    数据库是我们项目的一个存储器，我们项目中绝大多数信息都会保存在数据库中，如果我们的数据库某一天遭到破坏了，如何解决和恢复？这时候我们就要用到批处理+定时任务了，在每天某一个时间段自动备份数据库信息。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>PHPExcel类库使用说明</title>
+				<link>http://localhost:1859/posts/phpexcelleikushiyongshuoming/</link>
+				<pubDate>Sun, 16 Oct 2016 16:23:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/phpexcelleikushiyongshuoming/</guid>
+				<description>&lt;p&gt;    众所周知，在项目的开发过程中经常会遇到用excel做功能的时候，比如一个商城导出订单列表，办公系统导出考勤记录，还有一些excel表格内容批量上传到数据库的情况。那么这么一款强大的类库到底该如何使用它？类库又在哪里下载，本文将一一奉上。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>JS实现页面搜索&#43;定位</title>
+				<link>http://localhost:1859/posts/jsshixianyemiansousuodingwei/</link>
+				<pubDate>Wed, 28 Sep 2016 18:33:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/jsshixianyemiansousuodingwei/</guid>
+				<description>&lt;p&gt;相信很多小伙伴，在页面中不止一次用到过网页组合键ctrl+F的搜索功能吧，那它到底是怎么实现的呢？在一次项目中我也遇到了同样的问题，由于自己js基础甚差，索性求助于百度，几小时的搜索和整理终于劳有所获，整理了一段完整的js实现代码，贴出来，以便自己日后参考。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

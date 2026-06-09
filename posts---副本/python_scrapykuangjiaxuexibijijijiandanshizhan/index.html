@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8119&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Python scrapy框架学习笔记及简单实战 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="工作需要，接触到python的scrapy爬虫框架，据说是p" />
+	<meta property="og:image" content="http://localhost:8119/"/>
+	<meta property="og:url" content="http://localhost:8119/posts---%E5%89%AF%E6%9C%AC/python_scrapykuangjiaxuexibijijijiandanshizhan/">
+	<meta property="og:site_name" content="命中水的个人博客">
+	<meta property="og:title" content="Python scrapy框架学习笔记及简单实战">
+	<meta property="og:description" content="工作需要，接触到python的scrapy爬虫框架，据说是p">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts---副本">
+		<meta property="article:published_time" content="2020-02-05T15:03:00+00:00">
+		<meta property="article:modified_time" content="2020-02-05T15:03:00+00:00">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Python scrapy框架学习笔记及简单实战">
+	<meta name="twitter:description" content="工作需要，接触到python的scrapy爬虫框架，据说是p">
+
+        <link href="http://localhost:8119/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8119/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:8119/">命中水的个人博客</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Python scrapy框架学习笔记及简单实战</h1>
+          <div class="meta">Posted on Feb 5, 2020</div>
+        </div>
+        
+        <section class="body">
+          <p>工作需要，接触到python的scrapy爬虫框架，据说是python最好用的爬虫框架，没有之一。文章内容为学习过程的笔记，参考资源会贴在文章最后。</p>
+<h2 id="安装">安装</h2>
+<h3 id="win安装">win安装</h3>
+<h4 id="安装pywin32">安装pywin32</h4>
+<ol>
+<li>
+<p>进入<a href="https://sourceforge.net/projects/pywin32/files/pywin32/">https://sourceforge.net/projects/pywin32/files/pywin32/</a>或者<a href="https://github.com/mhammond/pywin32/releases">https://github.com/mhammond/pywin32/releases</a>下载python对应的pywin32包</p>
+</li>
+<li>
+<p>傻瓜式安装</p>
+</li>
+<li>
+<p>检查安装结果，python命令行输入 <code>import win32api</code>，如果没有报错，安装成功</p>
+</li>
+</ol>
+<h4 id="安装twisted">安装Twisted</h4>
+<ol>
+<li>
+<p>进入<a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a>，下载对应twisted和lxml</p>
+</li>
+<li>
+<p><code>pip install ******.whl</code>(没有安装pip，[点击查看安装方法][1])</p>
+</li>
+<li>
+<p>输入命令<code>pip --version</code>检查是否安装成功</p>
+</li>
+</ol>
+<h4 id="安装scrapy">安装scrapy</h4>
+<p>命令行输入：<code>pip install scrapy</code></p>
+<h2 id="scrapy-框架学习">scrapy 框架学习</h2>
+<h3 id="框架架构图">框架架构图</h3>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2020/02/193365532.png" alt="python scrapy框架架构图.png"></p>
+<h3 id="目录结构">目录结构</h3>
+<ul>
+<li>
+<p>items.py 存放爬取的数据模型</p>
+</li>
+<li>
+<p>middwares.py 中间件</p>
+</li>
+<li>
+<p>pipelines.py 把爬取的数据保存</p>
+</li>
+<li>
+<p>settings.py 爬虫的配置信息</p>
+</li>
+<li>
+<p>scrapy.cfg 项目的配置文件</p>
+</li>
+<li>
+<p>spiders目录 爬虫脚本</p>
+</li>
+</ul>
+<h3 id="基本使用">基本使用</h3>
+<p>1.新建一个项目</p>
+<pre tabindex="0"><code>
+scrapy startproject 项目名字
+</code></pre><p>2.scrapy.cfg 打包部署文件</p>
+<p>3.创建爬虫</p>
+<pre tabindex="0"><code>
+scrapy genspider 爬虫名字 网站域名
+</code></pre><p>4.注意：</p>
+<ul>
+<li>
+<p>爬虫名字不能和项目名字一样</p>
+</li>
+<li>
+<p>网站域名</p>
+</li>
+</ul>
+<p>5.爬虫文件所在位置</p>
+<p>项目名/项目名/spiders/爬虫名字.py</p>
+<p>6.查看scrapy有几个类</p>
+<pre tabindex="0"><code>
+scrapy genspider -l
+</code></pre><p>7.selectors选择器</p>
+<ol>
+<li>
+<p>正则</p>
+</li>
+<li>
+<p>Xpath表达式</p>
+</li>
+<li>
+<p>css</p>
+</li>
+</ol>
+<p>8.Xpath表达式规则</p>
+<p>demo</p>
+<pre tabindex="0"><code>
+# html代码
+
+&lt;title&gt;我是标题&lt;/title&gt;
+
+
+
+# 获取title内容
+
+# title是html标签
+
+# text获取内容
+
+# extract
+
+reponse.xpath(&#39;//title/text()&#39;).get();
+</code></pre><p>9.运行爬虫</p>
+<pre tabindex="0"><code>
+scrapy crawl 爬虫名
+</code></pre><p>10.运行爬虫并保存结果</p>
+<pre tabindex="0"><code>
+scrapy crawl 爬虫名 -o xxx.csv（或者xxx.json）
+</code></pre><p>11.拼接url</p>
+<pre tabindex="0"><code>
+reponse.urljoin(uri)
+</code></pre><p>12.分页</p>
+<pre tabindex="0"><code>
+yield scrapy.Request(url, callback=self.parse)
+</code></pre><h3 id="采取管道方式存储数据">采取管道方式存储数据</h3>
+<p>在settings.py中开启</p>
+<pre tabindex="0"><code>
+# 300 表示优先级 越小优先级越高
+
+ITEM_PIPELINES = {
+
+   &#39;cxianshengSpider.pipelines.CxianshengspiderPipeline&#39;: 300,
+
+}
+</code></pre><h5 id="管道中采取json方式纯存储数据以导入的方式存储">管道中采取json方式纯存储数据，以导入的方式存储</h5>
+<pre tabindex="0"><code>
+# 批量存入 适合数据量小的场景
+
+from scrapy.exporters import JsonItemExporter
+
+
+
+# 一行一行存入 数据量大的时候使用
+
+from scrapy.exporters import JsonLinesItemExporter
+</code></pre><p>用法：</p>
+<pre tabindex="0"><code>
+# 定义
+
+self.exporter = JsonItemExporter(self.fp, ensure_ascii=False, encoding=&#39;utf-8&#39;)
+
+
+
+# 使用
+
+self.exporter.export_item(item)
+</code></pre><h3 id="crawlspider">CrawlSpider</h3>
+<p>crawlSpider可以创建更灵活的爬虫，可以自定义爬取规则等</p>
+<p>创建crawl爬虫</p>
+<pre tabindex="0"><code>
+scrapy genspider -t crawl 爬虫名 域名
+</code></pre><h3 id="最新请求头地址">最新请求头地址</h3>
+<p><a href="http://useragentstring.com/pages/useragentstring.php?typ=browser">http://useragentstring.com/pages/useragentstring.php?typ=browser</a></p>
+<h3 id="设置下载器中间件">设置下载器中间件</h3>
+<p>1.在middlewares.py增加如下代码：</p>
+<pre tabindex="0"><code>
+import random
+
+
+
+class HttpbinUserAgentMiddleware(object):
+
+
+
+    user_agent = [
+
+        &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1&#34;,
+
+        &#34;Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1&#34;,
+
+        &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3&#34;,
+
+        &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24&#34;,
+
+        &#34;Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24&#34;
+
+    ]
+
+
+
+    def process_request(self,request,spider):
+
+        # 随机获取一个请求头
+
+        user_agent = random.choice(self.user_agent)
+
+
+
+        # 设置请求头user-agent
+
+        request.headers[&#39;User-Agent&#39;] = user_agent
+</code></pre><p>2.settings.py开启：</p>
+<pre tabindex="0"><code>
+# HttpbinUserAgentMiddleware为自己设置的下载器类的名称
+
+DOWNLOADER_MIDDLEWARES = {
+
+   &#39;httpBin.middlewares.HttpbinUserAgentMiddleware&#39;: 543,
+
+}
+</code></pre><p>并开启下载请求间隔时间</p>
+<pre tabindex="0"><code>
+# 3表示3秒
+
+DOWNLOAD_DELAY = 3
+</code></pre><p>3.爬虫代码</p>
+<pre tabindex="0"><code>
+# -*- coding: utf-8 -*-
+
+import scrapy
+
+import json
+
+
+
+class UseragentdemoSpider(scrapy.Spider):
+
+    name = &#39;userAgentDemo&#39;
+
+    allowed_domains = [&#39;httpbin.org&#39;]
+
+    start_urls = [&#39;http://httpbin.org/user-agent&#39;]
+
+
+
+    def parse(self, response):
+
+        data = json.loads(response.text)[&#39;user-agent&#39;]
+
+        print(&#39;=&#39;*30)
+
+        print(data)
+
+        print(&#39;=&#39;*30)
+
+        
+
+        # 重复发起请求
+
+        yield scrapy.Request(self.start_urls[0], dont_filter=True)
+
+        pass
+</code></pre><h2 id="xpath规则学习">Xpath规则学习</h2>
+<p>html</p>
+<pre tabindex="0"><code>
+&lt;!DOCTYPE html&gt;
+
+&lt;html lang=&#34;en&#34;&gt;
+
+&lt;head&gt;
+
+	&lt;meta charset=&#34;UTF-8&#34;&gt;
+
+	&lt;title&gt;Document&lt;/title&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+
+
+
+	&lt;a class=&#34;a-test&#34; href=&#34;/next/2&#34; &gt;email me&lt;/a&gt;
+
+	
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>Xpath表达式</p>
+<p>基本使用</p>
+<ol>
+<li>
+<p>text获取内容</p>
+</li>
+<li>
+<p><code>@</code>定位符</p>
+</li>
+</ol>
+<p>表达式</p>
+<p>1.获取指定标签的内容</p>
+<pre tabindex="0"><code>
+//title/text()
+</code></pre><p>2.根据html属性定位获取内容</p>
+<p>@定位符</p>
+<pre tabindex="0"><code>
+获取a标签href内容
+
+//a[@class=&#34;a-text&#34;]/@href
+</code></pre><h2 id="scrapy配合xpath">scrapy配合Xpath</h2>
+<p>代码示例：（PS：这里的例子为本人的博客，亲测有效：</p>
+<pre tabindex="0"><code>
+# -*- coding: utf-8 -*-
+
+import scrapy
+
+
+
+
+
+class CxianshengSpider(scrapy.Spider):
+
+    name = &#39;cxiansheng&#39; # 爬虫名称
+
+    allowed_domains = [&#39;cxiansheng.cn&#39;] # 允许爬取的域名
+
+    start_urls = [&#39;https://cxiansheng.cn/&#39;] # 开始爬取的url
+
+
+
+    def return_default_str(self, str):
+
+        return str.strip() if str else &#39;&#39;
+
+
+
+    def parse(self, response):
+
+
+
+        selectors = response.xpath(&#39;//section/article&#39;)
+
+
+
+        for selector in selectors:
+
+            article_title = selector.xpath(&#39;./header/h1/a/text()&#39;).get()
+
+            article_url = selector.xpath(&#39;./div/p[@class=&#34;more&#34;]/a/@href&#39;).get()
+
+
+
+            article_title = self.return_default_str(article_title)
+
+            article_url = self.return_default_str(article_url)
+
+
+
+            yield {&#39;文章标题&#39;: article_title, &#39;文章地址&#39;: article_url}
+
+
+
+        next_url = response.xpath(&#39;//nav[@class=&#34;pagination&#34;]/a[@class=&#34;extend next&#34;]/@href&#39;).get()
+
+
+
+        if next_url:
+
+            # 重新发起请求
+
+            yield scrapy.Request(next_url, callback=self.parse)
+</code></pre><p>爬完让我知道了一个事实，我的博客写的并不多，哭/(ㄒoㄒ)/~~</p>
+<p>源码地址：</p>
+<p>[Python scrapy demo][3]</p>
+<h2 id="本文学习资源汇总">本文学习资源汇总</h2>
+<ul>
+<li>[B站-《Python爬虫框架Scrapy入门, 学会可以直接无视80%的网站！》][4]</li>
+</ul>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

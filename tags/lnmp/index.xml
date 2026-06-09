@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Lnmp on 命中水、</title><link>https://mingzhongshui.github.io/tags/lnmp/</link><description>Recent content in Lnmp on 命中水、</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 12 Sep 2019 15:52:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/lnmp/index.xml" rel="self" type="application/rss+xml"/><item><title>【转】centos通过yum源快速搭建lnmp环境</title><link>https://mingzhongshui.github.io/posts/zhuancentostongguoyumyuankuaisudajianlnmphuanjing/</link><pubDate>Thu, 12 Sep 2019 15:52:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/zhuancentostongguoyumyuankuaisudajianlnmphuanjing/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;原文地址：[Linux-CentOS7下安装LNMP环境笔记&amp;ndash;ncsb][1]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="1-设置yum源"&gt;1. 设置yum源&lt;/h2&gt;
+&lt;p&gt;PHP源官方地址: [https://webtatic.com/][2]&lt;/p&gt;
+&lt;p&gt;mysql源官方地址: [https://dev.mysql.com/downloads/repo/yum/][3]&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;
+rpm -Uvh https://dl.Fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+
+
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+
+
+rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+&lt;/code&gt;&lt;/pre&gt;</description></item></channel></rss>

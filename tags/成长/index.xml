@@ -1,15 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>成长 on 命中水的个人博客</title><link>https://mingzhongshui.github.io/tags/%E6%88%90%E9%95%BF/</link><description>Recent content in 成长 on 命中水的个人博客</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 11 Oct 2020 22:48:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E6%88%90%E9%95%BF/index.xml" rel="self" type="application/rss+xml"/><item><title>聊聊【爬虫开发】这半年来的心得</title><link>https://mingzhongshui.github.io/posts/liaoliaopachongkaifazhebannianlaidexinde/</link><pubDate>Sun, 11 Oct 2020 22:48:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/liaoliaopachongkaifazhebannianlaidexinde/</guid><description>&lt;p&gt;在工作中，已经陆陆续续使用爬虫做需求将近半年时间了，在这半年时间里，从一个python小白到爬虫入门，再至功能实现。从上午PHP到下午Python忙的焦头烂额到现在的PHP/Python随心切换，其中的曲折不言而喻，也着实走了不少弯路。但好在功夫不负有心人，在半年的时光里，使用Python的同时也和它一起成长。如今总结一下，希望可以帮助到有需要的同学。&lt;/p&gt;
-&lt;h2 id="学习篇"&gt;学习篇&lt;/h2&gt;
-&lt;h3 id="python"&gt;python&lt;/h3&gt;
-&lt;p&gt;从最开始接触爬虫，首先最需要了解的就是python的环境搭建、语法及特性，网络上有很多相关的教程，以下列举几个我在学习过程中使用到的教程，对于Python的快速入门都能起到很大的作用&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;廖雪峰老师的&lt;a href="https://www.liaoxuefeng.com/wiki/1016959663602400"&gt;Python教程&lt;/a&gt;，最先就是在这里开启Python之旅的。一边看文章学习一边跟着写写demo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;菜鸟教程里的&lt;a href="https://www.runoob.com/python/python-tutorial.html"&gt;Python基础教程&lt;/a&gt;也可以作为快速学习使用&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href="https://docs.python.org/zh-cn/3/"&gt;Python3文档&lt;/a&gt;，在忘记一些函数的时候可以很快速的找到&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>成长 on 命中水、</title>
+		<link>http://localhost:1859/tags/%E6%88%90%E9%95%BF/</link>
+		<description>Recent content in 成长 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 11 Oct 2020 22:48:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1859/tags/%E6%88%90%E9%95%BF/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>聊聊【爬虫开发】这半年来的心得</title>
+				<link>http://localhost:1859/posts/liaoliaopachongkaifazhebannianlaidexinde/</link>
+				<pubDate>Sun, 11 Oct 2020 22:48:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/liaoliaopachongkaifazhebannianlaidexinde/</guid>
+				<description>&lt;p&gt;在工作中，已经陆陆续续使用爬虫做需求将近半年时间了，在这半年时间里，从一个python小白到爬虫入门，再至功能实现。从上午PHP到下午Python忙的焦头烂额到现在的PHP/Python随心切换，其中的曲折不言而喻，也着实走了不少弯路。但好在功夫不负有心人，在半年的时光里，使用Python的同时也和它一起成长。如今总结一下，希望可以帮助到有需要的同学。&lt;/p&gt;&#xA;&lt;h2 id=&#34;学习篇&#34;&gt;学习篇&lt;/h2&gt;&#xA;&lt;h3 id=&#34;python&#34;&gt;python&lt;/h3&gt;&#xA;&lt;p&gt;从最开始接触爬虫，首先最需要了解的就是python的环境搭建、语法及特性，网络上有很多相关的教程，以下列举几个我在学习过程中使用到的教程，对于Python的快速入门都能起到很大的作用&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;廖雪峰老师的&lt;a href=&#34;https://www.liaoxuefeng.com/wiki/1016959663602400&#34;&gt;Python教程&lt;/a&gt;，最先就是在这里开启Python之旅的。一边看文章学习一边跟着写写demo&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;菜鸟教程里的&lt;a href=&#34;https://www.runoob.com/python/python-tutorial.html&#34;&gt;Python基础教程&lt;/a&gt;也可以作为快速学习使用&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://docs.python.org/zh-cn/3/&#34;&gt;Python3文档&lt;/a&gt;，在忘记一些函数的时候可以很快速的找到&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+	</channel>
+</rss>

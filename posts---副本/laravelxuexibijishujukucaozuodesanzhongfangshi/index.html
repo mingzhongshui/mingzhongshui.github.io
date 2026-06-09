@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8119&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Laravel学习笔记—数据库操作的三种方式 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="新建模型在上篇文章Laraver学习笔记框架基本介绍1中有介" />
+	<meta property="og:image" content="http://localhost:8119/"/>
+	<meta property="og:url" content="http://localhost:8119/posts---%E5%89%AF%E6%9C%AC/laravelxuexibijishujukucaozuodesanzhongfangshi/">
+	<meta property="og:site_name" content="命中水的个人博客">
+	<meta property="og:title" content="Laravel学习笔记—数据库操作的三种方式">
+	<meta property="og:description" content="新建模型在上篇文章Laraver学习笔记框架基本介绍1中有介">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts---副本">
+		<meta property="article:published_time" content="2017-05-07T19:26:00+00:00">
+		<meta property="article:modified_time" content="2017-05-07T19:26:00+00:00">
+		<meta property="article:tag" content="记录">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Laravel学习笔记—数据库操作的三种方式">
+	<meta name="twitter:description" content="新建模型在上篇文章Laraver学习笔记框架基本介绍1中有介">
+
+        <link href="http://localhost:8119/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8119/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:8119/">命中水的个人博客</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Laravel学习笔记—数据库操作的三种方式</h1>
+          <div class="meta">Posted on May 7, 2017</div>
+        </div>
+        
+        <section class="body">
+          <h2 id="新建模型">新建模型</h2>
+<p>在上篇文章[Laraver学习笔记—框架基本介绍][1]中有介绍模型是在<code>app</code>目录下，假设在<code>app</code>目录新建<code>User.php</code>为用户模型，下文将以<code>user模型</code>为例介绍在laravel中数据库操作多种方式</p>
+<pre tabindex="0"><code>
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+
+
+class User extends Model
+
+{
+
+	// 指定表名
+
+	protected $table = &#39;User&#39;;
+
+	
+
+	// 指定主键
+
+	protected $primaryKey = &#39;id&#39;;
+
+
+
+	// 允许批量赋值的字段
+
+	protected $fillable = [&#39;name&#39;, &#39;age&#39;];
+
+
+
+	// 指定不允许批量赋值的字段
+
+	protected $guarded = [&#39;name&#39;, &#39;age&#39;];
+
+
+
+	// 自动维护时间戳
+
+	public $timestamps = TRUE;
+
+
+
+	// 关闭自动维护时间戳
+
+	public $timestamps = TRUE;
+
+
+
+	// 维护时间保存为时间戳
+
+	protected function getDateFormat() {
+
+		return time();
+
+	}
+
+
+
+	// 取出时间记录返回时间戳
+
+	protected function asDateTime($time) {
+
+		return $time;
+
+	}
+
+}
+</code></pre><h2 id="引入模型">引入模型</h2>
+<p>在控制器中使用<code>use App\user</code>引入;</p>
+<h2 id="db-facade原始查找">DB facade(原始查找)</h2>
+<h3 id="原始sql-curd实例">原始SQL CURD实例###</h3>
+<h4 id="增加">增加</h4>
+<pre tabindex="0"><code>
+// 返回布尔值
+
+DB::insert(&#39;insert into user(name,sex,age)values(?,?,?)&#39;, [&#39;liu&#39;, 1, 17]);
+</code></pre><h4 id="更新">更新</h4>
+<pre tabindex="0"><code>
+// 返回更新行数
+
+$boolUpt = DB::update(&#39;update user set name = ? where age = ?&#39;, [&#39;immocv&#39;, 18]);
+</code></pre><h4 id="查询">查询</h4>
+<pre tabindex="0"><code>
+// 返回数据对象
+
+DB::select(&#39;select * from user where age &gt;= 19&#39;);
+</code></pre><h4 id="删除">删除</h4>
+<pre tabindex="0"><code>
+// 返回删除行数
+
+DB::delete(&#39;delete from user where id &gt;= ?&#39;, [3]);
+</code></pre><h2 id="查询构造器">查询构造器</h2>
+<h3 id="简介">简介</h3>
+<ol>
+<li>
+<p>提供方便、流畅的接口，用来建立及执行数据库查找语法</p>
+</li>
+<li>
+<p>使用PDO参数绑定，以保护应用程序免于SQL注入，因此传入的参数不需要额外的特殊字符转义</p>
+</li>
+<li>
+<p>基本可以满足所有的数据库操作，而且在所有支持的数据库系统上都可以执行</p>
+</li>
+</ol>
+<h3 id="构造器curd实例">构造器CURD实例</h3>
+<h4 id="增加-1">增加</h4>
+<pre tabindex="0"><code>
+// 返回布尔值
+
+DB::table(&#39;user&#39;)-&gt;insert([&#39;name&#39; =&gt; &#39;chen&#39;, &#39;age&#39; =&gt; 24, &#39;sex&#39; =&gt; 1]);
+
+// 返回插入主键值
+
+DB::table(&#39;user&#39;)-&gt;insertGetId([&#39;name&#39; =&gt; &#39;chen2&#39;, &#39;age&#39; =&gt; 25, &#39;sex&#39; =&gt; 1]);
+
+
+
+/**
+
+ * 批量插入数据
+
+ * 批量插入数据前 在对应模型中指定可批量插入的字段
+
+ * protected $fillable = [&#39;name&#39;, &#39;age&#39;]; //指定允许批量赋值的字段
+
+ * protected $guarded = [&#39;name&#39;, &#39;age&#39;]; //指定不允许批量赋值的字段
+
+ * 返回插入行数
+
+ */
+
+DB::table(&#39;user&#39;)-&gt;insert(
+
+	[&#39;name&#39; =&gt; &#39;chen3&#39;, &#39;age&#39; =&gt; 26, &#39;sex&#39; =&gt; 1],
+
+	[&#39;name&#39; =&gt; &#39;chen4&#39;, &#39;age&#39; =&gt; 27, &#39;sex&#39; =&gt; 1]
+
+);
+</code></pre><h4 id="更新-1">更新</h4>
+<pre tabindex="0"><code>
+// 根据条件更新数据
+
+DB::table(&#39;user&#39;)
+
+	-&gt;where(&#39;id&#39;,&#39;&gt;&#39;,3)
+
+	-&gt;update([&#39;age&#39; =&gt; 25]
+
+);
+
+
+
+// 自增
+
+DB::table(&#39;user&#39;)-&gt;increment(&#39;age&#39;, 3);
+
+
+
+// 自减
+
+DB::table(&#39;user&#39;)-&gt;decrement(&#39;age&#39;, 3);
+
+
+
+// 根据条件自增或自减
+
+DB::table(&#39;user&#39;)
+
+	-&gt;where(&#39;id&#39;, &#39;&gt;&#39;, 3)
+
+	-&gt;decrement(&#39;age&#39;, 3);
+
+
+
+// 根据条件自减字段并更新数据
+
+DB::table(&#39;user&#39;)
+
+	-&gt;where(&#39;id&#39;, &#39;&gt;&#39;, 3)
+
+	-&gt;decrement(&#39;age&#39;, 3, [&#39;name&#39; =&gt; &#39;chen&#39;]);
+
+	}
+</code></pre><h4 id="查询-1">查询</h4>
+<pre tabindex="0"><code>
+// get 获取表所有数据
+
+$users = DB::table(&#39;user&#39;)-&gt;get();
+
+
+
+// frist 获取结果集第一条数据
+
+$users = DB::table(&#39;user&#39;)-&gt;orderBy(&#39;id&#39;,&#39;desc&#39;)-&gt;first();
+
+
+
+// where 根据条件查询数据
+
+$users = DB::table(&#39;user&#39;)
+
+	-&gt;where(&#39;id&#39;, &#39;&gt;=&#39;, &#39;5&#39;)
+
+	-&gt;get();
+
+
+
+// whereRaw 根据多条件查询数据
+
+$users = DB::table(&#39;user&#39;)
+
+	-&gt;whereRaw(&#39;id &lt;= ? and name = ?&#39;, [6, &#39;chen&#39;])
+
+	-&gt;get();
+
+
+
+// pluck 多条件查找并显示某一字段
+
+$users = DB::table(&#39;user&#39;)
+
+	-&gt;whereRaw(&#39;id &lt;= ? and name = ?&#39;, [6, &#39;chen&#39;])
+
+	-&gt;pluck(&#39;id&#39;);
+
+
+
+// lists 第一个参数为查找的字段 第二个参数为key值
+
+$users = DB::table(&#39;user&#39;)
+
+	-&gt;whereRaw(&#39;id &lt;= ? and name = ?&#39;, [6, &#39;chen&#39;])
+
+	-&gt;lists(&#39;name&#39;, &#39;id&#39;);
+
+
+
+// 指定查找字段
+
+$users = DB::table(&#39;user&#39;)
+
+	-&gt;select(&#39;id&#39;, &#39;name&#39;)
+
+	-&gt;get();
+
+ 	
+
+// 	chunk 批量查找
+
+DB::table(&#39;user&#39;)-&gt;chunk(2, function($user) {
+
+
+
+});
+</code></pre><h4 id="删除-1">删除</h4>
+<pre tabindex="0"><code>
+// 根据条件删除数据
+
+$delnum = DB::table(&#39;student&#39;)-&gt;where(&#39;id&#39;, 8)-&gt;delete();
+
+// 删除整表
+
+DB::table(&#39;student&#39;)-&gt;truncate();
+</code></pre><h4 id="聚合函数">聚合函数</h4>
+<pre tabindex="0"><code>
+// count 总记录数
+
+DB::table(&#39;user&#39;)-&gt;count();
+
+
+
+// max 最大值
+
+DB::table(&#39;user&#39;)-&gt;max(&#39;age&#39;);
+
+
+
+// min 最小值
+
+DB::table(&#39;user&#39;)-&gt;min(&#39;age&#39;);
+
+
+
+// min 平均值
+
+DB::table(&#39;user&#39;)-&gt;avg(&#39;age&#39;);
+
+
+
+// sum 某一字段总和
+
+DB::table(&#39;user&#39;)-&gt;sum(&#39;age&#39;);
+</code></pre><h2 id="eloquent-orm">Eloquent ORM</h2>
+<h4 id="简介-1">简介</h4>
+<ol>
+<li>
+<p>Eloquent ORM是laravel自带的一个优美、简洁的ActiveRecord的实现，用来实现数据库操作</p>
+</li>
+<li>
+<p>每个数据表都有一个与之相对应的“模型（model）”，用于和数据表交互</p>
+</li>
+<li>
+<p>使用<code>ORM</code>须在控制器中引用对应模型<code>use App\User;</code></p>
+</li>
+</ol>
+<h3 id="orm-curd实例">ORM CURD实例</h3>
+<h4 id="增加-2">增加</h4>
+<pre tabindex="0"><code>
+// 实例化插入
+
+$objUser = new Student();
+
+$objUser-&gt;name=&#39;test&#39;;
+
+$objUser-&gt;age = 18;
+
+// 调用save保存
+
+$bool = $objUser-&gt;save();
+
+
+
+// create 模型方法保存数据 返回模型实例
+
+$user = Student::create(
+
+	[&#39;name&#39; =&gt; &#39;xiaochen&#39;, &#39;age&#39; =&gt; 17]
+
+);
+
+
+
+// firstOrCreate 以属性查找并返回数据实例 若没有插入并返回实例
+
+$user = Student::firstOrCreate(
+
+	[&#39;name&#39; =&gt; &#39;xiaochen2&#39;]
+
+);
+
+
+
+// firstOrNew 以属性查找用户 如没有则新建实例 若需要保存自己调用save
+
+$user = Student::firstOrNew(
+
+	[&#39;name&#39; =&gt; &#39;xiaochen23&#39;]
+
+); 
+
+$user-&gt;save();
+</code></pre><h4 id="更新-2">更新</h4>
+<pre tabindex="0"><code>
+// 通过模型更新数据
+
+$objuser = Student::find(14);
+
+$objuser-&gt;name = &#39;kitty&#39;;
+
+// 调用save保存
+
+$objuser-&gt;save();
+
+
+
+// 结合查询语句批量更新 返回更新行数
+
+Student::where(&#39;id&#39;, &#39;&gt;&#39;, 13)
+
+	-&gt;update([&#39;age&#39; =&gt; 21]);
+</code></pre><h4 id="查询-2">查询</h4>
+<p><code>ORM</code>中查询方法和上文<strong>构造器</strong>中查询基本类似，不过是把<code>DB::table('user')</code>替换成<code>User</code></p>
+<pre tabindex="0"><code>
+// all 查询表的所有记录
+
+$users = User::all();
+
+
+
+// find 根据主键查找数据
+
+$user = User::find(1);
+
+
+
+// findOrFail 根据主键查找 没有则报错
+
+$user = User::findOrFail(10);
+
+
+
+// get 根据条件查找数据
+
+$users = User::where(&#39;id&#39;, &#39;&gt;=&#39;, 1)-&gt;orderBy(&#39;id&#39;, &#39;desc&#39;)-&gt;get();
+
+
+
+// 批量取出数据
+
+Student::chunk(2, function($user) {
+
+
+
+});
+</code></pre><h4 id="删除-2">删除</h4>
+<pre tabindex="0"><code>
+// 通过模型删除 
+
+$user = Student::find(15);
+
+$bool = $user-&gt;delete();
+
+
+
+/**
+
+ * destroy 通过主键删除
+
+ * 参数可以为主键数组destroy([11, 12])
+
+ * 多个参数destroy(11, 12)
+
+ */
+
+$num = Student::destroy([11,12]);
+
+
+
+// 通过条件删除
+
+$num = Student::where(&#39;id&#39;,&#39;&gt;&#39;, 7)-&gt;delete([11,12]);
+</code></pre>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

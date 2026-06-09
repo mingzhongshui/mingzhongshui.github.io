@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>一键安装 on 命中水、</title><link>https://mingzhongshui.github.io/tags/%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85/</link><description>Recent content in 一键安装 on 命中水、</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 21 Oct 2017 15:30:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85/index.xml" rel="self" type="application/rss+xml"/><item><title>ubuntu搭建PHP网站完整实例教程</title><link>https://mingzhongshui.github.io/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/</link><pubDate>Sat, 21 Oct 2017 15:30:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/</guid><description>&lt;p&gt;&lt;img src="./2460201975.jpg" alt="ubuntu.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;之前写过两篇关于ubuntu系统搭建php环境的文章&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][2]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[Ubuntu一键安装LAMP环境][3]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在之后的多次实践中，发现有些东西还没有说到，这里就把之后遇到的问题以及方法补充一下，作为一个完整的在ubuntu下搭建lamp环境的总结。&lt;/p&gt;</description></item></channel></rss>
