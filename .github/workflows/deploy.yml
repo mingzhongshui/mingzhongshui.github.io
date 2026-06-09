@@ -1,0 +1,44 @@
+# .github/workflows/deploy.yml
+name: Deploy Hugo Site to GitHub Pages
+
+# 触发条件：当代码被推送到 main 分支时
+on:
+  push:
+    branches:
+      - main
+
+# 此工作流所需的权限
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+
+    steps:
+      # 1. 拉取代码（包括主题的子模块）
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      # 2. 设置 Hugo 环境
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.163.0'  # 建议与你本地的版本一致
+          extended: true           # 如果你用了 Sass/SCSS，需要设置为 true
+
+      # 3. 执行 Hugo 构建命令，生成静态文件到 public 文件夹
+      - name: Build
+        run: hugo --minify
+
+      # 4. 将生成的 public 文件夹部署到 gh-pages 分支
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
