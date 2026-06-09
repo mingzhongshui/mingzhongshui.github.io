@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名) - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名) - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="nbspnbspnbspnbsp前阵子买了域名，好不容易等到" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:image" content="http://localhost:3257/"/>
+	<meta property="og:url" content="http://localhost:3257/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/">
+	<meta property="og:site_name" content="命中水的个人博客">
 	<meta property="og:title" content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)">
 	<meta property="og:description" content="nbspnbspnbspnbsp前阵子买了域名，好不容易等到">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2016-11-09T20:24:00+00:00">
+		<meta property="article:modified_time" content="2016-11-09T20:24:00+00:00">
 		<meta property="article:tag" content="随笔">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)">
 	<meta name="twitter:description" content="nbspnbspnbspnbsp前阵子买了域名，好不容易等到">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3257/">命中水的个人博客</a>
 	</div>
 	<nav>
 		
@@ -41,7 +43,7 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Nov 9, 2016</div>
         </div>
         
         <section class="body">
@@ -51,101 +53,190 @@
 <h2 id="几个知识点">几个知识点</h2>
 <h3 id="软链接和硬链接">软链接和硬链接</h3>
 <h4 id="简介">简介</h4>
-<p>    <strong>软链接</strong>文件有点像<code>Windows</code>的快捷方式。它实际上是一个特殊的文件。在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息。
-    <strong>硬连接</strong>是指通过索引节点来进行连接。在<code>Linux</code>的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(<code>Inode Index</code>)。在<code>Linux</code>中，多个文件名指向同一索引节点是存在的。硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。</p>
+<p>    <strong>软链接</strong>文件有点像<code>Windows</code>的快捷方式。它实际上是一个特殊的文件。在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息。</p>
+<p>    <strong>硬连接</strong>是指通过索引节点来进行连接。在<code>Linux</code>的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(<code>Inode Index</code>)。在<code>Linux</code>中，多个文件名指向同一索引节点是存在的。硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。</p>
 <h4 id="命令参数">命令参数</h4>
 <p>必要参数:</p>
-<pre tabindex="0"><code>ln -b 删除，覆盖以前建立的链接
-ln -d 允许超级用户制作目录的硬链接
-ln -f 强制执行
-ln -i 交互模式，文件存在则提示用户是否覆盖
-ln -n 把符号链接视为一般目录
-ln -s 软链接(符号链接)
+<pre tabindex="0"><code>
+ln -b 删除，覆盖以前建立的链接
+
+ln -d 允许超级用户制作目录的硬链接
+
+ln -f 强制执行
+
+ln -i 交互模式，文件存在则提示用户是否覆盖
+
+ln -n 把符号链接视为一般目录
+
+ln -s 软链接(符号链接)
+
 ln -v 显示详细的处理过程
 </code></pre><h4 id="特点">特点</h4>
 <p>软链接</p>
 <ol>
-<li>以路径的形式存在，类似于Windows操作系统中的快捷方式</li>
-<li>跨文件系统</li>
-<li>对一个不存在的文件名进行链接</li>
-<li>对目录进行链接</li>
-<li>保持每一处链接文件的同步性</li>
+<li>
+<p>以路径的形式存在，类似于Windows操作系统中的快捷方式</p>
+</li>
+<li>
+<p>跨文件系统</p>
+</li>
+<li>
+<p>对一个不存在的文件名进行链接</p>
+</li>
+<li>
+<p>对目录进行链接</p>
+</li>
+<li>
+<p>保持每一处链接文件的同步性</p>
+</li>
 </ol>
 <p>硬链接</p>
 <ol>
-<li>以文件副本的形式存在，但不占用实际空间</li>
-<li>不允许给目录创建硬链接</li>
-<li>硬链接只有在同一个文件系统中才能创建</li>
-<li>保持每一处链接文件的同步性</li>
+<li>
+<p>以文件副本的形式存在，但不占用实际空间</p>
+</li>
+<li>
+<p>不允许给目录创建硬链接</p>
+</li>
+<li>
+<p>硬链接只有在同一个文件系统中才能创建</p>
+</li>
+<li>
+<p>保持每一处链接文件的同步性</p>
+</li>
 </ol>
 <h4 id="注意">注意</h4>
 <ol>
-<li><code>ln命令</code>会保持每一处链接文件的同步性，也就是说，不论改动了哪一处，其它的文件都会发生相同的变化</li>
-<li><code>ln的链接</code>又分软链接和硬链接两种，软链接就是<strong>ln –s 源文件 目标文件</strong>，它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接 <strong>ln 源文件 目标文件</strong>，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</li>
+<li>
+<p><code>ln命令</code>会保持每一处链接文件的同步性，也就是说，不论改动了哪一处，其它的文件都会发生相同的变化</p>
+</li>
+<li>
+<p><code>ln的链接</code>又分软链接和硬链接两种，软链接就是<strong>ln –s 源文件 目标文件</strong>，它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接 <strong>ln 源文件 目标文件</strong>，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</p>
+</li>
 </ol>
 <h3 id="apache2目录结构">apache2目录结构</h3>
 <p><img src="http://cxiansheng.cn/usr/uploads/2016/11/2103702455.jpg" alt="apache2目录结构"></p>
 <ul>
-<li><code>apache2.conf</code> <code>apache</code>配置文件</li>
-<li><code>conf-available、conf-enabled</code> <code>apache</code>配置目录</li>
-<li><code>sites-available、sites-enabled</code> <code>apache</code>配置域名站点目录</li>
-<li><code>mods-available、mods-enabled</code> <code>apache</code>功能模块目录</li>
-<li><code>ports.conf</code> <code>apache</code>配置端口</li>
+<li>
+<p><code>apache2.conf</code> <code>apache</code>配置文件</p>
+</li>
+<li>
+<p><code>conf-available、conf-enabled</code> <code>apache</code>配置目录</p>
+</li>
+<li>
+<p><code>sites-available、sites-enabled</code> <code>apache</code>配置域名站点目录</p>
+</li>
+<li>
+<p><code>mods-available、mods-enabled</code> <code>apache</code>功能模块目录</p>
+</li>
+<li>
+<p><code>ports.conf</code> <code>apache</code>配置端口</p>
+</li>
 </ul>
 <h2 id="多域名绑定实现">多域名绑定实现</h2>
 <p>    假设绑定<code>cxiansheng.cn</code>和<code>demo.cxiansheng.cn</code>到服务器上</p>
 <h3 id="准备工作">准备工作</h3>
 <ul>
-<li>将<code>https://www.cxiansheng.cn</code> 与 <code>http://www.demo.cxiansheng.cn</code> 的DNS解析到服务器IP上。</li>
-<li>在<code>/etc/apache2/sites-available/</code>目录，创建2个文件,文件名分别用<code>cxiansheng.conf</code>和 <code>demo.conf</code></li>
+<li>
+<p>将<code>https://www.cxiansheng.cn</code> 与 <code>http://www.demo.cxiansheng.cn</code> 的DNS解析到服务器IP上。</p>
+</li>
+<li>
+<p>在<code>/etc/apache2/sites-available/</code>目录，创建2个文件,文件名分别用<code>cxiansheng.conf</code>和 <code>demo.conf</code></p>
+</li>
 </ul>
 <h3 id="配置文件">配置文件</h3>
 <p>在<code>cxiansheng.conf</code>文件中输入以下内容(<strong>不要真的自己输入啊喂！~</strong>)</p>
-<pre tabindex="0"><code>&lt;VirtualHost *:80&gt;
- 	 ServerAdmin webmaster@localhost
-	 ServerName cxiansheng.cn
-	 DocumentRoot /var/www/cxiansheng
-	 &lt;Directory /&gt;
-		 Options FollowSymLinks
-	 	 DirectoryIndex index.php index.html index.htm
- 		 AllowOverride None
-	 &lt;/Directory&gt;
-	 &lt;Directory /var/www/cxiansheng&gt;  
-		# Options Indexes FollowSymLinks MultiViews
-		Options FollowSymLinks
-		RewriteEngine On
-		RewriteCond %{REQUEST_FILENAME} !-f
-		RewriteCond %{REQUEST_FILENAME} !-d
-		RewriteRule . index.php
-  		AllowOverride All
-		Order allow,deny
-		allow from all
-	&lt;/Directory&gt;
-
-	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-	&lt;Directory &#34;/usr/lib/cgi-bin&#34;&gt;
-		AllowOverride None
-		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-		Order allow,deny
-		Allow from all
-	&lt;/Directory&gt;
-
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-
-	# Possible values include: debug, info, notice, warn, error, crit,
-	# alert, emerg.
-	LogLevel warn
-
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-	Alias /doc/ &#34;/usr/share/doc/&#34;
-	&lt;Directory &#34;/usr/share/doc/&#34;&gt;
-		Options Indexes MultiViews FollowSymLinks
-		AllowOverride None
-		Order deny,allow
-		Deny from all
-		Allow from 127.0.0.0/255.0.0.0 ::1/128
-	&lt;/Directory&gt;
+<pre tabindex="0"><code>
+&lt;VirtualHost *:80&gt;
+
+ 	 ServerAdmin webmaster@localhost
+
+	 ServerName cxiansheng.cn
+
+	 DocumentRoot /var/www/cxiansheng
+
+	 &lt;Directory /&gt;
+
+		 Options FollowSymLinks
+
+	 	 DirectoryIndex index.php index.html index.htm
+
+ 		 AllowOverride None
+
+	 &lt;/Directory&gt;
+
+	 &lt;Directory /var/www/cxiansheng&gt;  
+
+		# Options Indexes FollowSymLinks MultiViews
+
+		Options FollowSymLinks
+
+		RewriteEngine On
+
+		RewriteCond %{REQUEST_FILENAME} !-f
+
+		RewriteCond %{REQUEST_FILENAME} !-d
+
+		RewriteRule . index.php
+
+  		AllowOverride All
+
+		Order allow,deny
+
+		allow from all
+
+	&lt;/Directory&gt;
+
+
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+
+	&lt;Directory &#34;/usr/lib/cgi-bin&#34;&gt;
+
+		AllowOverride None
+
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+
+		Order allow,deny
+
+		Allow from all
+
+	&lt;/Directory&gt;
+
+
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+
+	# alert, emerg.
+
+	LogLevel warn
+
+
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+
+
+	Alias /doc/ &#34;/usr/share/doc/&#34;
+
+	&lt;Directory &#34;/usr/share/doc/&#34;&gt;
+
+		Options Indexes MultiViews FollowSymLinks
+
+		AllowOverride None
+
+		Order deny,allow
+
+		Deny from all
+
+		Allow from 127.0.0.0/255.0.0.0 ::1/128
+
+	&lt;/Directory&gt;
+
 &lt;/VirtualHost&gt;
 </code></pre><h4 id="提示">提示</h4>
 <ul>
@@ -164,10 +255,12 @@ ln -v 显示详细的处理过程
 </ul>
 <h3 id="建立软链接">建立软链接</h3>
 <p>    在<code>/etc/apache2/sites_enabled/</code>中创建<code>ln</code>链接：</p>
-<pre tabindex="0"><code>ln -s /etc/apache2/sites-available/cxiansheng.conf /etc/apache2/sites-enabled/cxiansheng.conf
+<pre tabindex="0"><code>
+ln -s /etc/apache2/sites-available/cxiansheng.conf /etc/apache2/sites-enabled/cxiansheng.conf
+
 ln -s /etc/apache2/sites-available/demo.conf /etc/apache2/sites-enabled/demo.conf
 </code></pre><h3 id="重启apache">重启apache</h3>
-<pre><code>/etc/init.d/apache2 restart
+<pre><code>/etc/init.d/apache2 restart
 </code></pre>
 <h3 id="输入网址">输入网址</h3>
 <p><img src="http://cxiansheng.cn/usr/uploads/2016/11/3543322545.jpg" alt="链接成功"></p>

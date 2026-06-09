@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>细数那些年PHP我们踩过的 “坑” - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>细数那些年PHP我们踩过的 “坑” - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="nbspnbspnbspnbsp在编写代码的过程中，常常会踩" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/xishunaxienianphpwomencaiguode_keng/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:image" content="http://localhost:3257/"/>
+	<meta property="og:url" content="http://localhost:3257/posts/xishunaxienianphpwomencaiguode_keng/">
+	<meta property="og:site_name" content="命中水的个人博客">
 	<meta property="og:title" content="细数那些年PHP我们踩过的 “坑”">
 	<meta property="og:description" content="nbspnbspnbspnbsp在编写代码的过程中，常常会踩">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2018-03-23T15:29:00+00:00">
+		<meta property="article:modified_time" content="2018-03-23T15:29:00+00:00">
 		<meta property="article:tag" content="记录">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="细数那些年PHP我们踩过的 “坑”">
 	<meta name="twitter:description" content="nbspnbspnbspnbsp在编写代码的过程中，常常会踩">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3257/">命中水的个人博客</a>
 	</div>
 	<nav>
 		
@@ -41,41 +43,49 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">细数那些年PHP我们踩过的 “坑”</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Mar 23, 2018</div>
         </div>
         
         <section class="body">
           <p>    在编写代码的过程中，常常会踩到到各种坑，小坑小错啥的也经常犯，为什么呢？我想主要还是对PHP这门语言的不熟练啊，文档看的少&hellip;一些函数用到就查，用不到就烂在手册里了。这篇文章，主要记录一下PHP日常开发中遇到的“坑”（持续更新···）</p>
 <h2 id="一empty">一、empty</h2>
 <p>    说起empty，我相信很多人都曾经掉过这个坑里，为什么这么说呢？请看下列代码日常：</p>
-<pre><code> if(!empty(intval($id))) $this-&gt;ajaxReturn('404', '数据缺失');
+<pre><code> if(!empty(intval($id))) $this-&gt;ajaxReturn('404', '数据缺失');
 </code></pre>
-<p>一运行，我去，给我报了一个错：
-<img src="http://cxiansheng.cn//usr/uploads/2016/10/2819485368.png" alt="empty报错"></p>
-<p>这是什么鬼东西，懵逼.jpg； 一查手册才知道
-<img src="http://cxiansheng.cn//usr/uploads/2016/10/1884987034.png" alt="empty参数官方解释"></p>
+<p>一运行，我去，给我报了一个错：</p>
+<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/2819485368.png" alt="empty报错"></p>
+<p>这是什么鬼东西，懵逼.jpg； 一查手册才知道</p>
+<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/1884987034.png" alt="empty参数官方解释"></p>
 <p>恍然大悟，噢~原来只能传变量进来。撞墙的心都有了&hellip;&hellip;</p>
 <h2 id="二多层嵌套循环">二、多层嵌套循环</h2>
 <p>    最常见变量无预见性复用而不知情问题，代码推荐：</p>
-<pre><code>foreach ($arr1 as $key =&gt; $value) {
-  foreach ($arr2 as $k =&gt; $val) {
-    foreach ($arr3 as $key =&gt; $value) {
-      # code...
-    }
-  }
-}
+<pre><code>foreach ($arr1 as $key =&gt; $value) {
+
+  foreach ($arr2 as $k =&gt; $val) {
+
+    foreach ($arr3 as $key =&gt; $value) {
+
+      # code...
+
+    }
+
+  }
+
+}
 </code></pre>
-<p>运行一下，不知道问题在哪里，再检查一下运行，怎么还是有问题，慌了、纳闷了&hellip;于是，一行一行看代码，终于发现，Excause me?这是什么鬼东西???
-<img src="http://cxiansheng.cn//usr/uploads/2016/10/2308400651.png" alt="foreach之懵逼代码"></p>
+<p>运行一下，不知道问题在哪里，再检查一下运行，怎么还是有问题，慌了、纳闷了&hellip;于是，一行一行看代码，终于发现，Excause me?这是什么鬼东西???</p>
+<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/2308400651.png" alt="foreach之懵逼代码"></p>
 <p>用了同一个<code>$key</code>啊喂，一直覆盖，结果怎么可能对！！！<strong>逻辑、马虎能力五五开</strong>。</p>
 <h2 id="三设置cookie或者session过期时间">三、设置COOKIE或者session过期时间</h2>
 <p>    就在前两天弄记住密码短时间内免登的时候遇到个问题，问题代码如下：</p>
-<pre><code>$timeout = time() + 60 * 60 * 24 * 31;
-set_cookie('auth', &quot;123456&quot;, $timeout);
+<pre><code>$timeout = time() + 60 * 60 * 24 * 31;
+
+set_cookie('auth', &quot;123456&quot;, $timeout);
 </code></pre>
 <p>大眼一看这也没什么不对啊，其实我就多加了一点东西，我本来是想加过期时间进来的，但是呢，粗心的我把过期截至时间算了进来，这样是不对的。修改后：</p>
-<pre><code>$expire= 60 * 60 * 24 * 31;
-set_cookie('auth', &quot;123456&quot;, $expire);
+<pre><code>$expire= 60 * 60 * 24 * 31;
+
+set_cookie('auth', &quot;123456&quot;, $expire);
 </code></pre>
 <p>我把计算过期时间的公式改了一下，把<code>time()</code>去掉就可以了。后来想了一下，我这个<code>time()</code>的时间戳计算结果为10位数，估计是过期时间不能接收这么大的数字的缘故吧(这里是有些疑惑的，看了资料说**“time()+过期时间”**这样的组合是被允许的，但是我这里为什么会报错，暂时不得而知)</p>
 <h2 id="四strip_tag">四、strip_tag</h2>

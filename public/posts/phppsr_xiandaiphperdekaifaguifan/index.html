@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHP-PSR 现代PHPer的开发规范 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHP-PSR 现代PHPer的开发规范 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="nbspnbspnbspnbspPSR是PHPStandar" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/phppsr_xiandaiphperdekaifaguifan/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:image" content="http://localhost:3257/"/>
+	<meta property="og:url" content="http://localhost:3257/posts/phppsr_xiandaiphperdekaifaguifan/">
+	<meta property="og:site_name" content="命中水的个人博客">
 	<meta property="og:title" content="PHP-PSR 现代PHPer的开发规范">
 	<meta property="og:description" content="nbspnbspnbspnbspPSR是PHPStandar">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2017-09-17T11:55:00+00:00">
+		<meta property="article:modified_time" content="2017-09-17T11:55:00+00:00">
 		<meta property="article:tag" content="记录">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="PHP-PSR 现代PHPer的开发规范">
 	<meta name="twitter:description" content="nbspnbspnbspnbspPSR是PHPStandar">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3257/">命中水的个人博客</a>
 	</div>
 	<nav>
 		
@@ -41,14 +43,14 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">PHP-PSR 现代PHPer的开发规范</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Sep 17, 2017</div>
         </div>
         
         <section class="body">
           <p>    PSR是PHP Standards Recommendation的简称，意为PHP推荐标准。要想了解PSR，首先得知道制定这一标准的人/组织是谁————PHP-FIG。</p>
-<p>[Meting autoplay=&ldquo;true&rdquo;]
-[Music server=&ldquo;xiami&rdquo; id=&ldquo;1773360150&rdquo; type=&ldquo;song&rdquo;/]
-[/Meting]</p>
+<p>[Meting autoplay=&ldquo;true&rdquo;]</p>
+<p>[Music server=&ldquo;xiami&rdquo; id=&ldquo;1773360150&rdquo; type=&ldquo;song&rdquo;/]</p>
+<p>[/Meting]</p>
 <h2 id="php-fig">PHP-FIG</h2>
 <blockquote>
 <p>PHP-FIG全称为[PHP Framework Interop Group][1],是一个组织，这个组织的成员由一些PHP框架的代表组成，这些人聚在一起“讨论框架之间的共性，寻找可以合作的方式”。PHP-FIG制订了推荐规范，PHP框架可以自愿实现这些规范，改进其他框架的通信和共享功能。</p>
@@ -60,42 +62,42 @@
 <p>    在文章的最开始，我们就已经简单介绍过什么是PSR，PSR是PHP标准，而PSR-1是PHP最基本也是最简单的标准。</p>
 <h3 id="php标签">PHP标签</h3>
 <blockquote>
-<p>必须把代码放在<code>&lt;?php ?&gt;</code>或<code>&lt;? ?&gt;</code>标签中。不得使用其它的标签句法
-这点相信很多PHPer都很容易遵守，而且在现实撸代码中一般都是采用正常的<code>&lt;?php ?&gt;</code>标签</p>
+<p>必须把代码放在<code>&lt;?php ?&gt;</code>或<code>&lt;? ?&gt;</code>标签中。不得使用其它的标签句法</p>
 </blockquote>
+<p>这点相信很多PHPer都很容易遵守，而且在现实撸代码中一般都是采用正常的<code>&lt;?php ?&gt;</code>标签</p>
 <h3 id="编码">编码</h3>
 <blockquote>
-<p>所有PHP文件都必须使用UTF-8字符集编码，而且不能有字节顺序标记（Byte Order Mark,BOM）
-这个也很常见，就是无BOM和有BOM格式，记得刚开始敲PHP代码的时候，前辈总是很关照，一定要用IDE调成无BOM格式啊，当时表示懵懂，然后就跟着做了，现在看到这里，又重新查了资料，找到了为什么不能使用有BOM格式的原因，BOM会产生多余的输出，就像平白无故多了一个空行：</p>
+<p>所有PHP文件都必须使用UTF-8字符集编码，而且不能有字节顺序标记（Byte Order Mark,BOM）</p>
 </blockquote>
+<p>这个也很常见，就是无BOM和有BOM格式，记得刚开始敲PHP代码的时候，前辈总是很关照，一定要用IDE调成无BOM格式啊，当时表示懵懂，然后就跟着做了，现在看到这里，又重新查了资料，找到了为什么不能使用有BOM格式的原因，BOM会产生多余的输出，就像平白无故多了一个空行：</p>
 <blockquote>
 <p>php在处理BOM头的时候，有时候存在错误，可能造成你在使用 header 或 session_start 之类的函数时，出现 文件已经输出的错误，多数都是因为BOM头送出去了。。因为在php看来，成了一个空格。所以使用无BOM的格式</p>
 </blockquote>
 <h3 id="目的">目的</h3>
 <blockquote>
-<p>一个PHP文件可以定义符号（类、性状、函数、常量等），或者执行有副作用的操作（生成结果或者处理数据），但不能同时做两件事
-这个规定的意思差不多就是一个变量、方法或者一个类，只能相应完成一个操作、做一件事情，这样保证了代码的清晰易懂，也保证了方法、变量的单一性，各司其职。其实也是为了方便，我们在以后项目/应用较大时，可以很好的解耦</p>
+<p>一个PHP文件可以定义符号（类、性状、函数、常量等），或者执行有副作用的操作（生成结果或者处理数据），但不能同时做两件事</p>
 </blockquote>
+<p>这个规定的意思差不多就是一个变量、方法或者一个类，只能相应完成一个操作、做一件事情，这样保证了代码的清晰易懂，也保证了方法、变量的单一性，各司其职。其实也是为了方便，我们在以后项目/应用较大时，可以很好的解耦</p>
 <h3 id="自动加载">自动加载</h3>
 <blockquote>
-<p>PHP的命名空间和类必须遵守PSR-4自动加载器标准
-后续看PSR-4的具体解释</p>
+<p>PHP的命名空间和类必须遵守PSR-4自动加载器标准</p>
 </blockquote>
+<p>后续看PSR-4的具体解释</p>
 <h3 id="类的名称">类的名称</h3>
 <blockquote>
-<p>PHP类的名称必须使用驼峰式，又名标题式
-驼峰式和分词式（每个单词用_隔开）这两种写法，记得以前存在很大的争议，有人支持驼峰(<code>GirlFriend</code>),有人支持分词式（<code>girl_friend</code>），现在好了，统一规定出来了，为了PHP更好的发展，那就委屈支持分词式的兄弟，统一驼峰了。记得公司的CI2项目，用的就是这种分词式，不过也是框架规定，后来在自己的项目中，自己有预感的使用了驼峰式，哈哈，为自己的眼光点赞~</p>
+<p>PHP类的名称必须使用驼峰式，又名标题式</p>
 </blockquote>
+<p>驼峰式和分词式（每个单词用_隔开）这两种写法，记得以前存在很大的争议，有人支持驼峰(<code>GirlFriend</code>),有人支持分词式（<code>girl_friend</code>），现在好了，统一规定出来了，为了PHP更好的发展，那就委屈支持分词式的兄弟，统一驼峰了。记得公司的CI2项目，用的就是这种分词式，不过也是框架规定，后来在自己的项目中，自己有预感的使用了驼峰式，哈哈，为自己的眼光点赞~</p>
 <h3 id="常量的名称">常量的名称</h3>
 <blockquote>
-<p>PHP的常量名称必须大写；
-这点应该是毋庸置疑的吧，最开始写PHP的时候，这个写法已经根深蒂固了。</p>
+<p>PHP的常量名称必须大写；</p>
 </blockquote>
+<p>这点应该是毋庸置疑的吧，最开始写PHP的时候，这个写法已经根深蒂固了。</p>
 <p>###方法的名称 ###</p>
 <blockquote>
-<p>使用驼峰式(boyFriend)
-方法的命名和类的命名方式有些相似，不过还是有些区别：类的命名规定首字母大写（BoyFriendMoney）,而方法的命名规定首字母小写（boyFriendMoney）</p>
+<p>使用驼峰式(boyFriend)</p>
 </blockquote>
+<p>方法的命名和类的命名方式有些相似，不过还是有些区别：类的命名规定首字母大写（BoyFriendMoney）,而方法的命名规定首字母小写（boyFriendMoney）</p>
 <h2 id="psr-2严格的代码风格">PSR-2：严格的代码风格</h2>
 <p>PSR-2 相较于PSR-1是更为严格的代码规范。个人和官方都认为开发者应该遵循更为严格的代码标准，在现代的PHP生态系统中，风格统一，可以更好的让其他开发者理解PHP代码。</p>
 <h3 id="贯彻psr-1">贯彻PSR-1</h3>
@@ -106,104 +108,168 @@
 <blockquote>
 <p>使用四个空格缩进。</p>
 </blockquote>
-<p>关于缩进这个问题，相信有很多争议。我在真正正视这个问题之前，一直使用的都是IDE的tab键。然后当同事和自己在编写同一文件的时候，就会出先代码缩进不一的情况，导致代码结构非常乱。所以在出现这个问题之后，就统一了一下文件缩进的标准，以四个空格为缩进。这样的话，就算是用不一致的编辑器打开，效果也是一样的。
-很多IDE都可以设置tab键，百度一下就可以搜到。</p>
+<p>关于缩进这个问题，相信有很多争议。我在真正正视这个问题之前，一直使用的都是IDE的tab键。然后当同事和自己在编写同一文件的时候，就会出先代码缩进不一的情况，导致代码结构非常乱。所以在出现这个问题之后，就统一了一下文件缩进的标准，以四个空格为缩进。这样的话，就算是用不一致的编辑器打开，效果也是一样的。</p>
+<p>很多IDE都可以设置tab键，百度一下就可以搜到。</p>
 <h3 id="文件和代码行">文件和代码行</h3>
 <blockquote>
-<p>PHP文件必须使用UNIX风格的换行符（LF），最后要有一个空行，而且不能使用PHP关闭 <code>?&gt;</code> 标签。
-最开始我也不懂为什么在纯PHP页面中不使用关闭 <code>?&gt;</code> 标签，后来在书中找到了答案</p>
+<p>PHP文件必须使用UNIX风格的换行符（LF），最后要有一个空行，而且不能使用PHP关闭 <code>?&gt;</code> 标签。</p>
 </blockquote>
+<p>最开始我也不懂为什么在纯PHP页面中不使用关闭 <code>?&gt;</code> 标签，后来在书中找到了答案</p>
 <blockquote>
 <p>为了避免意料之外的输出错误，如果加上关闭标签，而且在关闭标签后有空行，那么这个空行也被当成输出，导致错误（例如，设定http首部时）</p>
 </blockquote>
 <h3 id="关键字">关键字</h3>
 <blockquote>
-<p>关键字，要使用小写；
-之前不知道在哪儿看的PHP的教程，上面写的PHP代码像<code>true</code>、<code>false</code>这样的关键字都使用的是大写<code>TRUE</code>、<code>FALSE</code>，我也一直在这样使用，后来看到PSR-2的规范，才知道应该要使用小写，心累~</p>
+<p>关键字，要使用小写；</p>
 </blockquote>
+<p>之前不知道在哪儿看的PHP的教程，上面写的PHP代码像<code>true</code>、<code>false</code>这样的关键字都使用的是大写<code>TRUE</code>、<code>FALSE</code>，我也一直在这样使用，后来看到PSR-2的规范，才知道应该要使用小写，心累~</p>
 <h3 id="命名空间">命名空间</h3>
 <blockquote>
-<p>每个命名空间语句后必须跟着一个空行。类似的，使用use关键字导入命名空间或为命名空间创建别名时，在一系列use声明语句后要加一个空行
-类似于：</p>
+<p>每个命名空间语句后必须跟着一个空行。类似的，使用use关键字导入命名空间或为命名空间创建别名时，在一系列use声明语句后要加一个空行</p>
 </blockquote>
-<pre tabindex="0"><code>&lt;?php
-// 声明本文件的命名空间
-namespace My\Friend;
-
-// 导入命名空间
-use Other\Friend;
-
-class GirlFrined
-{
-    
+<p>类似于：</p>
+<pre tabindex="0"><code>
+&lt;?php
+
+// 声明本文件的命名空间
+
+namespace My\Friend;
+
+
+
+// 导入命名空间
+
+use Other\Friend;
+
+
+
+class GirlFrined
+
+{
+
+    
+
 }
 </code></pre><h3 id="类">类</h3>
 <blockquote>
-<p>类定义体的起始括号应在类名之后另起一行写；
-类定义体的结束括号必须在定义体之后新起一行写；</p>
+<p>类定义体的起始括号应在类名之后另起一行写；</p>
+</blockquote>
+<blockquote>
+<p>类定义体的结束括号必须在定义体之后新起一行写；</p>
 </blockquote>
 <p>例：</p>
-<pre tabindex="0"><code>&lt;?php
-
-class Frined
-{
-    public function getSex()
-    {
-        // do something
-    }
+<pre tabindex="0"><code>
+&lt;?php
+
+
+
+class Frined
+
+{
+
+    public function getSex()
+
+    {
+
+        // do something
+
+    }
+
 }
 </code></pre><h3 id="方法">方法</h3>
 <blockquote>
-<p>方法定义体的起始括号应在方法名之后另起一行写；
-方法定义体的结束括号必须在方法定义体之后新起一行写；</p>
+<p>方法定义体的起始括号应在方法名之后另起一行写；</p>
+</blockquote>
+<blockquote>
+<p>方法定义体的结束括号必须在方法定义体之后新起一行写；</p>
 </blockquote>
 <p>请参考上面类示例中方法的例子。</p>
 <h3 id="可见性">可见性</h3>
 <blockquote>
-<p>1、类中的每个属性和方法都要声明可见性。可见性由public、protected或者private指定，其作用是决定在类的内部和外部如何访问属性的方法。
-2、私有方法的名称前加上下划线
-3、如果类属性声明为<code>abstract</code>和<code>final</code>，这两个限定符必须放在可见性关键字之前
-4、如果属性、方法声明为<code>static</code>，这个限定符必须放在可见性关键字之后</p>
+<p>1、类中的每个属性和方法都要声明可见性。可见性由public、protected或者private指定，其作用是决定在类的内部和外部如何访问属性的方法。</p>
+</blockquote>
+<blockquote>
+<p>2、私有方法的名称前加上下划线</p>
+</blockquote>
+<blockquote>
+<p>3、如果类属性声明为<code>abstract</code>和<code>final</code>，这两个限定符必须放在可见性关键字之前</p>
+</blockquote>
+<blockquote>
+<p>4、如果属性、方法声明为<code>static</code>，这个限定符必须放在可见性关键字之后</p>
 </blockquote>
 <p>例子：</p>
-<pre tabindex="0"><code>// 1、2
-public $sex;
-private $_sex;
-protected $sex;
-
-// 3、
-abstract public $sex;
-final public $sex;
-
-// 4、
-public static $sex;
+<pre tabindex="0"><code>
+// 1、2
+
+public $sex;
+
+private $_sex;
+
+protected $sex;
+
+
+
+// 3、
+
+abstract public $sex;
+
+final public $sex;
+
+
+
+// 4、
+
+public static $sex;
+
 public static $age;
 </code></pre><h3 id="控制结构">控制结构</h3>
 <blockquote>
-<p>所有控制结构关键字后面都要有一个空格。控制结构关键字包括：<code>if</code>、<code>elseif</code>、<code>else</code>、<code>switch</code>、<code>case</code>、<code>while</code>、<code>do while</code>、<code>for</code>、<code>foreach</code>、<code>try</code>、<code>catch</code>。如果控制结构关键字后面有一对圆括号，起始圆括号后面不能有空格，结束圆括号之前不能有空格。与类和方法的定义体不同，控制结构关键字后面的起始括号应该和控制机构关键字写在同一行。控制结构关键字后面的结束括号<strong>必须</strong>写在单独一行。
-例：</p>
+<p>所有控制结构关键字后面都要有一个空格。控制结构关键字包括：<code>if</code>、<code>elseif</code>、<code>else</code>、<code>switch</code>、<code>case</code>、<code>while</code>、<code>do while</code>、<code>for</code>、<code>foreach</code>、<code>try</code>、<code>catch</code>。如果控制结构关键字后面有一对圆括号，起始圆括号后面不能有空格，结束圆括号之前不能有空格。与类和方法的定义体不同，控制结构关键字后面的起始括号应该和控制机构关键字写在同一行。控制结构关键字后面的结束括号<strong>必须</strong>写在单独一行。</p>
 </blockquote>
-<pre tabindex="0"><code>/** 
-* 错误的示例：
-* 这里有4个错误：
-* 1、if关键词后面和圆括号之前没有空格
-* 2、圆括号前后有空格
-* 3、后圆括号和起始括号之前没有空格
-* 4、else关键词前后没有空格
-**/
-if( 1 == true ){
-    // do something
-}else{
-    // do something
-}
-
-/** 
-* 正确的示例：
-**/
-if (1 == true) {
-    // do something
-} else {
-    // do something
+<p>例：</p>
+<pre tabindex="0"><code>
+/** 
+
+* 错误的示例：
+
+* 这里有4个错误：
+
+* 1、if关键词后面和圆括号之前没有空格
+
+* 2、圆括号前后有空格
+
+* 3、后圆括号和起始括号之前没有空格
+
+* 4、else关键词前后没有空格
+
+**/
+
+if( 1 == true ){
+
+    // do something
+
+}else{
+
+    // do something
+
+}
+
+
+
+/** 
+
+* 正确的示例：
+
+**/
+
+if (1 == true) {
+
+    // do something
+
+} else {
+
+    // do something
+
 }
 </code></pre><h2 id="psr-3日志记录器接口">PSR-3：日志记录器接口</h2>
 <h3 id="日志记录器">日志记录器</h3>
@@ -213,45 +279,77 @@ if (1 == true) {
 </blockquote>
 <p>相信基本上所有的框架中都实现了日志功能，那么如果想要使用PSR-3规范的日志记录器，该怎么做呢？首先要满足两点：</p>
 <ol>
-<li>日志功能委托给第三方库实现</li>
-<li>最终用户能选择他们喜欢的日志记录器组件</li>
+<li>
+<p>日志功能委托给第三方库实现</p>
+</li>
+<li>
+<p>最终用户能选择他们喜欢的日志记录器组件</p>
+</li>
 </ol>
 <h3 id="编写psr-3日志记录器">编写PSR-3日志记录器</h3>
 <p>符合PSR-3推荐规范的PHP日志记录器组件，必须包含一个实现<code>Psr\Log\LoggerInterface</code>接口的PHP类。PSR-3接口复用了[RFC 5424系统日志协议][2]，规定要实现9个方法：</p>
 <p>下面的代码是我从PHP-FIG的官网上拿过来的，想了解详细信息的可以 [点我][3]</p>
-<pre tabindex="0"><code>&lt;?php
-
-namespace Psr\Log;
-
-interface LoggerInterface
-{
-    
-    public function emergency($message, array $context = array());
-    public function alert($message, array $context = array());    
-    public function critical($message, array $context = array());
-    public function error($message, array $context = array());
-    public function warning($message, array $context = array());
-    public function notice($message, array $context = array());
-    public function info($message, array $context = array());
-    public function debug($message, array $context = array());
-    public function log($level, $message, array $context = array());
+<pre tabindex="0"><code>
+&lt;?php
+
+
+
+namespace Psr\Log;
+
+
+
+interface LoggerInterface
+
+{
+
+    
+
+    public function emergency($message, array $context = array());
+
+    public function alert($message, array $context = array());    
+
+    public function critical($message, array $context = array());
+
+    public function error($message, array $context = array());
+
+    public function warning($message, array $context = array());
+
+    public function notice($message, array $context = array());
+
+    public function info($message, array $context = array());
+
+    public function debug($message, array $context = array());
+
+    public function log($level, $message, array $context = array());
+
 }
 </code></pre><p>这个类中的每一个方法都对应RFC 5424协议的一个日志级别，而且都接受两个参数。第一个参数必须是一个字符串，或者有一个<code>__toString()</code>方法的对象。第二个参数为数组，可选参数；</p>
 <p>如果要编写符合PSR-3规范的日志记录器，那么就要创建一个实现<code>Psr\Log\LoggerInterface</code>接口的PHP类，而且要提供这个接口中每个方法的具体实现</p>
 <h3 id="使用psr-3日志记录器">使用PSR-3日志记录器</h3>
-<p>PSR-3规范出来之后，达到这种效果的组件太多了，这里就不介绍，如何实现这个接口的类了。现在有成熟的日志记录器组件，推荐[monolog/monolog][4]。这个组件完全上线了PSR-3的接口，而且可以使用<strong>自定义的消息格式化程序和处理程序扩展功能</strong>。
-如果<code>monolog</code>满足不了日常的使用，我们可以在此基础上拓展自己的方法，也非常简单；</p>
+<p>PSR-3规范出来之后，达到这种效果的组件太多了，这里就不介绍，如何实现这个接口的类了。现在有成熟的日志记录器组件，推荐[monolog/monolog][4]。这个组件完全上线了PSR-3的接口，而且可以使用<strong>自定义的消息格式化程序和处理程序扩展功能</strong>。</p>
+<p>如果<code>monolog</code>满足不了日常的使用，我们可以在此基础上拓展自己的方法，也非常简单；</p>
 <p>使用monolog示例：</p>
-<pre tabindex="0"><code>&lt;?php
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
-// 准备日志记录器
-$logger = new Logger(&#39;my_logger&#39;);
-$logger-&gt;pushHandler(new StreamHandler(&#39;logs/development.log&#39;, Logger::DEBUG));
-$logger-&gt;pushHandler(new StreamHandler(&#39;logs/production.log&#39;, Logger::WARNING));
-// 使用日志记录器
-$logger-&gt;debug(&#39;This is debug message&#39;);
+<pre tabindex="0"><code>
+&lt;?php
+
+use Monolog\Logger;
+
+use Monolog\Handler\StreamHandler;
+
+
+
+// 准备日志记录器
+
+$logger = new Logger(&#39;my_logger&#39;);
+
+$logger-&gt;pushHandler(new StreamHandler(&#39;logs/development.log&#39;, Logger::DEBUG));
+
+$logger-&gt;pushHandler(new StreamHandler(&#39;logs/production.log&#39;, Logger::WARNING));
+
+// 使用日志记录器
+
+$logger-&gt;debug(&#39;This is debug message&#39;);
+
 $logger-&gt;debug(&#39;This is warning message&#39;);
 </code></pre><h2 id="psr-4自动加载器">PSR-4：自动加载器</h2>
 <p>PHP-FIG发布的第四个推荐规范描述了一个标准的自动加载器策略；自动加载器的意思就是指在程序运行时按需查找PHP类、[接口（interface）][5]或[性状（trait）][6]并将其载入加载器。</p>
@@ -260,18 +358,26 @@ $logger-&gt;debug(&#39;This is warning message&#39;);
 <h3 id="为什么自动加载器很重要">为什么自动加载器很重要</h3>
 <p>举一个很常见的场景，我们引入文件通常都是采用<code>require</code>、<code>include</code>这样的方法，这样的方式简单也可靠，但是如果我们引入一两个还好说，但是当我们一个项目运行时需要引入几十个文件呢，那我们岂不是要写几十个require或者include？这样既不方便，又不美观，所以PHP-FIG在此基础上考虑，规范了一个统一的自动加载器策略；</p>
 <h3 id="如何使用自动加载器">如何使用自动加载器</h3>
-<p>建议使用依赖管理器[Composer][7]自动生成的PSR-4自动加载器。
-现代的PHP框架，laravel、Yii、TP5等都使用了依赖Composer的自动加载器策略，方便我们下载组件和引入合适的类。</p>
+<p>建议使用依赖管理器[Composer][7]自动生成的PSR-4自动加载器。</p>
+<p>现代的PHP框架，laravel、Yii、TP5等都使用了依赖Composer的自动加载器策略，方便我们下载组件和引入合适的类。</p>
 <h2 id="psr-me制定自己的php规范">PSR-ME：制定自己的PHP规范</h2>
 <ol>
-<li>遵循PSR-1、PSR-2的使用规范</li>
-<li>合适、精简的变量、方法、类命名。能让人看一眼就清楚是做什么的</li>
-<li>尽量编写出高内聚、低耦合的代码</li>
-<li>保持代码结构整洁、美观</li>
+<li>
+<p>遵循PSR-1、PSR-2的使用规范</p>
+</li>
+<li>
+<p>合适、精简的变量、方法、类命名。能让人看一眼就清楚是做什么的</p>
+</li>
+<li>
+<p>尽量编写出高内聚、低耦合的代码</p>
+</li>
+<li>
+<p>保持代码结构整洁、美观</p>
+</li>
 </ol>
 <h2 id="总结">总结</h2>
-<p>以上内容均来自《Mordern PHP》，中文名为现代PHP，书中详细的介绍了在现代化PHP开发中的新特性和良好实践，非常好的一本书。
-PHP-FIG推出的PHP规范，并不一定说所有的PHP开发者必须遵守。制定这一规范的目的就是为了，在全世界的PHP开发者在查看代码的时候，能更加简单和轻松。造出来的组件/轮子可以很容易的就被所有开发者熟知和使用，同时也减少了我们的工作投入率，得到更大的工作效率，使产出大于投入，效率更高更快。</p>
+<p>以上内容均来自《Mordern PHP》，中文名为现代PHP，书中详细的介绍了在现代化PHP开发中的新特性和良好实践，非常好的一本书。</p>
+<p>PHP-FIG推出的PHP规范，并不一定说所有的PHP开发者必须遵守。制定这一规范的目的就是为了，在全世界的PHP开发者在查看代码的时候，能更加简单和轻松。造出来的组件/轮子可以很容易的就被所有开发者熟知和使用，同时也减少了我们的工作投入率，得到更大的工作效率，使产出大于投入，效率更高更快。</p>
         </section>
         <div class="post-tags">
           

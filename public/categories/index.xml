@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Categories on My New Hugo Project</title>
-		<link>http://localhost:2851/categories/</link>
-		<description>Recent content in Categories on My New Hugo Project</description>
+		<title>Categories on 命中水的个人博客</title>
+		<link>http://localhost:3257/categories/</link>
+		<description>Recent content in Categories on 命中水的个人博客</description>
 		<generator>Hugo</generator>
 		<language>en-us</language>
 		
 		
 		
 		
-			<atom:link href="http://localhost:2851/categories/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:3257/categories/index.xml" rel="self" type="application/rss+xml" />
 	</channel>
 </rss>

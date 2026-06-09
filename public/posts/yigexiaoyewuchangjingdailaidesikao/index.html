@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>一个小业务场景带来的思考 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>一个小业务场景带来的思考 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="最近在用layui做后台，有遇到这么个场景，就是上传图片，并" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/yigexiaoyewuchangjingdailaidesikao/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:image" content="http://localhost:3257/"/>
+	<meta property="og:url" content="http://localhost:3257/posts/yigexiaoyewuchangjingdailaidesikao/">
+	<meta property="og:site_name" content="命中水的个人博客">
 	<meta property="og:title" content="一个小业务场景带来的思考">
 	<meta property="og:description" content="最近在用layui做后台，有遇到这么个场景，就是上传图片，并">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2019-08-11T17:37:00+00:00">
+		<meta property="article:modified_time" content="2019-08-11T17:37:00+00:00">
 		<meta property="article:tag" content="思考">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="一个小业务场景带来的思考">
 	<meta name="twitter:description" content="最近在用layui做后台，有遇到这么个场景，就是上传图片，并">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3257/">命中水的个人博客</a>
 	</div>
 	<nav>
 		
@@ -41,142 +43,258 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">一个小业务场景带来的思考</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Aug 11, 2019</div>
         </div>
         
         <section class="body">
           <p>最近在用layui做后台，有遇到这么个场景，就是上传图片，并保存到oss的，很简单也很常见的一个小功能。但即使是这么个小功能也有点费脑筋，主要有以下几点：</p>
 <ol>
-<li>对layui上传文件插件的不熟悉</li>
-<li>对业务场景的想象不够严谨</li>
-<li>对自身服务器配置状况的无视</li>
+<li>
+<p>对layui上传文件插件的不熟悉</p>
+</li>
+<li>
+<p>对业务场景的想象不够严谨</p>
+</li>
+<li>
+<p>对自身服务器配置状况的无视</p>
+</li>
 </ol>
 <p>本篇博文就来说一下，就是这么个小问题，也让我有点伤脑筋的原因。</p>
 <h2 id="小场景">小场景</h2>
 <p>上传图片，保存到oss。服务器1核2G。两种方式，一种是在表单提交的时候，再上传；一种是选择完图片时时上传。两种各有优缺点。</p>
 <h2 id="不同上传方式的优缺点">不同上传方式的优缺点</h2>
-<p>第一种：表单提交，再上传。优点是，在表单提交的时候，做图片上传，免去了前端对图片上传的进一步处理。缺点是，如果图片过多的时候，那么在保存表单的时候，保存图片可能很会耗时，网络有可能延迟。
-第二种：选择图片时时上传。优点差不多跟第一种相反，选择的时候就上传，在表单提交保存数据的时候，就避免了对图片上传到oss的处理。缺点也很明显，如果处理不当，也有可能造成oss空间的浪费，可能上传的图片，并不是最终就需要的图片。</p>
+<p>第一种：表单提交，再上传。优点是，在表单提交的时候，做图片上传，免去了前端对图片上传的进一步处理。缺点是，如果图片过多的时候，那么在保存表单的时候，保存图片可能很会耗时，网络有可能延迟。</p>
+<p>第二种：选择图片时时上传。优点差不多跟第一种相反，选择的时候就上传，在表单提交保存数据的时候，就避免了对图片上传到oss的处理。缺点也很明显，如果处理不当，也有可能造成oss空间的浪费，可能上传的图片，并不是最终就需要的图片。</p>
 <h2 id="初始考虑">初始考虑</h2>
 <p>一开始觉得，为了oss不必要的资源浪费，还是在表单保存的时候，在上传图片好一点儿（<strong>注意：这里我没有考虑到其他层面的东西：服务器配置，上传速度，服务器带宽等</strong>），搞起来，代码：</p>
-<pre tabindex="0"><code>var uploadInst = layupload.render({
-            elem: &#39;#banner&#39; //绑定元素
-            ,url: &#39;&lt;?=base_url($viewPath . &#39;goods/upload&#39;)?&gt;&#39; //上传接口
-            ,accept: &#39;images&#39;
-            ,acceptMime: &#39;image/jpg, image/png, image/jpeg&#39;
-            ,multiple: true
-            ,auto: false
-            ,choose: function(obj){
-
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-
-                    files[index] = file;
-
-                    var img_html = &#39;&lt;li  id=&#34;&#39;+index+&#39;_id&#34;&gt;&#39;;
-                        img_html += &#39;&#39;;
-                        img_html += &#39;&#39;;
-                        img_html += &#39;&lt;a href=&#34;javascript:;&#34; data-fileid=&#34;&#39;+index+&#39;&#34; onclick=&#34;del_banner_file()&#34;&gt;删除&lt;/a&gt;&#39;;
-                        img_html += &#39;&#39;;
-                        img_html += &#39;&lt;/li&gt;&#39;;
-                        img_html += &#34;&lt;input id=&#39;&#34;+index+&#34;_hidden&#39; type=&#39;hidden&#39; name=&#39;banner[]&#39; value=&#39;&#34;+result+&#34;&#39;&gt;&#34;;
-
-                    $(&#39;#banner_list&#39;).append(img_html)
-                });
-
-            }
-            ,done: function(res){
-                //上传完毕回调
-            }
-            ,error: function(){
-                //请求异常回调
-            }
+<pre tabindex="0"><code>
+var uploadInst = layupload.render({
+
+            elem: &#39;#banner&#39; //绑定元素
+
+            ,url: &#39;&lt;?=base_url($viewPath . &#39;goods/upload&#39;)?&gt;&#39; //上传接口
+
+            ,accept: &#39;images&#39;
+
+            ,acceptMime: &#39;image/jpg, image/png, image/jpeg&#39;
+
+            ,multiple: true
+
+            ,auto: false
+
+            ,choose: function(obj){
+
+
+
+                //预读本地文件示例，不支持ie8
+
+                obj.preview(function(index, file, result){
+
+
+
+                    files[index] = file;
+
+
+
+                    var img_html = &#39;&lt;li  id=&#34;&#39;+index+&#39;_id&#34;&gt;&#39;;
+
+                        img_html += &#39;&#39;;
+
+                        img_html += &#39;&#39;;
+
+                        img_html += &#39;&lt;a href=&#34;javascript:;&#34; data-fileid=&#34;&#39;+index+&#39;&#34; onclick=&#34;del_banner_file()&#34;&gt;删除&lt;/a&gt;&#39;;
+
+                        img_html += &#39;&#39;;
+
+                        img_html += &#39;&lt;/li&gt;&#39;;
+
+                        img_html += &#34;&lt;input id=&#39;&#34;+index+&#34;_hidden&#39; type=&#39;hidden&#39; name=&#39;banner[]&#39; value=&#39;&#34;+result+&#34;&#39;&gt;&#34;;
+
+
+
+                    $(&#39;#banner_list&#39;).append(img_html)
+
+                });
+
+
+
+            }
+
+            ,done: function(res){
+
+                //上传完毕回调
+
+            }
+
+            ,error: function(){
+
+                //请求异常回调
+
+            }
+
         });
-</code></pre><p>上面的做法是，前端上传插件，选择完图片后获取到图片的base64格式，然后在页面上显示出来，并用隐藏域保存base64数据。
-(ps:尝试过保存文件对象，在表单中，但是这种做法貌似不行
-后端代码就很简单了，就是获取到base64然后上传oss；</p>
+</code></pre><p>上面的做法是，前端上传插件，选择完图片后获取到图片的base64格式，然后在页面上显示出来，并用隐藏域保存base64数据。</p>
+<p>(ps:尝试过保存文件对象，在表单中，但是这种做法貌似不行</p>
+<p>后端代码就很简单了，就是获取到base64然后上传oss；</p>
 <h3 id="结果">结果</h3>
 <p>做好之后，尝试提交表单，竟然出奇的慢，很慢很慢那种，我以为是程序出了问题，后来追踪到问题。发现保存数据都很快，几乎不占用什么时间，问题就卡在上传到oss这里。于是单张图片上传oss尝试了一下，发现在4-5s左右，慢的离奇，在想什么原因呢，后来慢慢考虑到可能是自己服务器的带宽不够，导致上传到oss的过程漫长，那多张图片的情况下，就更慢了。再换另一种思路尝试：</p>
 <h2 id="改变">改变</h2>
-<p>经过一番改造，第二种方式，选择时就将图片上传，代码也已经差不多了，如下：
-<strong>前端</strong></p>
-<pre tabindex="0"><code>var uploadInst = layupload.render({
-    elem: &#39;#banner&#39; //绑定元素
-    ,url: &#39;&lt;?=base_url($viewPath . &#39;goods/upload&#39;)?&gt;&#39; //上传接口
-    ,field: &#39;file&#39;
-    ,accept: &#39;images&#39;
-    ,acceptMime: &#39;image/jpg, image/png, image/jpeg&#39;
-    ,multiple: true
-    ,choose: function(obj){
-
-    }
-    ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-        layer.load(); //上传loading
-    }
-    ,done: function(res){
-
-        //上传完毕回调
-        if (res.code == 0) {
-
-            var id = &#34;banner_num_&#34; + banner_num;
-
-            var img_html = &#39;&lt;li  id=&#34;&#39;+id+&#39;&#34;&gt;&#39;;
-                img_html += &#39;&#39;;
-                img_html += &#39;&#39;;
-                img_html += &#39;&lt;a href=&#34;javascript:;&#34; data-id=&#34;&#39;+id+&#39;&#34; class=&#34;delete_banner&#34; &gt;删除&lt;/a&gt;&#39;;
-                img_html += &#34;&lt;input type=&#39;hidden&#39; name=&#39;banner[]&#39; value=&#39;&#34;+res.src+&#34;&#39; &gt;&#34;
-                img_html += &#39;&#39;;
-                img_html += &#39;&lt;/li&gt;&#39;;
-
-            $(&#39;#banner_list&#39;).append(img_html);
-
-            banner_num++;
-
-            // 删除
-            var tr = $(&#34;#&#34;+id);
-            tr.find(&#39;.delete_banner&#39;).on(&#39;click&#39;, function () {
-                tr.remove();
-            })
-
-        } else {
-            layer.msg(res.msg, {icon: 7});
-        }
-    }
-    ,error: function(){
-        //请求异常回调
-    }
-    ,allDone: function () {
-        layer.closeAll();
-    }
+<p>经过一番改造，第二种方式，选择时就将图片上传，代码也已经差不多了，如下：</p>
+<p><strong>前端</strong></p>
+<pre tabindex="0"><code>
+var uploadInst = layupload.render({
+
+    elem: &#39;#banner&#39; //绑定元素
+
+    ,url: &#39;&lt;?=base_url($viewPath . &#39;goods/upload&#39;)?&gt;&#39; //上传接口
+
+    ,field: &#39;file&#39;
+
+    ,accept: &#39;images&#39;
+
+    ,acceptMime: &#39;image/jpg, image/png, image/jpeg&#39;
+
+    ,multiple: true
+
+    ,choose: function(obj){
+
+
+
+    }
+
+    ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+
+        layer.load(); //上传loading
+
+    }
+
+    ,done: function(res){
+
+
+
+        //上传完毕回调
+
+        if (res.code == 0) {
+
+
+
+            var id = &#34;banner_num_&#34; + banner_num;
+
+
+
+            var img_html = &#39;&lt;li  id=&#34;&#39;+id+&#39;&#34;&gt;&#39;;
+
+                img_html += &#39;&#39;;
+
+                img_html += &#39;&#39;;
+
+                img_html += &#39;&lt;a href=&#34;javascript:;&#34; data-id=&#34;&#39;+id+&#39;&#34; class=&#34;delete_banner&#34; &gt;删除&lt;/a&gt;&#39;;
+
+                img_html += &#34;&lt;input type=&#39;hidden&#39; name=&#39;banner[]&#39; value=&#39;&#34;+res.src+&#34;&#39; &gt;&#34;
+
+                img_html += &#39;&#39;;
+
+                img_html += &#39;&lt;/li&gt;&#39;;
+
+
+
+            $(&#39;#banner_list&#39;).append(img_html);
+
+
+
+            banner_num++;
+
+
+
+            // 删除
+
+            var tr = $(&#34;#&#34;+id);
+
+            tr.find(&#39;.delete_banner&#39;).on(&#39;click&#39;, function () {
+
+                tr.remove();
+
+            })
+
+
+
+        } else {
+
+            layer.msg(res.msg, {icon: 7});
+
+        }
+
+    }
+
+    ,error: function(){
+
+        //请求异常回调
+
+    }
+
+    ,allDone: function () {
+
+        layer.closeAll();
+
+    }
+
 });
 </code></pre><p><strong>php</strong></p>
-<pre tabindex="0"><code>public function upload()
-{
-    try {
-        $file = $_FILES[&#39;file&#39;];
-
-        if ($file) {
-
-            $path = &#39;images/goods/&#39; . $file[&#39;name&#39;];
-            $stream = file_get_contents($file[&#39;tmp_name&#39;]);
-
-            $this-&gt;load-&gt;library(&#39;AliOSS&#39;, []);
-            if (!($result = $this-&gt;alioss-&gt;uploadStream($path, $stream))) {
-                throw new Exception(&#39;上传失败&#39;);
-            }
-
-            $this-&gt;ajaxReturn([&#39;code&#39; =&gt; 0, &#39;msg&#39; =&gt; &#39;上传成功&#39;, &#39;src&#39; =&gt; $result[&#39;sourcePath&#39;]]);
-        }
-
-    } catch (Exception $e) {
-        $this-&gt;ajaxReturn([&#39;code&#39; =&gt; -1, &#39;msg&#39; =&gt; $e-&gt;getMessage()]);
-    }
+<pre tabindex="0"><code>
+public function upload()
+
+{
+
+    try {
+
+        $file = $_FILES[&#39;file&#39;];
+
+
+
+        if ($file) {
+
+
+
+            $path = &#39;images/goods/&#39; . $file[&#39;name&#39;];
+
+            $stream = file_get_contents($file[&#39;tmp_name&#39;]);
+
+
+
+            $this-&gt;load-&gt;library(&#39;AliOSS&#39;, []);
+
+            if (!($result = $this-&gt;alioss-&gt;uploadStream($path, $stream))) {
+
+                throw new Exception(&#39;上传失败&#39;);
+
+            }
+
+
+
+            $this-&gt;ajaxReturn([&#39;code&#39; =&gt; 0, &#39;msg&#39; =&gt; &#39;上传成功&#39;, &#39;src&#39; =&gt; $result[&#39;sourcePath&#39;]]);
+
+        }
+
+
+
+    } catch (Exception $e) {
+
+        $this-&gt;ajaxReturn([&#39;code&#39; =&gt; -1, &#39;msg&#39; =&gt; $e-&gt;getMessage()]);
+
+    }
+
 }
 </code></pre><p>上面的代码分为这么几步:</p>
 <ol>
-<li>前端选择文件之后，立马上传到oss，然后返回oss图片地址，用于前端展示</li>
-<li>前端在上传之前，发起一个等待的东西<code>layer.load()</code>，表明图片在上传中</li>
-<li>全部图片上传完毕之后关闭这个load，在allDone里可以找到</li>
+<li>
+<p>前端选择文件之后，立马上传到oss，然后返回oss图片地址，用于前端展示</p>
+</li>
+<li>
+<p>前端在上传之前，发起一个等待的东西<code>layer.load()</code>，表明图片在上传中</p>
+</li>
+<li>
+<p>全部图片上传完毕之后关闭这个load，在allDone里可以找到</p>
+</li>
 </ol>
 <p>通过这种方式上传图片，明显比第一种方式好很多。最重要的是，在保存的时候无需等待太久，保存的时候只需要做一下数据对比然后插入到数据库就好了。</p>
 <h3 id="有个问题">有个问题</h3>

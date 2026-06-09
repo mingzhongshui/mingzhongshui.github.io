@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>分享 on My New Hugo Project</title>
-		<link>http://localhost:2851/tags/%E5%88%86%E4%BA%AB/</link>
-		<description>Recent content in 分享 on My New Hugo Project</description>
+		<title>分享 on 命中水的个人博客</title>
+		<link>http://localhost:3257/tags/%E5%88%86%E4%BA%AB/</link>
+		<description>Recent content in 分享 on 命中水的个人博客</description>
 		<generator>Hugo</generator>
 		<language>en-us</language>
 		
 		
 		
 		
-			<atom:link href="http://localhost:2851/tags/%E5%88%86%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>MySQL 【去重留一】一条sql语句完成 思路总结</title>
-				<link>http://localhost:2851/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</link>
-				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-				<guid>http://localhost:2851/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</guid>
-				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/12/1663589426.jpg&#34; alt=&#34;MySQL.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;    前几天在做一个需求的时候，需要清理mysql中重复的记录，当时的想法是通过代码遍历写出来，然后觉得太复杂，心里想着应该可以通过一个sql语句来解决问题的。查了资料，请教了大佬之后得出了一个很便利的sql语句，这里分享下这段sql语句和思路。&lt;/p&gt;</description>
-			</item>
+			<lastBuildDate>Thu, 07 Nov 2019 20:15:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3257/tags/%E5%88%86%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>以隧道替代mysql远程连接</title>
-				<link>http://localhost:2851/posts/yisuidaotidaimysqlyuanchenglianjie/</link>
-				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-				<guid>http://localhost:2851/posts/yisuidaotidaimysqlyuanchenglianjie/</guid>
+				<link>http://localhost:3257/posts/yisuidaotidaimysqlyuanchenglianjie/</link>
+				<pubDate>Thu, 07 Nov 2019 20:15:00 +0000</pubDate>
+				<guid>http://localhost:3257/posts/yisuidaotidaimysqlyuanchenglianjie/</guid>
 				<description>&lt;h2 id=&#34;隧道&#34;&gt;隧道&lt;/h2&gt;&#xA;&lt;p&gt;隧道是埋置于地层内的工程建筑物，是人类利用地下空间的一种形式。隧道可分为交通隧道、水工隧道、市政隧道、矿山隧道。 &amp;ndash;来源百度百科&lt;/p&gt;&#xA;&lt;p&gt;emmmmmmmm&amp;hellip;&lt;/p&gt;&#xA;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;之前调试mysql，查看数据，修改数据的时候，命令行又不方便，总是会想到搞个mysql的远程账号，来访问数据库。久而久之就养成了这样的习惯，把3306端口暴漏出去，没有想到安全问题。最近在大佬的指引下，接触到了隧道的方式，觉得挺好用的，在不暴漏端口号的情况下，能像远程连接一般自如的查看mysql，很受用，现在分享出来。&lt;/p&gt;</description>
 			</item>
 			<item>
-				<title>微信开发之微信公众号支付</title>
-				<link>http://localhost:2851/posts/weixinkaifazhiweixingongzhonghaozhifu/</link>
-				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-				<guid>http://localhost:2851/posts/weixinkaifazhiweixingongzhonghaozhifu/</guid>
-				<description>&lt;p&gt;    上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用&lt;strong&gt;通&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;俗&lt;/strong&gt;(&lt;code&gt;里&lt;/code&gt;)&lt;strong&gt;易&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;懂&lt;/strong&gt;(&lt;code&gt;嗦&lt;/code&gt;)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现&lt;/p&gt;</description>
+				<title>递归算法造成的问题分析与解决</title>
+				<link>http://localhost:3257/posts/diguisuanfazaochengdewentifenxiyujiejue/</link>
+				<pubDate>Thu, 04 Jan 2018 21:21:00 +0000</pubDate>
+				<guid>http://localhost:3257/posts/diguisuanfazaochengdewentifenxiyujiejue/</guid>
+				<description>&lt;p&gt;    递归，在编码中应该算是一种很常见的算法了。之前在学习C语言的时候，也同样了解过一些基本的算法，比如斐波那契。在学习的时候，对算法这种编程技巧就有了一种浓浓的敬畏之心，因为觉得会算法的人就很厉害了，可以把很长的代码块通过一段简短的算法解决并得到想要的结果。&lt;/p&gt;&#xA;&lt;p&gt;今天在实际工作中也遇到了算法中一些问题。整理一下，形成今天的内容【算法中的[递归][1]算法】。&lt;/p&gt;</description>
 			</item>
 			<item>
-				<title>递归算法造成的问题分析与解决</title>
-				<link>http://localhost:2851/posts/diguisuanfazaochengdewentifenxiyujiejue/</link>
-				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-				<guid>http://localhost:2851/posts/diguisuanfazaochengdewentifenxiyujiejue/</guid>
-				<description>&lt;p&gt;    递归，在编码中应该算是一种很常见的算法了。之前在学习C语言的时候，也同样了解过一些基本的算法，比如斐波那契。在学习的时候，对算法这种编程技巧就有了一种浓浓的敬畏之心，因为觉得会算法的人就很厉害了，可以把很长的代码块通过一段简短的算法解决并得到想要的结果。&lt;/p&gt;&#xA;&lt;p&gt;今天在实际工作中也遇到了算法中一些问题。整理一下，形成今天的内容【算法中的[递归][1]算法】。&lt;/p&gt;</description>
+				<title>MySQL 【去重留一】一条sql语句完成 思路总结</title>
+				<link>http://localhost:3257/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</link>
+				<pubDate>Sun, 03 Dec 2017 20:09:00 +0000</pubDate>
+				<guid>http://localhost:3257/posts/mysql_quzhongliuyiyitiaosqlyujuwancheng_siluzongjie/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/12/1663589426.jpg&#34; alt=&#34;MySQL.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;    前几天在做一个需求的时候，需要清理mysql中重复的记录，当时的想法是通过代码遍历写出来，然后觉得太复杂，心里想着应该可以通过一个sql语句来解决问题的。查了资料，请教了大佬之后得出了一个很便利的sql语句，这里分享下这段sql语句和思路。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>微信开发之微信公众号支付</title>
+				<link>http://localhost:3257/posts/weixinkaifazhiweixingongzhonghaozhifu/</link>
+				<pubDate>Fri, 04 Aug 2017 19:11:00 +0000</pubDate>
+				<guid>http://localhost:3257/posts/weixinkaifazhiweixingongzhonghaozhifu/</guid>
+				<description>&lt;p&gt;    上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用&lt;strong&gt;通&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;俗&lt;/strong&gt;(&lt;code&gt;里&lt;/code&gt;)&lt;strong&gt;易&lt;/strong&gt;(&lt;code&gt;啰&lt;/code&gt;)&lt;strong&gt;懂&lt;/strong&gt;(&lt;code&gt;嗦&lt;/code&gt;)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>
