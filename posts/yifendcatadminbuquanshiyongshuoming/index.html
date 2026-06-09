@@ -1,4 +1,5 @@
-<!doctype html><html><head lang=en><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>一份dcatadmin不全使用说明 - 命中水的个人博客</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理"><meta property="og:image" content="https://mingzhongshui.github.io/"><meta property="og:url" content="https://mingzhongshui.github.io/posts/yifendcatadminbuquanshiyongshuoming/"><meta property="og:site_name" content="命中水的个人博客"><meta property="og:title" content="一份dcatadmin不全使用说明"><meta property="og:description" content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="随笔"><meta name=twitter:card content="summary"><meta name=twitter:title content="一份dcatadmin不全使用说明"><meta name=twitter:description content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理"><link href=https://mingzhongshui.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://mingzhongshui.github.io/css/main.92c7e6f6f5baede55d6238ba492bcbd00e10ca39a6bbdec527692bfc9564a927.css></head><body><div class=content><header><div class=main><a href=https://mingzhongshui.github.io/>命中水的个人博客</a></div><nav></nav></header><main><article><div class=post-container><div class=post-content><div class=title><h1 class=title>一份dcatadmin不全使用说明</h1><div class=meta>Posted on Jan 1, 1</div></div><section class=body><h2 id=前言>前言</h2><p>最近在家失业无聊，接了个单，其中有个项目就是关于后台管理系统的，发了几个模板样例给对方，有之前用过的后台框架<code>fastadmin</code>、<code>laraveladmin</code>，但是对方看了都觉得怎么跟他之前的后台一个样，要求换一个简洁一点的，于是我在网上搜了一下<code>laravel</code>还有哪些后台框架，于是看到了<code>dcatadmin</code>，把demo网站发给对方看过之后，觉得这个页面还好，比较简单，随交流沟通后，确定用这个后台。</p><h2 id=话说dcatadmin>话说dcatadmin</h2><p><code>dcatadmin</code>这个框架我还是第一次用到，之前用<code>laravel</code>的后台框架都是用的<code>laravel-admin</code>，相对来说比较熟悉一点，<code>dcatadmin</code>还是第一次听到（因为上份工作都是围绕yii框架来展开的，关于laravel的消息确实查看的不多）。</p><p><code>dcatadmin2.x</code>文档-<a href=https://learnku.com/docs/dcat-admin/2.x/brief-introduction/8080>简介 | 入门 |《Dcat Admin 中文文档 2.x》| Laravel China 社区</a></p><p>看完整体下来，<code>dcatadmin</code>重点需要了解的其实就是3个部分，也是后台系统中的组成：<strong>数据表格、表单、详情</strong></p><p>但是还是有些地方没怎么看懂，尤其是关于<strong>工具表单</strong>、<strong>异步加载</strong>这块儿。时间有限，索性就在开发的过程中，再去搞清楚吧</p><p><strong>因为现有文档描述不清，在开发过程中自己也是踩了不少坑，以下内容总结了在dcatadmin2.x中常用的几个功能，如有遇到类似疑问的开发者，可以少走一些弯路</strong></p><h2 id=数据表单>数据表单</h2><h3 id=工具表单>工具表单</h3><p>工具表单的文档：<a href=https://learnku.com/docs/dcat-admin/1.x/tools-form/8125>工具表单 | 数据表单 |《Dcat Admin 中文文档 2.x》| Laravel China 社区</a></p><h4 id=要实现的业务场景>要实现的业务场景</h4><p>举个例子：</p><p>比如说你想在数据列表中，对一行数据增加某个操作按钮，实现”充值“功能</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2639424210.png alt=image-20251120105301499.png></p><p>在非dcatadmin2.x框架中一般实现思路是，实现按钮的点击功能，当点击“充值”按钮时，打开一个弹窗，弹窗里是个表单，输入你要充值的金额，然后点提交</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2333481253.png alt=image-20251120105432750.png></p><p>这个功能在<code>dcatadmin</code>中就可以通过“工具表单”来实现，具体实现方法如下：</p><p>首先可以把点击充值这个看成一个动作，在项目中的<code>App\Admin\Actions</code>空间下实现一个充值动作类</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RechargeUserBalance</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>RowAction</span>
+<!doctype html><html><head lang=en><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>一份dcatadmin不全使用说明 - 命中水的个人博客</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理"><meta property="og:image" content="https://mingzhongshui.github.io/"><meta property="og:url" content="https://mingzhongshui.github.io/posts/yifendcatadminbuquanshiyongshuoming/"><meta property="og:site_name" content="命中水的个人博客"><meta property="og:title" content="一份dcatadmin不全使用说明"><meta property="og:description" content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-11-20T13:45:00+00:00"><meta property="article:modified_time" content="2025-11-20T13:45:00+00:00"><meta property="article:tag" content="随笔"><meta name=twitter:card content="summary"><meta name=twitter:title content="一份dcatadmin不全使用说明"><meta name=twitter:description content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理"><link href=https://mingzhongshui.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://mingzhongshui.github.io/css/main.92c7e6f6f5baede55d6238ba492bcbd00e10ca39a6bbdec527692bfc9564a927.css></head><body><div class=content><header><div class=main><a href=https://mingzhongshui.github.io/>命中水的个人博客</a></div><nav></nav></header><main><article><div class=post-container><div class=post-content><div class=title><h1 class=title>一份dcatadmin不全使用说明</h1><div class=meta>Posted on Nov 20, 2025</div></div><section class=body><h2 id=前言>前言</h2><p>最近在家失业无聊，接了个单，其中有个项目就是关于后台管理系统的，发了几个模板样例给对方，有之前用过的后台框架<code>fastadmin</code>、<code>laraveladmin</code>，但是对方看了都觉得怎么跟他之前的后台一个样，要求换一个简洁一点的，于是我在网上搜了一下<code>laravel</code>还有哪些后台框架，于是看到了<code>dcatadmin</code>，把demo网站发给对方看过之后，觉得这个页面还好，比较简单，随交流沟通后，确定用这个后台。</p><h2 id=话说dcatadmin>话说dcatadmin</h2><p><code>dcatadmin</code>这个框架我还是第一次用到，之前用<code>laravel</code>的后台框架都是用的<code>laravel-admin</code>，相对来说比较熟悉一点，<code>dcatadmin</code>还是第一次听到（因为上份工作都是围绕yii框架来展开的，关于laravel的消息确实查看的不多）。</p><p><code>dcatadmin2.x</code>文档-<a href=https://learnku.com/docs/dcat-admin/2.x/brief-introduction/8080>简介 | 入门 |《Dcat Admin 中文文档 2.x》| Laravel China 社区</a></p><p>看完整体下来，<code>dcatadmin</code>重点需要了解的其实就是3个部分，也是后台系统中的组成：<strong>数据表格、表单、详情</strong></p><p>但是还是有些地方没怎么看懂，尤其是关于<strong>工具表单</strong>、<strong>异步加载</strong>这块儿。时间有限，索性就在开发的过程中，再去搞清楚吧</p><p><strong>因为现有文档描述不清，在开发过程中自己也是踩了不少坑，以下内容总结了在dcatadmin2.x中常用的几个功能，如有遇到类似疑问的开发者，可以少走一些弯路</strong></p><h2 id=数据表单>数据表单</h2><h3 id=工具表单>工具表单</h3><p>工具表单的文档：<a href=https://learnku.com/docs/dcat-admin/1.x/tools-form/8125>工具表单 | 数据表单 |《Dcat Admin 中文文档 2.x》| Laravel China 社区</a></p><h4 id=要实现的业务场景>要实现的业务场景</h4><p>举个例子：</p><p>比如说你想在数据列表中，对一行数据增加某个操作按钮，实现”充值“功能</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2639424210.png alt=image-20251120105301499.png></p><p>在非dcatadmin2.x框架中一般实现思路是，实现按钮的点击功能，当点击“充值”按钮时，打开一个弹窗，弹窗里是个表单，输入你要充值的金额，然后点提交</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2333481253.png alt=image-20251120105432750.png></p><p>这个功能在<code>dcatadmin</code>中就可以通过“工具表单”来实现，具体实现方法如下：</p><p>首先可以把点击充值这个看成一个动作，在项目中的<code>App\Admin\Actions</code>空间下实现一个充值动作类</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RechargeUserBalance</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>RowAction</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>{
 </span></span><span style=display:flex><span>
@@ -39,7 +40,8 @@
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>这个类中其实只需要一个方法就可以了，重点看下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>Modal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>make</span>()
+</span></span></code></pre></div><p>这个类中其实只需要一个方法就可以了，重点看下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Modal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>make</span>()
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>lg</span>()
 </span></span><span style=display:flex><span>
@@ -48,7 +50,8 @@
 </span></span><span style=display:flex><span>            <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>body</span>($form)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>button</span>(<span style=color:#e6db74>&#34;&lt;i class=&#39;feather&#39;&gt;&#34;</span><span style=color:#f92672>.</span><span style=color:#a6e22e>admin_trans</span>(<span style=color:#e6db74>&#39;admin-user.fields.recharge&#39;</span>)<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;&lt;/i&gt;&#34;</span>);
-</span></span></code></pre></div><p>Modal::make() 表示实例一个弹窗</p><ul><li><code>lg</code> 弹窗大小，可选参数有sm、xl</li><li><code>title</code> 弹窗标题，左上角</li><li><code>body</code> 弹窗内容，这里我是实例了一个表单类，下文再讲</li><li><code>button</code> 页面显示的按钮</li></ul><p>接下来我们看表单内容的具体实现</p><h3 id=表单实现>表单实现</h3><p>在命名空间<code>App\Admin\Forms</code>定义一个表单类，我是直接把我的代码贴过来了，可以参考下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RechargeUserBalanceForm</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>Form</span> <span style=color:#66d9ef>implements</span> <span style=color:#a6e22e>LazyRenderable</span>
+</span></span></code></pre></div><p>Modal::make() 表示实例一个弹窗</p><ul><li><p><code>lg</code> 弹窗大小，可选参数有sm、xl</p></li><li><p><code>title</code> 弹窗标题，左上角</p></li><li><p><code>body</code> 弹窗内容，这里我是实例了一个表单类，下文再讲</p></li><li><p><code>button</code> 页面显示的按钮</p></li></ul><p>接下来我们看表单内容的具体实现</p><h3 id=表单实现>表单实现</h3><p>在命名空间<code>App\Admin\Forms</code>定义一个表单类，我是直接把我的代码贴过来了，可以参考下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RechargeUserBalanceForm</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>Form</span> <span style=color:#66d9ef>implements</span> <span style=color:#a6e22e>LazyRenderable</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>{
 </span></span><span style=display:flex><span>
@@ -203,7 +206,8 @@
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p><code>handle</code> 就是表单提交之后的操作</p><p><code>form</code> 表单显示内容</p><p>定义好动作类和表单类之后，接下来就是在数据列表中引入了</p><h3 id=控制器引入动作类>控制器引入动作类</h3><p>首先在控制器中的列表方法（grid）中增加一个action</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>grid</span>()
+</span></span></code></pre></div><p><code>handle</code> 就是表单提交之后的操作</p><p><code>form</code> 表单显示内容</p><p>定义好动作类和表单类之后，接下来就是在数据列表中引入了</p><h3 id=控制器引入动作类>控制器引入动作类</h3><p>首先在控制器中的列表方法（grid）中增加一个action</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>grid</span>()
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>{
 </span></span><span style=display:flex><span>
@@ -240,7 +244,8 @@
 </span></span><span style=display:flex><span>    });
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p><code>$grid->actions([new RechargeUserBalance()]);</code>就是引入咱们上文定义好的动作类。</p><p>当然你在增加的时候可以通过某些条件来判断是否要显示，比如</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>$grid<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>actions</span>(<span style=color:#66d9ef>function</span> ($actions) {
+</span></span></code></pre></div><p><code>$grid->actions([new RechargeUserBalance()]);</code>就是引入咱们上文定义好的动作类。</p><p>当然你在增加的时候可以通过某些条件来判断是否要显示，比如</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span>$grid<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>actions</span>(<span style=color:#66d9ef>function</span> ($actions) {
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取当前行数据
 </span></span></span><span style=display:flex><span>
@@ -259,7 +264,8 @@
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>});
-</span></span></code></pre></div><p>又当然，比如你不想使用默认的查看、编辑、删除按钮，要自定义这些，又或者想要按照自己的要求，展示或不展示某些按钮，你还可以这样实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setTextActions</span>(<span style=color:#a6e22e>Grid</span> $grid, <span style=color:#66d9ef>array</span> $showActions <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;view&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>true</span>, <span style=color:#e6db74>&#39;edit&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>true</span>, <span style=color:#e6db74>&#39;delete&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>true</span>]) 
+</span></span></code></pre></div><p>又当然，比如你不想使用默认的查看、编辑、删除按钮，要自定义这些，又或者想要按照自己的要求，展示或不展示某些按钮，你还可以这样实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setTextActions</span>(<span style=color:#a6e22e>Grid</span> $grid, <span style=color:#66d9ef>array</span> $showActions <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;view&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>true</span>, <span style=color:#e6db74>&#39;edit&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>true</span>, <span style=color:#e6db74>&#39;delete&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>true</span>]) 
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>{
 </span></span><span style=display:flex><span>
@@ -320,74 +326,132 @@
 </span></span><span style=display:flex><span>    });
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>这种的使用场景在一些<strong>日志</strong>类的列表展示中</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2789882981.png alt=image-20251120111956141.png></p><p>工具表单不仅可以用在动作上，还可以用在工具上，比如说你想在列表上面工具栏，增加“导入”按钮</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/3057702275.png alt=image-20251120112636090.png></p><p>那么你也可以用action来实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>$grid<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>tools</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>Grid\Tools</span> $tools) {
+</span></span></code></pre></div><p>这种的使用场景在一些<strong>日志</strong>类的列表展示中</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2789882981.png alt=image-20251120111956141.png></p><p>工具表单不仅可以用在动作上，还可以用在工具上，比如说你想在列表上面工具栏，增加“导入”按钮</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/3057702275.png alt=image-20251120112636090.png></p><p>那么你也可以用action来实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span>$grid<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>tools</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>Grid\Tools</span> $tools) {
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    $tools<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>append</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>ImportStaticIp</span>());
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>});
-</span></span></code></pre></div><p>不过<code>ImportStaticIp</code>的父类要发生变化了，从动作的<code>RowAction</code>变为<code>AbstractTool</code>，因为你要实现的是工具类，<strong>而非动作</strong></p><pre tabindex=0><code>/**
- * Class ImportAccount
- *
- * @package App\Admin\Actions\YkAccount
- * @author mingzhongshui
- * @date 2025/6/14
- */
-class ImportStaticIp extends AbstractTool
-{
-    /**
-     * @return string
-     */
-    protected $title = &#39;&#39;;
-
-    /**
-     * @param $title
-     */
-    public function __construct($title = null)
-    {
-        $this-&gt;title = admin_trans(&#39;yk-account.fields.import_account&#39;);
-    }
-
-    public function render()
-    {
-        // 实例化表单类并传递自定义参数
-        $form = ImportStaticIpForms::make();
-
-        return Modal::make()
-            -&gt;lg()
-            -&gt;title($this-&gt;title)
-            -&gt;body($form)
-            -&gt;button(&#39;&lt;a href=&#34;javascript:void(0)&#34; class=&#34;btn btn-primary btn-outline&#34;&gt;
-    &lt;i class=&#34;feather icon-plus-circle&#34;&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;导入
-&lt;/a&gt;&#39;);
-    }
+</span></span></code></pre></div><p>不过<code>ImportStaticIp</code>的父类要发生变化了，从动作的<code>RowAction</code>变为<code>AbstractTool</code>，因为你要实现的是工具类，<strong>而非动作</strong></p><pre tabindex=0><code>
+/**
+
+ * Class ImportAccount
+
+ *
+
+ * @package App\Admin\Actions\YkAccount
+
+ * @author mingzhongshui
+
+ * @date 2025/6/14
+
+ */
+
+class ImportStaticIp extends AbstractTool
+
+{
+
+    /**
+
+     * @return string
+
+     */
+
+    protected $title = &#39;&#39;;
+
+
+
+    /**
+
+     * @param $title
+
+     */
+
+    public function __construct($title = null)
+
+    {
+
+        $this-&gt;title = admin_trans(&#39;yk-account.fields.import_account&#39;);
+
+    }
+
+
+
+    public function render()
+
+    {
+
+        // 实例化表单类并传递自定义参数
+
+        $form = ImportStaticIpForms::make();
+
+
+
+        return Modal::make()
+
+            -&gt;lg()
+
+            -&gt;title($this-&gt;title)
+
+            -&gt;body($form)
+
+            -&gt;button(&#39;&lt;a href=&#34;javascript:void(0)&#34; class=&#34;btn btn-primary btn-outline&#34;&gt;
+
+    &lt;i class=&#34;feather icon-plus-circle&#34;&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;导入
+
+&lt;/a&gt;&#39;);
+
+    }
+
 }
-</code></pre><p>title也可以在<code>__construct</code>中实现。</p><h2 id=数据表格>数据表格</h2><h3 id=数据行日志展示>数据行日志展示</h3><p>比如说有这样一个场景，发送任务列表，要显示发送成功的数量以及日志，那应该怎么处理呢？一般情况来说，就是无非在操作页增加一个日志按钮，点击按钮的时候跳转到一个新页面展示发送日志列表，但是在<code>dcatadmin</code>中有着不同的实现方式</p><p>可以在数据行，发送数量字段上，给一个弹框，当点击数量的时候，打开一个弹窗，显示发送日志列表。</p><p>实现方式也很简单，只要在<code>grid</code>方法，字段末尾追加一个弹框方法就可以</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>$grid<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>column</span>(<span style=color:#e6db74>&#39;actual_send_quantity&#39;</span>, <span style=color:#a6e22e>admin_trans_field</span>(<span style=color:#e6db74>&#39;send_success_quantity&#39;</span>))<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>display</span>(<span style=color:#66d9ef>function</span> () {
+</code></pre><p>title也可以在<code>__construct</code>中实现。</p><h2 id=数据表格>数据表格</h2><h3 id=数据行日志展示>数据行日志展示</h3><p>比如说有这样一个场景，发送任务列表，要显示发送成功的数量以及日志，那应该怎么处理呢？一般情况来说，就是无非在操作页增加一个日志按钮，点击按钮的时候跳转到一个新页面展示发送日志列表，但是在<code>dcatadmin</code>中有着不同的实现方式</p><p>可以在数据行，发送数量字段上，给一个弹框，当点击数量的时候，打开一个弹窗，显示发送日志列表。</p><p>实现方式也很简单，只要在<code>grid</code>方法，字段末尾追加一个弹框方法就可以</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
+</span></span><span style=display:flex><span>$grid<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>column</span>(<span style=color:#e6db74>&#39;actual_send_quantity&#39;</span>, <span style=color:#a6e22e>admin_trans_field</span>(<span style=color:#e6db74>&#39;send_success_quantity&#39;</span>))<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>display</span>(<span style=color:#66d9ef>function</span> () {
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>YkMassMessageLog</span><span style=color:#f92672>::</span><span style=color:#a6e22e>where</span>(<span style=color:#e6db74>&#39;mass_id&#39;</span>, $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>id</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>where</span>(<span style=color:#e6db74>&#39;status&#39;</span>, <span style=color:#a6e22e>YkMassMessageLog</span><span style=color:#f92672>::</span><span style=color:#a6e22e>STATUS_SUCCESS</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>count</span>();
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>})<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>modal</span>(<span style=color:#a6e22e>admin_trans</span>(<span style=color:#e6db74>&#39;yk-mass-message-setting.fields.send_success_details&#39;</span>), <span style=color:#a6e22e>MassMessageSuccessLogTable</span><span style=color:#f92672>::</span><span style=color:#a6e22e>make</span>());
-</span></span></code></pre></div><p><code>modal</code>方法有两个参数</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2126812533.png alt=image-20251120132340610.png></p><p>参数1：打开弹窗的标题</p><p>参数2：回调函数，也就是要显示的内容</p><p><code>MassMessageSuccessLogTable</code>类实现方式如下</p><pre tabindex=0><code>// LazyRenderable异步加载类
-class MassMessageSuccessLogTable extends Grid\LazyRenderable
-{
-
-    public function grid(): Grid
-    {
-        return Grid::make(new YkMassMessageLog(), function (Grid $grid) {
-            // $this-&gt;key 就是当前行的id
-            $grid-&gt;model()-&gt;where(&#39;mass_id&#39;, $this-&gt;key)-&gt;where(&#39;status&#39;, \App\Models\YkMassMessageLog::STATUS_SUCCESS);
-            $grid-&gt;column(&#39;id&#39;);
-            $grid-&gt;column(&#39;content_type&#39;, admin_trans(&#39;yk-mass-message-log.fields.content_type&#39;))-&gt;display(function ($v) {
-                return self::getTypeOptions()[$v] ?? &#39;&#39;;
-            });
-			
-			// 分页数量
-            $grid-&gt;paginate(10);
-            // 不显示操作列
-            $grid-&gt;disableActions();
-            // 不显示多选
-            $grid-&gt;disableRowSelector();
-        });
+</span></span></code></pre></div><p><code>modal</code>方法有两个参数</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/2126812533.png alt=image-20251120132340610.png></p><p>参数1：打开弹窗的标题</p><p>参数2：回调函数，也就是要显示的内容</p><p><code>MassMessageSuccessLogTable</code>类实现方式如下</p><pre tabindex=0><code>
+// LazyRenderable异步加载类
+
+class MassMessageSuccessLogTable extends Grid\LazyRenderable
+
+{
+
+
+
+    public function grid(): Grid
+
+    {
+
+        return Grid::make(new YkMassMessageLog(), function (Grid $grid) {
+
+            // $this-&gt;key 就是当前行的id
+
+            $grid-&gt;model()-&gt;where(&#39;mass_id&#39;, $this-&gt;key)-&gt;where(&#39;status&#39;, \App\Models\YkMassMessageLog::STATUS_SUCCESS);
+
+            $grid-&gt;column(&#39;id&#39;);
+
+            $grid-&gt;column(&#39;content_type&#39;, admin_trans(&#39;yk-mass-message-log.fields.content_type&#39;))-&gt;display(function ($v) {
+
+                return self::getTypeOptions()[$v] ?? &#39;&#39;;
+
+            });
+
+			
+
+			// 分页数量
+
+            $grid-&gt;paginate(10);
+
+            // 不显示操作列
+
+            $grid-&gt;disableActions();
+
+            // 不显示多选
+
+            $grid-&gt;disableRowSelector();
+
+        });
+
     }
-</code></pre><p>这样就可以实现，在列表中任意字段实现弹窗列表功能了；</p><h2 id=总结>总结</h2><p>以上就是我认为dcatadmin2.x中，比较常用但是文档描述不清楚的功能点了
-当然可能还有一些比较个性化的功能，由于我没有使用到，就没有举例了</p><hr><p><strong>作者</strong>：命中水
-<strong>版权声明</strong>：转载请注明出处，欢迎技术交流</p></section><div class=post-tags><nav class="nav tags"><ul class=tags><li><a href=/tags/%E9%9A%8F%E7%AC%94/>随笔</a></li></ul></nav></div></div></div></article></main><footer><div style=display:flex></div><div class=footer-info>2026 <a href=https://github.com/athul/archie>Archie Theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></footer></div></body></html>
+</code></pre><p>这样就可以实现，在列表中任意字段实现弹窗列表功能了；</p><h2 id=总结>总结</h2><p>以上就是我认为dcatadmin2.x中，比较常用但是文档描述不清楚的功能点了</p><p>当然可能还有一些比较个性化的功能，由于我没有使用到，就没有举例了</p><hr><p><strong>作者</strong>：命中水</p><p><strong>版权声明</strong>：转载请注明出处，欢迎技术交流</p></section><div class=post-tags><nav class="nav tags"><ul class=tags><li><a href=/tags/%E9%9A%8F%E7%AC%94/>随笔</a></li></ul></nav></div></div></div></article></main><footer><div style=display:flex></div><div class=footer-info>2026 <a href=https://github.com/athul/archie>Archie Theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></footer></div></body></html>
