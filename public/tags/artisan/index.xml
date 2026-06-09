@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Artisan on 命中水、</title>
+		<link>http://localhost:3902/tags/artisan/</link>
+		<description>Recent content in Artisan on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 24 May 2018 23:24:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/artisan/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Laravel学习笔记—Artisan命令与数据迁移填充</title>
+				<link>http://localhost:3902/posts/laravelxuexibijiartisanminglingyushujuqianyitianchong/</link>
+				<pubDate>Thu, 24 May 2018 23:24:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/laravelxuexibijiartisanminglingyushujuqianyitianchong/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./1290816652.jpg&#34; alt=&#34;laravel.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;衔接之前文章，继续学习，做笔记。&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;[Laraver学习笔记—框架基本介绍][2]&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;[Laravel学习笔记—数据库操作的三种方式][3]&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+	</channel>
+</rss>

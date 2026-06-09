@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHPExcel类库使用说明 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="nbspnbspnbspnbsp众所周知，在项目的开发过程中" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/phpexcelleikushiyongshuoming/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHPExcel类库使用说明 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="    众所周知，在项目的开发过程中经常会遇到用excel做功能的时候，比如一个商城导出订单列表，办公系统导出考勤记录，还有一些excel表格内容批量上传到数据库的情况。那么这么一款强大的类库到底该如何使用它？类库又在哪里下载，本文将一一奉上。" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/phpexcelleikushiyongshuoming/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="PHPExcel类库使用说明">
-	<meta property="og:description" content="nbspnbspnbspnbsp众所周知，在项目的开发过程中">
+	<meta property="og:description" content=" 众所周知，在项目的开发过程中经常会遇到用excel做功能的时候，比如一个商城导出订单列表，办公系统导出考勤记录，还有一些excel表格内容批量上传到数据库的情况。那么这么一款强大的类库到底该如何使用它？类库又在哪里下载，本文将一一奉上。">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
-		<meta property="article:tag" content="记录">
+		<meta property="article:published_time" content="2016-10-16T16:23:00+00:00">
+		<meta property="article:modified_time" content="2016-10-16T16:23:00+00:00">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="Phpexcel">
+		<meta property="article:tag" content="Php类库">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="PHPExcel类库使用说明">
-	<meta name="twitter:description" content="nbspnbspnbspnbsp众所周知，在项目的开发过程中">
+	<meta name="twitter:description" content=" 众所周知，在项目的开发过程中经常会遇到用excel做功能的时候，比如一个商城导出订单列表，办公系统导出考勤记录，还有一些excel表格内容批量上传到数据库的情况。那么这么一款强大的类库到底该如何使用它？类库又在哪里下载，本文将一一奉上。">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -41,7 +53,7 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">PHPExcel类库使用说明</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Oct 16, 2016</div>
         </div>
         
         <section class="body">
@@ -51,26 +63,54 @@
 <h2 id="支持的格式">支持的格式</h2>
 <h3 id="读取">读取</h3>
 <ul>
-<li>BIFF 5-8 (.xls) Excel 95 版本及以上[1]</li>
-<li>Office Open XML (.xlsx) Excel 2007 版本及以上</li>
-<li>SpreadsheetML (.xml) Excel 2003</li>
-<li>Open Document Format/OASIS (.ods)</li>
-<li>CSV 等</li>
+<li>
+<p>BIFF 5-8 (.xls) Excel 95 版本及以上[1]</p>
+</li>
+<li>
+<p>Office Open XML (.xlsx) Excel 2007 版本及以上</p>
+</li>
+<li>
+<p>SpreadsheetML (.xml) Excel 2003</p>
+</li>
+<li>
+<p>Open Document Format/OASIS (.ods)</p>
+</li>
+<li>
+<p>CSV 等</p>
+</li>
 </ul>
 <h3 id="写入">写入</h3>
 <ul>
-<li>BIFF 8 (.xls) Excel 95 版本及以上</li>
-<li>Office Open XML (.xlsx) Excel 2007 版本及以上</li>
-<li>HTML</li>
-<li>CSV</li>
-<li>PDF (使用 tcPDF, DomPDF or mPDF PHP类库, 需要单独安装)</li>
+<li>
+<p>BIFF 8 (.xls) Excel 95 版本及以上</p>
+</li>
+<li>
+<p>Office Open XML (.xlsx) Excel 2007 版本及以上</p>
+</li>
+<li>
+<p>HTML</p>
+</li>
+<li>
+<p>CSV</p>
+</li>
+<li>
+<p>PDF (使用 tcPDF, DomPDF or mPDF PHP类库, 需要单独安装)</p>
+</li>
 </ul>
 <h3 id="要求">要求</h3>
 <ul>
-<li>PHP 5.2.0 版本及以上</li>
-<li>PHP extension php_zip 开启 (如果你需要使用 PHPExcel 来操作 .xlsx .ods or .gnumeric 文件)</li>
-<li>PHP extension php_xml 开启</li>
-<li>PHP extension php_gd2 开启(选填, 如果需要计算准确的列宽需要开启此扩展)</li>
+<li>
+<p>PHP 5.2.0 版本及以上</p>
+</li>
+<li>
+<p>PHP extension php_zip 开启 (如果你需要使用 PHPExcel 来操作 .xlsx .ods or .gnumeric 文件)</p>
+</li>
+<li>
+<p>PHP extension php_xml 开启</p>
+</li>
+<li>
+<p>PHP extension php_gd2 开启(选填, 如果需要计算准确的列宽需要开启此扩展)</p>
+</li>
 </ul>
 <p>(以上出自于百度百科，微笑.jpg)</p>
 <h2 id="使用">使用</h2>
@@ -80,50 +120,107 @@
 <li>
 <p>html上传</p>
 <!-- raw HTML omitted -->
+<pre><code>    &lt;table class=&quot;table table-bordered&quot;&gt;
+
+        &lt;tbody&gt;
+
+        &lt;tr class=&quot;table_thbg&quot;&gt;
+
+            &lt;td class=&quot;align_left&quot;&gt;请选择文件&lt;/td&gt;
+
+            &lt;td class=&quot;align_left&quot;&gt;&lt;input type=&quot;file&quot; class=&quot;span12&quot; name=&quot;xls_file&quot; /&gt; 
+
+            &lt;/td&gt;					
+
+        &lt;/tr&gt;
+
+        &lt;/tbody&gt;
+
+	&lt;/table&gt;  
+
+    &lt;input type=&quot;submit&quot; name=&quot;tijiao&quot; class=&quot;btn btn_style1&quot; value=&quot;上传&quot;&gt;
+
+&lt;/form&gt;
+</code></pre>
 </li>
 <li>
 <p>php解析excel并写入到数据库</p>
 <p>/**</p>
 <ul>
-<li>excel上传并写入数据库</li>
-<li>@return int 状态</li>
-<li>@author 命中水、
-*/
-function excel_all_daoru() {
-//获取excel文件路径
-$excel_path = $this-&gt;get_excel_path();
-//获取excel文件数组
-$excel_data = $this-&gt;get_excel_data($excel_path);
-//调用插入方法
-$this-&gt;all_insert($excel_data);
-}</li>
+<li>
+<p>excel上传并写入数据库</p>
+</li>
+<li>
+<p>@return int 状态</p>
+</li>
+<li>
+<p>@author 命中水、</p>
+</li>
 </ul>
+<p>*/</p>
+<p>function excel_all_daoru() {</p>
+<pre><code>//获取excel文件路径
+
+$excel_path = $this-&gt;get_excel_path();
+
+//获取excel文件数组
+
+$excel_data = $this-&gt;get_excel_data($excel_path);
+
+//调用插入方法
+
+$this-&gt;all_insert($excel_data);
+</code></pre>
+<p>}</p>
 <p>/**</p>
 <ul>
-<li>excel文件上传</li>
-<li>@return string excel路径</li>
-<li>@author 命中水
-<em>/
-function get_excel_path() {
-if (!empty($_FILES[&lsquo;xls_file&rsquo;][&rsquo;name&rsquo;])) {
-$filename = $_FILES[&lsquo;xls_file&rsquo;][&rsquo;name&rsquo;];
-$fileTmpAddr = $_FILES[&lsquo;xls_file&rsquo;][&rsquo;tmp_name&rsquo;];
-$extend = strrchr($filename, &lsquo;.&rsquo;);  //获取文件后缀名
-//上传后的文件名
-$excel_path = base_url() . date(&ldquo;YmdHis&rdquo;) . $extend; //上传后的文件名地址
-/</em> 判别是不是.xls或者xlsx文件，判别是不是excel文件 */
-if ($extend != &ldquo;.xls&rdquo; and $extend != &lsquo;.xlsx&rsquo;) {
-throw new Exception(&ldquo;不是Excel文件，请重新上传！&rdquo;, -1);
-} else {
-//$readerType = ($extend == &ldquo;.xlsx&rdquo;) ? &ldquo;Excel2007&rdquo; : &ldquo;Excel5&rdquo;;
-$result = move_uploaded_file($fileTmpAddr, $excel_path);
-if( !empty( $result ) ) { //如果上传成功 调用excel解析文件方法  传入文件地址
-return $excel_path;
-}
-}
-}
-}</li>
+<li>
+<p>excel文件上传</p>
+</li>
+<li>
+<p>@return string excel路径</p>
+</li>
+<li>
+<p>@author 命中水</p>
+</li>
 </ul>
+<p>*/</p>
+<p>function get_excel_path() {</p>
+<pre><code>if (!empty($_FILES['xls_file']['name'])) {
+
+    $filename = $_FILES['xls_file']['name'];
+
+    $fileTmpAddr = $_FILES['xls_file']['tmp_name'];
+
+    $extend = strrchr($filename, '.');  //获取文件后缀名
+
+    //上传后的文件名
+
+    $excel_path = base_url() . date(&quot;YmdHis&quot;) . $extend; //上传后的文件名地址
+
+    /* 判别是不是.xls或者xlsx文件，判别是不是excel文件 */
+
+    if ($extend != &quot;.xls&quot; and $extend != '.xlsx') {
+
+        throw new Exception(&quot;不是Excel文件，请重新上传！&quot;, -1);
+
+    } else {
+
+        //$readerType = ($extend == &quot;.xlsx&quot;) ? &quot;Excel2007&quot; : &quot;Excel5&quot;;
+
+        $result = move_uploaded_file($fileTmpAddr, $excel_path);
+
+        if( !empty( $result ) ) { //如果上传成功 调用excel解析文件方法  传入文件地址
+
+            return $excel_path;
+
+        }
+
+    }
+
+}	
+</code></pre>
+<p>}</p>
 <p>/**</p>
 <ul>
 <li>
@@ -136,118 +233,217 @@ return $excel_path;
 <p>@return array  excel数组</p>
 </li>
 <li>
-<p>@author 命中水、
-*/
-function get_excel_data($excel_path) {
-//引入phpexcel类库
-$this-&gt;load-&gt;library(&lsquo;PHPExcel&rsquo;);
-$this-&gt;load-&gt;library(&lsquo;PHPExcel/IOFactory&rsquo;);
-//实例化excel  传入文件路径
-$objPHPExcel = IOFactory::load($excel_path);
-//调用类库解析excel文件成数组
-$excel_data = $objPHPExcel-&gt;getActiveSheet()-&gt;toArray(null, true, true, true);</p>
-<p>unset($sheetData[1]);   //释放表头信息
-unset($sheetData[2]);   //释放表头信息
-return $excel_data;
-}</p>
+<p>@author 命中水、</p>
 </li>
 </ul>
+<p>*/</p>
+<p>function get_excel_data($excel_path) {</p>
+<pre><code>//引入phpexcel类库
+
+$this-&gt;load-&gt;library('PHPExcel');
+
+$this-&gt;load-&gt;library('PHPExcel/IOFactory');
+
+//实例化excel  传入文件路径
+
+$objPHPExcel = IOFactory::load($excel_path);
+
+//调用类库解析excel文件成数组
+
+$excel_data = $objPHPExcel-&gt;getActiveSheet()-&gt;toArray(null, true, true, true);
+
+
+
+unset($sheetData[1]);   //释放表头信息
+
+unset($sheetData[2]);   //释放表头信息
+
+return $excel_data;
+</code></pre>
+<p>}</p>
 </li>
 </ol>
 <h3 id="导出数据到excel">导出数据到Excel</h3>
-<pre><code>&lt;?php
-/**
- * excel导出
- * @return  file
- * @author 命中水、 
- */
-function excel_daochu() {
-	//设置表格标头
-	$excel_bt = array(
-		'A1' =&gt; '2016-10-16 excel导出测试', 'A2' =&gt; '时间', 'B2' =&gt; '地点', 'C2' =&gt; '人物');
-	//设置导出信息
-	$excel_msg = array(
-		0 =&gt; array(
-			'time' =&gt; time(),
-			'address' =&gt; '秦岭云海',
-			'name' =&gt; '张起灵'
-			),
-		1 =&gt; array(
-			'time' =&gt; time(),
-			'address' =&gt; '云顶天宫',
-			'name' =&gt; '吴邪'
-			),
-		2 =&gt; array(
-			'time' =&gt; time(),
-			'address' =&gt; '怒海潜沙',
-			'name' =&gt; '三叔'
-			),
-		);
-
-	//引入excel类库
-	$this-&gt;load-&gt;library('PHPExcel');
-    $this-&gt;load-&gt;library('PHPExcel/IOFactory');
-    //实例化
-    $objPHPExcel = new PHPExcel();
-    $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-	//设置表头
-    $this-&gt;Excel_bt($objPHPExcel, $excel_bt);
-    //导出的内容
-    $this-&gt;Excel_lr($objPHPExcel, $excel_msg);
-    //设置单元格的宽度
-    $objPHPExcel-&gt;getActiveSheet()-&gt;getColumnDimension('b')-&gt;setWidth(15);
-
-    //合并单元格
-    $objPHPExcel-&gt;getActiveSheet()-&gt;mergeCells('A1:Q1');
-    //水平垂直居中设置
-    $objPHPExcel-&gt;getActiveSheet()-&gt;getStyle('A1')-&gt;getAlignment()-&gt;setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-    $objPHPExcel-&gt;getActiveSheet()-&gt;getStyle('A1')-&gt;getAlignment()-&gt;setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-    $filename = iconv('utf-8', 'gb2312', $excel_bt['A1']);
-
-    //清空缓冲区
-    ob_end_clean();
-
-
-    header(&quot;Pragma: public&quot;);
-    header(&quot;Expires: 0&quot;);
-    header(&quot;Cache-Control:must-revalidate, post-check=0, pre-check=0&quot;);
-    header(&quot;Content-Type:application/force-download&quot;);
-    header(&quot;Content-Type:application/vnd.ms-execl&quot;);
-    header(&quot;Content-Type:application/octet-stream&quot;);
-    header(&quot;Content-Type:application/download&quot;);
-    ;
-    header('Content-Disposition:attachment;filename=&quot;' . $filename . '.xlsx&quot;');
-    header(&quot;Content-Transfer-Encoding:binary&quot;);
-    $objWriter-&gt;save('php://output');
-}
-
-//设置到导出标题的方法
-public function Excel_bt($objPHPExcel, $excel_bt) {
-    foreach ($bt_data as $key =&gt; $value) {
-        $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue($key, $value);
-    }
-}
-
-//设置导出的内容
-public function Excel_lr($objPHPExcel, $excel_msg) {
-	//从第三行开始导出  第一行第二行 设置表头
-    $i = 3;
-    $data = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-    foreach ($excel_msg $key =&gt; $value) {
-        $j = 0;
-        foreach ($value as $k =&gt; $v) {
-        	//$j = 0   $i = 3   $data[$j] . $i == A3
-            $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue($data[$j] . $i, $v);
-            $j++;
-        }
-        $i++;
-    }
-}
+<pre><code>&lt;?php
+
+/**
+
+ * excel导出
+
+ * @return  file
+
+ * @author 命中水、 
+
+ */
+
+function excel_daochu() {
+
+	//设置表格标头
+
+	$excel_bt = array(
+
+		'A1' =&gt; '2016-10-16 excel导出测试', 'A2' =&gt; '时间', 'B2' =&gt; '地点', 'C2' =&gt; '人物');
+
+	//设置导出信息
+
+	$excel_msg = array(
+
+		0 =&gt; array(
+
+			'time' =&gt; time(),
+
+			'address' =&gt; '秦岭云海',
+
+			'name' =&gt; '张起灵'
+
+			),
+
+		1 =&gt; array(
+
+			'time' =&gt; time(),
+
+			'address' =&gt; '云顶天宫',
+
+			'name' =&gt; '吴邪'
+
+			),
+
+		2 =&gt; array(
+
+			'time' =&gt; time(),
+
+			'address' =&gt; '怒海潜沙',
+
+			'name' =&gt; '三叔'
+
+			),
+
+		);
+
+
+
+	//引入excel类库
+
+	$this-&gt;load-&gt;library('PHPExcel');
+
+    $this-&gt;load-&gt;library('PHPExcel/IOFactory');
+
+    //实例化
+
+    $objPHPExcel = new PHPExcel();
+
+    $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+
+	//设置表头
+
+    $this-&gt;Excel_bt($objPHPExcel, $excel_bt);
+
+    //导出的内容
+
+    $this-&gt;Excel_lr($objPHPExcel, $excel_msg);
+
+    //设置单元格的宽度
+
+    $objPHPExcel-&gt;getActiveSheet()-&gt;getColumnDimension('b')-&gt;setWidth(15);
+
+
+
+    //合并单元格
+
+    $objPHPExcel-&gt;getActiveSheet()-&gt;mergeCells('A1:Q1');
+
+    //水平垂直居中设置
+
+    $objPHPExcel-&gt;getActiveSheet()-&gt;getStyle('A1')-&gt;getAlignment()-&gt;setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+    $objPHPExcel-&gt;getActiveSheet()-&gt;getStyle('A1')-&gt;getAlignment()-&gt;setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+    $filename = iconv('utf-8', 'gb2312', $excel_bt['A1']);
+
+
+
+    //清空缓冲区
+
+    ob_end_clean();
+
+
+
+
+
+    header(&quot;Pragma: public&quot;);
+
+    header(&quot;Expires: 0&quot;);
+
+    header(&quot;Cache-Control:must-revalidate, post-check=0, pre-check=0&quot;);
+
+    header(&quot;Content-Type:application/force-download&quot;);
+
+    header(&quot;Content-Type:application/vnd.ms-execl&quot;);
+
+    header(&quot;Content-Type:application/octet-stream&quot;);
+
+    header(&quot;Content-Type:application/download&quot;);
+
+    ;
+
+    header('Content-Disposition:attachment;filename=&quot;' . $filename . '.xlsx&quot;');
+
+    header(&quot;Content-Transfer-Encoding:binary&quot;);
+
+    $objWriter-&gt;save('php://output');
+
+}
+
+
+
+//设置到导出标题的方法
+
+public function Excel_bt($objPHPExcel, $excel_bt) {
+
+    foreach ($bt_data as $key =&gt; $value) {
+
+        $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue($key, $value);
+
+    }
+
+}
+
+
+
+//设置导出的内容
+
+public function Excel_lr($objPHPExcel, $excel_msg) {
+
+	//从第三行开始导出  第一行第二行 设置表头
+
+    $i = 3;
+
+    $data = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+
+    foreach ($excel_msg $key =&gt; $value) {
+
+        $j = 0;
+
+        foreach ($value as $k =&gt; $v) {
+
+        	//$j = 0   $i = 3   $data[$j] . $i == A3
+
+            $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue($data[$j] . $i, $v);
+
+            $j++;
+
+        }
+
+        $i++;
+
+    }
+
+}
 </code></pre>
 <h2 id="常见问题">常见问题</h2>
 <h3 id="找不到文件">找不到文件</h3>
-<p>    原因可能是因为缓冲区没有打开或者<code>mb_overlod_func</code>函数没有关闭，解决这个问题的办法一般就是把<code>php.ini</code>中<code>display_errors</code>打开，下载文件，打开后会提示相应错误信息。如果是因为<code>mb_overlod_func</code>函数没有关闭，那么就在<code>php.ini</code>文件中找到<code>mbsrtring.func_overload=7</code>，注释掉即可。
-    ru&rsquo;guo能正常导出<code>excel</code>但是没有数据，那么一般是你的代码写错了(坏笑.jpg)</p>
+<p>    原因可能是因为缓冲区没有打开或者<code>mb_overlod_func</code>函数没有关闭，解决这个问题的办法一般就是把<code>php.ini</code>中<code>display_errors</code>打开，下载文件，打开后会提示相应错误信息。如果是因为<code>mb_overlod_func</code>函数没有关闭，那么就在<code>php.ini</code>文件中找到<code>mbsrtring.func_overload=7</code>，注释掉即可。</p>
+<p>    ru&rsquo;guo能正常导出<code>excel</code>但是没有数据，那么一般是你的代码写错了(坏笑.jpg)</p>
 <h3 id="生成excel文件打开报错">生成excel文件打开报错</h3>
 <p>    我曾经遇到过类似的问题，也纠结了我好久，最终在一个不经意的情况下解决了。解决的办法是在方法一开始就用<code>ob_end_clean</code>清空缓冲区，然后在最后的excel输出文件之前再调用一次<code>ob_end_clean</code>。具体请参考我在segmentfault的提问，链接：[PHP生成excel文件打开报错][1]；</p>
 <h3 id="打开excel文件乱码">打开excel文件乱码</h3>
@@ -256,8 +452,12 @@ public function Excel_lr($objPHPExcel, $excel_msg) {
 <p>    以上就是PHPExcel类库导入导出的具体使用方法了，每一行，每一个步骤的注释也写的很清楚了，如果有疑问的童鞋可以私密博主呦~  QAQ</p>
 <h2 id="附录资料">附录资料</h2>
 <ol>
-<li>PHPExcel 类库压缩包下载：[PHPExcel.rar][2]</li>
-<li>[PhpExcel中文帮助手册|PhpExcel使用方法][3]</li>
+<li>
+<p>PHPExcel 类库压缩包下载：[PHPExcel.rar][2]</p>
+</li>
+<li>
+<p>[PhpExcel中文帮助手册|PhpExcel使用方法][3]</p>
+</li>
 </ol>
         </section>
         <div class="post-tags">
@@ -266,7 +466,11 @@ public function Excel_lr($objPHPExcel, $excel_msg) {
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              <li><a href="/tags/php/">php</a></li>
+              
+              <li><a href="/tags/phpexcel/">phpexcel</a></li>
+              
+              <li><a href="/tags/php%E7%B1%BB%E5%BA%93/">php类库</a></li>
               
             </ul>
           </nav>

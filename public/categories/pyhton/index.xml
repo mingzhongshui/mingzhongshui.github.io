@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Pyhton on 命中水、</title>
+		<link>http://localhost:1859/categories/pyhton/</link>
+		<description>Recent content in Pyhton on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 24 Jan 2026 11:23:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1859/categories/pyhton/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Laravel &#43; Swoole 协程实战：一个多租户采集系统的真实落地方案</title>
+				<link>http://localhost:1859/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/</link>
+				<pubDate>Sat, 24 Jan 2026 11:23:00 +0000</pubDate>
+				<guid>http://localhost:1859/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/</guid>
+				<description>&lt;blockquote&gt;&#xA;&lt;p&gt;作为 PHP 开发者，我们迟早都会遇到一个瞬间：&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;代码没有报错，逻辑也没问题，但系统就是——慢。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;不是慢一点，是那种&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;「明明只是检查 1000 个账号状态，却要跑半个小时」&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;「服务器 CPU 不高，但请求就是排着队等」&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;的慢。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;最近搞项目刚好遇到了一个业务场景，多租户系统中，根据账号采集数据，采集前先要确认账号是否有效（就像根据IP代理爬数据一样，爬数据前先确认代理是否有效），于是我按照以往的经验，很自然的写了这样一条链路：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;循环取出一个账号&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;检测状态&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;拉数据&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;账号异常，再换下一个账号，重复执行1、2、3&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;逻辑看似没问题，代码也很优雅。直到我测试的时候，跑了一次完整的任务。1000个账号，跑了30分钟还没跑完。我查看了CPU，内存也不高，但就是很慢。为什么呢？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;问题不在算力，而在于PHP在大量IO等待中，被迫排队！&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;这个时候就是协程（Coroutine）大显身手的时候了。下文将结合业务和实战（编码）深入理解协程，并展示如何在Laravel中构建基于协程的高性能多租户采集系统。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

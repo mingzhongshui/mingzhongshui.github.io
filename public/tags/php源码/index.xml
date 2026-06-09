@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Php源码 on 命中水、</title>
+		<link>http://localhost:3902/tags/php%E6%BA%90%E7%A0%81/</link>
+		<description>Recent content in Php源码 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 26 May 2018 10:02:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/php%E6%BA%90%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>TIPI PHP源码阅读笔记（一）</title>
+				<link>http://localhost:3902/posts/tipi_phpyuanmayuedubijiyi/</link>
+				<pubDate>Sat, 26 May 2018 10:02:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/tipi_phpyuanmayuedubijiyi/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./2495093611.png&#34; alt=&#34;TIPI&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;[TIPI 深入理解PHP内核：Thinking In PHP Internals][2]&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

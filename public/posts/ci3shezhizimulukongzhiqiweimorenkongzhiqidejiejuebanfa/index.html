@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>CI3设置子目录控制器为默认控制器的解决办法 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="MetingautoplaytrueMusicserverx" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/ci3shezhizimulukongzhiqiweimorenkongzhiqidejiejuebanfa/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>CI3设置子目录控制器为默认控制器的解决办法 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/ci3shezhizimulukongzhiqiweimorenkongzhiqidejiejuebanfa/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="CI3设置子目录控制器为默认控制器的解决办法">
-	<meta property="og:description" content="MetingautoplaytrueMusicserverx">
+	<meta property="og:description" content="">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
-		<meta property="article:tag" content="思考">
+		<meta property="article:published_time" content="2017-08-07T22:44:00+00:00">
+		<meta property="article:modified_time" content="2017-08-07T22:44:00+00:00">
+		<meta property="article:tag" content="CI3">
+		<meta property="article:tag" content="CodeIgniter">
+		<meta property="article:tag" content="Php">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="CI3设置子目录控制器为默认控制器的解决办法">
-	<meta name="twitter:description" content="MetingautoplaytrueMusicserverx">
+	<meta name="twitter:description" content="">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -41,232 +53,418 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">CI3设置子目录控制器为默认控制器的解决办法</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Aug 7, 2017</div>
         </div>
         
         <section class="body">
-          <p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/267497981.png" alt="codeigniter"></p>
-<p>[Meting autoplay=&ldquo;true&rdquo;]
-[Music server=&ldquo;xiami&rdquo; id=&ldquo;82474&rdquo; type=&ldquo;song&rdquo;/]
-[/Meting]
-    在框架中配置文件<code>多目录</code>、<code>前后台</code>应该是个很常见的事情。像一般的php框架(<code>CI</code>、<code>Tp</code>等)采用都是[单一入口][2]模式，或许有人会直接在框架根目录新建文件<code>admin.php</code>，然后改变框架<code>app</code>结构，以达到访问不同入口文件名获得不同资源的效果。那么在<code>CI</code>中一样可以这样做，不过个人觉得这种方法太浪费资源(<code>占用了几十k的资源吧</code>)。于是在‘求学问道’的途中，终于得到了比较完美的解决方法。</p>
+          <p><img src="./267497981.png" alt="codeigniter"></p>
+<p>[Meting autoplay=&ldquo;true&rdquo;]</p>
+<p>[Music server=&ldquo;xiami&rdquo; id=&ldquo;82474&rdquo; type=&ldquo;song&rdquo;/]</p>
+<p>[/Meting]</p>
+<p>    在框架中配置文件<code>多目录</code>、<code>前后台</code>应该是个很常见的事情。像一般的php框架(<code>CI</code>、<code>Tp</code>等)采用都是[单一入口][2]模式，或许有人会直接在框架根目录新建文件<code>admin.php</code>，然后改变框架<code>app</code>结构，以达到访问不同入口文件名获得不同资源的效果。那么在<code>CI</code>中一样可以这样做，不过个人觉得这种方法太浪费资源(<code>占用了几十k的资源吧</code>)。于是在‘求学问道’的途中，终于得到了比较完美的解决方法。</p>
 <h2 id="业务需求">业务需求</h2>
-<p>环境：[codeigniter 3][3]
-需求：在<code>CI3</code>中实现前后台的效果。例：</p>
+<p>环境：[codeigniter 3][3]</p>
+<p>需求：在<code>CI3</code>中实现前后台的效果。例：</p>
 <blockquote>
 <p>地址栏输入<code>xxx.com</code>默认访问前台主页，输入<code>xxx.com/admin</code>访问后台</p>
 </blockquote>
 <h2 id="所遇问题">所遇问题</h2>
 <p>依照惯例，我们会在框架中的<code>config/route.php</code>路由配置文件中配置我们的前后台访问路径：</p>
-<pre tabindex="0"><code>// path =&gt; application/config/route.php
-
-$route[&#39;admin&#39;] = &#39;admin/admin&#39;; //后台路径
-$route[&#39;default_controller&#39;] = &#39;home/home&#39;; // 默认前台路径
-$route[&#39;404_override&#39;] = &#39;&#39;;
+<pre tabindex="0"><code>
+// path =&gt; application/config/route.php
+
+
+
+$route[&#39;admin&#39;] = &#39;admin/admin&#39;; //后台路径
+
+$route[&#39;default_controller&#39;] = &#39;home/home&#39;; // 默认前台路径
+
+$route[&#39;404_override&#39;] = &#39;&#39;;
+
 $route[&#39;translate_uri_dashes&#39;] = FALSE;
 </code></pre><p>一般来说，我们这样配置是没问题的，但是有一个条件就是在<code>CI3</code>以下的版本中是没任何问题。但是目前的<code>框架版本</code>是<code>CI3</code>,所以就会出现找不到资源文件的情况，空口无凭不算，下面是两张<code>CI2</code>和<code>CI3</code>的route的配置图，和浏览器效果图：</p>
 <h3 id="ci2和ci3相同路由配置对比图">CI2和CI3相同路由配置对比图：</h3>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/1161750948.png" alt="CI2和CI3路由配置对"></p>
+<p><img src="./1161750948.png" alt="CI2和CI3路由配置对"></p>
 <h3 id="ci2和ci3相同路由配置运行网页对比图">CI2和CI3相同路由配置运行网页对比图：</h3>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/233970131.png" alt="CI2和CI3网页展示对比"></p>
+<p><img src="./233970131.png" alt="CI2和CI3网页展示对比"></p>
 <p>由上述两图可以看到，相同的路由配置下，但是结果却是不一样。因为<code>CI3</code>已经不支持设置子目录下的控制器为默认控制器的功能。但是要完成需求描述，这样的效果该如何实现呢？接下来看我们追踪<code>CI3</code>源码;</p>
 <h2 id="源码追踪coreroutephp">源码追踪core/Route.php</h2>
 <p>通过上面的结论，我们应该可以联想到出现<strong>404</strong>这样的报错，应该是解析<code>default_controller</code>的时候出现的问题，于是我在<code>sublime</code>中利用<code>全文检索</code>查询哪里有用到<code>default_controller</code>，搜索的范围可以假定为在<code>CI</code>的<code>核心目录</code>中，因为路由的解析一般是由<strong>核心目录里的路由类</strong>完成的，于是查询范围锁定在<code>system目录</code>，得出下面的结果：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/856225216.png" alt="查询结果"></p>
+<p><img src="./856225216.png" alt="查询结果"></p>
 <p>锁定<code>_set_default_controller</code>方法</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2693684503.png" alt="Route类中_set_default_controller方法"></p>
+<p><img src="./2693684503.png" alt="Route类中_set_default_controller方法"></p>
 <p>于是我一步一步排查，最终发现是这一段代码的问题：</p>
-<pre tabindex="0"><code>// Is the method being specified?
-if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2)
-{
-	$method = &#39;index&#39;;
-}
-
-if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;))
-{
-	// This will trigger 404 later
-	return;
+<pre tabindex="0"><code>
+// Is the method being specified?
+
+if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2)
+
+{
+
+	$method = &#39;index&#39;;
+
+}
+
+
+
+if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;))
+
+{
+
+	// This will trigger 404 later
+
+	return;
+
 }
 </code></pre><p>上面的代码第一段<code>if</code>里面拆分我们在<code>config/route.php</code>里配置好的<code>default_controller</code>值得到<code>控制器名并赋值给变量class</code>和<code>方法名并赋值给method</code>，如果<code>method</code>为空则默认为<code>index</code>，很显然这与我们的初衷不相符，因为我们的计划是<code>default_controller</code>里的值<code>home/home</code>，第一个<code>home</code>是目录名(<code>floder_name</code>)，第二个home才是控制器名字(<code>controller_name</code>)</p>
 <p>而第二段<code>if</code>的意思是判断控制器文件是否存在，排查也发现控制器名竟然<strong>不存在</strong>，打印</p>
 <blockquote>
-<p>APPPATH . &lsquo;controllers/&rsquo; . $this-&gt;directory . ucfirst($class) . &lsquo;.php&rsquo;
-得到：<code>E:\WWW\ci3\application\controllers/Home.php</code>，这显然与我们的实际目录不相符，我们的实际目录应该是<code>E:\WWW\ci3\application\controllers/home/Home.php</code>,锁定这两个问题之后，就可以思考如何修正这里了，刚开始对这个地方的改动想法是这样的：</p>
+<p>APPPATH . &lsquo;controllers/&rsquo; . $this-&gt;directory . ucfirst($class) . &lsquo;.php&rsquo;</p>
 </blockquote>
+<p>得到：<code>E:\WWW\ci3\application\controllers/Home.php</code>，这显然与我们的实际目录不相符，我们的实际目录应该是<code>E:\WWW\ci3\application\controllers/home/Home.php</code>,锁定这两个问题之后，就可以思考如何修正这里了，刚开始对这个地方的改动想法是这样的：</p>
 <ol>
-<li>假定设置默认的控制器值为Home/home/index(目录名/控制器名/方法名)的形式</li>
-<li>修改<code>core/Route.php</code>源码中的<code>_set_default_controller</code>方法，截取<code>default_controller</code>的值进行处理</li>
+<li>
+<p>假定设置默认的控制器值为Home/home/index(目录名/控制器名/方法名)的形式</p>
+</li>
+<li>
+<p>修改<code>core/Route.php</code>源码中的<code>_set_default_controller</code>方法，截取<code>default_controller</code>的值进行处理</p>
+</li>
 </ol>
 <p>修改<code>_set_default_controller</code>方法如下：</p>
-<pre tabindex="0"><code>protected function _set_default_controller()
-{
-	if (empty($this-&gt;default_controller))
-	{
-		show_error(&#39;Unable to determine what should be displayed. A default route has not been specified in the routing file.&#39;);
-	}
-
-	/**
-	 * if里为自己修改的部分
-	 * 1.截取default_controller为数组
-	 * 2.如果default_controller_arr大于3 表示是默认控制器过来的
-	 * 3.赋值相应的变量
-	 */
-	$default_controller_arr = explode(&#39;/&#39;, $this-&gt;default_controller);
-	if(count($default_controller_arr) == 3) {
-		// 赋值控制器所在目录
-		$this-&gt;directory = trim($default_controller_arr[0], &#39;/&#39;) . &#39;/&#39;;
-		// 赋值控制器名
-		$class = $default_controller_arr[1];
-		// 因为这里计划约定默认控制器输入完整uri 即目录名/控制器名/方法名的形式
-		// 所以方法名这里一定不为空
-		$method = $default_controller_arr[2];
-
-	}else {
-		// Is the method being specified?
-		if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2)
-		{
-			$method = &#39;index&#39;;
-		}
-	}
-	if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;))
-	{
-		// This will trigger 404 later
-		return;
-	}
-
-	$this-&gt;set_class($class);
-	$this-&gt;set_method($method);
-
-	// Assign routed segments, index starting from 1
-	$this-&gt;uri-&gt;rsegments = array(
-		1 =&gt; $class,
-		2 =&gt; $method
-	);
-
-	log_message(&#39;debug&#39;, &#39;No URI present. Default controller set.&#39;);
+<pre tabindex="0"><code>
+protected function _set_default_controller()
+
+{
+
+	if (empty($this-&gt;default_controller))
+
+	{
+
+		show_error(&#39;Unable to determine what should be displayed. A default route has not been specified in the routing file.&#39;);
+
+	}
+
+
+
+	/**
+
+	 * if里为自己修改的部分
+
+	 * 1.截取default_controller为数组
+
+	 * 2.如果default_controller_arr大于3 表示是默认控制器过来的
+
+	 * 3.赋值相应的变量
+
+	 */
+
+	$default_controller_arr = explode(&#39;/&#39;, $this-&gt;default_controller);
+
+	if(count($default_controller_arr) == 3) {
+
+		// 赋值控制器所在目录
+
+		$this-&gt;directory = trim($default_controller_arr[0], &#39;/&#39;) . &#39;/&#39;;
+
+		// 赋值控制器名
+
+		$class = $default_controller_arr[1];
+
+		// 因为这里计划约定默认控制器输入完整uri 即目录名/控制器名/方法名的形式
+
+		// 所以方法名这里一定不为空
+
+		$method = $default_controller_arr[2];
+
+
+
+	}else {
+
+		// Is the method being specified?
+
+		if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2)
+
+		{
+
+			$method = &#39;index&#39;;
+
+		}
+
+	}
+
+	if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;))
+
+	{
+
+		// This will trigger 404 later
+
+		return;
+
+	}
+
+
+
+	$this-&gt;set_class($class);
+
+	$this-&gt;set_method($method);
+
+
+
+	// Assign routed segments, index starting from 1
+
+	$this-&gt;uri-&gt;rsegments = array(
+
+		1 =&gt; $class,
+
+		2 =&gt; $method
+
+	);
+
+
+
+	log_message(&#39;debug&#39;, &#39;No URI present. Default controller set.&#39;);
+
 }
 </code></pre><p>虽说这样修改测试成功了，但是觉得并不是最好的解决办法(<code>修改源码一般是最后的解决手段</code>)，于是求助<code>codeigniter中国</code>的官方微信群的小伙伴，在群里和<code>Hex</code>(手动<code>@Hex</code>)老大讨论了一下这个功能的解决方案，最终在他的帮助下得到了比较完美的解决方法，就是要在<code>application/core</code>里新建一个自己的扩展路由类<code>MY_Router.php</code>，然后定义自己的<code>_set_default_controller</code>方法，代码如下，顺便贴上自己上面设想的解决方法：</p>
-<pre tabindex="0"><code>&lt;?php
-defined(&#39;BASEPATH&#39;) OR exit(&#39;No direct script access allowed&#39;);
-
-class MY_Router extends CI_Router {
-
-	/**
-	 * 个人认为比较完美解决问题的方法
-	 */
-    protected function _set_default_controller() {
-         
-        if (empty($this-&gt;default_controller)) {
-            
-            show_error(&#39;Unable to determine what should be displayed. A default route has not been specified in the routing file.&#39;);
-        }
-
-        if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2) {
-            $method = &#39;index&#39;;
-        }
-
-        /**
-         * 1.判断目录是否存在
-         * 2.如果存在 调用设置控制器目录方法 详细参考system/core/Route.php set_directory方法
-         * 3.接着再把method拆分 赋值给$class $method $method为空则设置为index
-         */
-        if( is_dir(APPPATH.&#39;controllers/&#39;.$class) ) {
-             
-            // Set the class as the directory
-            $this-&gt;set_directory($class);
-            
-            // $method is the class
-            $class = $method;
-            
-            // Re check for slash if method has been set
-            if (sscanf($method, &#39;%[^/]/%s&#39;, $class, $method) !== 2) {
-                $method = &#39;index&#39;;
-            }
-        }
-
-        if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;)) {
-            // This will trigger 404 later
-            return;
-        }
-
-        $this-&gt;set_class($class);
-        $this-&gt;set_method($method);
-
-        // Assign routed segments, index starting from 1
-        $this-&gt;uri-&gt;rsegments = array(
-            1 =&gt; $class,
-            2 =&gt; $method
-        );
-        log_message(&#39;debug&#39;, &#39;No URI present. Default controller set.&#39;);
-    }
-
-    /**
-     * @author 命中水、 
-     * @date(2017-8-7)
-     * 
-     * 使用这个方法时 把这个方法名和上面的方法名调换一下 
-     * application/config/route.php default_controller的值写uri全称(目录名/控制器名/方法名) 即可
-     * 因为最终Route.php路由类库调用的还是_set_default_controller方法
-     */
-    protected function _set_default_controller_me() {
-         
-        if (empty($this-&gt;default_controller))
-		{
-			show_error(&#39;Unable to determine what should be displayed. A default route has not been specified in the routing file.&#39;);
-		}
-
-		/**
-		 * if里为自己修改的部分
-		 * 1.截取default_controller为数组
-		 * 2.如果default_controller_arr大于3 表示是默认控制器过来的
-		 * 3.赋值相应的变量
-		 */
-		$default_controller_arr = explode(&#39;/&#39;, $this-&gt;default_controller);
-		if(count($default_controller_arr) == 3) {
-			// 赋值控制器目录
-			$this-&gt;directory = trim($default_controller_arr[0], &#39;/&#39;) . &#39;/&#39;;
-			// 赋值控制器名
-			$class  = $default_controller_arr[1];
-			// 因为这里计划约定默认控制器输入完整uri 即目录名/控制器名/方法名的形式
-			// 所以方法名这里一定不为空
-			$method = $default_controller_arr[2];
-
-		}else {
-			if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2)
-			{
-				$method = &#39;index&#39;;
-			}
-		}
-		if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;))
-		{
-			// This will trigger 404 later
-			return;
-		}
-
-		$this-&gt;set_class($class);
-		$this-&gt;set_method($method);
-
-		// Assign routed segments, index starting from 1
-		$this-&gt;uri-&gt;rsegments = array(
-			1 =&gt; $class,
-			2 =&gt; $method
-		);
-
-		log_message(&#39;debug&#39;, &#39;No URI present. Default controller set.&#39;);
-    }
-
+<pre tabindex="0"><code>
+&lt;?php
+
+defined(&#39;BASEPATH&#39;) OR exit(&#39;No direct script access allowed&#39;);
+
+
+
+class MY_Router extends CI_Router {
+
+
+
+	/**
+
+	 * 个人认为比较完美解决问题的方法
+
+	 */
+
+    protected function _set_default_controller() {
+
+         
+
+        if (empty($this-&gt;default_controller)) {
+
+            
+
+            show_error(&#39;Unable to determine what should be displayed. A default route has not been specified in the routing file.&#39;);
+
+        }
+
+
+
+        if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2) {
+
+            $method = &#39;index&#39;;
+
+        }
+
+
+
+        /**
+
+         * 1.判断目录是否存在
+
+         * 2.如果存在 调用设置控制器目录方法 详细参考system/core/Route.php set_directory方法
+
+         * 3.接着再把method拆分 赋值给$class $method $method为空则设置为index
+
+         */
+
+        if( is_dir(APPPATH.&#39;controllers/&#39;.$class) ) {
+
+             
+
+            // Set the class as the directory
+
+            $this-&gt;set_directory($class);
+
+            
+
+            // $method is the class
+
+            $class = $method;
+
+            
+
+            // Re check for slash if method has been set
+
+            if (sscanf($method, &#39;%[^/]/%s&#39;, $class, $method) !== 2) {
+
+                $method = &#39;index&#39;;
+
+            }
+
+        }
+
+
+
+        if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;)) {
+
+            // This will trigger 404 later
+
+            return;
+
+        }
+
+
+
+        $this-&gt;set_class($class);
+
+        $this-&gt;set_method($method);
+
+
+
+        // Assign routed segments, index starting from 1
+
+        $this-&gt;uri-&gt;rsegments = array(
+
+            1 =&gt; $class,
+
+            2 =&gt; $method
+
+        );
+
+        log_message(&#39;debug&#39;, &#39;No URI present. Default controller set.&#39;);
+
+    }
+
+
+
+    /**
+
+     * @author 命中水、 
+
+     * @date(2017-8-7)
+
+     * 
+
+     * 使用这个方法时 把这个方法名和上面的方法名调换一下 
+
+     * application/config/route.php default_controller的值写uri全称(目录名/控制器名/方法名) 即可
+
+     * 因为最终Route.php路由类库调用的还是_set_default_controller方法
+
+     */
+
+    protected function _set_default_controller_me() {
+
+         
+
+        if (empty($this-&gt;default_controller))
+
+		{
+
+			show_error(&#39;Unable to determine what should be displayed. A default route has not been specified in the routing file.&#39;);
+
+		}
+
+
+
+		/**
+
+		 * if里为自己修改的部分
+
+		 * 1.截取default_controller为数组
+
+		 * 2.如果default_controller_arr大于3 表示是默认控制器过来的
+
+		 * 3.赋值相应的变量
+
+		 */
+
+		$default_controller_arr = explode(&#39;/&#39;, $this-&gt;default_controller);
+
+		if(count($default_controller_arr) == 3) {
+
+			// 赋值控制器目录
+
+			$this-&gt;directory = trim($default_controller_arr[0], &#39;/&#39;) . &#39;/&#39;;
+
+			// 赋值控制器名
+
+			$class  = $default_controller_arr[1];
+
+			// 因为这里计划约定默认控制器输入完整uri 即目录名/控制器名/方法名的形式
+
+			// 所以方法名这里一定不为空
+
+			$method = $default_controller_arr[2];
+
+
+
+		}else {
+
+			if (sscanf($this-&gt;default_controller, &#39;%[^/]/%s&#39;, $class, $method) !== 2)
+
+			{
+
+				$method = &#39;index&#39;;
+
+			}
+
+		}
+
+		if ( ! file_exists(APPPATH.&#39;controllers/&#39;.$this-&gt;directory.ucfirst($class).&#39;.php&#39;))
+
+		{
+
+			// This will trigger 404 later
+
+			return;
+
+		}
+
+
+
+		$this-&gt;set_class($class);
+
+		$this-&gt;set_method($method);
+
+
+
+		// Assign routed segments, index starting from 1
+
+		$this-&gt;uri-&gt;rsegments = array(
+
+			1 =&gt; $class,
+
+			2 =&gt; $method
+
+		);
+
+
+
+		log_message(&#39;debug&#39;, &#39;No URI present. Default controller set.&#39;);
+
+    }
+
+
+
 }
 </code></pre><p>以上代码比较完美的那个，亲测有效！！！(自己的这个简单测试了一下，也可以使用)</p>
 <h2 id="资源">资源</h2>
 <h3 id="参考文章">参考文章</h3>
 <ol>
-<li>[How to select default controller in subfolder?][8]</li>
-<li>[How to use a sub folder in default controller route in CodeIgniter 3][9]</li>
+<li>
+<p>[How to select default controller in subfolder?][8]</p>
+</li>
+<li>
+<p>[How to use a sub folder in default controller route in CodeIgniter 3][9]</p>
+</li>
 </ol>
 <h3 id="资源-1">资源</h3>
 <ol>
-<li>[MY_Route.php][10]</li>
-<li>，[<code>CodeIgniter</code>中国微信群][11]</li>
+<li>
+<p>[MY_Route.php][10]</p>
+</li>
+<li>
+<p>，[<code>CodeIgniter</code>中国微信群][11]</p>
+</li>
 </ol>
         </section>
         <div class="post-tags">
@@ -275,7 +473,11 @@ class MY_Router extends CI_Router {
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E6%80%9D%E8%80%83/">思考</a></li>
+              <li><a href="/tags/ci3/">CI3</a></li>
+              
+              <li><a href="/tags/codeigniter/">CodeIgniter</a></li>
+              
+              <li><a href="/tags/php/">php</a></li>
               
             </ul>
           </nav>

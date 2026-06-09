@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>架构 on 命中水、</title>
+		<link>http://localhost:3902/tags/%E6%9E%B6%E6%9E%84/</link>
+		<description>Recent content in 架构 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 16 Oct 2019 21:37:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>架构学习-设计计算高可用架构</title>
+				<link>http://localhost:3902/posts/jiagouxuexishejijisuangaokeyongjiagou/</link>
+				<pubDate>Wed, 16 Oct 2019 21:37:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/jiagouxuexishejijisuangaokeyongjiagou/</guid>
+				<description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;本文摘录于李运华老师的[《从0开始学架构》][1]课程，为精简总结。&lt;/p&gt;&#xA;&lt;h1 id=&#34;复杂度&#34;&gt;复杂度&lt;/h1&gt;&#xA;&lt;p&gt;计算高可用架构复杂度主要体现在&lt;strong&gt;任务管理&lt;/strong&gt;方面。旨当任务在某台服务器执行失败后，如何重新分配新的服务器&lt;/p&gt;&#xA;&lt;h2 id=&#34;设计关键&#34;&gt;设计关键&lt;/h2&gt;&#xA;&lt;h3 id=&#34;1-哪些服务器可以执行任务&#34;&gt;1、 哪些服务器可以执行任务&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;每个服务器都可以执行任务&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;特定服务器可以执行任务，当特定服务器故障后，选定新的服务器作为特定服务器&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8119&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>【排序】交换排序之冒泡排序 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbsp自己之前对于排序的使用一直都" />
+	<meta property="og:image" content="http://localhost:8119/"/>
+	<meta property="og:url" content="http://localhost:8119/posts---%E5%89%AF%E6%9C%AC/paixujiaohuanpaixuzhimaopaopaixu/">
+	<meta property="og:site_name" content="命中水的个人博客">
+	<meta property="og:title" content="【排序】交换排序之冒泡排序">
+	<meta property="og:description" content="nbspnbspnbspnbsp自己之前对于排序的使用一直都">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts---副本">
+		<meta property="article:published_time" content="2017-12-27T22:02:00+00:00">
+		<meta property="article:modified_time" content="2017-12-27T22:02:00+00:00">
+		<meta property="article:tag" content="思考">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="【排序】交换排序之冒泡排序">
+	<meta name="twitter:description" content="nbspnbspnbspnbsp自己之前对于排序的使用一直都">
+
+        <link href="http://localhost:8119/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8119/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:8119/">命中水的个人博客</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">【排序】交换排序之冒泡排序</h1>
+          <div class="meta">Posted on Dec 27, 2017</div>
+        </div>
+        
+        <section class="body">
+          <p>    自己之前对于排序的使用一直都是来自于对<code>sort</code>,<code>ksort</code>等排序函数的基础上，但是对具体的算法原理没有具体考虑过。闲下来，就思考下这些算法的实现。那么本篇文章以及未来的一系列排序文章，将总结排序在php中的原理以及实现：</p>
+<h2 id="冒泡排序">冒泡排序</h2>
+<p>[冒泡排序][1]算是排序中最基本、也最容易理解的排序算法了。以下引自百度百科：</p>
+<blockquote>
+<p>冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。</p>
+</blockquote>
+<p>它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。</p>
+<blockquote>
+<p>走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。</p>
+</blockquote>
+<blockquote>
+<p>这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名。</p>
+</blockquote>
+<p>先贴一下冒泡排序的代码，再逐一分析其中的奥妙（这里以从小到大排序为例）：</p>
+<h2 id="冒泡代码">冒泡代码</h2>
+<pre tabindex="0"><code>
+$numbers = [66, 64, 65, 54, 100, 89, 11, 2];
+
+$len = count($numbers);
+
+for ($i = 0; $i &lt; $len; $i++) {
+
+    for ($j = 0; $j &lt; $len - $i - 1; $j++) {
+
+        if ($numbers[$j] &gt; $numbers[$j + 1]) {
+
+            $temp = $numbers[$j];
+
+            $numbers[$j] = $numbers[$j + 1];
+
+            $numbers[$j + 1] = $temp;
+
+        }
+
+    }
+
+}
+</code></pre><h2 id="原理分析">原理分析</h2>
+<p>短短数行代码就可以实现冒泡排序，但其中的原理并不简单，简单归纳为一下几点：</p>
+<ol>
+<li>
+<p>第一次拿下标为0和下标为1的元素进行比较</p>
+</li>
+<li>
+<p>每次拿相邻的两个元素进行比较，根据排序规则，进行顺序调换；比如从小到大排序，则每次在比较相邻两个元素大小的时候，把元素小的那一方提到原先元素大的那一方的下标上，把元素大的那一方提到原先元素小的那一方下标上；</p>
+</li>
+<li>
+<p>两两一对，每一对都进行比较</p>
+</li>
+<li>
+<p>最外围的for循环，每一次循环完毕都能得到当前循环组里的最大值，在数组末尾依次排列</p>
+</li>
+</ol>
+<h2 id="代码分解">代码分解</h2>
+<p>我们可以先看一下内层for循环，第一次循环完毕的结果：</p>
+<pre tabindex="0"><code>
+// 原先的数组：
+
+Array ( [0] =&gt; 66 [1] =&gt; 64 [2] =&gt; 65 [3] =&gt; 54 [4] =&gt; 100 [5] =&gt; 89 [6] =&gt; 11 [7] =&gt; 2 ) 
+
+
+
+// 第二层for循环第一次循环，每次的结果
+
+Array ( [0] =&gt; 64 [1] =&gt; 66 [2] =&gt; 65 [3] =&gt; 54 [4] =&gt; 100 [5] =&gt; 89 [6] =&gt; 11 [7] =&gt; 2 ) 
+
+Array ( [0] =&gt; 64 [1] =&gt; 65 [2] =&gt; 66 [3] =&gt; 54 [4] =&gt; 100 [5] =&gt; 89 [6] =&gt; 11 [7] =&gt; 2 ) 
+
+Array ( [0] =&gt; 64 [1] =&gt; 65 [2] =&gt; 54 [3] =&gt; 66 [4] =&gt; 100 [5] =&gt; 89 [6] =&gt; 11 [7] =&gt; 2 ) 
+
+Array ( [0] =&gt; 64 [1] =&gt; 65 [2] =&gt; 54 [3] =&gt; 66 [4] =&gt; 100 [5] =&gt; 89 [6] =&gt; 11 [7] =&gt; 2 ) 
+
+Array ( [0] =&gt; 64 [1] =&gt; 65 [2] =&gt; 54 [3] =&gt; 66 [4] =&gt; 89 [5] =&gt; 100 [6] =&gt; 11 [7] =&gt; 2 ) 
+
+Array ( [0] =&gt; 64 [1] =&gt; 65 [2] =&gt; 54 [3] =&gt; 66 [4] =&gt; 89 [5] =&gt; 11 [6] =&gt; 100 [7] =&gt; 2 ) 
+
+Array ( [0] =&gt; 64 [1] =&gt; 65 [2] =&gt; 54 [3] =&gt; 66 [4] =&gt; 89 [5] =&gt; 11 [6] =&gt; 2 [7] =&gt; 100 )
+</code></pre><p>从上面的执行结果中我们可以看到，第一行结果相比较最初的数组而言，两两比较，元素小的那一个已经提到了前面，这里验证了我们【<strong>原理分析</strong>】里第一点和第二点的描述；而且我们也得到了最大值，在数组的末尾。</p>
+<p>第一层循环结束后，我们仍然看到数组的排序不是从小到大的顺序，所以要进行第二次元素排序；</p>
+<p>由于每次内层for循环完毕后已经确定了最大值，所以在外围for循环第一次之后每次的排序后，都不需要再对确定好的最大值进行比较，所以有了内层循环中<code>$j &lt; $len - $i - 1</code>这段代码，来看一下外层循环每次循环之后的结果：</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/12/1362722165.jpg" alt="外层循环每次循环完毕排序结果"></p>
+<p>结果我们可以验证<strong>内层循环</strong>，每次循环完毕都能确定最大值的说法；</p>
+<pre tabindex="0"><code>
+if ($numbers[$j] &gt; $numbers[$j + 1]) {
+
+    $temp = $numbers[$j];
+
+    $numbers[$j] = $numbers[$j + 1];
+
+    $numbers[$j + 1] = $temp;
+
+}
+</code></pre><p>这段代码块起到交换两个元素的作用，如果元素1大于元素2，那么用一个临时变量把其中一个值存储在临时变量中，再进行下标元素的替换工作；</p>
+<h2 id="封装">封装</h2>
+<p>下面代码块封装了冒泡排序正序、倒序的实现；</p>
+<pre tabindex="0"><code>
+/**
+
+ * 冒泡排序（asc正序列 desc倒序）
+
+ * @param  array  $arr      排序数组
+
+ * @param  string $sortType 排序类型
+
+ * @return array            排序结果
+
+ */
+
+function bubbleSort($arr, $sortType = &#39;asc&#39;)
+
+{
+
+    $intLength = count($arr);
+
+    for ($i = 0; $i &lt; $intLength; $i++) {
+
+        for ($j = 0; $j &lt; $intLength - $i - 1; $j++) {
+
+            // 正序排序
+
+            if ($sortType == &#39;asc&#39;) {
+
+                // 交换元素位置
+
+                if ($arr[$j] &gt; $arr[$j + 1]) {
+
+                    $temp        = $arr[$j];
+
+                    $arr[$j]     = $arr[$j + 1];
+
+                    $arr[$j + 1] = $temp;
+
+                }
+
+            // 倒序排序
+
+            } else {
+
+                // 交换元素位置
+
+                if ($arr[$j] &lt; $arr[$j + 1]) {
+
+                    $temp        = $arr[$j];
+
+                    $arr[$j]     = $arr[$j + 1];
+
+                    $arr[$j + 1] = $temp;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+
+    return $arr;
+
+}
+
+$arrTmp = [66, 64, 65, 54, 100, 89, 11, 2];
+
+p(bubbleSort($arrTmp));
+
+p(bubbleSort($arrTmp, &#39;desc&#39;));
+</code></pre><h2 id="总结">总结</h2>
+<p>冒泡排序是排序算法中的基本，之前自己在学习C语言的时候，有幸接触到算法的相关知识。觉得算法乃是一门博大精深的学问，后面几章也会连续做排序算法的讲解；下章将介绍冒泡排序的兄弟——【<strong>[快速排序][3]</strong>】。</p>
+<p>完。</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E6%80%9D%E8%80%83/">思考</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

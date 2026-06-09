@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Typecho on 命中水、</title>
+		<link>http://localhost:3902/tags/typecho/</link>
+		<description>Recent content in Typecho on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 19 Aug 2017 14:39:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/typecho/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Typecho 《HelloChangYan》插件500错误以及优化</title>
+				<link>http://localhost:3902/posts/typecho_hellochangyanchajian500cuowuyijiyouhua/</link>
+				<pubDate>Sat, 19 Aug 2017 14:39:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/typecho_hellochangyanchajian500cuowuyijiyouhua/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./2998162509.png&#34; alt=&#34;畅言logo&#34;&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

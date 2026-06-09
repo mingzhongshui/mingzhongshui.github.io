@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Selenium on 命中水、</title>
+		<link>http://localhost:3902/tags/selenium/</link>
+		<description>Recent content in Selenium on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 30 May 2025 14:12:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/selenium/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>聊一聊我是如何从0到1搭建公司爬虫项目的</title>
+				<link>http://localhost:3902/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/</link>
+				<pubDate>Fri, 30 May 2025 14:12:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/</guid>
+				<description>&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;&#xA;&lt;p&gt;在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。&lt;/p&gt;&#xA;&lt;p&gt;在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。&lt;/p&gt;&#xA;&lt;p&gt;今天就来讲一下我是怎么从0到1实现整个爬虫架构的。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Composer三部曲：安装、使用、发布 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="nbspnbspnbspnbsp在现代化的PHP开发当中，离" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/composersanbuquanzhuangshiyongfabu/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Composer三部曲：安装、使用、发布 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="
+    在现代化的PHP开发当中，离开不了各种各样的组件，那么如何快速在项目中安装和找到这些组件呢？composer正是为这一目的而出现，如果你还不知道composer，那么你就out了。那么什么是composer，它的作用是什么？如何使用？本文将一一揭晓。" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/composersanbuquanzhuangshiyongfabu/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="Composer三部曲：安装、使用、发布">
-	<meta property="og:description" content="nbspnbspnbspnbsp在现代化的PHP开发当中，离">
+	<meta property="og:description" content="在现代化的PHP开发当中，离开不了各种各样的组件，那么如何快速在项目中安装和找到这些组件呢？composer正是为这一目的而出现，如果你还不知道composer，那么你就out了。那么什么是composer，它的作用是什么？如何使用？本文将一一揭晓。">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
-		<meta property="article:tag" content="随笔">
+		<meta property="article:published_time" content="2017-11-04T18:48:00+00:00">
+		<meta property="article:modified_time" content="2017-11-04T18:48:00+00:00">
+		<meta property="article:tag" content="PHP组件">
+		<meta property="article:tag" content="Composer">
+		<meta property="article:tag" content="Packagist">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Composer三部曲：安装、使用、发布">
-	<meta name="twitter:description" content="nbspnbspnbspnbsp在现代化的PHP开发当中，离">
+	<meta name="twitter:description" content="在现代化的PHP开发当中，离开不了各种各样的组件，那么如何快速在项目中安装和找到这些组件呢？composer正是为这一目的而出现，如果你还不知道composer，那么你就out了。那么什么是composer，它的作用是什么？如何使用？本文将一一揭晓。">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -41,15 +54,15 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">Composer三部曲：安装、使用、发布</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on Nov 4, 2017</div>
         </div>
         
         <section class="body">
-          <p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/905996380.jpg" alt="composer"></p>
+          <p><img src="./905996380.jpg" alt="composer"></p>
 <p>    在现代化的PHP开发当中，离开不了各种各样的组件，那么如何快速在项目中安装和找到这些组件呢？composer正是为这一目的而出现，如果你还不知道composer，那么你就out了。那么什么是composer，它的作用是什么？如何使用？本文将一一揭晓。</p>
-<p>[Meting autoplay=&ldquo;true&rdquo;]
-[Music server=&ldquo;xiami&rdquo; id=&ldquo;1773315664&rdquo; type=&ldquo;song&rdquo;/]
-[/Meting]</p>
+<p>[Meting autoplay=&ldquo;true&rdquo;]</p>
+<p>[Music server=&ldquo;xiami&rdquo; id=&ldquo;1773315664&rdquo; type=&ldquo;song&rdquo;/]</p>
+<p>[/Meting]</p>
 <h2 id="组件">组件</h2>
 <p>在说composer之前，我们先来了解一下什么组件。因为组件和composer之间密切相关，要想知道composer是如何工作的，我们要先清楚什么是组件。</p>
 <h3 id="什么是组件">什么是组件</h3>
@@ -73,46 +86,67 @@
 <h2 id="composer">Composer</h2>
 <p>在了解了组件之后，我们来说正题———Composer。如果说Packagist是组件库，那么composer就是PHP组件管理工具了。composer是PHP组件的依赖管理器，它在命令行中使用。通常在你需要使用什么组件的时候，你只需要告诉composer，composer就会自动帮你安装在你的项目中，只需要一个命令，就是这么简单、强势。</p>
 <h2 id="安装">安装</h2>
-<p>国内小伙伴在安装composer的时候，可能会遇到很多问题。我在当初安装composer的时候，也走了不少弯路，现在这里推荐一个快速安装composer的方法，打开命令行，执行以下命令：
-在使用这些命令之前，首先确认已经安装了php，并且把php设置在了全局变量中，打开命令行输入<code>php -v</code>能够看到php版本信息</p>
-<pre tabindex="0"><code>php -r &#34;copy(&#39;https://install.phpcomposer.com/installer&#39;, &#39;composer-setup.php&#39;);&#34;
-
-php composer-setup.php
-
+<p>国内小伙伴在安装composer的时候，可能会遇到很多问题。我在当初安装composer的时候，也走了不少弯路，现在这里推荐一个快速安装composer的方法，打开命令行，执行以下命令：</p>
+<p>在使用这些命令之前，首先确认已经安装了php，并且把php设置在了全局变量中，打开命令行输入<code>php -v</code>能够看到php版本信息</p>
+<pre tabindex="0"><code>
+php -r &#34;copy(&#39;https://install.phpcomposer.com/installer&#39;, &#39;composer-setup.php&#39;);&#34;
+
+
+
+php composer-setup.php
+
+
+
 php -r &#34;unlink(&#39;composer-setup.php&#39;);&#34;
 </code></pre><p>以上三条，请依次输入，作用分别是</p>
 <ol>
-<li>下载安装脚本 － composer-setup.php － 到当前目录。</li>
-<li>执行安装过程。</li>
-<li>删除安装脚本。
-具体安装过程，请查看[composer中国镜像网站][5]的具体描述。</li>
+<li>
+<p>下载安装脚本 － composer-setup.php － 到当前目录。</p>
+</li>
+<li>
+<p>执行安装过程。</p>
+</li>
+<li>
+<p>删除安装脚本。</p>
+</li>
 </ol>
+<p>具体安装过程，请查看[composer中国镜像网站][5]的具体描述。</p>
 <p>如何全局安装请看：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/886475152.png" alt="composer全局安装"></p>
+<p><img src="./886475152.png" alt="composer全局安装"></p>
 <p>设置完之后，在命令行输入composer 可以看到composer版本信息。</p>
 <h2 id="使用">使用</h2>
 <p>上述中介绍了如何安装composer，本章就来说下composer如何使用。我们先模拟下载一个PHP组件，首先我们在[Packagist][7]网站搜索dump，我们可以看到一个列表</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/363421820.png" alt="8J6WVNX57PG9(4_1{8RGSW6.png"></p>
+<p><img src="./363421820.png" alt="8J6WVNX57PG9(4_1{8RGSW6.png"></p>
 <p>这个列表里面展示的是查询出来的所有dump组件包了，我们看到第一个<code>symfony/var-dumper</code>，composer和组件之间达成了协定，组件名字的第一个信息，以上述为例<code>symfony</code>表示厂商名，<code>var-dumper</code>表示包名。我们在命令行安装组件的时候，要采用这种形式：</p>
-<pre tabindex="0"><code>// vendor：厂商名 package：包名
+<pre tabindex="0"><code>
+// vendor：厂商名 package：包名
+
 composer require vendor/package
 </code></pre><p>所以我们安装symfony/var-dumper的时候，命令行输入：</p>
-<pre tabindex="0"><code>composer require symfony/var-dumper
+<pre tabindex="0"><code>
+composer require symfony/var-dumper
 </code></pre><p>composer会自动替我们找到var-dumper的稳定版给我们安装。我们可以看到安装成功提示：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/3365676691.png" alt="成功提示"></p>
+<p><img src="./3365676691.png" alt="成功提示"></p>
 <p>我们打开目录可以看到，在目录下生成了三个文件</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/2296180336.png" alt="目录"></p>
+<p><img src="./2296180336.png" alt="目录"></p>
 <p>vendor目录是我们的组件目录，composer.json执行命令的结果文件，composer.lock列出了所有的php组件，以及具体版本号。</p>
 <p>现在我们来使用一下这个dump组件，在根目录中新建一个php文件：</p>
-<pre tabindex="0"><code>&lt;?php 
-
-require &#34;vendor/autoload.php&#34;; 
-
-dump([&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]);
-
+<pre tabindex="0"><code>
+&lt;?php 
+
+
+
+require &#34;vendor/autoload.php&#34;; 
+
+
+
+dump([&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]);
+
+
+
 dump(123);
 </code></pre><p>首先引入自动加载器，然后使用dump方法来输出变量，dump方法正是我们dump组件包里的一个输出变量的函数，下图是运行文件后看到的结果，输出了不一样的打印样式：</p>
-<p>![T77%L{L_<a href="https://www.cxiansheng.cn/usr/uploads/2017/11/874379156.png">P$I~9SJWS3ML@H.png</a></p>
+<p>![T77%L{L_<a href="./874379156.png">P$I~9SJWS3ML@H.png</a></p>
 <h2 id="发布">发布</h2>
 <p>上面composer的安装和使用已经介绍完毕，接下来，我们试试看发布一个简单PHP组件。其实很简单，就像自己每天写功能，把一些公用的方法封装起来一样；</p>
 <h3 id="厂商和包名">厂商和包名</h3>
@@ -121,127 +155,239 @@ dump(123);
 <p>每个组件都应有自己的命名空间，这个命名空间并不需要与组件的厂商和包名一致。厂商名和包名只是为了让composer识别组件，而命名空间则是需要在PHP代码中使用组件。</p>
 <h3 id="组件的目录结构">组件的目录结构</h3>
 <ul>
-<li><strong>src/</strong> 组件的源码</li>
-<li><strong>tests/</strong> 组件的测试代码</li>
-<li><strong>composer.json</strong> composer配置文件，用于描述组件。同时还会告诉composer加载器，把符合PSR-4标准的规范的命名空间对应到scr/目录</li>
-<li><strong>README.md</strong> 这个markdown文件里可以写组件的开发者以及组件用途、用法等</li>
-<li><strong>LICENSE</strong> 组件的软件许可证</li>
-<li><strong>CHANGELOG.md</strong> 版本改动记录</li>
+<li>
+<p><strong>src/</strong> 组件的源码</p>
+</li>
+<li>
+<p><strong>tests/</strong> 组件的测试代码</p>
+</li>
+<li>
+<p><strong>composer.json</strong> composer配置文件，用于描述组件。同时还会告诉composer加载器，把符合PSR-4标准的规范的命名空间对应到scr/目录</p>
+</li>
+<li>
+<p><strong>README.md</strong> 这个markdown文件里可以写组件的开发者以及组件用途、用法等</p>
+</li>
+<li>
+<p><strong>LICENSE</strong> 组件的软件许可证</p>
+</li>
+<li>
+<p><strong>CHANGELOG.md</strong> 版本改动记录</p>
+</li>
 </ul>
 <h3 id="conposerjson">conposer.json</h3>
 <p>composer.json文件是PHP组件中必不可少的文件，这个文件里面的内容必须是纯JSON格式，因为composer会根据这个文件中的内容去加载、安装PHP组件，我在这里简单贴一下composer.json的示例内容，这个composer.json文件就是我们刚刚下载dump组件中的：</p>
-<pre tabindex="0"><code>{
-    &#34;name&#34;: &#34;symfony/var-dumper&#34;,
-    &#34;type&#34;: &#34;library&#34;,
-    &#34;description&#34;: &#34;Symfony mechanism for exploring and dumping PHP variables&#34;,
-    &#34;keywords&#34;: [&#34;dump&#34;, &#34;debug&#34;],
-    &#34;homepage&#34;: &#34;https://symfony.com&#34;,
-    &#34;license&#34;: &#34;MIT&#34;,
-    &#34;authors&#34;: [
-        {
-            &#34;name&#34;: &#34;Nicolas Grekas&#34;,
-            &#34;email&#34;: &#34;p@tchwork.com&#34;
-        },
-        {
-            &#34;name&#34;: &#34;Symfony Community&#34;,
-            &#34;homepage&#34;: &#34;https://symfony.com/contributors&#34;
-        }
-    ],
-    &#34;require&#34;: {
-        &#34;php&#34;: &#34;^5.5.9|&gt;=7.0.8&#34;,
-        &#34;symfony/polyfill-mbstring&#34;: &#34;~1.0&#34;
-    },
-    &#34;require-dev&#34;: {
-        &#34;ext-iconv&#34;: &#34;*&#34;,
-        &#34;twig/twig&#34;: &#34;~1.34|~2.4&#34;
-    },
-    &#34;conflict&#34;: {
-        &#34;phpunit/phpunit&#34;: &#34;&lt;4.8.35|&lt;5.4.3,&gt;=5.0&#34;
-    },
-    &#34;suggest&#34;: {
-        &#34;ext-iconv&#34;: &#34;To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).&#34;,
-        &#34;ext-symfony_debug&#34;: &#34;&#34;
-    },
-    &#34;autoload&#34;: {
-        &#34;files&#34;: [ &#34;Resources/functions/dump.php&#34; ],
-        &#34;psr-4&#34;: { &#34;Symfony\\Component\\VarDumper\\&#34;: &#34;&#34; },
-        &#34;exclude-from-classmap&#34;: [
-            &#34;/Tests/&#34;
-        ]
-    },
-    &#34;minimum-stability&#34;: &#34;dev&#34;,
-    &#34;extra&#34;: {
-        &#34;branch-alias&#34;: {
-            &#34;dev-master&#34;: &#34;3.3-dev&#34;
-        }
-    }
+<pre tabindex="0"><code>
+{
+
+    &#34;name&#34;: &#34;symfony/var-dumper&#34;,
+
+    &#34;type&#34;: &#34;library&#34;,
+
+    &#34;description&#34;: &#34;Symfony mechanism for exploring and dumping PHP variables&#34;,
+
+    &#34;keywords&#34;: [&#34;dump&#34;, &#34;debug&#34;],
+
+    &#34;homepage&#34;: &#34;https://symfony.com&#34;,
+
+    &#34;license&#34;: &#34;MIT&#34;,
+
+    &#34;authors&#34;: [
+
+        {
+
+            &#34;name&#34;: &#34;Nicolas Grekas&#34;,
+
+            &#34;email&#34;: &#34;p@tchwork.com&#34;
+
+        },
+
+        {
+
+            &#34;name&#34;: &#34;Symfony Community&#34;,
+
+            &#34;homepage&#34;: &#34;https://symfony.com/contributors&#34;
+
+        }
+
+    ],
+
+    &#34;require&#34;: {
+
+        &#34;php&#34;: &#34;^5.5.9|&gt;=7.0.8&#34;,
+
+        &#34;symfony/polyfill-mbstring&#34;: &#34;~1.0&#34;
+
+    },
+
+    &#34;require-dev&#34;: {
+
+        &#34;ext-iconv&#34;: &#34;*&#34;,
+
+        &#34;twig/twig&#34;: &#34;~1.34|~2.4&#34;
+
+    },
+
+    &#34;conflict&#34;: {
+
+        &#34;phpunit/phpunit&#34;: &#34;&lt;4.8.35|&lt;5.4.3,&gt;=5.0&#34;
+
+    },
+
+    &#34;suggest&#34;: {
+
+        &#34;ext-iconv&#34;: &#34;To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).&#34;,
+
+        &#34;ext-symfony_debug&#34;: &#34;&#34;
+
+    },
+
+    &#34;autoload&#34;: {
+
+        &#34;files&#34;: [ &#34;Resources/functions/dump.php&#34; ],
+
+        &#34;psr-4&#34;: { &#34;Symfony\\Component\\VarDumper\\&#34;: &#34;&#34; },
+
+        &#34;exclude-from-classmap&#34;: [
+
+            &#34;/Tests/&#34;
+
+        ]
+
+    },
+
+    &#34;minimum-stability&#34;: &#34;dev&#34;,
+
+    &#34;extra&#34;: {
+
+        &#34;branch-alias&#34;: {
+
+            &#34;dev-master&#34;: &#34;3.3-dev&#34;
+
+        }
+
+    }
+
 }
 </code></pre><p>里面根据字面意思应该能理解一部分，我在这里详细解释一番：</p>
 <ul>
-<li><strong>name</strong> 厂商名和包名</li>
-<li><strong>description</strong> 这个组件的一些简短描述。这个值也会在packages中显示</li>
-<li><strong>keywords</strong> 关键字。用于在packages找到这个组件</li>
-<li><strong>homepage</strong> 组件网站的url</li>
-<li><strong>license</strong> 软件许可证。我们可以在https://choosealicense.com/中了解到关于许可证的详细说明</li>
-<li><strong>authors</strong> 表示这个组件的开发人员信息，是一个数组。每个作者信息至少有姓名和网站url</li>
-<li><strong>require</strong> 这个组件所需的其他PHP组件</li>
-<li><strong>require-dev</strong> 和require相似，表示开发或者测试时需要用到的PHP组件</li>
-<li><strong>suggest</strong> 和require相似，表示建议安装的PHP组件，composer默认不会自动安装这里的组件</li>
-<li><strong>autoload</strong> 表示告诉composer加载器 如何加载这个组件</li>
+<li>
+<p><strong>name</strong> 厂商名和包名</p>
+</li>
+<li>
+<p><strong>description</strong> 这个组件的一些简短描述。这个值也会在packages中显示</p>
+</li>
+<li>
+<p><strong>keywords</strong> 关键字。用于在packages找到这个组件</p>
+</li>
+<li>
+<p><strong>homepage</strong> 组件网站的url</p>
+</li>
+<li>
+<p><strong>license</strong> 软件许可证。我们可以在https://choosealicense.com/中了解到关于许可证的详细说明</p>
+</li>
+<li>
+<p><strong>authors</strong> 表示这个组件的开发人员信息，是一个数组。每个作者信息至少有姓名和网站url</p>
+</li>
+<li>
+<p><strong>require</strong> 这个组件所需的其他PHP组件</p>
+</li>
+<li>
+<p><strong>require-dev</strong> 和require相似，表示开发或者测试时需要用到的PHP组件</p>
+</li>
+<li>
+<p><strong>suggest</strong> 和require相似，表示建议安装的PHP组件，composer默认不会自动安装这里的组件</p>
+</li>
+<li>
+<p><strong>autoload</strong> 表示告诉composer加载器 如何加载这个组件</p>
+</li>
 </ul>
 <h3 id="实现组件">实现组件</h3>
 <p>以上就是composer.json配置里面常用的参数介绍，接下来，我们就开发完成一个组件。我为了演示，写好了一个组件，在本章一开始就提到的<strong>searchfile</strong>，内容很简单：</p>
-<pre tabindex="0"><code>&lt;?php
-namespace Mingzhongshui\File;
-
-/**
- * Query directory file
- */
-class SearchFile
-{
-    /**
-     * List Folder Contents
-     * @param  path $folderName Folder name
-     */
-    public function searchAllFile ( $folderName )
-    {
-        $result = array();
-        $handle = opendir($folderName);
-        if ( $handle ) {
-            while ( ( $file = readdir ( $handle ) ) !== false ) {
-                if ( $file != &#39;.&#39; &amp;&amp; $file != &#39;..&#39;) {
-                    $sonPath = $folderName . DIRECTORY_SEPARATOR . $file;
-                    if ( is_dir ( $sonPath ) ){
-                        $result[&#39;dir&#39;][$sonPath] = $this-&gt;searchAllFile ( $sonPath );
-                    } else {
-                        $result[&#39;file&#39;][] = $sonPath;
-                    }
-                }
-            }
-            closedir($handle);
-        }
-        return $result;
-    }
+<pre tabindex="0"><code>
+&lt;?php
+
+namespace Mingzhongshui\File;
+
+
+
+/**
+
+ * Query directory file
+
+ */
+
+class SearchFile
+
+{
+
+    /**
+
+     * List Folder Contents
+
+     * @param  path $folderName Folder name
+
+     */
+
+    public function searchAllFile ( $folderName )
+
+    {
+
+        $result = array();
+
+        $handle = opendir($folderName);
+
+        if ( $handle ) {
+
+            while ( ( $file = readdir ( $handle ) ) !== false ) {
+
+                if ( $file != &#39;.&#39; &amp;&amp; $file != &#39;..&#39;) {
+
+                    $sonPath = $folderName . DIRECTORY_SEPARATOR . $file;
+
+                    if ( is_dir ( $sonPath ) ){
+
+                        $result[&#39;dir&#39;][$sonPath] = $this-&gt;searchAllFile ( $sonPath );
+
+                    } else {
+
+                        $result[&#39;file&#39;][] = $sonPath;
+
+                    }
+
+                }
+
+            }
+
+            closedir($handle);
+
+        }
+
+        return $result;
+
+    }
+
 }
 </code></pre><p>一个简单的查询目录所有文件的组件，我已经把它放在了github仓库中————地址是[searchFile][12]。</p>
 <h3 id="发布组件">发布组件</h3>
 <p>我们可以通过github仓库的形式提交到packages，首先我们得有一个packagist的账号，可以通过github登陆packagist，登陆之后，在页面右上角会有一个submit提交按钮，输入组件所在的github仓库地址</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/2987758748.png" alt="submit"></p>
+<p><img src="./2987758748.png" alt="submit"></p>
 <p>然后点击check，之后点击submit，packagist会自动创建组件页面</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/517462596.png" alt="packsearchFile">
-<img src="https://www.cxiansheng.cn/usr/uploads/2017/11/517462596.png" alt="packsearchFile"></p>
+<p><img src="./517462596.png" alt="packsearchFile"></p>
+<p><img src="./517462596.png" alt="packsearchFile"></p>
 <p>我们可以看到，packagist自动从组件的composer.json中获取到了组件的名称、描述、关键字等信息。至此，我们的组件就发布成功了。</p>
 <h3 id="使用组件">使用组件</h3>
 <p>在命令行输入</p>
-<pre tabindex="0"><code>composer require mingzhongshui/searchfile
+<pre tabindex="0"><code>
+composer require mingzhongshui/searchfile
 </code></pre><p>他会自动帮你安装searchfile组件，如果出现报错可以使用开发版本：</p>
-<pre tabindex="0"><code>composer require mingzhongshui/searchfile:dev-master
+<pre tabindex="0"><code>
+composer require mingzhongshui/searchfile:dev-master
 </code></pre><p>使用这个的原因是，有时候composer用的是国内的镜像，他还没有同步到源镜像中。</p>
 <h3 id="设置钩子">设置钩子</h3>
-<p>当我们把PHP组件发布到packagist之后，如果我们要更新我们已经发布的组件时候该如何做呢？这时候有一个懒办法，设置github钩子使它自动同步更新packagist的组件。
-访问<code>https://packagist.org/about#how-to-update-packages</code>，这个地址是设置钩子的说明，我们找到设置钩子的url <code>https://packagist.org/api/bitbucket?username=mingzhongshui&amp;apiToken=API_TOKEN</code>，这里的mingzhongshui是我packagist账户名，根据自己的真实情况替换即可；API_TOKEN指的是自己packagist账户中的API TOKEN，在<code>https://packagist.org/profile/</code>页面中。</p>
+<p>当我们把PHP组件发布到packagist之后，如果我们要更新我们已经发布的组件时候该如何做呢？这时候有一个懒办法，设置github钩子使它自动同步更新packagist的组件。</p>
+<p>访问<code>https://packagist.org/about#how-to-update-packages</code>，这个地址是设置钩子的说明，我们找到设置钩子的url <code>https://packagist.org/api/bitbucket?username=mingzhongshui&amp;apiToken=API_TOKEN</code>，这里的mingzhongshui是我packagist账户名，根据自己的真实情况替换即可；API_TOKEN指的是自己packagist账户中的API TOKEN，在<code>https://packagist.org/profile/</code>页面中。</p>
 <p>打开自己的github PHP组件主页，在setting中找到Webhooks，添加钩子，保存</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/11/2312210052.png" alt="设置github钩子"></p>
+<p><img src="./2312210052.png" alt="设置github钩子"></p>
 <p>即可。</p>
 <h2 id="总结">总结</h2>
 <p>以上就是关于composer安装、使用以及发布的介绍。那么我们有一个问题，我们在实际中如何快速找到<strong>优秀</strong>的PHP组件呢，外国有位[猿友ziadoz][17]已经整理好了一些优秀的组件，并且列了一个列表，在github的链接为[awesome-php][18]，有需要什么组件的话，可以来这里看一下，作为参考。好了，以上就是关于composer的周边故事。</p>
@@ -252,7 +398,11 @@ class SearchFile
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              <li><a href="/tags/php%E7%BB%84%E4%BB%B6/">PHP组件</a></li>
+              
+              <li><a href="/tags/composer/">composer</a></li>
+              
+              <li><a href="/tags/packagist/">packagist</a></li>
               
             </ul>
           </nav>

@@ -1,34 +1,53 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHP相关面试题总结 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="数据库Btree和hash索引的区别HashHash索引，当" />
-	<meta property="og:image" content="http://localhost:2851/"/>
-	<meta property="og:url" content="http://localhost:2851/posts/phpxiangguanmianshitizongjie/">
-	<meta property="og:site_name" content="My New Hugo Project">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHP相关面试题总结 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="数据库
+Btree和hash索引的区别
+Hash
+
+Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点
+" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/phpxiangguanmianshitizongjie/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="PHP相关面试题总结">
-	<meta property="og:description" content="数据库Btree和hash索引的区别HashHash索引，当">
+	<meta property="og:description" content="数据库 Btree和hash索引的区别 Hash
+Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
-		<meta property="article:tag" content="记录">
+		<meta property="article:published_time" content="2018-05-28T21:46:00+00:00">
+		<meta property="article:modified_time" content="2018-05-28T21:46:00+00:00">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="数据库">
+		<meta property="article:tag" content="面试">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="PHP相关面试题总结">
-	<meta name="twitter:description" content="数据库Btree和hash索引的区别HashHash索引，当">
+	<meta name="twitter:description" content="数据库 Btree和hash索引的区别 Hash
+Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点">
 
-        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:2851/">My New Hugo Project</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -41,7 +60,7 @@
       <div class="post-content">
         <div class="title">
           <h1 class="title">PHP相关面试题总结</h1>
-          <div class="meta">Posted on Jan 1, 1</div>
+          <div class="meta">Posted on May 28, 2018</div>
         </div>
         
         <section class="body">
@@ -52,19 +71,33 @@
 <p>Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点</p>
 </blockquote>
 <ol>
-<li>hash索引比较的是经过hash计算的值，所以只能进行等式比较，不能进行范围查询;</li>
-<li>每次都要全表扫面;</li>
-<li>由于哈希值是按照顺序排列的，但是哈希值所对应得真实数据并不一定是按照顺序排列，所以不能进行排序比较;</li>
-<li>不能用部分索引键进行搜索，因为组合索引在计算哈希值得时候是在一起计算得;</li>
-<li>当hash值大量重复且数据量非常大得时候，其检索效率并没有Btree快。</li>
+<li>
+<p>hash索引比较的是经过hash计算的值，所以只能进行等式比较，不能进行范围查询;</p>
+</li>
+<li>
+<p>每次都要全表扫面;</p>
+</li>
+<li>
+<p>由于哈希值是按照顺序排列的，但是哈希值所对应得真实数据并不一定是按照顺序排列，所以不能进行排序比较;</p>
+</li>
+<li>
+<p>不能用部分索引键进行搜索，因为组合索引在计算哈希值得时候是在一起计算得;</p>
+</li>
+<li>
+<p>当hash值大量重复且数据量非常大得时候，其检索效率并没有Btree快。</p>
+</li>
 </ol>
 <p>Btree</p>
 <blockquote>
 <p>以B+树为存储结构实现得</p>
 </blockquote>
 <ol>
-<li>可以使用除了等于之外的比较操作符</li>
-<li>使用like查询的时候也可以使索引生效，只要不是以通配符<code>%</code>开头的就可以</li>
+<li>
+<p>可以使用除了等于之外的比较操作符</p>
+</li>
+<li>
+<p>使用like查询的时候也可以使索引生效，只要不是以通配符<code>%</code>开头的就可以</p>
+</li>
 </ol>
 <h3 id="innodb个myisam引擎的区别">InnoDB个MyISAM引擎的区别</h3>
 <blockquote>
@@ -72,29 +105,52 @@
 </blockquote>
 <p><strong>具体区别：</strong></p>
 <ol>
-<li>InnoDB不支持全文索引(Mysql5.7已支持);</li>
-<li>InnoDB不保存表的具体行数，执行<code>select count(*) from table</code>时要扫描全表来计算有多少行。MyISAM就不需要扫描全表，只需要读出保存好的行数即可（MyISAM内置了一个计数器）。当查询的时候有where条件的时候，两者的操作是一样的;</li>
-<li>对于自增类型的字段，InnoDB中必须包含只有该字段的索引，在MyISAM表中，可以和其他字段一起建立联合索引;</li>
-<li>删除全表(delete from table)的时候，InnoDB是逐行删除</li>
-<li>InnoDB的行锁也不是绝对的，比如在执行一个不确定扫描范围的语句的时候，就会锁表</li>
-<li>InnoDB支持事务处理、外键、行级锁</li>
+<li>
+<p>InnoDB不支持全文索引(Mysql5.7已支持);</p>
+</li>
+<li>
+<p>InnoDB不保存表的具体行数，执行<code>select count(*) from table</code>时要扫描全表来计算有多少行。MyISAM就不需要扫描全表，只需要读出保存好的行数即可（MyISAM内置了一个计数器）。当查询的时候有where条件的时候，两者的操作是一样的;</p>
+</li>
+<li>
+<p>对于自增类型的字段，InnoDB中必须包含只有该字段的索引，在MyISAM表中，可以和其他字段一起建立联合索引;</p>
+</li>
+<li>
+<p>删除全表(delete from table)的时候，InnoDB是逐行删除</p>
+</li>
+<li>
+<p>InnoDB的行锁也不是绝对的，比如在执行一个不确定扫描范围的语句的时候，就会锁表</p>
+</li>
+<li>
+<p>InnoDB支持事务处理、外键、行级锁</p>
+</li>
 </ol>
 <h3 id="mysql事物中的acid分别指什么">MySQL事物中的ACID分别指什么</h3>
 <ol>
-<li>A原子性（Atomicity）：一个事务必须被视为一个不可分割的最小工作单元，整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对于一个事务来说，不可能只执行其中的一部分操作，这就是事务的原子性</li>
-<li>C一致性（Consistency）：数据库总是从一个一致性的状态转换到另一个一致性的状态</li>
-<li>I隔离性（Isolation）：一个事务所做的修改在最终提交以前，对其他事务是不可见的</li>
-<li>D持久性（Durability）：一旦事物提交，其结果时永久性的</li>
+<li>
+<p>A原子性（Atomicity）：一个事务必须被视为一个不可分割的最小工作单元，整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对于一个事务来说，不可能只执行其中的一部分操作，这就是事务的原子性</p>
+</li>
+<li>
+<p>C一致性（Consistency）：数据库总是从一个一致性的状态转换到另一个一致性的状态</p>
+</li>
+<li>
+<p>I隔离性（Isolation）：一个事务所做的修改在最终提交以前，对其他事务是不可见的</p>
+</li>
+<li>
+<p>D持久性（Durability）：一旦事物提交，其结果时永久性的</p>
+</li>
 </ol>
 <h2 id="php">PHP</h2>
 <h3 id="不用第三个变量交换两个变量的值">不用第三个变量，交换两个变量的值</h3>
 <p>最简单的，加减法或者乘除法，举例：</p>
-<pre tabindex="0"><code>a = a + b
-b = a - b
+<pre tabindex="0"><code>
+a = a + b
+
+b = a - b
+
 a = a - b
 </code></pre><h3 id="arrayarray和array_merge的区别">array+array和array_merge的区别</h3>
-<p>当要合并的两个数组下标相同并且为<strong>数值</strong>时，array+array会返回最先出现的下标对应的值，把后来的值舍弃掉。而array_merge则不会覆盖
-当要合并的两个数组下标相同并且为<strong>字符串</strong>时，array+array还是会返回最先出现的下标对应的值，把后来的值舍弃掉。而array_merge则会覆盖掉前面相同键名的值</p>
+<p>当要合并的两个数组下标相同并且为<strong>数值</strong>时，array+array会返回最先出现的下标对应的值，把后来的值舍弃掉。而array_merge则不会覆盖</p>
+<p>当要合并的两个数组下标相同并且为<strong>字符串</strong>时，array+array还是会返回最先出现的下标对应的值，把后来的值舍弃掉。而array_merge则会覆盖掉前面相同键名的值</p>
 <h2 id="周边问题">周边问题</h2>
 <h3 id="restful是什么">Restful是什么？</h3>
 <blockquote>
@@ -110,50 +166,58 @@ a = a - b
 </blockquote>
 <h3 id="tcp和udp的主要区别">TCP和UDP的主要区别</h3>
 <ol>
-<li>TCP是面向连接的，在传递数据之前，需要经过三次握手来建立连接；UDP是无需连接的（无状态传输协议），即发送之前是不需要连接的，即不需要握手</li>
-<li>对系统资源的要求（TCP多，UDP少）</li>
-<li>流模式和数据报文模式</li>
-<li>TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证</li>
+<li>
+<p>TCP是面向连接的，在传递数据之前，需要经过三次握手来建立连接；UDP是无需连接的（无状态传输协议），即发送之前是不需要连接的，即不需要握手</p>
+</li>
+<li>
+<p>对系统资源的要求（TCP多，UDP少）</p>
+</li>
+<li>
+<p>流模式和数据报文模式</p>
+</li>
+<li>
+<p>TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证</p>
+</li>
 </ol>
 <h3 id="memcache和redis的区别">MemCache和Redis的区别</h3>
 <h4 id="数据支持类型">数据支持类型</h4>
-<p><strong>memcache</strong>
-使用key-value形式存储和访问数据，在内存中维护一张巨大的HashTable，使得对数据查询的时间复杂度降低到O(1)，保证了对数据的高性能访问。
-<strong>Redis</strong>
-redis与memcached相比，比仅支持简单的key-value数据类型，同时还提供list,set,zset,hash等数据结构的存储；</p>
+<p><strong>memcache</strong></p>
+<p>使用key-value形式存储和访问数据，在内存中维护一张巨大的HashTable，使得对数据查询的时间复杂度降低到O(1)，保证了对数据的高性能访问。</p>
+<p><strong>Redis</strong></p>
+<p>redis与memcached相比，比仅支持简单的key-value数据类型，同时还提供list,set,zset,hash等数据结构的存储；</p>
 <h4 id="网络io模型">网络IO模型</h4>
-<p><strong>memcache</strong>
-memcached是多线程，非阻塞IO复用的网络模型，分为监听主线程和worker子线程，监听线程监听网络连接，接受请求后，将连接描述字pipe传递给worker线程，进行读写IO，网络层使用libevent封装的事件库，多线程模型可以发挥多核作用，</p>
-<p><strong>Redis</strong>
-使用单线程的IO复用模型，自己封装了一个简单的AeEvent事件处理框架，主要实现了epoll, kqueue和select，对于单存只有IO操作来说，单线程可以将速度优势发挥到最大，但是redis也提供了一些简单的计算功能，比如排序、聚合等，对于这些操作，单线程模型施加会严重影响整体吞吐量，CPU计算过程中，整个IO调度都是被阻塞的。</p>
+<p><strong>memcache</strong></p>
+<p>memcached是多线程，非阻塞IO复用的网络模型，分为监听主线程和worker子线程，监听线程监听网络连接，接受请求后，将连接描述字pipe传递给worker线程，进行读写IO，网络层使用libevent封装的事件库，多线程模型可以发挥多核作用，</p>
+<p><strong>Redis</strong></p>
+<p>使用单线程的IO复用模型，自己封装了一个简单的AeEvent事件处理框架，主要实现了epoll, kqueue和select，对于单存只有IO操作来说，单线程可以将速度优势发挥到最大，但是redis也提供了一些简单的计算功能，比如排序、聚合等，对于这些操作，单线程模型施加会严重影响整体吞吐量，CPU计算过程中，整个IO调度都是被阻塞的。</p>
 <h4 id="内存管理机制">内存管理机制</h4>
-<p><strong>memcache</strong>
-Memcached使用预分配的内存池的方式，使用slab和大小不同的chunk来管理内存，Item根据大小选择合适的chunk存储，内存池的方式可以省去申请/释放内存的开销，并且能减小内存碎片产生，但这种方式也会带来一定程度上的空间浪费，并且在内存仍然有很大空间时，新的数据也可能会被剔除</p>
-<p><strong>详细</strong>：
-Memcached默认使用Slab Allocation机制管理内存，其主要思想是按照预先规定的大小，将分配的内存分割成特定长度的块以存储相应长度的key-value数据记录，以完全解决内存碎片问题。Slab Allocation机制只为存储外部数据而设计，也就是说所有的key-value数据都存储在Slab Allocation系统里，而Memcached的其它内存请求则通过普通的malloc/free来申请，因为这些请求的数量和频率决定了它们不会对整个系统的性能造成影响Slab Allocation的原理相当简单。 如图所示，它首先从操作系统申请一大块内存，并将其分割成各种尺寸的块Chunk，并把尺寸相同的块分成组Slab Class。其中，Chunk就是用来存储key-value数据的最小单位。每个Slab Class的大小，可以在Memcached启动的时候通过制定Growth Factor来控制。假定图中Growth Factor的取值为1.25，如果第一组Chunk的大小为88个字节，第二组Chunk的大小就为112个字节，依此类推。</p>
+<p><strong>memcache</strong></p>
+<p>Memcached使用预分配的内存池的方式，使用slab和大小不同的chunk来管理内存，Item根据大小选择合适的chunk存储，内存池的方式可以省去申请/释放内存的开销，并且能减小内存碎片产生，但这种方式也会带来一定程度上的空间浪费，并且在内存仍然有很大空间时，新的数据也可能会被剔除</p>
+<p><strong>详细</strong>：</p>
+<p>Memcached默认使用Slab Allocation机制管理内存，其主要思想是按照预先规定的大小，将分配的内存分割成特定长度的块以存储相应长度的key-value数据记录，以完全解决内存碎片问题。Slab Allocation机制只为存储外部数据而设计，也就是说所有的key-value数据都存储在Slab Allocation系统里，而Memcached的其它内存请求则通过普通的malloc/free来申请，因为这些请求的数量和频率决定了它们不会对整个系统的性能造成影响Slab Allocation的原理相当简单。 如图所示，它首先从操作系统申请一大块内存，并将其分割成各种尺寸的块Chunk，并把尺寸相同的块分成组Slab Class。其中，Chunk就是用来存储key-value数据的最小单位。每个Slab Class的大小，可以在Memcached启动的时候通过制定Growth Factor来控制。假定图中Growth Factor的取值为1.25，如果第一组Chunk的大小为88个字节，第二组Chunk的大小就为112个字节，依此类推。</p>
 <p>当Memcached接收到客户端发送过来的数据时首先会根据收到数据的大小选择一个最合适的Slab Class，然后通过查询Memcached保存着的该Slab Class内空闲Chunk的列表就可以找到一个可用于存储数据的Chunk。当一条数据库过期或者丢弃时，该记录所占用的Chunk就可以回收，重新添加到空闲列表中。从以上过程我们可以看出Memcached的内存管理制效率高，而且不会造成内存碎片，但是它最大的缺点就是会导致空间浪费。因为每个Chunk都分配了特定长度的内存空间，所以变长数据无法充分利用这些空间。如图 所示，将100个字节的数据缓存到128个字节的Chunk中，剩余的28个字节就浪费掉了</p>
-<p><strong>Redis</strong>
-Redis使用现场申请内存的方式来存储数据，并且很少使用free-list等方式来优化内存分配，会在一定程度上存在内存碎片，Redis跟据存储命令参数，会把带过期时间的数据单独存放在一起，并把它们称为临时数据，非临时数据是永远不会被剔除的，即便物理内存不够，导致swap也不会剔除任何非临时数据（但会尝试剔除部分临时数据），这点上Redis更适合作为存储而不是cache
-<strong>详细：</strong>
-Redis为了方便内存的管理，在分配一块内存之后，会将这块内存的大小存入内存块的头部。</p>
+<p><strong>Redis</strong></p>
+<p>Redis使用现场申请内存的方式来存储数据，并且很少使用free-list等方式来优化内存分配，会在一定程度上存在内存碎片，Redis跟据存储命令参数，会把带过期时间的数据单独存放在一起，并把它们称为临时数据，非临时数据是永远不会被剔除的，即便物理内存不够，导致swap也不会剔除任何非临时数据（但会尝试剔除部分临时数据），这点上Redis更适合作为存储而不是cache</p>
+<p><strong>详细：</strong></p>
+<p>Redis为了方便内存的管理，在分配一块内存之后，会将这块内存的大小存入内存块的头部。</p>
 <p>Redis通过定义一个数组来记录所有的内存分配情况，数组的每一个元素代表当前程序所分配的内存块的个数，且内存块的大小为该元素的下标。Redis采用的是包装的malloc/free，相较于Memcached的内存管理方法来说，要简单很多。</p>
 <p>在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别.当物理内存用完时，Redis可以将一些很久没用到的value交换到磁盘.Redis只会缓存所有的key的信息，如果Redis发现内存的使用量超过了某一个阀值，将触发swap的操作,计算出哪些key对应的value需要swap到磁盘。然后再将这些key对应的value持久化到磁盘中，同时在内存中清除.</p>
 <h4 id="数据存储及持久化">数据存储及持久化</h4>
-<p><strong>memcache</strong>
-memcached不支持内存数据的持久化操作，所有的数据都以in-memory的形式存储。</p>
-<p><strong>Redis</strong>
-redis支持持久化操作。redis提供了两种不同的持久化方法来讲数据存储到硬盘里面，一种是快照（RDB)，它可以将存在于某一时刻的所有数据都写入硬盘里面。另一种方法叫只追加文件（append-only file， AOF),它会在执行写命令时，将被执行的写命令复制到硬盘里面。</p>
+<p><strong>memcache</strong></p>
+<p>memcached不支持内存数据的持久化操作，所有的数据都以in-memory的形式存储。</p>
+<p><strong>Redis</strong></p>
+<p>redis支持持久化操作。redis提供了两种不同的持久化方法来讲数据存储到硬盘里面，一种是快照（RDB)，它可以将存在于某一时刻的所有数据都写入硬盘里面。另一种方法叫只追加文件（append-only file， AOF),它会在执行写命令时，将被执行的写命令复制到硬盘里面。</p>
 <h4 id="数据一致性问题">数据一致性问题</h4>
-<p><strong>memcached</strong>
-Memcached提供了cas命令，可以保证多个并发访问操作同一份数据的一致性问题。</p>
-<p><strong>Redis</strong>
-Redis没有提供cas 命令，并不能保证这点，不过Redis提供了事务的功能，可以保证一串 命令的原子性，中间不会被任何操作打断。</p>
+<p><strong>memcached</strong></p>
+<p>Memcached提供了cas命令，可以保证多个并发访问操作同一份数据的一致性问题。</p>
+<p><strong>Redis</strong></p>
+<p>Redis没有提供cas 命令，并不能保证这点，不过Redis提供了事务的功能，可以保证一串 命令的原子性，中间不会被任何操作打断。</p>
 <h4 id="集群管理不同">集群管理不同</h4>
-<p><strong>memcached</strong>
-Memcached是全内存的数据缓冲系统，Redis虽然支持数据的持久化，但是全内存毕竟才是其高性能的本质。作为基于内存的存储系统来说，机器物理内存的大小就是系统能够容纳的最大数据量。如果需要处理的数据量超过了单台机器的物理内存大小，就需要构建分布式集群来扩展存储能力。</p>
+<p><strong>memcached</strong></p>
+<p>Memcached是全内存的数据缓冲系统，Redis虽然支持数据的持久化，但是全内存毕竟才是其高性能的本质。作为基于内存的存储系统来说，机器物理内存的大小就是系统能够容纳的最大数据量。如果需要处理的数据量超过了单台机器的物理内存大小，就需要构建分布式集群来扩展存储能力。</p>
 <p>Memcached本身并不支持分布式，因此只能在客户端通过像一致性哈希这样的分布式算法来实现Memcached的分布式存储。下图给出了Memcached的分布式存储实现架构。当客户端向Memcached集群发送数据之前，首先会通过内置的分布式算法计算出该条数据的目标节点，然后数据会直接发送到该节点上存储。但客户端查询数据时，同样要计算出查询数据所在的节点，然后直接向该节点发送查询请求以获取数据。</p>
-<p><strong>Redis</strong>
-相较于Memcached只能采用客户端实现分布式存储，Redis更偏向于在服务器端构建分布式存储。最新版本的Redis已经支持了分布式存储功能。Redis Cluster是一个实现了分布式且允许单点故障的Redis高级版本，它没有中心节点，具有线性可伸缩的功能。Redis Cluster的分布式存储架构，节点与节点之间通过二进制协议进行通信，节点与客户端之间通过ascii协议进行通信。在数据的放置策略上，Redis Cluster将整个key的数值域分成4096个哈希槽，每个节点上可以存储一个或多个哈希槽，也就是说当前Redis Cluster支持的最大节点数就是4096。Redis Cluster使用的分布式算法也很简单：crc16( key ) % HASH_SLOTS_NUMBER。</p>
+<p><strong>Redis</strong></p>
+<p>相较于Memcached只能采用客户端实现分布式存储，Redis更偏向于在服务器端构建分布式存储。最新版本的Redis已经支持了分布式存储功能。Redis Cluster是一个实现了分布式且允许单点故障的Redis高级版本，它没有中心节点，具有线性可伸缩的功能。Redis Cluster的分布式存储架构，节点与节点之间通过二进制协议进行通信，节点与客户端之间通过ascii协议进行通信。在数据的放置策略上，Redis Cluster将整个key的数值域分成4096个哈希槽，每个节点上可以存储一个或多个哈希槽，也就是说当前Redis Cluster支持的最大节点数就是4096。Redis Cluster使用的分布式算法也很简单：crc16( key ) % HASH_SLOTS_NUMBER。</p>
 <p>为了保证单点故障下的数据可用性，Redis Cluster引入了Master节点和Slave节点。在Redis Cluster中，每个Master节点都会有对应的两个用于冗余的Slave节点。这样在整个集群中，任意两个节点的宕机都不会导致数据的不可用。当Master节点退出后，集群会自动选择一个Slave节点成为新的Master节点。</p>
         </section>
         <div class="post-tags">
@@ -162,7 +226,11 @@ Memcached是全内存的数据缓冲系统，Redis虽然支持数据的持久化
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              <li><a href="/tags/php/">php</a></li>
+              
+              <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
+              
+              <li><a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></li>
               
             </ul>
           </nav>

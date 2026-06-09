@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>扩展 on 命中水、</title>
+		<link>http://localhost:3902/tags/%E6%89%A9%E5%B1%95/</link>
+		<description>Recent content in 扩展 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 03 Mar 2021 23:27:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/%E6%89%A9%E5%B1%95/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>简单几步安装PHP扩展</title>
+				<link>http://localhost:3902/posts/jiandanjibuanzhuangphpkuozhan/</link>
+				<pubDate>Wed, 03 Mar 2021 23:27:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/jiandanjibuanzhuangphpkuozhan/</guid>
+				<description>&lt;p&gt;有时候在安装PHP的时候，会漏掉一些平时不太常用的扩展，到以后再要去安装的时候，时常会因为版本不对出现各种问题，本文主要介绍一下通过简单几步安装扩展的方式。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
