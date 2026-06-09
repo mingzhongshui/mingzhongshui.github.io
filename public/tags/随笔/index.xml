@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>随笔 on My New Hugo Project</title>
+		<link>http://localhost:2851/tags/%E9%9A%8F%E7%AC%94/</link>
+		<description>Recent content in 随笔 on My New Hugo Project</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<atom:link href="http://localhost:2851/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>[译]PHP使用RabbitMQ文档--Hello World</title>
+				<link>http://localhost:2851/posts/yiphpshiyongrabbitmqwendanghello_world/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/yiphpshiyongrabbitmqwendanghello_world/</guid>
+				<description>&lt;p&gt;这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。&lt;/p&gt;&#xA;&lt;p&gt;英文地址：[RabbitMQ tutorial - &amp;ldquo;Hello World!&amp;rdquo; — RabbitMQ][1]&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>【转】centos通过yum源快速搭建lnmp环境</title>
+				<link>http://localhost:2851/posts/zhuancentostongguoyumyuankuaisudajianlnmphuanjing/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/zhuancentostongguoyumyuankuaisudajianlnmphuanjing/</guid>
+				<description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文地址：[Linux-CentOS7下安装LNMP环境笔记&amp;ndash;ncsb][1]&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;1-设置yum源&#34;&gt;1. 设置yum源&lt;/h2&gt;&#xA;&lt;p&gt;PHP源官方地址: [https://webtatic.com/][2]&lt;/p&gt;&#xA;&lt;p&gt;mysql源官方地址: [https://dev.mysql.com/downloads/repo/yum/][3]&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xD;&#xA;rpm -Uvh https://dl.Fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;rpm -Uvh  http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+			</item>
+			<item>
+				<title>charm_PHP，一个还有诸多问题的PHP MVC框架</title>
+				<link>http://localhost:2851/posts/charm_phpyigehaiyouzhuduowentidephp_mvckuangjia/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/charm_phpyigehaiyouzhuduowentidephp_mvckuangjia/</guid>
+				<description>&lt;h1 id=&#34;charm_php&#34;&gt;charm_PHP&lt;/h1&gt;&#xA;&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;&#xA;&lt;p&gt;一个简单的MVC框架，框架中实现了C和V层，M层使用composer的PHP组件——&lt;a href=&#34;https://packagist.org/packages/catfan/medoo&#34; title=&#34;medoo&#34;&gt;Medoo&lt;/a&gt;，实现了一些简单的设计模式，单一入口、自动加载。&lt;/p&gt;&#xA;&lt;p&gt;本框架遵循&lt;a href=&#34;https://www.cxiansheng.cn/server/293&#34; title=&#34;PSR&#34;&gt;PSR规范&lt;/a&gt;，使用&lt;a href=&#34;http://www.php.net/manual/zh/language.namespaces.rationale.php&#34; title=&#34;namespace&#34;&gt;命名空间&lt;/a&gt;来规范类于类之间的互相合作；&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Composer三部曲：安装、使用、发布</title>
+				<link>http://localhost:2851/posts/composersanbuquanzhuangshiyongfabu/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/composersanbuquanzhuangshiyongfabu/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/11/905996380.jpg&#34; alt=&#34;composer&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;    在现代化的PHP开发当中，离开不了各种各样的组件，那么如何快速在项目中安装和找到这些组件呢？composer正是为这一目的而出现，如果你还不知道composer，那么你就out了。那么什么是composer，它的作用是什么？如何使用？本文将一一揭晓。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>csntos7.4安装redis及php-redis扩展</title>
+				<link>http://localhost:2851/posts/csntos74anzhuangredisjiphprediskuozhan/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/csntos74anzhuangredisjiphprediskuozhan/</guid>
+				<description>&lt;p&gt;    记得我的历史博客中，有一篇写了关于windows安装redis以及php-redis扩展的安装和使用【[Redis在windows下的安装操作以及PHP-Redis操作][1]】，现在这篇文章又再续前缘，说一下centos下redis以及php-redis扩展的安装。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Laravel &#43; Swoole 协程实战：一个多租户采集系统的真实落地方案</title>
+				<link>http://localhost:2851/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/</guid>
+				<description>&lt;blockquote&gt;&#xA;&lt;p&gt;作为 PHP 开发者，我们迟早都会遇到一个瞬间：&lt;/p&gt;&#xA;&lt;p&gt;代码没有报错，逻辑也没问题，但系统就是——慢。&lt;/p&gt;&#xA;&lt;p&gt;不是慢一点，是那种&#xA;「明明只是检查 1000 个账号状态，却要跑半个小时」&#xA;「服务器 CPU 不高，但请求就是排着队等」&#xA;的慢。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;最近搞项目刚好遇到了一个业务场景，多租户系统中，根据账号采集数据，采集前先要确认账号是否有效（就像根据IP代理爬数据一样，爬数据前先确认代理是否有效），于是我按照以往的经验，很自然的写了这样一条链路：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;循环取出一个账号&lt;/li&gt;&#xA;&lt;li&gt;检测状态&lt;/li&gt;&#xA;&lt;li&gt;拉数据&lt;/li&gt;&#xA;&lt;li&gt;账号异常，再换下一个账号，重复执行1、2、3&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;逻辑看似没问题，代码也很优雅。直到我测试的时候，跑了一次完整的任务。1000个账号，跑了30分钟还没跑完。我查看了CPU，内存也不高，但就是很慢。为什么呢？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;问题不在算力，而在于PHP在大量IO等待中，被迫排队！&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;这个时候就是协程（Coroutine）大显身手的时候了。下文将结合业务和实战（编码）深入理解协程，并展示如何在Laravel中构建基于协程的高性能多租户采集系统。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Laravel学习笔记—Artisan命令与数据迁移填充</title>
+				<link>http://localhost:2851/posts/laravelxuexibijiartisanminglingyushujuqianyitianchong/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/laravelxuexibijiartisanminglingyushujuqianyitianchong/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2018/05/1290816652.jpg&#34; alt=&#34;laravel.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;衔接之前文章，继续学习，做笔记。&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;[Laraver学习笔记—框架基本介绍][2]&lt;/li&gt;&#xA;&lt;li&gt;[Laravel学习笔记—数据库操作的三种方式][3]&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+			<item>
+				<title>Linux常用命令总结</title>
+				<link>http://localhost:2851/posts/linuxchangyongminglingzongjie/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/linuxchangyongminglingzongjie/</guid>
+				<description>&lt;p&gt;Linux常用命令总结&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)</title>
+				<link>http://localhost:2851/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/</guid>
+				<description>&lt;p&gt;    前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Node.js学习一：简单爬虫</title>
+				<link>http://localhost:2851/posts/nodejsxuexiyijiandanpachong/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/nodejsxuexiyijiandanpachong/</guid>
+				<description>&lt;p&gt;    &lt;code&gt;node.js&lt;/code&gt;是一个基于&lt;code&gt;Chrome JavaScript&lt;/code&gt;运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。&lt;code&gt;Node.js&lt;/code&gt;使用事件驱动， 非阻塞&lt;code&gt;I/O&lt;/code&gt;模型而得以轻量和高效，非常适合在分布式设备上运行数据密集型的实时应用。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>PHP之uploadify在框架中上传302错误的总结</title>
+				<link>http://localhost:2851/posts/phpzhiuploadifyzaikuangjiazhongshangchuan302cuowudezongjie/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/phpzhiuploadifyzaikuangjiazhongshangchuan302cuowudezongjie/</guid>
+				<description>&lt;p&gt;首先http 302是请求被重定向的意思，这就很容易理解了，如果你的uploadify处理上传脚本有session验证，就会出现此错误，因为flash在执行post请求的时候没有包含cookie信息，而服务器的session会根据客户端的cookie来得到SESSIONID。没有提交cookie自然就不能获取到session，然后uploadify就返回了302(请求被重定向)的错误。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>PHP基准测试工具Apache Banchmark</title>
+				<link>http://localhost:2851/posts/phpjizhunceshigongjuapache_banchmark/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/phpjizhunceshigongjuapache_banchmark/</guid>
+				<description>&lt;p&gt;    &lt;code&gt;Apache Banchmark（ab）&lt;/code&gt;工具是最著名的基准测试工具之一，它是默认安装的&lt;code&gt;apache&lt;/code&gt;的一部分，能够通过模拟对特定的&lt;code&gt;URL&lt;/code&gt;的任意数量请求来对&lt;code&gt;web&lt;/code&gt;服务器进行负载测试。而且更重要的是&lt;code&gt;Apache Banchmark&lt;/code&gt;是独立于&lt;code&gt;Apache Web&lt;/code&gt;服务的，从而可以在运行&lt;code&gt;ab&lt;/code&gt;的同时使运行此工具的计算机上的&lt;code&gt;Web&lt;/code&gt;服务处于非活动状态。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>plupload—强大的前端上传组件</title>
+				<link>http://localhost:2851/posts/pluploadqiangdadeqianduanshangchuanzujian/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/pluploadqiangdadeqianduanshangchuanzujian/</guid>
+				<description>&lt;p&gt;    相信很多小伙伴在日常的项目功能中不止一次用到过上传插件吧，常用的上传插件有很多，比如有名的&lt;code&gt;uploadify&lt;/code&gt;，我之前的项目中一直也是在用&lt;code&gt;uploadify&lt;/code&gt;，但是最近的一个项目，却让我不得不放弃了这个好用、方便的上传插件，改用起了&lt;code&gt;plupload&lt;/code&gt;，这个组件真心强大，不仅支持各种浏览器，而且上传方式也是多种多样，下面我来介绍一下这个组件简单的demo和配置：&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Python scrapy框架学习笔记及简单实战</title>
+				<link>http://localhost:2851/posts/python_scrapykuangjiaxuexibijijijiandanshizhan/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/python_scrapykuangjiaxuexibijijijiandanshizhan/</guid>
+				<description>&lt;p&gt;工作需要，接触到python的scrapy爬虫框架，据说是python最好用的爬虫框架，没有之一。文章内容为学习过程的笔记，参考资源会贴在文章最后。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Python如何爬取动态网站？</title>
+				<link>http://localhost:2851/posts/pythonruhepaqudongtaiwangzhan/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/pythonruhepaqudongtaiwangzhan/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2020/03/1277139040.jpg&#34; alt=&#34;python 爬虫&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;当我们在爬取网页的时候，有部分是静态的，这种类型的网页，我们采用一般的方法就能很容易爬取到数据。但有些网页爬取的门槛还是有的，是动态的，是通过js渲染（包括ajax）出来的，这类型的网页采取一般的爬取方式就不行了，会出现爬取不到指定的数据。这时候，就要换种思路来解决了。所谓道高一尺，魔高一丈。本篇文章来介绍一下采用Splash和selenium来爬取动态网页，并对比一下两者的区别。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Python学习笔记（常用扩展）</title>
+				<link>http://localhost:2851/posts/pythonxuexibijichangyongkuozhan/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/pythonxuexibijichangyongkuozhan/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2020/03/15201244.png&#34; alt=&#34;python&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Python常用扩展使用笔记，包括mysql连接池、Excel、日志等。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Python爬虫研究</title>
+				<link>http://localhost:2851/posts/pythonpachongyanjiu/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/pythonpachongyanjiu/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2020/03/3015729754.jpg&#34; alt=&#34;python 爬虫&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;最近一直在研究爬虫相关的内容，对于各个知识点，都有所实践，以下是研究的结果。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Redis在windows下的安装操作以及PHP-Redis操作</title>
+				<link>http://localhost:2851/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/</guid>
+				<description>&lt;p&gt;Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &amp;ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>TIPI PHP源码阅读笔记（一）</title>
+				<link>http://localhost:2851/posts/tipi_phpyuanmayuedubijiyi/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/tipi_phpyuanmayuedubijiyi/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2018/05/2495093611.png&#34; alt=&#34;TIPI&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;[TIPI 深入理解PHP内核：Thinking In PHP Internals][2]&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Typecho 《HelloChangYan》插件500错误以及优化</title>
+				<link>http://localhost:2851/posts/typecho_hellochangyanchajian500cuowuyijiyouhua/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/typecho_hellochangyanchajian500cuowuyijiyouhua/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/08/2998162509.png&#34; alt=&#34;畅言logo&#34;&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Ubuntu一键安装LAMP环境</title>
+				<link>http://localhost:2851/posts/ubuntuyijiananzhuanglamphuanjing/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/ubuntuyijiananzhuanglamphuanjing/</guid>
+				<description>&lt;p&gt;    &lt;code&gt;ubuntu&lt;/code&gt;是一款以桌面应用为主的开源&lt;code&gt;linux&lt;/code&gt;操作系统，作为初学者学习&lt;code&gt;linux&lt;/code&gt;操作系统，也更为简单和容易上手。在&lt;code&gt;Ubuntu&lt;/code&gt;上搭建&lt;code&gt;lamp&lt;/code&gt;系统的方式有很多，这里就介绍一种最简单高效的安装方法；&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>ubuntu搭建PHP网站完整实例教程</title>
+				<link>http://localhost:2851/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/10/2460201975.jpg&#34; alt=&#34;ubuntu.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;之前写过两篇关于ubuntu系统搭建php环境的文章&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][2]&lt;/li&gt;&#xA;&lt;li&gt;[Ubuntu一键安装LAMP环境][3]&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;在之后的多次实践中，发现有些东西还没有说到，这里就把之后遇到的问题以及方法补充一下，作为一个完整的在ubuntu下搭建lamp环境的总结。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>VisualSVN server搭建Win-SVN服务器</title>
+				<link>http://localhost:2851/posts/visualsvn_serverdajianwinsvnfuwuqi/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/visualsvn_serverdajianwinsvnfuwuqi/</guid>
+				<description>&lt;p&gt;    由于本人所在公司最近内网服务器的变更，有幸参与并配置了&lt;strong&gt;svn服务器&lt;/strong&gt;，由于对&lt;code&gt;svn&lt;/code&gt;这种版本控制工具不是很熟悉，平时也就是&lt;code&gt;update&lt;/code&gt;和&lt;code&gt;commit&lt;/code&gt;，对于内部的一些&lt;code&gt;结构特点&lt;/code&gt;没有真正了解过，而且对于服务器端的配置也是一头雾水，但互联网的强大为我增添了很多助力，虽说初来乍到的走了不少弯路，但好在最后达成目标。废话不多说，下文就简单介绍一下svn的特点和其作为服务端的配置。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>WE and RNG</title>
+				<link>http://localhost:2851/posts/we_and_rng/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/we_and_rng/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/10/2448914932.jpg&#34; alt=&#34;微信图片_20171023201008.jpg&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/10/4214483863.jpg&#34; alt=&#34;微信图片_20171023201033.jpg&#34;&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>一份dcatadmin不全使用说明</title>
+				<link>http://localhost:2851/posts/yifendcatadminbuquanshiyongshuoming/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/yifendcatadminbuquanshiyongshuoming/</guid>
+				<description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;最近在家失业无聊，接了个单，其中有个项目就是关于后台管理系统的，发了几个模板样例给对方，有之前用过的后台框架&lt;code&gt;fastadmin&lt;/code&gt;、&lt;code&gt;laraveladmin&lt;/code&gt;，但是对方看了都觉得怎么跟他之前的后台一个样，要求换一个简洁一点的，于是我在网上搜了一下&lt;code&gt;laravel&lt;/code&gt;还有哪些后台框架，于是看到了&lt;code&gt;dcatadmin&lt;/code&gt;，把demo网站发给对方看过之后，觉得这个页面还好，比较简单，随交流沟通后，确定用这个后台。&lt;/p&gt;&#xA;&lt;h2 id=&#34;话说dcatadmin&#34;&gt;话说dcatadmin&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;dcatadmin&lt;/code&gt;这个框架我还是第一次用到，之前用&lt;code&gt;laravel&lt;/code&gt;的后台框架都是用的&lt;code&gt;laravel-admin&lt;/code&gt;，相对来说比较熟悉一点，&lt;code&gt;dcatadmin&lt;/code&gt;还是第一次听到（因为上份工作都是围绕yii框架来展开的，关于laravel的消息确实查看的不多）。&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;dcatadmin2.x&lt;/code&gt;文档-&lt;a href=&#34;https://learnku.com/docs/dcat-admin/2.x/brief-introduction/8080&#34;&gt;简介 | 入门 |《Dcat Admin 中文文档 2.x》| Laravel China 社区&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;看完整体下来，&lt;code&gt;dcatadmin&lt;/code&gt;重点需要了解的其实就是3个部分，也是后台系统中的组成：&lt;strong&gt;数据表格、表单、详情&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;但是还是有些地方没怎么看懂，尤其是关于&lt;strong&gt;工具表单&lt;/strong&gt;、&lt;strong&gt;异步加载&lt;/strong&gt;这块儿。时间有限，索性就在开发的过程中，再去搞清楚吧&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;因为现有文档描述不清，在开发过程中自己也是踩了不少坑，以下内容总结了在dcatadmin2.x中常用的几个功能，如有遇到类似疑问的开发者，可以少走一些弯路&lt;/strong&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>不能把平时要求自己的也强加到别人身上。</title>
+				<link>http://localhost:2851/posts/bunengbapingshiyaoqiuzijideyeqiangjiadaobierenshenshang/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/bunengbapingshiyaoqiuzijideyeqiangjiadaobierenshenshang/</guid>
+				<description>&lt;p&gt;不能把平时要求自己的也强加到别人身上。人与人是不一样的，每个人都是单独的、自由的个体。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>如何让博客速度快到哭</title>
+				<link>http://localhost:2851/posts/ruherangbokesudukuaidaoku/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/ruherangbokesudukuaidaoku/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/08/2689437204.png&#34; alt=&#34;让博客速度快到哭.jpg&#34;&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>支付宝支付总结（demo篇）</title>
+				<link>http://localhost:2851/posts/zhifubaozhifuzongjiedemopian/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/zhifubaozhifuzongjiedemopian/</guid>
+				<description>&lt;p&gt;    做过商城的，一定少不了支付这一环节，网银支付、支付宝支付、微信支付，这三个主流的支付方式，身为开发者不说全部掌握，使用过其中一样，其他支付方式的支付接口模式也就差不多了。就像&lt;code&gt;PHP&lt;/code&gt;的框架一样，能运用其中一个，其它的框架基本上都是采用&lt;code&gt;MVC&lt;/code&gt;的思想和设计模式。支付也是一样。这篇文章就讲述一下我做过的支付宝支付。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>日常小功能</title>
+				<link>http://localhost:2851/posts/richangxiaogongneng/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/richangxiaogongneng/</guid>
+				<description>&lt;p&gt;    本文日常整理收录一些小功能，持续更新&amp;hellip;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>架构</title>
+				<link>http://localhost:2851/posts/jiagou/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/jiagou/</guid>
+				<description>&lt;h2 id=&#34;何为架构&#34;&gt;何为架构&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;架构是为了解决系统软件复杂度问题的；&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;架构的复杂度来源&#34;&gt;架构的复杂度来源&lt;/h2&gt;&#xA;&lt;h3 id=&#34;高性能&#34;&gt;高性能&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;集群的复杂度&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;1、任务分配&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;任务分配器；&#xA;&lt;ul&gt;&#xA;&lt;li&gt;硬件网络设备（F5、交换机等）&lt;/li&gt;&#xA;&lt;li&gt;软件网络设备（LVS）&lt;/li&gt;&#xA;&lt;li&gt;负载均衡软件（Nginx、HAProxy）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;任务分配器和业务服务器之间存在连接和交互，需要选择合适的连接方式&lt;/li&gt;&#xA;&lt;li&gt;任务分配器需要增加分配算法&#xA;&lt;ul&gt;&#xA;&lt;li&gt;轮询&lt;/li&gt;&#xA;&lt;li&gt;权重&lt;/li&gt;&#xA;&lt;li&gt;负载(如何按照负载来分配，那么业务服务器还要能够上报自己的状态给任务分配器)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;上面的架构只是对增加一台业务机器，如果我们的QPS、TPS指标有了提高之后，那么我们的任务分配器可能就有多台，业务服务器随之也会增加，这种情况下面临的问题：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;任务分配器变成多台；如何将用户分配到某一个任务分配器上；常见的方法包括：DNS轮询、智能DNS、CDN（内容分发网络）、GSLB设备（全局负载均衡）等&lt;/li&gt;&#xA;&lt;li&gt;任务分配器和业务服务器之间的连接从简单的“一堆多”演变成了“多对多”的网状结构&lt;/li&gt;&#xA;&lt;li&gt;机器数量也随之增加；状态管理、故障处理复杂度也会大大增加&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;2、任务分解&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;为什么需要任务分解？以及任务分解的好处？&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;简单的系统更容易做到高性能（系统的功能越简单，影响性能的点就越少，就更容易进行有针对性的优化）&lt;/li&gt;&#xA;&lt;li&gt;可以针对单个任务进行扩展（当把任务分解到子系统的时候，这时候就更加容易发现系统的瓶颈。而且在优化的时候不需要改变整体的架构，风险响应的就会小很多）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;任务分解同时也要把握拆分的粒度&lt;/strong&gt;；&lt;/p&gt;&#xA;&lt;h3 id=&#34;高可用&#34;&gt;高可用&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;什么是高可用&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;系统&lt;strong&gt;无中断&lt;/strong&gt;的执行其功能的能力，代表系统的可用性程度，是进行系统设计时的准则之一。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;系统做到绝对的“无中断”都是不太可能的事情。因为系统都是运行在硬件和软件之上的，而硬件会老化，软件会越来越复杂和庞大。而且一些自然环境也可以导致系统的中断。&lt;/p&gt;&#xA;&lt;p&gt;所以，高可用的方案，五花八门。但是万变不离其宗，本质上都是通过【冗余】来实现高可用（就是一台机器不够就上两台，两台机器不够就上四台）。和高性能的解决方案类似，都是通过“冗余”来达到目的。但是其中又有不同之处：&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;高性能增加机器的目的在于“扩展”处理性能；&#xA;高可用增加机器的目的在于“冗余”处理单元。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;1、计算高可用&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;高可用复杂度的体现，在以下几个方面：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;需要增加任务分配器&lt;/li&gt;&#xA;&lt;li&gt;任务分配器和业务服务器之间有连接和交互&lt;/li&gt;&#xA;&lt;li&gt;任务分配器增加分配算法。如，常见的双机算法有：主备、主主；主备方案又可以细分为：温备、热备、冷备。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;当高可用升级为集群的时候，分配算法更加复杂，可以是1主3备、2主2备、3主1备、四主0备，具体采用哪种，还是要根据业务的实际情况来分析和判断。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;zookeeper采用的是1主多备&#xA;Memchaced采用的是全主0备&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;2、存储高可用&lt;/strong&gt;&#xA;存储高可用的难点不在于如何备份数据，而是在于如何减少或者规避数据不一致对业务的影响。&#xA;CAP定理：一致性、可用性、分区容错性；只能满足其中两个。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;3、高可用决策状态&lt;/strong&gt;&#xA;独裁式：指存在一个独立的决策主体，负责收集信息然后决策；&#xA;协商式：两个个体通过交流信息，根据规则进行决策；最常用的协商式决策就是主备决策；&#xA;民主式：多个独立的个体通过投票的方式进行决策；zookeeper集群选举leader时就是采用的这种方式。&lt;/p&gt;&#xA;&lt;h3 id=&#34;可扩展性&#34;&gt;可扩展性&lt;/h3&gt;&#xA;&lt;h3 id=&#34;低成本&#34;&gt;低成本&lt;/h3&gt;&#xA;&lt;h3 id=&#34;安全&#34;&gt;安全&lt;/h3&gt;&#xA;&lt;h3 id=&#34;规模&#34;&gt;规模&lt;/h3&gt;&#xA;&lt;h2 id=&#34;架构设计的三原则&#34;&gt;架构设计的三原则&lt;/h2&gt;&#xA;&lt;h3 id=&#34;合适&#34;&gt;合适&lt;/h3&gt;&#xA;&lt;h3 id=&#34;简单&#34;&gt;简单&lt;/h3&gt;&#xA;&lt;h3 id=&#34;演化&#34;&gt;演化&lt;/h3&gt;</description>
+			</item>
+			<item>
+				<title>架构学习-设计计算高可用架构</title>
+				<link>http://localhost:2851/posts/jiagouxuexishejijisuangaokeyongjiagou/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/jiagouxuexishejijisuangaokeyongjiagou/</guid>
+				<description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;本文摘录于李运华老师的[《从0开始学架构》][1]课程，为精简总结。&lt;/p&gt;&#xA;&lt;h1 id=&#34;复杂度&#34;&gt;复杂度&lt;/h1&gt;&#xA;&lt;p&gt;计算高可用架构复杂度主要体现在&lt;strong&gt;任务管理&lt;/strong&gt;方面。旨当任务在某台服务器执行失败后，如何重新分配新的服务器&lt;/p&gt;&#xA;&lt;h2 id=&#34;设计关键&#34;&gt;设计关键&lt;/h2&gt;&#xA;&lt;h3 id=&#34;1-哪些服务器可以执行任务&#34;&gt;1、 哪些服务器可以执行任务&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;每个服务器都可以执行任务&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;特定服务器可以执行任务，当特定服务器故障后，选定新的服务器作为特定服务器&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+			</item>
+			<item>
+				<title>简单几步安装PHP扩展</title>
+				<link>http://localhost:2851/posts/jiandanjibuanzhuangphpkuozhan/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/jiandanjibuanzhuangphpkuozhan/</guid>
+				<description>&lt;p&gt;有时候在安装PHP的时候，会漏掉一些平时不太常用的扩展，到以后再要去安装的时候，时常会因为版本不对出现各种问题，本文主要介绍一下通过简单几步安装扩展的方式。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>行业各种大型架构、流程、分析、学习路线图 收录</title>
+				<link>http://localhost:2851/posts/hangyegezhongdaxingjiagouliuchengfenxixuexiluxiantu_shoulu/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/hangyegezhongdaxingjiagouliuchengfenxixuexiluxiantu_shoulu/</guid>
+				<description>&lt;p&gt;此文为收录行业，各种类型大型架构、分析、流程、学习路线图等；&#xA;图片来源已无从知晓，如侵权，请告知；&#xA;由于图片过大，自带的图片查看插件或许不能满足细节的查看效果，请右键下载图片或【在新标签页打开链接】放大查看；&lt;/p&gt;&#xA;&lt;p&gt;（PS：欢迎同行朋友提供相关图片，我会在图片末尾署名提供者信息，并发布在相关IT社区）&#xA;&lt;code&gt;持续更新...&lt;/code&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>记一次上线方（流）案（程）</title>
+				<link>http://localhost:2851/posts/jiyicishangxianfangliuancheng/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:2851/posts/jiyicishangxianfangliuancheng/</guid>
+				<description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;为了简化后续爬虫项目上线的步骤和流程，把爬虫API和定时任务的项目整合在一块了，由于涉及到相关的服务较多，也需要遵循修改服务、启动的先后顺序（不然该启动的服务没开，后续相关的服务受影响就尴尬了），所以在上线前，用了将近一个上午的时间，整理了一个上线流程。在上线时能够提供一些清晰的帮助。&lt;/p&gt;&#xA;&lt;h2 id=&#34;上线步骤&#34;&gt;上线步骤&lt;/h2&gt;&#xA;&lt;h3 id=&#34;包安装&#34;&gt;包安装&lt;/h3&gt;&#xA;&lt;p&gt;安装grequests、itemadapter包&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

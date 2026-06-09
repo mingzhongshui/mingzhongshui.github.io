@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>工作回顾之优化开户流程 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="前言众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/gongzuohuiguzhiyouhuakaihuliucheng/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="工作回顾之优化开户流程">
+	<meta property="og:description" content="前言众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="记录">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="工作回顾之优化开户流程">
+	<meta name="twitter:description" content="前言众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">工作回顾之优化开户流程</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <h2 id="前言">前言</h2>
+<p>众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐放，啥样的优化方式都有。而我虽然天天干着CURD的工作，和SQL天天打交道，其实说句实话，对SQL优化确实所会不多，只能算的上是皮毛。</p>
+<p>这不，什么不会就来什么，刚入职还在试用期的时候，老大派来一个任务</p>
+<p>：“小陈，我们有个开户的流程，从其他平台迁移过来，你对接下”</p>
+<p>：“好的，老大”</p>
+<p>：“对了，还有一个开户的动作，特别慢，要半小时甚至更久才能完成，你顺便优化一下”</p>
+<p>：“好的”</p>
+<p>什么开户？什么流程？什么优化，刚接到这个问题的我也是一头雾水，后面再深入了解了一下，大概明白了这个问题的来龙去脉</p>
+<h2 id="背景介绍">背景介绍</h2>
+<p>我们是多租户系统。每签一个新客户，合同落地之后，使用我们产品之前，在我们部门这边都要为这个客户创建一个数据库，为客户使用系统保存业务数据用。</p>
+<p>每一个客户都有一个独立的数据库。大部分客户的数据库都在一个数据库云服务上，只有那种数据量特别大的客户我们会单独为他开通一个云服务器，这个数据库云服务上只有他自己。</p>
+<p>我在接收这个问题之前，物业这边的客户数据库开库动作都是在其他部门的平台上完成（因为物业部门都是从其他部门独立出来的，有些业务依赖原先部门的系统，这个开户的流程就是），那现在要做的事情其实有两个</p>
+<ol>
+<li>原先的开户流程迁移到物业系统中</li>
+<li>优化开户流程（缩短开户时间</li>
+</ol>
+<p>那在着手操作之前，首先要熟悉下代码了，因为物业这边的系统是从原先部门迁移出来的，虽然经过了不同的迭代周期，但是核心代码应该是差不多的。</p>
+<p>那就好办了，首先联系对接的对方工程师，然后了解业务代码路径，自己跟着链路走一遍，没问题把代码复制粘贴过来就好了，这一步还是很快的，迁移过来之后，就需要跑通一遍流程，跑流程的时候，发现果然很慢，开户要半个多小时</p>
+<h2 id="代码拆解">代码拆解</h2>
+<p>那现在就要进行开户全流程代码拆解了，看看究竟是哪一步出现的问题，整理开户流程如下：</p>
+<ol>
+<li>从配置库获取空库信息</li>
+<li>将空库下载到本地，形成SQL文件</li>
+<li>file_get_content获取到文件内容</li>
+<li>字符串函数preg_replace替换指定内容，大概是删除空库名、DEFINER相关信息</li>
+<li>然后将替换过的SQL文件内容重新写入file_put_content到SQL文件中</li>
+<li>再将处理过的SQL文件导入到新指定租户数据库中</li>
+</ol>
+<p>流程大概如上，具体跑一遍流程观察一下时间&hellip;</p>
+<p>利用跑的时间去查个bug&hellip;
+<img src="https://www.cxiansheng.cn/usr/uploads/2025/05/4156522131.jpg" alt="微信图片_20250523141735.jpg"></p>
+<p>查完bug过来一看还在跑，那就再等等吧（等等党&gt;&hellip;
+最终时间定格在30多分钟跑完，为什么这么慢呢？这么慢的速度，理论上来说肯定是有优化空间的。</p>
+<p>在每个可能得节点打了日志，定位到步骤4耗时最长</p>
+<p>分析步骤4为什么耗时这么久，当时想的是从这么几点来看</p>
+<ol>
+<li>数据表有多少张？</li>
+<li>导出的SQL文件有大</li>
+<li>导出效率问题</li>
+<li>preg_replace效率问题</li>
+<li>回写到租户库的效率问题</li>
+</ol>
+<p>逐一确定下：</p>
+<p>数据表大概有2000多张</p>
+<p>导出SQL文件50M左右</p>
+<p>导出方式是mysqldump</p>
+<p>preg_replace适用的是正则替换字符串，执行复杂度O(n)到O(n²)取决于正则复杂度</p>
+<p>通过分析以上几点来看，怎么优化就清晰多了</p>
+<h2 id="优化点">优化点</h2>
+<h3 id="1导出导入方式优化">1、导出/导入方式优化</h3>
+<p>之前的导出代码是<code>mysqldump -P -u -p tenant &gt; tenant.sql </code>，可以优化为压缩导出<code>mysqldump -P -u -p tenant | gzip &gt; tenant.gz</code></p>
+<p>这样有什么好处呢？</p>
+<ol>
+<li>磁盘I/O时间大幅减少
+<ul>
+<li>压缩后的gz文件是是原始文件（.sql）文件体积的10-25%大小</li>
+<li>写入更小的文件到磁盘所需要的时间更少</li>
+<li>因为我们的数据表很多，大概在2000多张，用压缩的效率就要比mysqldump导出sql的方式更好了</li>
+</ul>
+</li>
+<li>管道操作效率
+<ul>
+<li>gzip压缩可以和mysqldump同时进行（管道并行处理）</li>
+<li>CPU的多核能力可以同时处理dump和压缩</li>
+</ul>
+</li>
+</ol>
+<p>同时创建新的租户库的时候也可以用这种方式提高效率。</p>
+<h3 id="2替换指定字符串方式优化">2、替换指定字符串方式优化</h3>
+<p>这一点，其实可以在dump的时候利用linux命令sed可以同步进行，优化后的代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed -e <span style="color:#e6db74">&#39;s/DEFINER[ ]*=[ ]*[^*]*\*/\*/&#39;</span> | sed -e <span style="color:#e6db74">&#39;s/DEFINER[ ]*=[ ]*[^*]*PROCEDURE/PROCEDURE/&#39;</span> | sed -e <span style="color:#960050;background-color:#1e0010">&#39;</span>s/DEFINER<span style="color:#f92672">[</span> <span style="color:#f92672">]</span>*<span style="color:#f92672">=[</span> <span style="color:#f92672">]</span>*<span style="color:#f92672">[</span>^*<span style="color:#f92672">]</span>*FUNCTION/FUNCTION/
+</span></span></code></pre></div><p>sed是Linux/Unix系统中的流编辑器命令，通常用于处理MySQL导出的SQL文件。具体使用用途如下：</p>
+<ol>
+<li>修改SQL导出文件：对<code>mysqldump</code>导出的文件进行批量修改</li>
+<li>移出DEFINER信息：删除存储过程、视图、函数中的DEFINER=字句</li>
+<li>替换字符集声明：修改数据库的默认字符集设置</li>
+<li>调整SQL语法：使导出的SQL文件兼容不同版本的MySQL</li>
+</ol>
+<p>通过这两步调整之后，再来跑一下，时间很快来到了3分半就执行完了租户库的创建流程。</p>
+<p>完整导出/处理SQL伪代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mysqldump -h -P -u -p --set-gtid-purged<span style="color:#f92672">=</span>OFF -R empty | sed -e <span style="color:#e6db74">&#39;s/DEFINER[ ]*=[ ]*[^*]*\*/\*/&#39;</span> | sed -e <span style="color:#e6db74">&#39;s/DEFINER[ ]*=[ ]*[^*]*PROCEDURE/PROCEDURE/&#39;</span> | sed -e <span style="color:#e6db74">&#39;s/DEFINER[ ]*=[ ]*[^*]*FUNCTION/FUNCTION/&#39;</span> | gzip &gt; empty.gz
+</span></span></code></pre></div><p>导入SQL伪代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gunzip &lt; empty.gz | mysqldump -h -P -u -p new_tenent
+</span></span></code></pre></div><h2 id="现在来看">现在来看？</h2>
+<h3 id="是否可以更快">是否可以更快？</h3>
+<p>答案是肯定的，可以进行库对库复制，且可以适用perl替换sed来处理正则操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mysqldump --single-transaction -h source_host -u user -p empty_db <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| perl -pe <span style="color:#e6db74">&#39;s/DEFINER\s*=\s*\S+//g; s/\/\*!50013 DEFINER=\S+\*\///g&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| mysql -h target_host -u user -p new_tenant_db
+</span></span></code></pre></div><h3 id="如何更安全更稳定">如何更安全、更稳定？</h3>
+<h4 id="事务保障机制">事务保障机制</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">beginTransaction</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 创建新库
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;CREATE DATABASE new_tenant CHARACTER SET utf8mb4&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 导入结构
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;gunzip -c empty_db.gz | mysql -u user -p new_tenant&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. 初始化租户数据
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;INSERT INTO new_tenant.tenant_info (...) VALUES (...)&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">commit</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">Exception</span> $e) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">rollBack</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 清理失败残留
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;DROP DATABASE IF EXISTS new_tenant&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span> $e;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="增量同步方案">增量同步方案</h4>
+<p>试想如果在导出到本地之后，原始空库发生了变化，在本地SQL文件导入创建新的租户库的时候，那原始空库的信息是不会同步到新的租户库的，所以需要增加一个同步方案来解决这种问题。解决方案如下：</p>
+<ol>
+<li>为原始空库创建一个版本表</li>
+</ol>
+<p>记录对原始空库的任何一个变更</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#a6e22e">schema_version</span> (
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    id <span style="color:#66d9ef">INT</span> <span style="color:#66d9ef">AUTO_INCREMENT</span> <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    version <span style="color:#66d9ef">VARCHAR</span>(<span style="color:#ae81ff">50</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    sql_file <span style="color:#66d9ef">VARCHAR</span>(<span style="color:#ae81ff">255</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    applied_at <span style="color:#66d9ef">TIMESTAMP</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">CURRENT_TIMESTAMP</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><ol start="2">
+<li>每次修改原始库时记录变更</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#a6e22e">schema_version</span> (version, sql_file) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;1.0.1&#39;</span>, <span style="color:#e6db74">&#39;alter_table_add_column_xxx.sql&#39;</span>);
+</span></span></code></pre></div><ol start="3">
+<li>导出前获取最新原始空库版本号</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span>currentVersion <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span>db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">query</span>(<span style="color:#e6db74">&#34;SELECT MAX(version) FROM `empty_db`.schema_version&#34;</span>)<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">fetchColumn</span>();
+</span></span></code></pre></div><ol start="4">
+<li>导出后导入前获取空库版本表最新的执行数据</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ae81ff">1.</span> <span style="color:#a6e22e">获取最新的版本数据</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$newVersions <span style="color:#f92672">=</span> $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">query</span>(
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;SELECT version, sql_file FROM `</span><span style="color:#e6db74">$baseDb</span><span style="color:#e6db74">`.schema_version 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         WHERE version &gt; &#39;</span><span style="color:#e6db74">$baseVersion</span><span style="color:#e6db74">&#39; 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         ORDER BY installed_on ASC&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    )<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">fetchAll</span>(<span style="color:#a6e22e">PDO</span><span style="color:#f92672">::</span><span style="color:#a6e22e">FETCH_ASSOC</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. 在新的租户库按版本顺序执行更新
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($newVersions <span style="color:#66d9ef">as</span> $update) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">beginTransaction</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">exec</span>($update[<span style="color:#e6db74">&#39;sql_file&#39;</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 记录版本变更
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;INSERT INTO `new_tenent`.schema_version 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                   (version, sql_file)&#34;</span>, [
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;:version&#39;</span> <span style="color:#f92672">=&gt;</span> $update[<span style="color:#e6db74">&#39;version&#39;</span>],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;:sql_file&#39;</span> <span style="color:#f92672">=&gt;</span> $update[<span style="color:#e6db74">&#39;sql_file&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">commit</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">Exception</span> $e) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">rollBack</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#34;应用更新 </span><span style="color:#e6db74">{</span>$update[<span style="color:#e6db74">&#39;version&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74"> 失败: &#34;</span> <span style="color:#f92672">.</span> $e<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getMessage</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>以上应该就能解决增量同步问题了。</p>
+<h2 id="总结">总结</h2>
+<p>优化不可能只简单的分为某个部分，既要考虑效率、又要考虑安全，世界上没有完美的方案，只有最适合业务场景的解决方案。</p>
+<p>与君共勉~</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

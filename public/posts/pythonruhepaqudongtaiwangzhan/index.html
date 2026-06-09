@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Python如何爬取动态网站？ - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="前言当我们在爬取网页的时候，有部分是静态的，这种类型的网页，" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/pythonruhepaqudongtaiwangzhan/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="Python如何爬取动态网站？">
+	<meta property="og:description" content="前言当我们在爬取网页的时候，有部分是静态的，这种类型的网页，">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Python如何爬取动态网站？">
+	<meta name="twitter:description" content="前言当我们在爬取网页的时候，有部分是静态的，这种类型的网页，">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Python如何爬取动态网站？</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p><img src="https://www.cxiansheng.cn/usr/uploads/2020/03/1277139040.jpg" alt="python 爬虫"></p>
+<h2 id="前言">前言</h2>
+<p>当我们在爬取网页的时候，有部分是静态的，这种类型的网页，我们采用一般的方法就能很容易爬取到数据。但有些网页爬取的门槛还是有的，是动态的，是通过js渲染（包括ajax）出来的，这类型的网页采取一般的爬取方式就不行了，会出现爬取不到指定的数据。这时候，就要换种思路来解决了。所谓道高一尺，魔高一丈。本篇文章来介绍一下采用Splash和selenium来爬取动态网页，并对比一下两者的区别。</p>
+<h2 id="版本介绍">版本介绍</h2>
+<p>本文中提到的各个工具的版本</p>
+<ul>
+<li>Python <code>3.8.1</code></li>
+<li>pip <code>20.0.2</code></li>
+<li>谷歌浏览器 <code>80.0.3987.132（正式版本） （64 位）</code></li>
+<li>火狐浏览器 <code>73.0 (64 位)</code></li>
+</ul>
+<h2 id="selenium">Selenium</h2>
+<blockquote>
+<p>Selenium是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。测试系统功能——创建回归测试检验软件功能和用户需求。</p>
+</blockquote>
+<p>上面是一段来自于百度百科的解释，通过上面的解释，我们可以简单的了解到selenium的用途，没错，很容易联想到自动化测试的场景。开发者写好一个功能，那么测试者可以编写对应的测试用例，模拟浏览器来测试这个功能。（会编写自动化脚本的测试人员，据说跟普通测试人员不是一个级别的哦）</p>
+<p>如上面百科所述，使用selenium时就像使用浏览器一样在操作，那我们通过什么样的方式来操作呢？刚好比较常用的谷歌浏览器和F火狐浏览器都提供了无头版本的浏览器</p>
+<h3 id="无头浏览器">无头浏览器</h3>
+<blockquote>
+<p>无头浏览器是指可以在图形界面情况下运行的浏览器。我可以通过编程来控制无头浏览器自动执行各种任务，比如做测试，给网页截屏等。</p>
+</blockquote>
+<p>我们可以通过浏览器提供的无头版本，来打开浏览器，使用的第一点就是首先<strong>电脑上得安装对应的正常版本的浏览器</strong>，然后通过代买程序来操作浏览器</p>
+<p>火狐浏览器无头版下载地址：[https://github.com/mozilla/geckodriver/releases][2]</p>
+<p>谷歌浏览器无头版下载地址：[http://chromedriver.storage.googleapis.com/index.html][3]</p>
+<p>这里值得注意的是，谷歌浏览器无头版本需要下载与电脑安装的谷歌浏览器相近的版本，比方电脑上安装的谷歌浏览器版本是<code>79.*.*</code>，那么下载的无头版本也应该是<code>79.*.*</code>，大版本要一致。火狐浏览器并无此要求。</p>
+<h3 id="phantomjs">PhantomJS</h3>
+<p>说起无头浏览器，就不得不提一下PhantomJS。</p>
+<blockquote>
+<p>PhantomJS是一个无界面的,可脚本编程的WebKit浏览器引擎。它原生支持多种web 标准：DOM 操作，CSS选择器，JSON，Canvas 以及SVG。</p>
+</blockquote>
+<p>现在Python对PhantomJS的支持已经变成了Selenium，PhantomJS相关的扩展已被<strong>废弃</strong>。这里只作为了解。</p>
+<h3 id="python操作selenium">Python操作selenium</h3>
+<p>python也实现了selenium，通过selenium的webdriver来调用相应的浏览器进行操作，下面我们看一下，python使用selenium的简单案例：</p>
+<h4 id="1实现唤起浏览器并打开一个网页">1、实现唤起浏览器并打开一个网页</h4>
+<pre tabindex="0"><code># -*- coding: utf-8 -*-
+
+# 引入selenium webdriver
+from selenium import webdriver
+
+# 设置浏览器类型为火狐
+browser = webdriver.Firefox()
+
+# 打开一个网址
+browser.get(&#39;https://item.jd.com/100008348542.html&#39;)
+</code></pre><h4 id="2设置无头运行">2、设置无头运行</h4>
+<pre tabindex="0"><code># -*- coding: utf-8 -*-
+
+# 引入selenium webdriver类
+from selenium import webdriver
+
+# 引入火狐浏览器配置类
+from selenium.webdriver import FirefoxOptions
+
+# 实例化一个配置项
+options = FirefoxOptions()
+
+# 设置无需打开浏览器
+options.add_argument(&#39;--headless&#39;)
+
+# 设置浏览器类型为火狐
+browser = webdriver.Firefox(firefox_options=options)
+
+# 打开一个网址
+browser.get(&#39;https://item.jd.com/100008348542.html&#39;)
+
+# 获取网页源码
+source = browser.page_source
+
+print(source)
+</code></pre><p>上面<code>source = browser.page_source</code>这一行代码就是获取到的js渲染之后的网页源码。拿到源码之后就可以干你想干的事情啦</p>
+<p>是不是操作起来很简单呢</p>
+<h2 id="splash">Splash</h2>
+<p>Splash是一个javascript渲染服务。它是一个带有HTTP API的轻量级Web浏览器，使用Twisted和QT5在Python 3中实现。QT反应器用于使服务完全异步，允许通过QT主循环利用webkit并发。</p>
+<h3 id="功能介绍">功能介绍</h3>
+<ul>
+<li>并行处理多个网页</li>
+<li>获取HTML源代码或截取屏幕截图</li>
+<li>关闭图像或使用Adblock Plus规则使渲染更快</li>
+<li>在页面上下文中执行自定义JavaScript</li>
+<li>可通过Lua脚本来控制页面的渲染过程</li>
+<li>在Splash-Jupyter 笔记本中开发Splash Lua脚本。</li>
+<li>以HAR格式获取详细的渲染信息</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li>[python3之Splash][4]</li>
+<li>[Python+Selenium基础入门及实践][5]</li>
+</ul>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

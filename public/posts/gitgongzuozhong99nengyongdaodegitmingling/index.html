@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>【Git】工作中99%能用到的git命令 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="分支操作1.gitbranch创建分支2.gitchecko" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/gitgongzuozhong99nengyongdaodegitmingling/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="【Git】工作中99%能用到的git命令">
+	<meta property="og:description" content="分支操作1.gitbranch创建分支2.gitchecko">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="记录">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="【Git】工作中99%能用到的git命令">
+	<meta name="twitter:description" content="分支操作1.gitbranch创建分支2.gitchecko">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">【Git】工作中99%能用到的git命令</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p><img src="https://www.cxiansheng.cn/usr/uploads/2019/02/4149774481.jpg" alt="git"></p>
+<h2 id="分支操作">分支操作</h2>
+<ol>
+<li>git branch  创建分支</li>
+<li>git checkout -b 创建并切换到新建的分支上</li>
+<li>git checkout  切换分支</li>
+<li>git branch 查看分支列表</li>
+<li>git branch -v 查看所有分支的最后一次操作</li>
+<li>git branch -vv 查看当前分支</li>
+<li>git brabch -b 分支名 origin/分支名 创建远程分支到本地</li>
+<li>git branch &ndash;merged 查看别的分支和当前分支合并过的分支</li>
+<li>git branch &ndash;no-merged 查看未与当前分支合并的分支</li>
+<li>git branch -d 分支名 删除本地分支</li>
+<li>git branch -D 分支名 强行删除分支</li>
+<li>git push origin &ndash;delete 分支名 删除远处仓库分支</li>
+<li>git merge 分支名  合并分支到当前分支上</li>
+<li>git push &ndash;set-upstream origin 分支名 / git push origin 分支名 将本地分支推送到远程仓库</li>
+<li>git checkout -b 本地分支名 origin/远程分支名 下载远程仓库分支到本地</li>
+</ol>
+<h2 id="暂存操作">暂存操作</h2>
+<ol>
+<li>git stash 暂存当前修改</li>
+<li>git stash apply 恢复最近的一次暂存</li>
+<li>git stash pop 恢复暂存并删除暂存记录</li>
+<li>git stash list 查看暂存列表</li>
+<li>git stash drop 暂存名(例：stash@{0})  移除某次暂存</li>
+<li>git stash clear 清除暂存</li>
+</ol>
+<h2 id="回退操作">回退操作</h2>
+<ol>
+<li>git reset &ndash;hard HEAD^ 回退到上一个版本</li>
+<li>git reset &ndash;hard ahdhs1(commit_id)  回退到某个版本</li>
+<li>git checkout &ndash; file撤销修改的文件(如果文件加入到了暂存区，则回退到暂存区的，如果文件加入到了版本库，则还原至加入版本库之后的状态)</li>
+<li>git reset HEAD file  撤回暂存区的文件修改到工作区</li>
+</ol>
+<h2 id="标签操作">标签操作</h2>
+<ol>
+<li>git tag 标签名 添加标签(默认对当前版本)</li>
+<li>git tag 标签名 commit_id 对某一提交记录打标签</li>
+<li>git tag -a 标签名 -m &lsquo;描述&rsquo;  创建新标签并增加备注</li>
+<li>git tag 列出所有标签列表</li>
+<li>git show 标签名  查看标签信息</li>
+<li>git tag -d 标签名  删除本地标签</li>
+<li>git push origin 标签名 推送标签到远程仓库</li>
+<li>git push origin &ndash;tags 推送所有标签到远程仓库</li>
+<li>git push origin :refs/tags/标签名  从远程仓库中删除标签</li>
+</ol>
+<h2 id="其它操作">其它操作</h2>
+<h3 id="全局操作">全局操作</h3>
+<h4 id="免输入账号密码">免输入账号密码</h4>
+<p><code>git config --global credential.helper store</code></p>
+<h4 id="设置全局用户名和邮箱">设置全局用户名和邮箱</h4>
+<pre tabindex="0"><code>git config --global user.name &#34;your user name&#34;
+git config --global user.email &#34;your user email&#34;
+</code></pre><h3 id="常规操作">常规操作</h3>
+<ol>
+<li>git push origin test 推送本地分支到远程仓库</li>
+<li>git rm -r &ndash;cached 文件/文件夹名字 取消文件被版本控制</li>
+<li>git reflog 获取执行过的命令</li>
+<li>git log &ndash;graph 查看分支合并图</li>
+<li>git merge &ndash;no-ff -m &lsquo;合并描述&rsquo; 分支名  不使用Fast forward方式合并，采用这种方式合并可以看到合并记录</li>
+<li>git check-ignore -v 文件名  查看忽略规则</li>
+<li>git add -f 文件名  强制将文件提交</li>
+</ol>
+<h3 id="git创建项目仓库">git创建项目仓库</h3>
+<p>1、git init      初始化
+2、git remote add  origin  url 关联远程仓库
+3、git pull
+4、git fetch 获取远程仓库中所有的分支到本地</p>
+<h3 id="忽略已加入到版本库中的文件">忽略已加入到版本库中的文件</h3>
+<p>1、git update-index &ndash;assume-unchanged file 忽略单个文件
+2、git rm -r &ndash;cached 文件/文件夹名字  (. 忽略全部文件)</p>
+<h3 id="取消忽略文件">取消忽略文件</h3>
+<p>git update-index &ndash;no-assume-unchanged file</p>
+<h3 id="拉取上传免密码">拉取、上传免密码</h3>
+<p>git config &ndash;global credential.helper store</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

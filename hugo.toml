@@ -1,0 +1,5 @@
+theme = "archie"
+
+baseURL = 'https://example.org/'
+locale = 'en-us'
+title = 'My New Hugo Project'

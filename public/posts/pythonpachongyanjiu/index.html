@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Python爬虫研究 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="最近一直在研究爬虫相关的内容，对于各个知识点，都有所实践，以" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/pythonpachongyanjiu/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="Python爬虫研究">
+	<meta property="og:description" content="最近一直在研究爬虫相关的内容，对于各个知识点，都有所实践，以">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Python爬虫研究">
+	<meta name="twitter:description" content="最近一直在研究爬虫相关的内容，对于各个知识点，都有所实践，以">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Python爬虫研究</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p><img src="https://www.cxiansheng.cn/usr/uploads/2020/03/3015729754.jpg" alt="python 爬虫"></p>
+<p>最近一直在研究爬虫相关的内容，对于各个知识点，都有所实践，以下是研究的结果。</p>
+<h2 id="反爬虫常见套路">反爬虫常见套路</h2>
+<ol>
+<li>判断user-agent</li>
+<li>校验referer头</li>
+<li>校验cookie</li>
+<li>同一ip访问次数限制</li>
+<li>js/ajax动态渲染页面</li>
+</ol>
+<h2 id="反反爬虫应对策略">反反爬虫应对策略</h2>
+<h3 id="1user-agent头校验">1、user-agent头校验</h3>
+<p>每次请求设置随机user-agent头。可以引入<code>fake_useragent</code>模块或从<a href="http://useragentstring.com/pages/useragentstring.php?typ=browser">http://useragentstring.com/pages/useragentstring.php?typ=browser</a>获取最新请求头。</p>
+<p>通过scrapy框架实现，<code>download_middleware</code>中间件，<code>process_request</code>方法。示例：</p>
+<pre tabindex="0"><code># 自定义User-Agent列表
+request.headers[&#39;User-Agent&#39;] = random.choice(USER_AGENTS)
+
+# fake_useragent方式实现
+from fake_useragent import UserAgent
+request.headers[&#39;User-Agent&#39;] = str(UserAgent().random)
+</code></pre><h3 id="2校验referer头">2、校验referer头</h3>
+<ol>
+<li>设置referer为网站主域名</li>
+<li>通过selenium爬取，selenium会自动为每次请求增加referer头</li>
+</ol>
+<h3 id="3校验cookie">3、校验cookie</h3>
+<p>对方的网站的cookie规则无法分析/破解难度太大。可以通过<code>selenium/splash</code>处理对cookie的操作，建立cookie池</p>
+<h3 id="4同一ip访问次数限制">4、同一ip访问次数限制</h3>
+<p>如果同一个ip在某个时间段访问频次过高，会被认为是爬虫，封掉ip。解决办法：</p>
+<h4 id="1使用代理ip">1.使用代理ip</h4>
+<pre><code>1) 批量获取ip，构成ip池
+2) 分次请求代理ip接口，每次请求一条ip，获取ip和过期时间
+</code></pre>
+<p>scrapy实现方式，<code>download_middleware</code>中间件，<code>process_request</code>方法。示例：</p>
+<pre tabindex="0"><code>request.meta[&#39;proxy&#39;] = proxy
+</code></pre><h4 id="2设置抓取频率">2.设置抓取频率</h4>
+<p>修改scrapy settings文件</p>
+<pre tabindex="0"><code># 设置下载延迟 3s
+DOWNLOAD_DELAY = 3
+</code></pre><h4 id="代理平台对比">代理平台对比</h4>
+<table>
+	<thead>
+			<tr>
+					<th>指标\平台</th>
+					<th>芝麻代理</th>
+					<th>快代理</th>
+					<th>&hellip;</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>稳定性</td>
+					<td>中（测试过程中，未发现代理不能用的情况）</td>
+					<td>未使用，不明确</td>
+					<td>&hellip;</td>
+			</tr>
+			<tr>
+					<td>灵活性</td>
+					<td>高（参数配置灵活，通过url调用）</td>
+					<td>未使用，不明确</td>
+					<td>&hellip;</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="5jsajax动态渲染页面">5、js/ajax动态渲染页面</h3>
+<p>此类网站可以通过<code>selenium</code>或者<code>splash</code>工具来进行处理。各自优缺点对比：</p>
+<table>
+	<thead>
+			<tr>
+					<th>指标\工具</th>
+					<th>selenium</th>
+					<th>splash</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>性能</td>
+					<td>低(每次请求需页面加载完才能进行下一步处理)</td>
+					<td>高（Twisted和QT，发挥webkit并发能力）</td>
+			</tr>
+			<tr>
+					<td>效率</td>
+					<td>低(模拟浏览器，浏览器底层初始化一些流程)</td>
+					<td>高（Twisted和QT，发挥webkit并发能力）</td>
+			</tr>
+			<tr>
+					<td>运维成本</td>
+					<td>低（作为scrapy一个类库调用）</td>
+					<td>高（需配合docker使用，开启docker-splash服务）</td>
+			</tr>
+			<tr>
+					<td>内存</td>
+					<td>高（随时间推移，占用内存越高）</td>
+					<td>待测试&hellip;</td>
+			</tr>
+			<tr>
+					<td>灵活性</td>
+					<td>中</td>
+					<td>高（参数配置方便）</td>
+			</tr>
+			<tr>
+					<td>使用范围</td>
+					<td>浏览器测试自动化工具</td>
+					<td>异步渲染页面</td>
+			</tr>
+	</tbody>
+</table>
+<p>综上所述，爬取动态页面数据，在效率以及爬取性能上，splash会有明显优势。</p>
+<h2 id="question">&amp;Question</h2>
+<h3 id="1如何确保100爬取">1、如何确保100%爬取？</h3>
+<p>1、代理ip稳定</p>
+<p>2、建立失败请求重试机制</p>
+<h3 id="2代理ip被对方网站封掉如何处理重试机制">2、代理ip被对方网站封掉如何处理？（重试机制？）</h3>
+<p>通过scrapy框架<code>download_middleware</code>中间件，<code>process_response</code>方法来判断返回参数进行处理。示例：</p>
+<pre tabindex="0"><code>    def process_response(self, request, response, spider):
+        
+        # 判断response状态码 或 返回内容为验证码，则获取新的代理ip
+        if response.status != 200:
+            self.logger.info(&#39;ip被拉黑&#39;)
+            
+            # 更新代理ip
+            self.update_proxy()
+            
+            # 返回request对象 重新发起请求
+            return request
+
+        # 返回response到爬虫脚本
+        return response
+</code></pre><p>也可以作为重试机制之一。</p>
+<h3 id="3selenium代理设置问题及替代方案">3、selenium代理设置问题及替代方案</h3>
+<p>通过资料查找以及实践踩坑发现selenium对于代理ip的设置不太友好，而且如何动态切换代理ip也是个问题（也可以实现）。</p>
+<p>splash设置动态ip比较方便。示例：</p>
+<ol>
+<li>中间件实现</li>
+</ol>
+<pre tabindex="0"><code>class ProxyMiddleware(object):
+      def process_request(self, request, spider):
+	      request.meta[&#39;splash&#39;][&#39;args&#39;][&#39;proxy&#39;] = proxyServer
+	      proxy_user_pass = &#34;USERNAME:PASSWORD&#34;
+	      encoded_user_pass = base64.encodestring(proxy_user_pass)
+	      request.headers[&#34;Proxy-Authorization&#34;] = &#39;Basic &#39; + encoded_user_pass
+</code></pre><ol start="2">
+<li>spider实现</li>
+</ol>
+<pre tabindex="0"><code>def start_requests(self):
+    for url in self.start_urls:
+        yield SplashRequest(url,
+            url=url,
+            callback=self.parse,
+            args={
+            	   &#39;wait&#39;: 5,
+                   &#39;proxy&#39;: &#39;http://proxy_ip:proxy_port&#39;
+            }
+</code></pre><h3 id="4验证码问题">4、验证码问题</h3>
+<ol>
+<li>手动认证（效率太低&hellip; 需要人工</li>
+<li>更换ip (方便</li>
+<li>打码平台 (一般的识别验证码类库不稳定，打码平台一般都需要收费</li>
+<li>&hellip;</li>
+</ol>
+<p>选择哪个，哪种方式更适合，需要测试以及项目需求才能确定。</p>
+<h3 id="5如何高效抓取">5、如何高效抓取</h3>
+<ol>
+<li>破解对方ajax请求，通过ajax请求获取数据，不走页面</li>
+<li>mysql连接池（Twisted、adbapi）</li>
+<li>Redis分布式爬虫（Spider.Redis）</li>
+<li>数据写入redis或MongoDB，异步读入mysql</li>
+<li>&hellip;</li>
+</ol>
+<h3 id="6splash">6、Splash</h3>
+<p>这里以亚马逊为例，爬取亚马逊，使用Splash没有用selenium好，使用splash总是会出现响应丢失的情况，估计是响应时间太长了，后续还需要更加完善的测试。</p>
+<h2 id="scrapy实践项目地址">scrapy实践项目地址</h2>
+<p><a href="https://note.youdao.com/">https://gitee.com/mingzhongshui/Python-scrapy-demo</a></p>
+<ol>
+<li>jianshu分支 实现对简书所有文章详情的爬取，以selenium或者代理ip的方式</li>
+<li>amazon分支 实现对亚马逊整站商品的爬取，以selenium或者代理ip的方式</li>
+</ol>
+<h2 id="预选方案">预选方案</h2>
+<p>splash + 代理ip + 随机user_agent + cookie池 + 分布式爬虫</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

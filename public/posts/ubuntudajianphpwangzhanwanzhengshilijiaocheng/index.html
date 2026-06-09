@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>ubuntu搭建PHP网站完整实例教程 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="之前写过两篇关于ubuntu系统搭建php环境的文章Linu" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="ubuntu搭建PHP网站完整实例教程">
+	<meta property="og:description" content="之前写过两篇关于ubuntu系统搭建php环境的文章Linu">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="ubuntu搭建PHP网站完整实例教程">
+	<meta name="twitter:description" content="之前写过两篇关于ubuntu系统搭建php环境的文章Linu">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">ubuntu搭建PHP网站完整实例教程</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p><img src="https://www.cxiansheng.cn/usr/uploads/2017/10/2460201975.jpg" alt="ubuntu.jpg"></p>
+<p>之前写过两篇关于ubuntu系统搭建php环境的文章</p>
+<ul>
+<li>[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][2]</li>
+<li>[Ubuntu一键安装LAMP环境][3]</li>
+</ul>
+<p>在之后的多次实践中，发现有些东西还没有说到，这里就把之后遇到的问题以及方法补充一下，作为一个完整的在ubuntu下搭建lamp环境的总结。</p>
+<p>[Meting autoplay=&ldquo;true&rdquo;]
+[Music server=&ldquo;xiami&rdquo; id=&ldquo;1774006947&rdquo; type=&ldquo;song&rdquo;/]
+[/Meting]</p>
+<h2 id="一键安装lamp">一键安装lamp</h2>
+<p>这里就不多做介绍了，在我之前的文章[Ubuntu一键安装LAMP环境][4]也有说明，很简单的两个命令，就可以搭建好lamp；
+（博主在搭建php环境的时候，比较倾向于使用<strong>一键安装</strong>这种懒方式去搭建（除非场景非得是那种各个软件必须单独下载安装的时候，才会一个一个去安装），相较于apache、mysql、php程序一个一个的安装，这样来的更有效率也更快，配置起来也简单，同时也能避免出现不必要的麻烦）</p>
+<h2 id="配置数据库远程访问">配置数据库远程访问</h2>
+<p>安装完lamp环境之后，接下来就是配置我们的远程mysql用户了。这一点非常有用，因为在日常的数据库操作中，相较于<code>phpmyadmin</code>这种方法，我个人比较喜欢用工具的方式去操作数据库。推荐一款亲民好用的数据库工具[navicat for mysql][5]，工作以来一直使用这款mysql工具进行数据库操作，大大提升了工作效率；</p>
+<p>言归正传，在一键安装程序中，安装到mysql的时候，会有提示设置一个root的密码。安装完成之后，在ubuntu命令行（以下简称<code>命令行</code>）访问mysql<code>mysql -u root -p</code>，随后键入密码进入mysql，选择数据库：<code>use mysql</code></p>
+<h3 id="创建用户">创建用户</h3>
+<p>命令：<code>CREATE USER 'username'@'host' IDENTIFIED BY 'password';</code>
+例子：</p>
+<ol>
+<li><code>CREATE USER 'test'@'localhost' IDENTIFIED BY 'test2017666';</code></li>
+<li><code>CREATE USER 'ycfw'@'%' IDENTIFIED BY 'ycfw2017666';</code></li>
+<li><code>CREATE USER 'zdip'@'118.119.120.110' IDENTIFIED BY 'zdip2017666';</code></li>
+</ol>
+<p>参数：</p>
+<ol>
+<li>username：mysql账号名称</li>
+<li>host：指定用户在哪个主机上可以访问数据库（localhost指定只能在本地访问数据库，%指远程访问，任何地方都能访问，也可以指定某个ip访问，例3）</li>
+<li>password 访问密码</li>
+</ol>
+<h3 id="用户授权">用户授权</h3>
+<p>命令：<code>GRANT privileges ON databasename.tablename TO 'username'@'host'；</code>
+例子：</p>
+<ol>
+<li><code>GRANT all ON *.* TO 'test'@'host'；</code>（拥有所有数据库所有操作权限）</li>
+<li><code>GRANT all ON test.* TO 'test'@'host'；</code>（拥有test数据库的所有表操作权限）</li>
+<li><code>GRANT select ON test.test TO 'test'@'host'；</code>（拥有test数据库test表的所有查询权限）</li>
+<li>&hellip;&hellip;</li>
+</ol>
+<p>参数：</p>
+<ol>
+<li>privileges：对数据库的操作权限，可以是insert、select、update、delete；all为赋予所有操作权限</li>
+<li>databasename和tablename：数据库和数据库名称，这里指定可以操作的数据库，数据表，可以指定单独的数据库或者数据表，全部数据库都可操作设置 <code>*.*</code></li>
+<li>&lsquo;username&rsquo;@&lsquo;host&rsquo;：设置授权用户和主机</li>
+</ol>
+<p>设置完成，执行flush privileges刷新mysql权限表</p>
+<p>这时候，可以用新建的远程用户尝试连接数据库了，如果链接上了，那么数据库远程用户的配置已经完成。如果链接不上，继续往下看修改mysql的配置项；</p>
+<h3 id="查看授权信息">查看授权信息</h3>
+<p>命令：<code>show grants for test@localhost</code></p>
+<h3 id="修改mycnf">修改my.cnf</h3>
+<p>如果在新建了远程用户，并通过查看授权信息命令知道新建的远程用户权限没问题的时候，还链接不上。那么可能还需要再做一步操作，修改my.cnf文件里的<code>bind-address</code>参数。</p>
+<p>my.cnf文件在mysq目录下<code>/etc/mysql/</code>，进入到目录后在mysql的配置文件中找到bind-address，原先为<strong>bind-address=127.0.0.1</strong>，修改为<strong>bind-address=0.0.0.0</strong></p>
+<p>（<strong>PS：1、由于ubuntu的版本不同安装下来的mysql版本可能也会不一样，所以只要找到相关的mysql配置文件进行修改即可（稍后会在文末贴出相关的参考文章，那里描述的更为详细）；2、bind-address的意思是绑定地址，原先为127.0.0.1绑定的是只能本地访问，改为0.0.0.0的话就是任何ip都可以访问</strong>）</p>
+<p>通过以上的几点配置，远程mysql用户应该就可以访问了。</p>
+<h2 id="域名绑定">域名绑定</h2>
+<h3 id="域名配置">域名配置</h3>
+<p>这里不再介绍从域名供应商那里解析域名到ip的操作了，直接说在apache2里的域名配置
+关于apache2的域名绑定我之前的文章[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][6]里基本上介绍的也很清楚，不过在后来，发现配置域名的配置文件并不需要那么长，只要下面这一小段就好：</p>
+<pre tabindex="0"><code>&lt;VirtualHost *:80&gt;
+        ServerName www.cxiansheng.cn
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/cxsblog
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;
+</code></pre><p>其余的该配置软连接配置软连接，该填写域名的地方填写域名，和那篇文章里的操作差不多了；
+（<strong>PS：当我们在实际中实现多域名绑定的时候可能老是会出现域名都指向了某一个目录的情况，这时候我们可以把site-available中的000-default.conf删掉试一下，可能会解决这个问题。当然还是要以实际情况为准</strong>）</p>
+<h3 id="apache2-路由重写">apache2 路由重写</h3>
+<p>一键安装的apache2中一般不会默认开启rewrite模块，需要我们手动开启
+命令行输入：<code>﻿a2enmod rewrite</code>，它会自动开启apache的重写模块，在<code>/etc/apache2/mod-enabled</code>中生成一条软连接指向mod-available的rewrite.load，倘若我们在执行这个命令之后，发现在目录中没有生成软连接，我们手动生成即可；
+命令执行失败，也可以手动生成软连接</p>
+<p>（<strong>PS：必须要开启这个的原因是：一般在我们的web项目中都会有一些写伪静态（.htaccess）文件，我们对于url重写规则都会放在这个文件里，如果rewrite没有开启，那么apache就不能识别这些规则，导致我们的网站出现500或者其他错误</strong>）</p>
+<h3 id="apacheconf">apache.conf</h3>
+<p>在<code>/etc/apache2</code>的目录中找到apache2.conf文件，打开文件，修改其中对于网站路的权限问题，找到</p>
+<pre tabindex="0"><code>&lt;Directory /&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride none
+        Require all denied
+&lt;/Directory&gt;
+</code></pre><p>修改<code>AllowOverride</code>为all，AllowOverride的意思是对.htaccess的操作，为none时会忽略.htaccess文件，导致我们的伪静态失效，访问web项目出现问题;</p>
+<p>关于配置option各个值的含义，戳下图：
+<img src="https://www.cxiansheng.cn/usr/uploads/2017/10/2425945186.jpg" alt="option"></p>
+<p>配置好上面之后，重启apache，执行<code>/etc/init.d/apache2 restart</code>，这时候</p>
+<h2 id="总结">总结</h2>
+<p>经过以上三节内容的展示，在ubuntu中搭建lamp环境所必须的操作，基本上都在这里了。一般情况下，经过上面的步骤之后，网站基本上可以搭建成功。当然，在日常的实际操作中，可能还会有一些意想不到的情况发生，到时候就考验我们解决问题的能力了。</p>
+<h2 id="参考文章">参考文章</h2>
+<ul>
+<li>[MySQL5.7 添加用户、删除用户与授权][8]</li>
+<li>[MySQL5.7 设置远程访问][9]</li>
+<li>[apache的option指令详解][10]</li>
+<li>[apache的rewrite详解][11]</li>
+</ul>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

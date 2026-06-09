@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>csntos7.4安装redis及php-redis扩展 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbsp记得我的历史博客中，有一篇写" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/csntos74anzhuangredisjiphprediskuozhan/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="csntos7.4安装redis及php-redis扩展">
+	<meta property="og:description" content="nbspnbspnbspnbsp记得我的历史博客中，有一篇写">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="csntos7.4安装redis及php-redis扩展">
+	<meta name="twitter:description" content="nbspnbspnbspnbsp记得我的历史博客中，有一篇写">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">csntos7.4安装redis及php-redis扩展</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p>    记得我的历史博客中，有一篇写了关于windows安装redis以及php-redis扩展的安装和使用【[Redis在windows下的安装操作以及PHP-Redis操作][1]】，现在这篇文章又再续前缘，说一下centos下redis以及php-redis扩展的安装。</p>
+<p>    最近两天自己搞了一台测试服务器，本意想着自己弄台服务器玩玩儿，搭建一下环境，写一些脚本什么的，顺便了解一下linux方面的知识。
+    当自己在安装php-redis扩展的时候，搜索内容，发现查到的都是一些过时的方法，有很大一部分还停留在php-redis2.0的时代，然后在多方查找总结下，顺利安装成功当前最新版本的redis和php-redis扩展。本文也简单介绍了，在安装过程中的一些指令的含义，当做补充。同时本文也可以当作一部教程来看。</p>
+<hr>
+<p>来到本文要说的内容，首先是redis的安装</p>
+<h2 id="redis安装">redis安装</h2>
+<h3 id="下载安装包">下载安装包</h3>
+<p>首先第一步就是要下载安装包到本地，我们可以在</p>
+<pre tabindex="0"><code>http://download.redis.io/releases/
+</code></pre><p>中选择我们想要的redis压缩包，比如安装redis-4.0.10版本的，我们可以通过命令</p>
+<pre tabindex="0"><code>wget http://download.redis.io/releases/redis-4.0.10.tar.gz
+</code></pre><p>安装。这里插一句，既然是个安装包，那我们不能随便下载到某个地方吧，我们先进入<code>/usr/local</code>，在这个目录下进行下载。
+（ps：这里科普一下，有个不成文的约定是说，凡是看到版本后面的数字是偶数的，说明这个版本是稳定版本，推荐安装。比如像是1.0.2，1.1.6，都是稳定版本，奇数结尾都是测试版本，不建议安装）</p>
+<h3 id="安装">安装</h3>
+<p>下载完成之后，逐一执行下述命令开始安装：</p>
+<pre tabindex="0"><code>tar xzf redis-4.0.10.tar.gz
+cd redis-4.0.10
+make &amp;&amp; make install
+</code></pre><p>编译安装后，可以在<code>/usr/local/bin</code>目录看到redis的可执行文件，这样就表示安装成功了。执行命令<code>redis-server</code>即可启动redis</p>
+<h3 id="初始化脚本启动redis">初始化脚本启动redis</h3>
+<p>然后我们回到redis的源代码目录，就是本文下载解压redis的目录：/usr/local/redis-redis-4.0.10，进入到utils文件夹，可以看到<code>redis_init_script</code>的初始化脚本，这个文件可以配置redis的持久化、日志位置、运行方式等信息。
+把这个文件复制到<code>/etc/init.d/</code>目录下并命名为redis_端口号(redis_6379)，然后编辑这个文件</p>
+<ol>
+<li>修改REDISPORT的值为对应端口号</li>
+<li>新建目录名为/etc/redis/存放redis的配置文件</li>
+<li>新建/var/redis/端口号 来存放redis的持久化文件</li>
+<li>在redis源代码目录复制redis.conf配置文件到/etc/redis/并命名为6379.conf</li>
+</ol>
+<p>修改6379.conf配置文件几个重要的参数：</p>
+<ol>
+<li>修改<strong>daemonize</strong>值为yes，表示以守护进程方式运行</li>
+<li>修改<strong>pidfile</strong>值为/var/run/redis_端口号.pid(<code>pidfile /var/run/redis_6379.pid</code>)，表示redis的PID文件位置</li>
+<li>修改<strong>port</strong>值为端口号(port 6379)，表示redis监听的端口号</li>
+<li>修改<strong>dir</strong>值为/var/redis/端口号(dir /var/redis/6379)，表示redis持久化存储位置</li>
+</ol>
+<p>设置完上述之后，接下来便可以通过</p>
+<pre tabindex="0"><code>/etc/init.d/redis_6379 start
+/etc/init.d/redis_6379 stop
+</code></pre><p>来操作redis开启和停止。</p>
+<h3 id="设置redis开机自启动">设置redis开机自启动</h3>
+<p>这一步我们把redis放在系统项里面，让它跟随系统在开机时自动启动（一般来说redis应该作为开机自启软件运行）。</p>
+<ol>
+<li>编辑在/etc/init.d/目录下的redis_6379文件</li>
+<li>增加两行注释：</li>
+</ol>
+<pre tabindex="0"><code># chkconfig: 2345 90 10 
+# description: Redis is a persistent key-value database
+</code></pre><p>一定会有人奇怪了，这两行是什么意思呢？首先我们要知道chkconfig是什么意思：</p>
+<blockquote>
+<p>chkconfig命令主要用来更新（启动或停止）和查询系统服务的运行级信息。谨记chkconfig不是立即自动禁止或激活一个服务，它只是简单的改变了符号连接。</p>
+</blockquote>
+<p>简单点来讲就是控制软件启动或者停止的命令了，但他的作用是，参数设置完之后，需要重启，然后设置才生效。
+理解了这个命令，那么回到这两行注释来看，具体是什么意思呢？</p>
+<blockquote>
+<p>每个被chkconfig管理的服务需要在对应的init.d下的脚本加上两行或者更多行的注释。第一行告诉chkconfig缺省启动的运行级以及启动和停止的优先级。如果某服务缺省不在任何运行级启动，那么使用 - 代替运行级。第二行对服务进行描述，可以用\ 跨行注释</p>
+</blockquote>
+<p>看完上面这段引用，懂了叭
+ok，添加完之后，保存退出。命令行执行：</p>
+<pre tabindex="0"><code>chkconfig redis_6379 on
+</code></pre><p>设置完成，那么下次服务器在重新启动的时候，redis也就会跟着启动了。同时我们也可以使用</p>
+<pre tabindex="0"><code>service redis_6379 start
+service redis_6379 stop
+</code></pre><p>来控制redis的启动和停止啦。</p>
+<h2 id="安装php-redis扩展">安装php-redis扩展</h2>
+<h3 id="下载redis扩展">下载redis扩展</h3>
+<p>首先和redis一样，也需要下载php-redis的扩展。
+在php官方redis扩展地址<code>https://pecl.php.net/package/redis/</code>找到我们所需要的扩展，下载即可。比如我们要安装4.2版本的php-redis扩展，执行命令：</p>
+<pre tabindex="0"><code>#下载
+wget http://pecl.php.net/get/redis-4.2.0.tgz
+#解压
+tar xzf redis-4.2.0.tgz
+#进入目录
+cd redis-4.2.0
+</code></pre><h3 id="编译安装">编译安装</h3>
+<ol>
+<li>在刚刚下载redis扩展的源码目录下执行phpize（如果不知道phpize请往下看分解）</li>
+<li>执行./configure &ndash;with-php-config=/www/server/php/72/bin/php-config生成配置文件</li>
+<li>编译make &amp;&amp; make install</li>
+</ol>
+<p>上面差不多就是编译安装的基本步骤了，接下来我们详细解读一下：</p>
+<ol>
+<li>
+<p>phpize是什么东西呢？官方回答：phpize 命令是用来准备 PHP 扩展库的编译环境所使用的。所以说我们在编译安装扩展前，都要在扩展源码目录执行一下这个命令。如果不知道phpize在什么位置，可以使用whereis phpize来查找phpize的位置，接着在redis扩展源码目录下，执行一下phpize。比如我的phpize位置在/usr/bin/phpize，那么我就在redis扩展源码目录下执行/usr/bin/phpize</p>
+</li>
+<li>
+<p><code>./configure --with-php-config=/www/server/php/72/bin/php-config</code>，其中/www/server/php/72/bin/php-config是php-config的目录，如果不清楚目录在什么位置，可以用<code>find / -name php-config</code>命令查找。比如我的php-config目录在/usr/local/php/bin/php-config下，那么我这步的完整命令就是</p>
+<p>./configure &ndash;with-php-config=usr/local/php/bin/php-config</p>
+</li>
+<li>
+<p>make &amp;&amp; make install 这步编译安装没什么好说的了</p>
+</li>
+</ol>
+<p>上述操作完成之后，我们找到php.ini配置文件，在extension扩展项里增加:</p>
+<pre tabindex="0"><code>extension=redis.so
+</code></pre><p>重启http服务。打开phpinfo.php，可以看到redis已安装成功。</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/12/1498780158.png" alt="redis扩展已加载"></p>
+<p>或者在命令行执行php -m，通过php的扩展列表进行查看redis扩展的加载情况。</p>
+<h2 id="总结">总结</h2>
+<p>以上差不多就是本文要讲的全部内容了。如果有什么不理解的地方，欢迎留言提问~</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

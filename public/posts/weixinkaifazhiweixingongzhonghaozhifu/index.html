@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之微信公众号支付 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbsp上月初的时候写过一篇关于微信" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/weixinkaifazhiweixingongzhonghaozhifu/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="微信开发之微信公众号支付">
+	<meta property="og:description" content="nbspnbspnbspnbsp上月初的时候写过一篇关于微信">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="分享">
+		<meta property="article:tag" content="记录">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="微信开发之微信公众号支付">
+	<meta name="twitter:description" content="nbspnbspnbspnbsp上月初的时候写过一篇关于微信">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">微信开发之微信公众号支付</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p>    上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用<strong>通</strong>(<code>啰</code>)<strong>俗</strong>(<code>里</code>)<strong>易</strong>(<code>啰</code>)<strong>懂</strong>(<code>嗦</code>)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现</p>
+<p>[Meting autoplay=&ldquo;true&rdquo;]
+[Music server=&ldquo;xiami&rdquo; id=&ldquo;1769484538&rdquo; type=&ldquo;song&rdquo;/]
+[/Meting]
+    由于工作范围有限，这篇就暂时谈论一下关于<strong>微信公众号支付</strong>的有关功能。</p>
+<h2 id="准备工作">准备工作</h2>
+<p>    俗话说的好，(<code>前方高能...</code>)有一件战斗力爆表的装备，<code>升级打怪</code>的速度自然也就更快了，当然这不是一篇介绍如何升级打怪的文章，而是一篇有<code>深度</code>的、有<code>长远意义</code>的文章，好了，自夸的话就不多说了，博主有自知之明。</p>
+<p>    虽说不是升级打怪，但是作为一只“<code>猿</code>”，尤其是是聪明的“<code>猿类</code>”，在遇到新功能的时候，找到好的方法，也就相当于找到了一件衬手的、牛X的兵刃，搞出新(<code>刷</code>)功(<code>野</code>)能的速度自然也就快很多</p>
+<h3 id="1匍匐前进观察敌情">1、匍匐前进，观察敌情</h3>
+<p>关键词：<strong>阅读文档</strong>。工作中遇到之前<code>未曾做过的功能</code>的时候，相信一个好的<strong>猿叔叔/媛姐姐</strong>都会有一套自己的解决思路，那么第一步相信能获得大家<code>集体点赞</code>的就是阅读相关的文档了，仔细阅读，细心观察。喏~有关微信支付文档已经放在这里了[请点击食用][2]。<code>文档读得好，下班下的早</code>~mie~~~</p>
+<h3 id="2扩大范围隐秘嗅探">2、扩大范围，隐秘嗅探</h3>
+<p>关键词：<strong>关键字/词搜索</strong>。在看完文档之后，仍有不解之处，这时候身边没有可以请教的大佬，映入眼帘的只有电脑、键盘、鼠标，心里一阵慌乱。。。想到下午<strong>完不成任务</strong>、<strong>无延期的加班</strong>、<strong>组长的白眼</strong>，眼前一黑&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.“<code>兄弟...兄弟...你特么醒醒啊，代码需要你，还有个bug没改啊，你不能这样啊</code>”。夏天的时候，网络上段子说的好：空调、wifi、西瓜，‘<code>苏菲</code>’一夏。那么程序员的法宝可就多了，这段就写相关的————搜索引擎、输入关键字、回车。得到的是整个互联网的资源，如果有谷歌的话，那就是整个宇宙的资源了。拥有了整个宇宙的资源之后，还怕啥，<strong>就是干，犹豫不划算嘛</strong></p>
+<h3 id="3发现雷区获取情报">3、发现雷区，获取情报</h3>
+<p>关键词：<strong>取经</strong>。上面2里面提到的<strong>扩大范围，隐秘嗅探</strong>，意在我们通过庞大的搜索引擎和互联网获取资源，但是在浏览这些资源的时候，我们要学会辨别哪些是有用的，哪些是已经了解过的，对于无用的水文和了解过的文章可以略过&hellip;.我们大概会浏览到相当多的博文，<strong>良心博主</strong>(比如我，<code>歪脸笑.jpg</code>)的博文里，或多或少都会提到些开发过程中遇到的<code>坑/bug</code>，以妨后来者踩坑。</p>
+<h2 id="情报展示">情报展示</h2>
+<p>    通过上面的准备工作，相信我们已经获取到了诸多的相关资料,本文涉及到的功能实现所需要的相关资料，将会在下面无偿分享出来(PS：<code>为博主的无私奉献精神而感动啊~333333</code>)</p>
+<h3 id="什么是公众号支付">什么是公众号支付？</h3>
+<blockquote>
+<p>公众号支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的<code>JSAPI接口</code>调起微信支付模块完成支付。应用场景有：</p>
+<ul>
+<li>用户在微信公众账号内进入商家公众号，打开某个主页面，完成支付</li>
+<li>用户的好友在朋友圈、聊天窗口等分享商家页面连接，用户点击链接打开商家页面，完成支付</li>
+<li>将商户页面转换成二维码，用户扫描二维码后在微信浏览器中打开页面后完成支付</li>
+</ul>
+</blockquote>
+<h3 id="支付流程">支付流程</h3>
+<p><strong>关键词</strong>：</p>
+<ul>
+<li><strong>微信支付用户</strong>————泛指微信用户</li>
+<li><strong>微信客户端</strong>————微信APP</li>
+<li><strong>商户后台系统</strong>————商户平台</li>
+<li><strong>微信支付系统</strong>————故名思议，微信自己的支付系统</li>
+</ul>
+<p>我们先通过一张图了解一下微信支付的流程：</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2126380761.png" alt="微信内网页支付时序图"></p>
+<p>这张图相信小伙伴在浏览微信支付文档的时候已经看到过了，虽然从<code>用户点击支付按钮开始</code>到<code>微信支付系统确认支付完毕</code>中间经过要13步之多的过程，但是实际上这也是很有必要的，我们可以看到<code>支付</code>在任何时候都是需要重视的，因为这是一个关于<strong>钱</strong>的问题，只要涉及到了它，就必须确保它每一步的顺利执行和<code>安全性</code>。在我们快速开发功能的时候，有时候不得不压抑住我们想要窥探其具体实现的好奇心，只了解其中关键几步，以达到快速开发的目的，剩下的好奇心只能等课后了。</p>
+<p>总结了其中的关键几步，以便大家参(<code>快速</code>)考(<code>查阅</code>)，其中个把关键词均已红色字体标出</p>
+<ol>
+<li>用户在页面点击支付按钮，<code>商户后台系统</code>生成微信支付系统的订单信息，调用下单API，发送给<code>微信支付系统</code></li>
+<li><code>微信支付系统</code>接收支付信息生成<code>临时支付单</code>信息，返回给<code>商户后台系统</code></li>
+<li><code>商户后台系统</code>拿到<code>临时支付单</code>信息，生成JSAPI(<code>微信支付SDK</code>)调用所需要的支付参数并签名</li>
+<li>通过<code>JSAPI接口</code>发起支付请求给<code>微信支付系统</code></li>
+<li><code>微信支付系统</code>检查<strong>参数合法性</strong>和<strong>授权域</strong>信息，返回验证结果给微信客户端，<code>微信客户端</code>弹出支付窗，输入密码，支付</li>
+<li>用户输入密码完之后，客户端主动提交支付信息到<code>微信支付系统</code>，<code>微信支付系统</code>验证授权并处理相应业务，返回处理结果给商户后台，<code>商户后台系统</code>根据结果给用户相应提示</li>
+</ol>
+<h3 id="sdk及demo">SDK及DEMO</h3>
+<p>微信已经提供了完整的、安全的、方便使用的<code>SDK</code>供我们饮用，就在微信支付文档里面，或者[点我进行查看下载][4]</p>
+<h3 id="支付授权目录">支付授权目录</h3>
+<p><strong>支付授权目录</strong>，和上篇文章中说到的<code>登陆授权回调域</code>性质差不多，但是区别在于这里用于<code>支付授权</code>。
+现在的公众号支付授权目录配置已经从公众号迁移到了微信商户平台中，开发者可以在商户平台中进行配置，下图所示：</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2732342703.png" alt="配置示例"></p>
+<p>具体公告，请点击：[微信支付开发配置页面迁移至商户平台][6]查看</p>
+<h3 id="其他几个点">其他几个点</h3>
+<ul>
+<li>要使用微信公众号支付功能必须是要微信服务号或者企业号</li>
+<li>支付的时候也要检查网页授权域名是否设置哦</li>
+<li>没有微信开发者工具的一定要下载个微信开发者工具，因为接下来，包括你在做微信开发的时候一定会需要它，<strong>它很强势，不用不行</strong>啊</li>
+</ul>
+<h2 id="饿货来个代码饼干">饿货，来个代码饼干？</h2>
+<p>终于来到<code>开坦克杀敌</code>的环节了，一阵莫名激动，能看到这里的小伙伴一定是真爱啊！~</p>
+<h3 id="jsapiphp">jsapi.php</h3>
+<p>为什么把这个文件单独提出来，因为它很重要啊(<code>博主君废话模式开启，23333</code>)，这个页面通俗点来说用于调起支付框，输入支付密码的操作。当我们下载好了<strong>PHP版</strong>的微信支付<code>SDK</code>的时候，打开目录大概会是这个<code>美丽的样子</code></p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/3168527903.png" alt="微信SDK目录"></p>
+<p>关键代码块：</p>
+<pre tabindex="0"><code>//②、统一下单
+$input = new WxPayUnifiedOrder();
+// 商品名称
+$input-&gt;SetBody(&#39;坦克&#39;);
+// 描述吧应该是 可以省略不写
+$input-&gt;SetAttach(&#34;&#34;);
+// 订单号
+$input-&gt;SetOut_trade_no($pay_info[&#39;trade_no&#39;]);
+// 支付金额
+$input-&gt;SetTotal_fee($pay_info[&#39;total_fee&#39;]);
+// 开始时间
+$input-&gt;SetTime_start(date(&#34;YmdHis&#34;));
+// 失效时间
+$input-&gt;SetTime_expire(date(&#34;YmdHis&#34;, time() + 600));
+// 标签 可以省略不写
+$input-&gt;SetGoods_tag(&#34;&#34;);
+// 支付回调url
+$input-&gt;SetNotify_url(&#34;&#34;);
+</code></pre><p>以上代码均产生于<code>jsapi.php</code>这个文件，代码的注释差不多就是这个意思，没有写注释的博主也不知道啥意思(<code>绝望.jpg，知道的可以告知下...感谢大恩大德</code>)</p>
+<h3 id="wxpayconfigphp">WxPay.Config.php</h3>
+<p>这个是关于<code>微信支付配置</code>的文件，放置在<code>SDK根目录下的lib目录</code>里，找到它更改里面的对应配置项。具体有什么作用怎么改，这里就不解释了。文件里的注释写的很清楚，讲真，<code>ZZ</code>都能看的明白，微信<code>SDK</code>开发组的兄弟还是很用心的&hellip;点赞</p>
+<h3 id="结合ci框架">结合CI框架</h3>
+<p>首先，把<code>SDK</code>目录文件放在<code>application\libraries</code>目录。</p>
+<p>1、唤起支付页面
+当用户在前端点击支付的时候，跳转到如下方法：</p>
+<pre tabindex="0"><code>/**
+ * 跳转到微信支付页面
+ * @param  int $order_id 订单ID
+ */
+public function index($order_id) {
+    /**
+     * 首先要校验订单ID、真实性等
+     * 这里略过
+     */
+    $goods_name = $this-&gt;order_goods_model-&gt;get_value_by_notpk(&#39;goods_name&#39;, array(&#39;order_id&#39; =&gt; $order_id));
+    $data[&#39;pay_info&#39;] = array(
+        &#39;trade_no&#39;   =&gt; $order_info[0][&#39;order_sn&#39;],//订单名称，必填
+        &#39;goods_name&#39; =&gt; $goods_name, //商品名称
+        &#39;total_fee&#39;  =&gt; $order_info[0][&#39;pay_fee&#39;]*100,//付款金额，必填
+        &#39;remark&#39;     =&gt; $goods_name,//商品描述，可空
+        );
+    // 调用支付页面 jsapi
+    $this-&gt;load-&gt;view(&#34;sz_front/wx_alipay/jsapi&#34;, $data);
+}
+</code></pre><p>2、jsapi页面赋值
+大部分代码和原生的差不多，修改一小部分，包括引入各种类库等，这里为了方便展示，采用图片的形式列出</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/1711277958.png" alt="支付详情赋值"></p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2469309384.jpg" alt="支付结果回调"></p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/3844700466.png" alt="隐藏地址共享"></p>
+<p>上面三张图一共做了四件事：</p>
+<ol>
+<li>引入所需要的支付类库</li>
+<li>赋值支付信息</li>
+<li>根据支付结果进行提示并跳转页面</li>
+<li>隐藏共享地址</li>
+</ol>
+<h3 id="支付异步通知-notify">支付异步通知 notify</h3>
+<p><code>异步通知</code>，支付完结之后，微信支付系统会发送支付结果到这个地址，要求这个地址可以访问，可以在浏览器输入地址进行测试</p>
+<pre tabindex="0"><code>public function notify() {
+    // 引入异步通知处理类库
+    require_once APPPATH.&#39;libraries/Payment/wxpay/example/notify.php&#39;;
+    $notify = new PayNotifyCallBack();
+    $notify-&gt;Handle(false);
+    
+    // 获取支付状态
+    $is_success = $notify-&gt;IsSuccess(); 
+    /**
+     * $wx_payinfo 微信支付回调数据
+     * 包括支付状态、商户平台的订单、金额、支付成功支付号等
+     */
+    
+    $wx_payinfo = $is_success[&#39;data&#39;]; 
+     //支付成功
+    if($is_success[&#39;code&#39;] == 1){ 
+        /**
+         * 业务处理
+         */
+    }else {
+
+    }
+}
+</code></pre><p><strong>注意</strong>：在上面的代码中，获取支付状态这里有个<strong>IsSuccess</strong>方法，这个方法用于获取微信的返回结果，我把他加在了notify.php的类中，具体如下：</p>
+<pre tabindex="0"><code>/**
+ * 自定义方法 检测微信端是否回调成功方法
+ * @return multitype:number string
+ */
+public function IsSuccess(){
+ 	return $this-&gt;para;
+}
+</code></pre><p>由于异步通知是在“<code>暗地里</code>”进行，所以我们想要监控它，了解它返回了什么数据，可以简单的使用<code>file_put_contents()</code>函数把结果<code>json_encode()</code>一下写入<code>log文件</code>记录。</p>
+<h2 id="总结">总结</h2>
+<ul>
+<li>由于框架的一些特性，微信SDK类库间的相互引入类的时候，可能会出现路径引入的问题，但这些问题并不太会被察觉，所以还需要小心调试。出现路径问题的时候，把引入类库出现问题的相对路径改为绝对路径即可。</li>
+<li>微信开发其实很简单，<strong>有SDK在手，支付我有</strong>。博主君为了凑字数，才编的这么多废话，哈哈哈~</li>
+</ul>
+<p>    距离当初做出这个功能已经有一段时间了，当初在百度查阅资料获取到的资源和众多博文地址也已经记不太清了，有兴趣的朋友可以百度搜索<code>PHP微信开发</code>等关键字进行查阅。实际在功能的实现中，遇到最多的问题就是路径引入了。还有就是强烈推荐<code>微信开发者工具</code>，在微信开发的时候相当有用处(<code>就算我不说，各位朋友应该也知道，又一次打脸...啪(pia)啪(pia)啪(pia)</code>)。</p>
+<h2 id="再见七月">再见，七月。</h2>
+<h2 id="你好八月">你好，八月。</h2>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E5%88%86%E4%BA%AB/">分享</a></li>
+              
+              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

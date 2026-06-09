@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHP基准测试工具Apache Banchmark - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbspApacheBanchmar" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/phpjizhunceshigongjuapache_banchmark/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="PHP基准测试工具Apache Banchmark">
+	<meta property="og:description" content="nbspnbspnbspnbspApacheBanchmar">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="PHP基准测试工具Apache Banchmark">
+	<meta name="twitter:description" content="nbspnbspnbspnbspApacheBanchmar">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">PHP基准测试工具Apache Banchmark</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p>    <code>Apache Banchmark（ab）</code>工具是最著名的基准测试工具之一，它是默认安装的<code>apache</code>的一部分，能够通过模拟对特定的<code>URL</code>的任意数量请求来对<code>web</code>服务器进行负载测试。而且更重要的是<code>Apache Banchmark</code>是独立于<code>Apache Web</code>服务的，从而可以在运行<code>ab</code>的同时使运行此工具的计算机上的<code>Web</code>服务处于非活动状态。</p>
+<h2 id="apache-banchmark应用">Apache Banchmark应用</h2>
+<h3 id="响应信息">响应信息</h3>
+<p>通过<code>Apache Banchmark</code>工具测试可以获得以下信息：</p>
+<ul>
+<li>传输数据总数量的大小(以字节为单位)</li>
+<li>Web服务器在模拟流量下每秒可以支持的请求总数</li>
+<li>完成一个请求所花费的最长时间（以毫秒为单位）</li>
+<li>完成一个请求所花费的最短时间（以毫秒为单位）</li>
+</ul>
+<h3 id="负载模拟">负载模拟</h3>
+<p>同时还可以运行多种不同的负载模拟：</p>
+<ul>
+<li>对web文档的模拟请求</li>
+<li>指定时间内的请求</li>
+<li>打开<code>Keep-Alive</code>时的请求</li>
+</ul>
+<h2 id="安装">安装</h2>
+<p>    由于<code>ab</code>是<code>apache</code>自带的测试工具，所以这里只介绍在不同系统中安装<code>apache</code>的方法。</p>
+<h3 id="windows安装">Windows安装</h3>
+<p>    <code>Windows</code>用户可以在浏览器中访问[http://httpd.apache.org/][1]的左侧镜像链下载相应版本进行安装：</p>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/2844619032.png" alt="apache的镜像链"></p>
+<h3 id="unix安装">Unix安装</h3>
+<p>    <code>Unix</code>或者<code>linux</code>操作系统会有很多安装<code>apache</code>的选项，可以通过<code>ports</code>、<code>yum</code>、<code>apt-get</code>命令行安装，当然也可以通过下载源文件进行安装。</p>
+<h2 id="运行">运行</h2>
+<h3 id="windows运行">Windows运行</h3>
+<p>    当<code>apache</code>安装成功后，我们会在其<code>bin</code>目录看到一个<code>ab.exe</code>文件，这个就是ab测试工具了，一般是在<code>apache\apache2.2.22\bin</code>目录下：
+<img src="http://cxiansheng.cn/usr/uploads/2016/11/1696069952.png" alt="apache下ab路径"></p>
+<p>    这时候直接双击ab是没有作用的，我们必须通过命令行去运行测试，由于我的是集成环境<code>wamp server</code>，所以我的目录是在<code>D:\wamp\bin\apache\apache2.2.22\bin</code>，切换到对应磁盘后执行<code>ab</code>命令提示以下帮助信息，则证明运行成功：</p>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/2572187637.png" alt="切换盘符并执行ab命令"></p>
+<p>    然后我们进行我们的第一次<code>ab</code>工具测试，我在本地上有个<code>cynew</code>的项目，所以我们就以这个来进行测试，老规矩，在命令行输入<code>ab -n 100 -c 10 http://cynew.com/</code>(这里的<code>url</code>末尾一定要加<code>/</code>哦)，回车将会获得以下信息，我们将之分为四部分，将会在<strong>下文进行具体解析</strong>：</p>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/2143783679.png" alt="ab命令返回参数"></p>
+<h3 id="unix运行">Unix运行</h3>
+<p><code>Unix</code>下运行请参考上文中<code>ab</code>命令选项标记。</p>
+<p>好了，以上是我们第一次使用<code>Apache Banchmark</code>工具，测试成功。</p>
+<h2 id="命令解析">命令解析</h2>
+<h3 id="选项标记">选项标记</h3>
+<p>    <code>ab</code>命令包含有大量可选标记。使用这些标记，可以为<code>HTML</code>表格格式化响应、设置<code>COOKIE</code>、设置基本身份验证信息以及设置内容类型,可选标记的完整列表如下：</p>
+<ul>
+<li>
+<p><code>-A</code> <code>&lt;username&gt;:&lt;password&gt;</code> 用于提供服务器身份验证信息。用户名和密码用:分隔。发送的字符串采用base64编码</p>
+</li>
+<li>
+<p><code>-c</code> <code>&lt;concurrency number&gt;</code> 一次模拟的请求数。默认情况下为1,。数量不能大于n值</p>
+</li>
+<li>
+<p><code>-n</code> <code>reuqests</code> 要执行的请求总数</p>
+</li>
+<li>
+<p><code>-e</code> 要创建的.csv文件的路径。该文件包含运行的基准测试的结果，该结果分为两列，即Percentage和Time in ms。建议采用&quot;gnuplot&quot;文件。</p>
+</li>
+<li>
+<p><code>-C</code> <code>cookie-name=value</code> 可重复的标记，包含cookie信息</p>
+</li>
+<li>
+<p><code>-d</code> 隐藏“percentage served within XX[ms] table”</p>
+</li>
+<li>
+<p><code>-g</code> 要创建的“gnuplot”或TSV文件的路径。基准测试的输出将保存到该文件中</p>
+</li>
+<li>
+<p><code>-h</code> 显示要用于ab的选项列表</p>
+</li>
+<li>
+<p><code>-H</code> <code>custom-header</code> 采用字段值对形式发送有效标头和请求</p>
+</li>
+<li>
+<p><code>-k</code> 启用Keep-Alive功能。允许通过一个HTTP会话满足多个请求。默认情况下，该功能处于禁用状态</p>
+</li>
+<li>
+<p><code>-p</code> <code>POST-file</code> 包含用户HTTP POST请求的数据的文件路径。内容包含由<code>&amp;</code>分隔的键<code>=</code>值对</p>
+</li>
+<li>
+<p><code>-P</code> <code>username:password</code> 采用base64编码。同<code>-A</code>说明</p>
+</li>
+<li>
+<p><code>-q</code> 执行多于100个请求时隐藏进度输出</p>
+</li>
+<li>
+<p><code>-s</code> 使用https协议，而非默认的http协议——不建议这样做</p>
+</li>
+<li>
+<p><code>-S</code> 隐藏中位数和标准偏差值</p>
+</li>
+<li>
+<p><code>-t</code> <code>timelimit</code> 指定了这个值以后，基准测试的时间不会超过指定的值。默认情况下无时间限制</p>
+</li>
+<li>
+<p><code>-v</code> <code>verbosity-level</code> 数值为2及以上将打印警告和信息；为3时打印HTTP响应代码；4及以上将打印标头信息</p>
+</li>
+<li>
+<p><code>-V</code> 显示ab工具的版本号</p>
+</li>
+<li>
+<p><code>-w</code> 采用HTML表格打印结果</p>
+</li>
+<li>
+<p><code>-x</code> <code>&lt;table-attributes&gt;</code> 表示HTML属性的字符串，使用<code>-w</code>时将设置在<code>&lt;table&gt;</code>的标记中</p>
+</li>
+<li>
+<p><code>-X</code> <code>proxy:[:port]</code> 指定要使用的代理服务器。代理端口是可选的</p>
+</li>
+<li>
+<p><code>-y</code> <code>&lt;tr-attributes&gt;</code> 表示HTML属性的字符串，使用<code>-w</code>时将放置在<code>&lt;tr&gt;</code>标记中</p>
+</li>
+<li>
+<p><code>-z</code> <code>&lt;td-attributes&gt;</code> 标识HTML属性的字符串，使用<code>-w</code>时将放置在<code>&lt;td&gt;</code>标记中</p>
+</li>
+</ul>
+<h2 id="参数解析">参数解析</h2>
+<h3 id="服务器信息">服务器信息</h3>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/3360626053.jpg" alt="服务器信息"></p>
+<p>上图我们可以看到返回的三个参数，分别对应的<strong>apache版本</strong>、<strong>测试主机名</strong>、<strong>Web服务器侦听的端口号</strong>。</p>
+<h3 id="文档信息">文档信息</h3>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/3984224891.jpg" alt="文档信息"></p>
+<p>两个参数：</p>
+<ol>
+<li><code>Document Path</code> 请求的文档</li>
+<li><code>Document Length</code> HTML、图像、CSS、JS、以及响应中任何内容的字节数总和</li>
+</ol>
+<h3 id="连接信息">连接信息</h3>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/3030597465.jpg" alt="连接信息"></p>
+<p>    这一部分呢，则包含了信息的主体。譬如：请求收到响应的时长、返回的数据总量等，最重要的一点就是他告诉了我们在处理文档时<strong>Web服务器可以支持多少用户</strong>：</p>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/1502885210.jpg" alt="连接信息参数"></p>
+<p>    在<code>ab</code>返回的信息中，<code>**HTML transferred**</code>、<code>**Requests per second**</code>、以及<code>Time per request</code>都是关键字段。这些字段能使我们大概了解Web服务器为一个请求返回的数据量、Web服务器一秒可以处理的请求总数以及一个请求成功地接收到来自Web服务器的响应所花费的总时间。
+    在实际项目中，我们应该尽量降低<code>HTML transferred</code>和<code>Time per request</code>的数值，提高<code>Requests per second</code>的数值。</p>
+<h3 id="连接指标细目分类">连接指标细目分类</h3>
+<p><img src="http://cxiansheng.cn/usr/uploads/2016/11/3635086471.jpg" alt="连接指标细目分类"></p>
+<p>    这一部分包含一个表，这其中包含<code>Connect</code>、<code>Processing</code>、<code>Waiting</code>、<code>Total</code>字段，这些字段表示请求在每个过程状态中所需的时间。最需要注意的是<code>Total</code>字段的最大值和最小值，因为通过这两列我们可以知道一个请求所需花费的最长和最短时间的数据。</p>
+<h2 id="常见基准测试">常见基准测试</h2>
+<ol>
+<li>并发测试 <code>ab -n 100 -c 10 https://www.cxiansheng.cn/</code> （不要跑我的网站，据我所知，超级慢，<strong>自黑.jpeg</strong>）这段命令模拟同时对Web服务器进行10个并发请求，直到进行到100个请求为止。</li>
+<li>时间测试 命令：<code>ab -c 10 -t 20 https://www.cxiansheng.cn/</code> 模拟10个并发请求在20秒时间内同时访问网站</li>
+</ol>
+<h2 id="注意事项">注意事项</h2>
+<ol>
+<li>请求的<code>URL</code>后面一定要以<code>/</code>收尾啊喂，当然前提是不是请求这个该网站中的特定项目</li>
+<li>如果使用了<code>t</code>选项标记，如果不给他值得话，那么他的默认值是5000</li>
+<li><code>c</code>标记的值应小于<code>n</code>的值，如果值等于n，则只会并发请求所有n个请求</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>    以上部分资料参考于**《高性能PHP应用开发》**这本书。全书从前端和后端的角度去分析整个<code>Web</code>项目，谈到了针对于前端和后端不同层面的测试工具和优化技巧，是一本不错的好书，推荐！</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之录音上传、下载、转码 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbsp一年的时间里，前前后后都在搞" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="微信开发之录音上传、下载、转码">
+	<meta property="og:description" content="nbspnbspnbspnbsp一年的时间里，前前后后都在搞">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="记录">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="微信开发之录音上传、下载、转码">
+	<meta name="twitter:description" content="nbspnbspnbspnbsp一年的时间里，前前后后都在搞">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">微信开发之录音上传、下载、转码</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/3169903264.jpg" alt="wechat"></p>
+<p>    一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔&hellip;），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。</p>
+<h2 id="简单说明">简单说明</h2>
+<p>微信录音这块，其实面对这项功能的时候，不用我多说，都知道要先去看开发文档，查阅相关资料等准备工作；我先贴个地址，免得看我这篇文档的时候再去查找网页：[微信公众号开发-微信JS-SDK说明文档][2]。进入到这个页面找到第5小节，<strong>音频接口</strong>这里，就是本篇要说的东西了。</p>
+<p>微信录音分为如下几个<strong>接口</strong>（这里归纳一下，文档里有，详细内容自己去看吧）：</p>
+<ol>
+<li>开始录音接口</li>
+<li>停止录音接口</li>
+<li>监听录音自动停止接口</li>
+<li>播放语音接口</li>
+<li>暂停播放接口</li>
+<li>停止播放接口</li>
+<li>监听语音播放完毕接口</li>
+<li>上传语音接口</li>
+<li>下载语音接口</li>
+</ol>
+<p>看到以上，是不是觉得蛮多的，配合起来使用才提供了这么一个完整（好像也并不怎么完整，没有提供方便的转码及下载本地机制）的录音功能。好话说在前头：<code>你弄完了当你再去看这块代码的时候，发现还真他娘的乱啊。。。</code>所以，我写这篇记录的原因就在这里了，狗头.png</p>
+<p>还有一个就是<strong>接口权限</strong>（一张图片来表述，图片来源微信文档&hellip;）：</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/4078787224.png" alt="接口权限"></p>
+<h2 id="上传代码梳理">上传代码梳理</h2>
+<p>本章会以文字和代码的形式进行梳理，过程应该会蛮多的，不过看完之后直接拿去使用，问题也应该不大，如是说道。</p>
+<p>JS-SDK库的使用步骤，这里就不过多介绍了，文档里也有，也是简单整理下几个所需步骤吧：</p>
+<ol>
+<li>绑定域名</li>
+<li>引入JS文件</li>
+<li>config接口注入权限验证配置</li>
+<li>ready接口处理成功验证</li>
+<li>error接口处理失败验证</li>
+</ol>
+<h3 id="config事件">config事件</h3>
+<p>我们直接从注入API列表说起，config接口有如下几个属性（不知道属性是否合适，姑且叫为属性吧），</p>
+<pre tabindex="0"><code>/**
+ * 微信jssdk调用接口初始化
+ */
+wx.config({
+    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: &#39;&#39;, // 必填，公众号的唯一标识
+    timestamp: , // 必填，生成签名的时间戳
+    nonceStr: &#39;&#39;, // 必填，生成签名的随机串
+    signature: &#39;&#39;,// 必填，签名
+    jsApiList: [
+        &#39;startRecord&#39;, // 录音开始api
+        &#39;stopRecord&#39;,  // 录音结束api
+        &#39;uploadVoice&#39;, // 上传录音api
+        &#39;onVoiceRecordEnd&#39;, // 超过一分钟自动停止api
+        &#39;playVoice&#39;, // 播放录音api
+        &#39;pauseVoice&#39;, // 暂停录音api
+        &#39;onVoicePlayEnd&#39;, // 监听语音播放完毕api
+    ]
+});
+</code></pre><p>代码中的jsApiList就是录音功能所用到的所有接口了。其他几个属性的值，就不介绍如何生成的了，调用jssdk的类库，通过公众号的appid和secret就能获取到。嗯&hellip;还是贴下这部分的代码吧：</p>
+<pre tabindex="0"><code>// 引入jssdk库
+require_once APPPATH . &#39;libraries/weixin/jssdk.php&#39;;
+// 传入appid和secret实例化jssdk类
+$JsSdk = new JSSDK(&#39;wxa318c6979e231ffa&#39;, &#39;301d8f04a0f2ba3098135a162165c991&#39;);
+// 得到相关时间戳和随机字符串
+$data[&#39;signPackage&#39;] = $JsSdk-&gt;getSignPackage();
+// 获取当前页面url
+$data[&#39;signPackage&#39;][&#39;url&#39;] = explode(&#39;?&#39;, $data[&#39;signPackage&#39;][&#39;url&#39;])[0];
+</code></pre><p>注意：调用JSSDK类的时候，会在项目根目录下生成两个文件<code>access_token.php</code>和<code>jsapi_ticket.php</code>，里面放的是过期时间和token、ticket值。</p>
+<h3 id="ready事件">ready事件</h3>
+<p>ready注册录音播放结束监听事件：</p>
+<pre tabindex="0"><code>wx.ready(function(){
+	// 监听事件一开始就加载
+	wx.onVoicePlayEnd({
+	    success: function (res) {
+	    	layer.msg(&#39;播放完毕&#39;); // 这里用了layer弹框
+	    }
+	});
+});
+</code></pre><h3 id="录音事件">录音事件</h3>
+<p>本小节主要是关于录音事件的介绍，代码行中的注释应该写的很清楚，不清楚的留言问吧：</p>
+<pre tabindex="0"><code>// 声明一个录音数组 以存放录音临时ID
+var voice = {
+	localId: []
+};
+
+// 手指按下录音键
+$(&#39;#micb&#39;).on(&#39;touchstart&#39;, function(event){
+    // 取消事件的默认动作
+    event.preventDefault();
+    // 赋值当前的录音开始时间戳到全局变量
+    START = new Date().getTime();
+
+    recordTimer = setTimeout(function(){
+        // 录音开始
+        wx.startRecord({
+            success: function(){
+                // 录音不能超过一分钟 超过一分钟自动停止 并触发该事件
+                wx.onVoiceRecordEnd({
+                    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+                    complete: function (res) {
+                        // 给出提示
+                        layer.msg(&#39;最多只能录制一分钟&#39;, {icon:2, time:1000});
+                        // 记录录音的临时ID
+                        voice.localId = res.localId;
+                        uploadVoice();
+                    }
+                });
+            },
+            cancel: function () {
+                alert(&#39;用户拒绝授权录音&#39;);
+            }
+        });
+    },300);
+});
+
+// 松手结束录音
+$(&#39;#micb&#39;).on(&#39;touchend&#39;, function(event){
+    event.preventDefault();
+    // 获取录音停止时间戳
+    END = new Date().getTime();
+    // 获取录音总时长
+    duration = END - START;
+    // 如果小于300ms则视为时间太短 抛出提示
+    if(duration &lt; 300){
+        END   = 0;
+        START = 0;
+        layer.msg(&#39;时间太短&#39;, {icon:2, time:1000});
+        //小于300ms，不录音
+        clearTimeout(recordTimer);
+    }else{
+        wx.stopRecord({
+          success: function (res) {
+            voice.localId = res.localId;
+            // 上传录音
+            uploadVoice();
+          },
+          fail: function (res) {
+            alert(JSON.stringify(res));
+          }
+        });
+    }
+});
+
+// 上传录音
+function uploadVoice() {
+    // 调用微信的上传录音接口把本地录音先上传到微信的服务器
+    // 不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
+    wx.uploadVoice({
+        localId: voice.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+            // 把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
+            $.ajax({
+                url: &#39;down_file.php&#39;,
+                type: &#39;post&#39;,
+                data: {serverId: res.serverId},
+                dataType: &#34;json&#34;,
+                success: function (data) {
+                    if(data.status == 200) {
+                        layer.msg(&#39;语音保存成功&#39;, {icon:1, time:2000});
+                    }
+                },
+                error: function (xhr, errorType, error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+}
+
+/**
+ * 播放音频
+ */
+function playVoice()
+{
+    wx.playVoice({
+        localId: voice.localId // 需要播放的音频的本地ID，由stopRecord接口获得
+    })
+}
+</code></pre><p>以上就是微信录音在前端的JS代码，接下来说明服务器（PHP）端下载录音到本地的代码，下载代码具体在<code>download_media()</code>方法中，其他都是一些辅助方法：</p>
+<h2 id="下载">下载</h2>
+<pre tabindex="0"><code>&lt;?php
+
+class Wechat
+{
+    /**
+     * 获取微信access_token
+     * @return string access_token
+     */
+    public function getWechatAccessToken()
+    {
+        $token_url = &#39;https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&#39;;
+        $appid     = &#39;appid&#39;;
+        $secret    = &#39;secret&#39;;
+        $get_token_url = $token_url . &#39;&amp;appid=&#39; . $appid . &#39;&amp;secret=&#39; . $secret;
+        $res           = file_get_contents ( $get_token_url );
+        $res_arr       = json_decode ( $res, true ); 
+
+        if($res_arr[&#39;access_token&#39;]) return $res_arr[&#39;access_token&#39;];
+        return false;
+    }
+
+    /**
+     * 生成毫秒级时间戳
+     */
+    public function msectime()
+    {
+       list($msec, $sec) = explode(&#39; &#39;, microtime());
+       return (float)sprintf(&#39;%.0f&#39;, (floatval($msec) + floatval($sec)) * 1000);
+    }
+
+
+    /**
+     * 随机取出字符串
+     * @param  int $strlen 字符串位数
+     * @return string      
+     */
+    public function salt($strlen)
+    {
+        $str  = &#34;abcdefghkmnprstuvwxyzABCDEFGHKMNPRSTUVWXYZ23456789&#34;;
+        $salt = &#39;&#39;;
+        $_len = strlen($str)-1;
+        for ($i = 0; $i &lt; $strlen; $i++) {
+            $salt .= $str[mt_rand(0,$_len)];
+        }
+        return $salt;
+    }
+
+    /**
+     * 下载微信素材资源到本地
+     * @param  url $url  素材地址
+     * @return json       
+     */
+    public function download_media()
+    {
+        // 获取微信服务器的录音ID
+        $media_id = $this-&gt;input-&gt;post(&#39;serverId&#39;);
+        if ($media_id) {
+            // 获取access_token
+            $access_tokens = $this-&gt;getWechatAccessToken();
+            
+            // 下载素材接口
+            $down_media_url   = &#39;https://api.weixin.qq.com/cgi-bin/media/get&#39;;
+            /**
+             * 根据access_tokens获取素材
+             */
+            $get_media_url = $down_media_url . &#39;?access_token=&#39; . $access_tokens . &#39;&amp;media_id=&#39; . $media_id;
+
+            // 获取文件流
+            $file_flow = file_get_contents($get_media_url);
+
+            // 本地保存目录
+            $save_path = &#34;resource/uploads/&#34;;
+
+            if( !is_dir($save_path) ) {
+                mkdir(iconv(&#39;UTF-8&#39;, &#39;GBK&#39;, $save_path), 0777, TRUE);
+            }
+
+            // 生成文件名
+            $filename = $this-&gt;msectime() . $this-&gt;salt(6) . &#39;.amr&#39;;
+
+            // 写入文件流到本地
+            $flag     = file_put_contents($save_path . &#39;/&#39; . $filename, $file_flow);
+
+            unset($file_flow);
+            if($flag !== FALSE) {
+                return $save_path . &#39;/&#39; . $filename;
+            }else {
+                return FALSE;
+            }
+        }
+    }
+}
+</code></pre><p>由于微信保存录音的格式.amr，所以下载的时候只能下载amr格式的音频，强行下载成MP3格式的话，播放可能会出现一些问题，接下来就说下转码的几种方式；</p>
+<h2 id="转码">转码</h2>
+<h3 id="第三方工具-ffmpeg">第三方工具 FFmpeg</h3>
+<h4 id="ffmpeg介绍">FFmpeg介绍</h4>
+<blockquote>
+<p>FFmpeg是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。FFmpeg在Linux平台下开发，但它同样也可以在其它操作系统环境中编译运行，包括Windows、Mac OS X等。———来自百度的介绍。</p>
+</blockquote>
+<h4 id="下载-1">下载</h4>
+<p>通过这个网址下载ffmpeg.exe程序 <a href="https://ffmpeg.zeranoe.com/builds/">https://ffmpeg.zeranoe.com/builds/</a>，选择shared这个类型，如下图：
+<img src="https://www.cxiansheng.cn/usr/uploads/2018/03/2108572440.png" alt="ffmpeg下载页面"></p>
+<p>下载完成后，解压在bin目录可以看到ffmpeg.exe</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/2759589053.png" alt="ffmpeg.exe"></p>
+<h4 id="转码-1">转码</h4>
+<p>cmd命令行转码：
+直接切换到ffmpeg.exe的目录，在命令行输入</p>
+<pre tabindex="0"><code>ffmpeg.exe -i E:\wode\ffmpeg\amr.amr E:\wode\ffmpeg\arm.mp3
+</code></pre><p>即可，就可以看到整个转码的过程。下图所示：
+<img src="https://www.cxiansheng.cn/usr/uploads/2018/03/2005365042.png" alt="cmd转码"></p>
+<p>php转码：
+那么如何利用php来调用exe软件来进行转码呢？很方便的是php提供了相应的函数，<code>exec</code>和<code>system</code>，他们都可以调用cmd的命令，比如调用ffmpeg.exe来进行转码：</p>
+<pre tabindex="0"><code>exec(&#34;E:\\wode\\ffmpeg\\bin\\ffmpeg.exe -i E:\\wode\\ffmpeg\\amr.amr E:\\wode\\ffmpeg\\exec.mp3&#34;);
+</code></pre><p>就是这么简单了。当然ffmpeg也支持其他格式的转码，音频、视频等都可以。</p>
+<p>PS：会把测试的amr文件贴在下面的资源节里，有需要的小伙伴可以下载测试，因为现在的amr格式的文件都挺难找的，别问我怎么知道的&hellip;.</p>
+<h3 id="第三方平台-七牛云">第三方平台 七牛云</h3>
+<p>除了通过php外部命令调用软件进行转码之外，还可以通过第三方平台实现转码操作，这里就举例七牛云，首先贴两个链接：</p>
+<ol>
+<li>[七牛开发者SDK列表][7]</li>
+<li>[七牛文件上传说明][8]</li>
+</ol>
+<p>上面的的一个链接里显示的是七牛官方所有的SDK文档列表，可以根据后端语言的不同进行选择查看；第二个链接就是本小节要说的利用七牛云上传文件。下面来瞧一下代码，也同样封装成类的形式：</p>
+<pre tabindex="0"><code>&lt;?php
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
+use Qiniu\Storage\BucketManager;
+
+class uploadQiniu
+{
+    public $qiniu = [
+        &#39;AccessKey&#39;      =&gt; &#39;&#39;, // 配置七牛AccessKey
+        &#39;SecretKey&#39;      =&gt; &#39;&#39;, // 配置七牛SecretKey
+        &#39;bucket&#39;         =&gt; &#39;cxiansheng&#39;, // 七牛的存储空间名，我的是cxiansheng
+        &#39;voice-pipeline&#39; =&gt; &#39;cxiansheng&#39;, // 设置转码队列名
+        &#39;voice-domain&#39;   =&gt; &#39;http://***.com/&#39; // 你的CDN加速域名 上传文件成功后通过这个域名+文件名就可以访问到相应的资源
+    ];
+
+    /**
+     * 上传微信录音文件到七牛并转码mp3
+     * @param  string $trans_ext  本地文件路径
+     */
+    public function upload_qiniu($file_path)
+    {
+        // 获取七牛auth对象
+        $auth = new Auth($this-&gt;qiniu[&#39;AccessKey&#39;], $this-&gt;qiniu[&#39;SecretKey&#39;]);
+
+        // 定义转码后的mp3文件名
+        $qiniu_filename = &#39;qiniu&#39; . $this-&gt;msectime() . $this-&gt;salt(6) . &#39;.mp3&#39;;
+
+        // 指定上传文件成功后的后续处理 这里为转码操作
+        $savekey = \Qiniu\base64_urlSafeEncode($this-&gt;qiniu[&#39;bucket&#39;] . &#34;:&#34; . $qiniu_filename);
+        $fops    = &#39;avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame|saveas/&#39; . $savekey;
+        /**
+         * 设置转码格式和转码队列名
+         */
+        $policy   = [
+            &#39;persistentOps&#39;      =&gt; $fops,
+            &#39;persistentPipeline&#39; =&gt; $this-&gt;qiniu[&#39;voice-pipeline&#39;]
+        ];
+        /**
+         * 设置上传到七牛的原始amr临时文件名
+         * @var string
+         */
+        $qiniu_tmp_filename = &#39;originamrtmp.amr&#39;;
+
+        // 获取上传token
+        $uptoken = $auth-&gt;uploadToken($this-&gt;qiniu[&#39;bucket&#39;], null, 3600, $policy);
+
+        // 调用上传类
+        $uploadMgr = new UploadManager();
+        // 调用 UploadManager 的 putFile 方法进行文件的上传。
+        list($ret, $err) = $uploadMgr-&gt;putFile($uptoken, $qiniu_tmp_filename, $file_path);
+
+        // 资源管理类
+        $bucketMgr = new BucketManager($auth);
+        if($ret[&#39;key&#39;]) {
+            // 删除原始amr临时文件
+            $err = $bucketMgr-&gt;delete($this-&gt;qiniu[&#39;bucket&#39;], $ret[&#39;key&#39;]);
+            unlink($file_path); //删除服务器上的amr文件
+
+            // 返回在七牛上的资源路径
+            return $this-&gt;qiniu[&#39;voice-domain&#39;] . $qiniu_filename;
+        }else {
+            return FALSE;
+        }
+    }
+}
+</code></pre><p>上面的代码应该不用我做过多介绍，里面的注释每一步应该都写得很清楚。</p>
+<p><strong>PS</strong>：在通过第三方转码的时候，调用api成功之后，由于要待转码的文件一般都会处于转码队列中，可能还没有立即转码成功我们想要的文件。所以不能根据转码过后的文件名去下载，需要等待一会儿，或者可以先把转码后的文件名保存在数据库中，用定时任务去下载到本地。具体请看我在SF提问里的回答&ndash;[下载七牛云mp3文件间歇性失败][9]</p>
+<h2 id="总结">总结</h2>
+<p>至此，在微信开发中关于录音这一块儿的功能，就已经介绍完毕。如果有写错的地方，欢迎拍砖。同样看完还不是很理解的朋友，也可以留言。
+以上。</p>
+<h2 id="资源">资源</h2>
+<ol>
+<li>[composer安装PHP-FFmpeg][10]</li>
+<li>[ffmpeg-php扩展][11]</li>
+<li>[微信jssdk录音功能开发记录][12]</li>
+<li>[amr格式文件][13]</li>
+</ol>
+<p>其他另外两篇自己关于微信开发的总结推荐：</p>
+<ol>
+<li>[微信开发之微信公众号支付][14]</li>
+<li>[微信开发之微信登录][15]</li>
+</ol>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

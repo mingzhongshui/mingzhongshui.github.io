@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Python学习笔记（常用扩展） - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Python常用扩展使用笔记，包括mysql连接池Excel" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/pythonxuexibijichangyongkuozhan/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="Python学习笔记（常用扩展）">
+	<meta property="og:description" content="Python常用扩展使用笔记，包括mysql连接池Excel">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Python学习笔记（常用扩展）">
+	<meta name="twitter:description" content="Python常用扩展使用笔记，包括mysql连接池Excel">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Python学习笔记（常用扩展）</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <p><img src="https://www.cxiansheng.cn/usr/uploads/2020/03/15201244.png" alt="python"></p>
+<p>Python常用扩展使用笔记，包括mysql连接池、Excel、日志等。</p>
+<h3 id="数据库连接池">数据库连接池</h3>
+<pre tabindex="0"><code>import pymysql
+from twisted.enterprise import adbapi
+from pymysql import cursors
+
+# 连接池方式保存数据库
+class JianshuTwistedPipeline(object):
+
+    def __init__(self):
+        dbparams = {
+            &#39;host&#39;: &#39;127.0.0.1&#39;,
+            &#39;port&#39;: 3306,
+            &#39;user&#39;: &#39;root&#39;,
+            &#39;password&#39;: &#39;&#39;,
+            &#39;database&#39;: &#39;python&#39;,
+            &#39;charset&#39;: &#39;utf8&#39;,
+            &#39;cursorclass&#39;: cursors.DictCursor
+        }
+        # 建立连接池
+        self.dbpool = adbapi.ConnectionPool(&#39;pymysql&#39;, **dbparams)
+
+    # 插入数据
+    def insert_item(self, cursor, item):
+
+        sql = &#34;&#34;&#34;INSERT INTO jianshu(article_id,article_title,article_content,origin_url) VALUES (%s, %s, %s, %s)&#34;&#34;&#34;
+
+        # 游标执行sql
+        cursor.execute(sql, (item[&#39;article_id&#39;],item[&#39;article_title&#39;],item[&#39;article_content&#39;], item[&#39;origin_url&#39;]))
+
+    # 异常处理
+    def handle_error(self, error, item, spider):
+        print(&#39;**********error**********&#39;)
+        print(error)
+
+    # 执行
+    def process_item(self, item, spider):
+        # 运行
+        defer = self.dbpool.runInteraction(self.insert_item, item)
+
+        # 增加异常处理函数
+        defer.addErrback(self.handle_error, item, spider)
+
+        return item
+</code></pre><h3 id="日志">日志</h3>
+<pre tabindex="0"><code>
+import logging
+
+self.logger = logging.getLogger(&#39;jianshuspider&#39;)
+
+handle = logging.FileHandler(&#39;log.txt&#39;)
+
+self.logger.addHandler(handle)
+
+self.logger.info()
+</code></pre><h3 id="pyexcel">pyexcel</h3>
+<pre tabindex="0"><code>import pyexcel
+
+pyexcel.save_as(data, &#39;xxx.xls&#39;)
+</code></pre><h3 id="html读入可以xpath操作">html读入可以xpath操作</h3>
+<pre tabindex="0"><code># 打开一个文件
+f = open(&#39;xxx.html&#39;)
+
+# 文件内容赋值给一个变量
+text = f.read()
+
+# 引入包
+import lxml import etree
+
+# 用html方式读取内容
+selector = etree.HTML(text)
+
+# xpath规则
+selector.xpath(&#39;****&#39;)
+</code></pre><h3 id="urllib库">urllib库</h3>
+<pre tabindex="0"><code>from urllib import request
+
+# r = request.urlopen(&#39;https://www.amazon.com/product-reviews/B07211W6X2?sortBy=recent&amp;filterByStar=three_star&#39;)
+
+r = request.urlopen(&#39;https://www.baidu.com&#39;)
+
+print(r.read())
+</code></pre><ul>
+<li><code>read()</code> 读取全部</li>
+<li><code>readline()</code> 读取一行</li>
+<li><code>readlines()</code> 每行以列表数组的形式展示</li>
+<li><code>getcode()</code> 获取状态码</li>
+</ul>
+<h4 id="urlretrieve">urlretrieve</h4>
+<p><code>urlretrieve(url, filename)</code>指定url并保存到本地</p>
+<h4 id="url编码解码">url编码解码</h4>
+<p><code>urlencode</code> 对数据编码</p>
+<p><code>parse_qs</code> 对数据解码</p>
+<pre tabindex="0"><code>from urllib import parse
+
+params = {&#39;name&#39;: &#39;王二小&#39;, &#39;age&#39;: 19}
+
+# 编码
+res = parse.urlencode(params)
+
+print(res)
+
+# 解码
+res = parse.parse_qs(res)
+
+print(res)
+</code></pre><h4 id="url拆分">url拆分</h4>
+<ul>
+<li><code>parse.urlparse</code></li>
+<li><code>parse.urlsplit</code></li>
+</ul>
+<p>urlparse与urlsplit区别是：urlparse解析会有一个params的参数，urlsplit则没有</p>
+<h4 id="parsel">parsel</h4>
+<pre tabindex="0"><code>import parsel
+
+response = requests.get(url, proxies=proxy, headers=headers)
+
+selector = parsel.Selector(response.text)
+
+selector.xpath()
+</code></pre><h3 id="celery">celery</h3>
+<pre tabindex="0"><code>celery -A app.celeries.listing_celery worker -l info -P eventlet
+
+# centos后台运行
+nohup celery -A app.celeries.listing_celery worker -l info &amp;
+</code></pre><h3 id="gunicorn">gunicorn</h3>
+<pre tabindex="0"><code>gunicorn -b 0.0.0.0:5000 api:app
+
+gunicorn -w 4 -b 0.0.0.0:5000 --threads 16 -k gevent -t 1000 --access-logfile ./log/gun.log -D api:app
+</code></pre>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

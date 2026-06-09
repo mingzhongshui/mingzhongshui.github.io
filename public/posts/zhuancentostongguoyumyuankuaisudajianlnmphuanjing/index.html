@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=2851&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>【转】centos通过yum源快速搭建lnmp环境 - My New Hugo Project</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="原文地址LinuxCentOS7下安装LNMP环境笔记ncs" />
+	<meta property="og:image" content="http://localhost:2851/"/>
+	<meta property="og:url" content="http://localhost:2851/posts/zhuancentostongguoyumyuankuaisudajianlnmphuanjing/">
+	<meta property="og:site_name" content="My New Hugo Project">
+	<meta property="og:title" content="【转】centos通过yum源快速搭建lnmp环境">
+	<meta property="og:description" content="原文地址LinuxCentOS7下安装LNMP环境笔记ncs">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="【转】centos通过yum源快速搭建lnmp环境">
+	<meta name="twitter:description" content="原文地址LinuxCentOS7下安装LNMP环境笔记ncs">
+
+        <link href="http://localhost:2851/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:2851/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:2851/">My New Hugo Project</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">【转】centos通过yum源快速搭建lnmp环境</h1>
+          <div class="meta">Posted on Jan 1, 1</div>
+        </div>
+        
+        <section class="body">
+          <blockquote>
+<p>原文地址：[Linux-CentOS7下安装LNMP环境笔记&ndash;ncsb][1]</p>
+</blockquote>
+<h2 id="1-设置yum源">1. 设置yum源</h2>
+<p>PHP源官方地址: [https://webtatic.com/][2]</p>
+<p>mysql源官方地址: [https://dev.mysql.com/downloads/repo/yum/][3]</p>
+<pre tabindex="0"><code>
+rpm -Uvh https://dl.Fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+
+
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+
+
+rpm -Uvh  http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+</code></pre><h2 id="2安装nginx11-php71-mysql57">2.安装nginx1.1 php7.1 mysql5.7</h2>
+<p>安装之前先</p>
+<p>清除yum缓存： <code>yum clean all</code></p>
+<p>生成yum缓存 ： <code>yum makecache</code></p>
+<pre tabindex="0"><code>
+// 安装nginx
+
+yum -y install nginx
+
+
+
+// 安装mysql
+
+yum -y install mysql-community-server
+
+
+
+// 安装php
+
+yum -y install php71w-devel php71w php71w-cli php71w-common php71w-gd php71w-ldap php71w-mbstring php71w-mcrypt  php71w-pdo  php71w-mysqlnd  php71w-fpm php71w-opcache php71w-pecl-redis  php71w-bcmath
+</code></pre><h2 id="3启动软件">3.启动软件</h2>
+<pre tabindex="0"><code>
+systemctl start nginx
+
+
+
+systemctl start mysql  |  systemctl start mysqld
+
+
+
+systemctl start php-fpm
+</code></pre><p>具体的nginx，php-fpm的配置这里省略，下面只重点说一下mysql的配置</p>
+<h3 id="mysql57-初始密码获取">mysql5.7 初始密码获取</h3>
+<p>启动mysql之后，通过命令 <code>grep 'temporary password' /var/log/mysqld.log</code> 可以拿到root用户的初始密码</p>
+<h3 id="修改初始密码">修改初始密码</h3>
+<p>root用户首次登录mysql是需要修改初始密码才能进行后续的操作的,初始密码必须包括数字、大小写字母且长度不能小于8位</p>
+<pre tabindex="0"><code>
+set password = password(&#39;ryUl1_33au_n0krQ&#39;)
+</code></pre><h3 id="创建用户且授权">创建用户且授权</h3>
+<p>下面命令会自动创建dbsb用户且授权db_sb库的所有表的权限</p>
+<pre tabindex="0"><code>
+grant all privileges on db_sb.* to &#34;dbsb&#34;@&#34;%&#34; identified by &#34;ryUl1_33au_n0krQ&#34;
+</code></pre><h2 id="4设置开机自启动">4.设置开机自启动</h2>
+<pre tabindex="0"><code>
+systemctl enable mysqld
+
+
+
+systemctl enable nginx
+
+
+
+systemctl enable php-fpm
+</code></pre><p>Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service to /usr/lib/systemd/system/nginx.service.</p>
+<p>查看软件安装相关目录或者文件：　　 <code>rpm nginx -ql</code></p>
+<h2 id="5结">5.结</h2>
+<p>以上都是在关闭了系统的防火墙和selinux下操作的</p>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>
