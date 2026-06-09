@@ -1,5 +1,5 @@
 theme = "archie"
 
-baseURL = 'https://example.org/'
+baseURL = 'https://mingzhongshui.github.io/'
 locale = 'en-us'
-title = 'My New Hugo Project'
+title = '命中水的个人博客'
