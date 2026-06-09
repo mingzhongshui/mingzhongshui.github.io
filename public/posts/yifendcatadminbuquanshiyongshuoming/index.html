@@ -1,36 +1,62 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>一份dcatadmin不全使用说明 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/yifendcatadminbuquanshiyongshuoming/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>一份dcatadmin不全使用说明 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="前言
+最近在家失业无聊，接了个单，其中有个项目就是关于后台管理系统的，发了几个模板样例给对方，有之前用过的后台框架fastadmin、laraveladmin，但是对方看了都觉得怎么跟他之前的后台一个样，要求换一个简洁一点的，于是我在网上搜了一下laravel还有哪些后台框架，于是看到了dcatadmin，把demo网站发给对方看过之后，觉得这个页面还好，比较简单，随交流沟通后，确定用这个后台。
+话说dcatadmin
+dcatadmin这个框架我还是第一次用到，之前用laravel的后台框架都是用的laravel-admin，相对来说比较熟悉一点，dcatadmin还是第一次听到（因为上份工作都是围绕yii框架来展开的，关于laravel的消息确实查看的不多）。
+dcatadmin2.x文档-简介 | 入门 |《Dcat Admin 中文文档 2.x》| Laravel China 社区
+看完整体下来，dcatadmin重点需要了解的其实就是3个部分，也是后台系统中的组成：数据表格、表单、详情
+但是还是有些地方没怎么看懂，尤其是关于工具表单、异步加载这块儿。时间有限，索性就在开发的过程中，再去搞清楚吧
+因为现有文档描述不清，在开发过程中自己也是踩了不少坑，以下内容总结了在dcatadmin2.x中常用的几个功能，如有遇到类似疑问的开发者，可以少走一些弯路" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/yifendcatadminbuquanshiyongshuoming/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="一份dcatadmin不全使用说明">
-	<meta property="og:description" content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理">
+	<meta property="og:description" content="前言 最近在家失业无聊，接了个单，其中有个项目就是关于后台管理系统的，发了几个模板样例给对方，有之前用过的后台框架fastadmin、laraveladmin，但是对方看了都觉得怎么跟他之前的后台一个样，要求换一个简洁一点的，于是我在网上搜了一下laravel还有哪些后台框架，于是看到了dcatadmin，把demo网站发给对方看过之后，觉得这个页面还好，比较简单，随交流沟通后，确定用这个后台。
+话说dcatadmin dcatadmin这个框架我还是第一次用到，之前用laravel的后台框架都是用的laravel-admin，相对来说比较熟悉一点，dcatadmin还是第一次听到（因为上份工作都是围绕yii框架来展开的，关于laravel的消息确实查看的不多）。
+dcatadmin2.x文档-简介 | 入门 |《Dcat Admin 中文文档 2.x》| Laravel China 社区
+看完整体下来，dcatadmin重点需要了解的其实就是3个部分，也是后台系统中的组成：数据表格、表单、详情
+但是还是有些地方没怎么看懂，尤其是关于工具表单、异步加载这块儿。时间有限，索性就在开发的过程中，再去搞清楚吧
+因为现有文档描述不清，在开发过程中自己也是踩了不少坑，以下内容总结了在dcatadmin2.x中常用的几个功能，如有遇到类似疑问的开发者，可以少走一些弯路">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2025-11-20T13:45:00+00:00">
 		<meta property="article:modified_time" content="2025-11-20T13:45:00+00:00">
-		<meta property="article:tag" content="随笔">
+		<meta property="article:tag" content="Dcatadmin">
+		<meta property="article:tag" content="Laravel">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="一份dcatadmin不全使用说明">
-	<meta name="twitter:description" content="前言最近在家失业无聊，接了个单，其中有个项目就是关于后台管理">
+	<meta name="twitter:description" content="前言 最近在家失业无聊，接了个单，其中有个项目就是关于后台管理系统的，发了几个模板样例给对方，有之前用过的后台框架fastadmin、laraveladmin，但是对方看了都觉得怎么跟他之前的后台一个样，要求换一个简洁一点的，于是我在网上搜了一下laravel还有哪些后台框架，于是看到了dcatadmin，把demo网站发给对方看过之后，觉得这个页面还好，比较简单，随交流沟通后，确定用这个后台。
+话说dcatadmin dcatadmin这个框架我还是第一次用到，之前用laravel的后台框架都是用的laravel-admin，相对来说比较熟悉一点，dcatadmin还是第一次听到（因为上份工作都是围绕yii框架来展开的，关于laravel的消息确实查看的不多）。
+dcatadmin2.x文档-简介 | 入门 |《Dcat Admin 中文文档 2.x》| Laravel China 社区
+看完整体下来，dcatadmin重点需要了解的其实就是3个部分，也是后台系统中的组成：数据表格、表单、详情
+但是还是有些地方没怎么看懂，尤其是关于工具表单、异步加载这块儿。时间有限，索性就在开发的过程中，再去搞清楚吧
+因为现有文档描述不清，在开发过程中自己也是踩了不少坑，以下内容总结了在dcatadmin2.x中常用的几个功能，如有遇到类似疑问的开发者，可以少走一些弯路">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -580,7 +606,9 @@ class MassMessageSuccessLogTable extends Grid\LazyRenderable
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              <li><a href="/tags/dcatadmin/">dcatadmin</a></li>
+              
+              <li><a href="/tags/laravel/">laravel</a></li>
               
             </ul>
           </nav>

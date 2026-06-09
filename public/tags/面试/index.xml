@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>面试 on 命中水、</title>
+		<link>http://localhost:3902/tags/%E9%9D%A2%E8%AF%95/</link>
+		<description>Recent content in 面试 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 28 May 2018 21:46:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>PHP相关面试题总结</title>
+				<link>http://localhost:3902/posts/phpxiangguanmianshitizongjie/</link>
+				<pubDate>Mon, 28 May 2018 21:46:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/phpxiangguanmianshitizongjie/</guid>
+				<description>&lt;h2 id=&#34;数据库&#34;&gt;数据库&lt;/h2&gt;&#xA;&lt;h3 id=&#34;btree和hash索引的区别&#34;&gt;Btree和hash索引的区别&lt;/h3&gt;&#xA;&lt;p&gt;Hash&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+			</item>
+	</channel>
+</rss>

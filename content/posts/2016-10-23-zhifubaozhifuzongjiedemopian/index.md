@@ -1,0 +1,213 @@
+---
+date: 2016-10-23T10:04:00+00:00
+categories: ["后端"]
+title: 支付宝支付总结（demo篇）
+slug: zhifubaozhifuzongjiedemopian
+#description: nbspnbspnbspnbsp做过商城的，一定少不了支付这
+tags: ["php", "支付"]
+featured: false
+draft: false
+excerpt: nbspnbspnbspnbsp做过商城的，一定少不了支付这一环节，网银支付支付宝支付微信支付，这三个主流的支付方式，身为开发者不说全部掌握，使用过其中一样，其他支付方式的支付接口模式也就差不多了。就
+---
+
+&nbsp;&nbsp;&nbsp;&nbsp;做过商城的，一定少不了支付这一环节，网银支付、支付宝支付、微信支付，这三个主流的支付方式，身为开发者不说全部掌握，使用过其中一样，其他支付方式的支付接口模式也就差不多了。就像`PHP`的框架一样，能运用其中一个，其它的框架基本上都是采用`MVC`的思想和设计模式。支付也是一样。这篇文章就讲述一下我做过的支付宝支付。
+
+
+
+
+
+<!--more-->
+
+
+
+## 网上支付介绍 ##
+
+&nbsp;&nbsp;&nbsp;&nbsp;众所周知，网上支付已经成为当下风靡一时的消费方式，支付宝也是网上支付方式的一种。网上支付是电子支付的一种形式，它是通过第三方提供的与银行之间的支付接口进行的即时支付方式，这种方式的好处在于可以直接把资金从用户的银行卡中转账到网站账户中，汇款马上到账，不需要人工确认。客户和商家之间可采用信用卡、电子钱包、电子支票和电子现金等多种电子支付方式进行网上支付，采用在网上电子支付的方式节省了交易的开销。
+
+(**PS：以上来自于百度，百科。**)
+
+
+
+
+
+## 接口介绍 ##
+
+### 目录结构 ###
+
+![支付demo目录结构](http://cxiansheng.cn//usr/uploads/2016/10/302672871.png)
+
+
+
+### 配置文件介绍 ###
+
+
+
+```
+
+//合作身份者ID，签约账号，以2088开头由16位纯数字组成的字符串，查看地址：https://b.alipay.com/order/pidAndKey.htm
+
+$alipay_config['partner']   = '';
+
+
+
+//收款支付宝账号，以2088开头由16位纯数字组成的字符串，一般情况下收款账号就是签约账号
+
+$alipay_config['seller_id'] = $alipay_config['partner'];
+
+
+
+// MD5密钥，安全检验码，由数字和字母组成的32位字符串，查看地址：https://b.alipay.com/order/pidAndKey.htm
+
+$alipay_config['key']     = '';
+
+
+
+// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+
+$alipay_config['notify_url'] = "http://商户网址/create_direct_pay_by_user-PHP-UTF-8/notify_url.php";
+
+
+
+// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+
+$alipay_config['return_url'] = "http://商户网址/create_direct_pay_by_user-PHP-UTF-8/return_url.php";
+
+
+
+//签名方式
+
+$alipay_config['sign_type']    = strtoupper('MD5');
+
+
+
+//字符编码格式 目前支持 gbk 或 utf-8
+
+$alipay_config['input_charset']= strtolower('utf-8');
+
+
+
+//ca证书路径地址，用于curl中ssl校验
+
+//请保证cacert.pem文件在当前文件夹目录中
+
+$alipay_config['cacert']    = getcwd().'\\cacert.pem';
+
+
+
+//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+
+$alipay_config['transport']    = 'http';
+
+
+
+// 支付类型 ，无需修改
+
+$alipay_config['payment_type'] = "1";
+
+    
+
+// 产品类型，无需修改
+
+$alipay_config['service'] = "create_direct_pay_by_user";
+
+
+
+
+
+//↓↓↓↓↓↓↓↓↓↓ 请在这里配置防钓鱼信息，如果没开通防钓鱼功能，为空即可 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+  
+
+// 防钓鱼时间戳  若要使用请调用类文件submit中的query_timestamp函数
+
+$alipay_config['anti_phishing_key'] = "";
+
+  
+
+// 客户端的IP地址 非局域网的外网IP地址，如：221.0.0.1
+
+$alipay_config['exter_invoke_ip'] = "";
+
+```
+
+以上信息，下载demo的时候，里面都有注释，可以按照注释来，一般都能看得懂。这里主要提一下：
+
+
+
+ 1. `partner`和`seller_id`配置项的数据是一样的
+
+ 2. `cacert`这个文件的路径，**如果项目集成在框架中的时候，记得目录地址也要改变哦**
+
+ 3. `return_url`和`notify_url`的网址记得一定是完整的路径格式，路径后面**不能加任何自带参数**
+
+
+
+### demo主页演示(index.php) ###
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;在本地运行支付宝的demo的时候，是如下这个样子
+
+![主页demo演示](http://cxiansheng.cn//usr/uploads/2016/10/460657951.png)
+
+
+
+### 整合支付参数文件(alipayapi.php) ###
+
+
+
+打开后是这个样子：
+
+![支付参数文件](http://cxiansheng.cn//usr/uploads/2016/10/395430125.png)
+
+
+
+通过阅读源码，我们可以看到`alipayapi.php`这个文件引入了**配置项文件**和**提交支付类**，那么引入配置文件是为了整合提交支付所需要的参数，引入支付类，则是为了提交支付这个动作。运行后会出现扫描二维码的页面，如下：
+
+
+
+![支付页面](http://cxiansheng.cn//usr/uploads/2016/10/2429512968.png)
+
+
+
+扫一扫，输入你滴支付密码，就可以完成支付了。这里的意思是，钱已经打到收款账户里了，真正的交易流程完成页面会跳转回同步url的地址里，在没修改源码的情况下出现**验证成功**字样，就表示整个交易已经顺利完结（**当然，你现在扫是没用的，二维码已经过期了啊...QAQ~**）魔性笑声.mp3
+
+
+
+### 同步url文件和异步url文件 ###
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;翻看同步文件和异步文件的时候会发现其中的代码很相似，其实也是差不多的，两个页面都是交易完成的回调URL，只是功能不尽相同。同步文件展示的可以是回掉的页面，比如用户已经支付商品页面等，异步文件可以写操作完成后对数据库的订单的一些操作(对数据库的操作一般写在异步的文件里)。虽说会有些些延迟，但也不会影响正常的对整个流程的处理。`notily_url.php`和`return_url.php`的源码的对比图如下：
+
+
+
+![对比图](http://cxiansheng.cn//usr/uploads/2016/10/1445928843.png)
+
+
+
+
+
+
+
+## 常见问题以及注意事项 ##
+
+
+
+ 1. **cacert.pem**这个密匙文件，一定要跟着你的api接口文件走啊喂，引入项目的时候别忘了这个文件，和修改配置项里的路径
+
+ 2. 支付成功，但是返回验证签名失败；这个有可能是因为字符编码的问题，解决办法很简单，提交类(`alipay_submit.class.php`)里找到`buildRequestForm`方法，在生成表单变量里设置字符编码即可。如下图：
+
+
+
+![签名失败修改](http://cxiansheng.cn//usr/uploads/2016/10/2922590357.png)
+
+
+
+## 附录资源 ##
+
+
+
+ 1. [即时到账支付API帮助文档][7]
+
+ 2. [支付宝支付总结（框架集成篇）][8]

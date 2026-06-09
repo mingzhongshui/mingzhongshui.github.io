@@ -1,36 +1,62 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>ubuntu搭建PHP网站完整实例教程 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="之前写过两篇关于ubuntu系统搭建php环境的文章Linu" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>ubuntu搭建PHP网站完整实例教程 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="
+之前写过两篇关于ubuntu系统搭建php环境的文章
+
+
+[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][2]
+
+
+[Ubuntu一键安装LAMP环境][3]
+
+
+在之后的多次实践中，发现有些东西还没有说到，这里就把之后遇到的问题以及方法补充一下，作为一个完整的在ubuntu下搭建lamp环境的总结。" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/ubuntudajianphpwangzhanwanzhengshilijiaocheng/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="ubuntu搭建PHP网站完整实例教程">
-	<meta property="og:description" content="之前写过两篇关于ubuntu系统搭建php环境的文章Linu">
+	<meta property="og:description" content="之前写过两篇关于ubuntu系统搭建php环境的文章
+[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][2]
+[Ubuntu一键安装LAMP环境][3]
+在之后的多次实践中，发现有些东西还没有说到，这里就把之后遇到的问题以及方法补充一下，作为一个完整的在ubuntu下搭建lamp环境的总结。">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2017-10-21T15:30:00+00:00">
 		<meta property="article:modified_time" content="2017-10-21T15:30:00+00:00">
-		<meta property="article:tag" content="随笔">
+		<meta property="article:tag" content="Lamp">
+		<meta property="article:tag" content="Php环境">
+		<meta property="article:tag" content="一键安装">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="ubuntu搭建PHP网站完整实例教程">
-	<meta name="twitter:description" content="之前写过两篇关于ubuntu系统搭建php环境的文章Linu">
+	<meta name="twitter:description" content="之前写过两篇关于ubuntu系统搭建php环境的文章
+[Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)][2]
+[Ubuntu一键安装LAMP环境][3]
+在之后的多次实践中，发现有些东西还没有说到，这里就把之后遇到的问题以及方法补充一下，作为一个完整的在ubuntu下搭建lamp环境的总结。">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -47,7 +73,7 @@
         </div>
         
         <section class="body">
-          <p><img src="https://www.cxiansheng.cn/usr/uploads/2017/10/2460201975.jpg" alt="ubuntu.jpg"></p>
+          <p><img src="./2460201975.jpg" alt="ubuntu.jpg"></p>
 <p>之前写过两篇关于ubuntu系统搭建php环境的文章</p>
 <ul>
 <li>
@@ -172,7 +198,7 @@
 &lt;/Directory&gt;
 </code></pre><p>修改<code>AllowOverride</code>为all，AllowOverride的意思是对.htaccess的操作，为none时会忽略.htaccess文件，导致我们的伪静态失效，访问web项目出现问题;</p>
 <p>关于配置option各个值的含义，戳下图：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/10/2425945186.jpg" alt="option"></p>
+<p><img src="./2425945186.jpg" alt="option"></p>
 <p>配置好上面之后，重启apache，执行<code>/etc/init.d/apache2 restart</code>，这时候</p>
 <h2 id="总结">总结</h2>
 <p>经过以上三节内容的展示，在ubuntu中搭建lamp环境所必须的操作，基本上都在这里了。一般情况下，经过上面的步骤之后，网站基本上可以搭建成功。当然，在日常的实际操作中，可能还会有一些意想不到的情况发生，到时候就考验我们解决问题的能力了。</p>
@@ -198,7 +224,11 @@
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              <li><a href="/tags/lamp/">lamp</a></li>
+              
+              <li><a href="/tags/php%E7%8E%AF%E5%A2%83/">php环境</a></li>
+              
+              <li><a href="/tags/%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85/">一键安装</a></li>
               
             </ul>
           </nav>

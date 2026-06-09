@@ -1,52 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>思考 on 命中水的个人博客</title>
-		<link>http://localhost:3257/tags/%E6%80%9D%E8%80%83/</link>
-		<description>Recent content in 思考 on 命中水的个人博客</description>
+		<title>思考 on 命中水、</title>
+		<link>http://localhost:3902/tags/%E6%80%9D%E8%80%83/</link>
+		<description>Recent content in 思考 on 命中水、</description>
 		<generator>Hugo</generator>
 		<language>en-us</language>
 		
 		
 		
 		
-			<lastBuildDate>Mon, 22 Feb 2021 23:34:00 +0000</lastBuildDate>
+			<lastBuildDate>Sun, 11 Aug 2019 17:37:00 +0000</lastBuildDate>
 		
-			<atom:link href="http://localhost:3257/tags/%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>2020总结</title>
-				<link>http://localhost:3257/posts/2020zongjie/</link>
-				<pubDate>Mon, 22 Feb 2021 23:34:00 +0000</pubDate>
-				<guid>http://localhost:3257/posts/2020zongjie/</guid>
-				<description>&lt;p&gt;2020已经过去快两个月了，才有（想）时（起）间（来）写一下过去一年的总结。其实在年初的时候，各大社区在做有关【2020总结】的时候就想参与一下，但是一直没有提起日程。对于过去一年的回顾以及新的一年的展望就从这篇文章开始吧。&lt;/p&gt;</description>
-			</item>
+			<atom:link href="http://localhost:3902/tags/%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>一个小业务场景带来的思考</title>
-				<link>http://localhost:3257/posts/yigexiaoyewuchangjingdailaidesikao/</link>
+				<link>http://localhost:3902/posts/yigexiaoyewuchangjingdailaidesikao/</link>
 				<pubDate>Sun, 11 Aug 2019 17:37:00 +0000</pubDate>
-				<guid>http://localhost:3257/posts/yigexiaoyewuchangjingdailaidesikao/</guid>
+				<guid>http://localhost:3902/posts/yigexiaoyewuchangjingdailaidesikao/</guid>
 				<description>&lt;p&gt;最近在用layui做后台，有遇到这么个场景，就是上传图片，并保存到oss的，很简单也很常见的一个小功能。但即使是这么个小功能也有点费脑筋，主要有以下几点：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;对layui上传文件插件的不熟悉&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;对业务场景的想象不够严谨&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;对自身服务器配置状况的无视&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;本篇博文就来说一下，就是这么个小问题，也让我有点伤脑筋的原因。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>1.5s~0.02s，期间我们可以做些什么？</title>
-				<link>http://localhost:3257/posts/15s002sqijianwomenkeyizuoxieshenme/</link>
-				<pubDate>Sat, 21 Jul 2018 12:29:00 +0000</pubDate>
-				<guid>http://localhost:3257/posts/15s002sqijianwomenkeyizuoxieshenme/</guid>
-				<description>&lt;blockquote&gt;&#xA;&lt;p&gt;大爷我就算功能重做，模块重构，我也不做优化！！！&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;运行真快！&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2018/07/1854799780.jpg&#34; alt=&#34;不装了！&#34;&gt;&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>【排序】交换排序之冒泡排序</title>
-				<link>http://localhost:3257/posts/paixujiaohuanpaixuzhimaopaopaixu/</link>
-				<pubDate>Wed, 27 Dec 2017 22:02:00 +0000</pubDate>
-				<guid>http://localhost:3257/posts/paixujiaohuanpaixuzhimaopaopaixu/</guid>
-				<description>&lt;p&gt;    自己之前对于排序的使用一直都是来自于对&lt;code&gt;sort&lt;/code&gt;,&lt;code&gt;ksort&lt;/code&gt;等排序函数的基础上，但是对具体的算法原理没有具体考虑过。闲下来，就思考下这些算法的实现。那么本篇文章以及未来的一系列排序文章，将总结排序在php中的原理以及实现：&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>CI3设置子目录控制器为默认控制器的解决办法</title>
-				<link>http://localhost:3257/posts/ci3shezhizimulukongzhiqiweimorenkongzhiqidejiejuebanfa/</link>
-				<pubDate>Mon, 07 Aug 2017 22:44:00 +0000</pubDate>
-				<guid>http://localhost:3257/posts/ci3shezhizimulukongzhiqiweimorenkongzhiqidejiejuebanfa/</guid>
-				<description>&lt;p&gt;&lt;img src=&#34;https://www.cxiansheng.cn/usr/uploads/2017/08/267497981.png&#34; alt=&#34;codeigniter&#34;&gt;&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>

@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Redis在windows下的安装操作以及PHP-Redis操作 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Redis是一个高性能的keyvalue存储系统。和Memc" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Redis在windows下的安装操作以及PHP-Redis操作 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="Redis在windows下的安装操作以及PHP-Redis操作">
-	<meta property="og:description" content="Redis是一个高性能的keyvalue存储系统。和Memc">
+	<meta property="og:description" content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2016-10-01T20:37:00+00:00">
 		<meta property="article:modified_time" content="2016-10-01T20:37:00+00:00">
-		<meta property="article:tag" content="随笔">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="Redis">
+		<meta property="article:tag" content="Windows">
+		<meta property="article:tag" content="后端">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Redis在windows下的安装操作以及PHP-Redis操作">
-	<meta name="twitter:description" content="Redis是一个高性能的keyvalue存储系统。和Memc">
+	<meta name="twitter:description" content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -125,7 +136,13 @@
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              <li><a href="/tags/php/">php</a></li>
+              
+              <li><a href="/tags/redis/">redis</a></li>
+              
+              <li><a href="/tags/windows/">windows</a></li>
+              
+              <li><a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a></li>
               
             </ul>
           </nav>

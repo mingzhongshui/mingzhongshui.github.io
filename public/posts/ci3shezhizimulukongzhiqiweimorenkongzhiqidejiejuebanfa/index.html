@@ -1,36 +1,46 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>CI3设置子目录控制器为默认控制器的解决办法 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="MetingautoplaytrueMusicserverx" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/ci3shezhizimulukongzhiqiweimorenkongzhiqidejiejuebanfa/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>CI3设置子目录控制器为默认控制器的解决办法 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/ci3shezhizimulukongzhiqiweimorenkongzhiqidejiejuebanfa/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="CI3设置子目录控制器为默认控制器的解决办法">
-	<meta property="og:description" content="MetingautoplaytrueMusicserverx">
+	<meta property="og:description" content="">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2017-08-07T22:44:00+00:00">
 		<meta property="article:modified_time" content="2017-08-07T22:44:00+00:00">
-		<meta property="article:tag" content="思考">
+		<meta property="article:tag" content="CI3">
+		<meta property="article:tag" content="CodeIgniter">
+		<meta property="article:tag" content="Php">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="CI3设置子目录控制器为默认控制器的解决办法">
-	<meta name="twitter:description" content="MetingautoplaytrueMusicserverx">
+	<meta name="twitter:description" content="">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -47,7 +57,7 @@
         </div>
         
         <section class="body">
-          <p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/267497981.png" alt="codeigniter"></p>
+          <p><img src="./267497981.png" alt="codeigniter"></p>
 <p>[Meting autoplay=&ldquo;true&rdquo;]</p>
 <p>[Music server=&ldquo;xiami&rdquo; id=&ldquo;82474&rdquo; type=&ldquo;song&rdquo;/]</p>
 <p>[/Meting]</p>
@@ -74,15 +84,15 @@ $route[&#39;404_override&#39;] = &#39;&#39;;
 $route[&#39;translate_uri_dashes&#39;] = FALSE;
 </code></pre><p>一般来说，我们这样配置是没问题的，但是有一个条件就是在<code>CI3</code>以下的版本中是没任何问题。但是目前的<code>框架版本</code>是<code>CI3</code>,所以就会出现找不到资源文件的情况，空口无凭不算，下面是两张<code>CI2</code>和<code>CI3</code>的route的配置图，和浏览器效果图：</p>
 <h3 id="ci2和ci3相同路由配置对比图">CI2和CI3相同路由配置对比图：</h3>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/1161750948.png" alt="CI2和CI3路由配置对"></p>
+<p><img src="./1161750948.png" alt="CI2和CI3路由配置对"></p>
 <h3 id="ci2和ci3相同路由配置运行网页对比图">CI2和CI3相同路由配置运行网页对比图：</h3>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/233970131.png" alt="CI2和CI3网页展示对比"></p>
+<p><img src="./233970131.png" alt="CI2和CI3网页展示对比"></p>
 <p>由上述两图可以看到，相同的路由配置下，但是结果却是不一样。因为<code>CI3</code>已经不支持设置子目录下的控制器为默认控制器的功能。但是要完成需求描述，这样的效果该如何实现呢？接下来看我们追踪<code>CI3</code>源码;</p>
 <h2 id="源码追踪coreroutephp">源码追踪core/Route.php</h2>
 <p>通过上面的结论，我们应该可以联想到出现<strong>404</strong>这样的报错，应该是解析<code>default_controller</code>的时候出现的问题，于是我在<code>sublime</code>中利用<code>全文检索</code>查询哪里有用到<code>default_controller</code>，搜索的范围可以假定为在<code>CI</code>的<code>核心目录</code>中，因为路由的解析一般是由<strong>核心目录里的路由类</strong>完成的，于是查询范围锁定在<code>system目录</code>，得出下面的结果：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/856225216.png" alt="查询结果"></p>
+<p><img src="./856225216.png" alt="查询结果"></p>
 <p>锁定<code>_set_default_controller</code>方法</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2693684503.png" alt="Route类中_set_default_controller方法"></p>
+<p><img src="./2693684503.png" alt="Route类中_set_default_controller方法"></p>
 <p>于是我一步一步排查，最终发现是这一段代码的问题：</p>
 <pre tabindex="0"><code>
 // Is the method being specified?
@@ -463,7 +473,11 @@ class MY_Router extends CI_Router {
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E6%80%9D%E8%80%83/">思考</a></li>
+              <li><a href="/tags/ci3/">CI3</a></li>
+              
+              <li><a href="/tags/codeigniter/">CodeIgniter</a></li>
+              
+              <li><a href="/tags/php/">php</a></li>
               
             </ul>
           </nav>

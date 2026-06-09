@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>后端 on 命中水、</title>
+		<link>http://localhost:3902/tags/%E5%90%8E%E7%AB%AF/</link>
+		<description>Recent content in 后端 on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 23 Oct 2020 21:04:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/%E5%90%8E%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>记一次上线方（流）案（程）</title>
+				<link>http://localhost:3902/posts/jiyicishangxianfangliuancheng/</link>
+				<pubDate>Fri, 23 Oct 2020 21:04:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/jiyicishangxianfangliuancheng/</guid>
+				<description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;为了简化后续爬虫项目上线的步骤和流程，把爬虫API和定时任务的项目整合在一块了，由于涉及到相关的服务较多，也需要遵循修改服务、启动的先后顺序（不然该启动的服务没开，后续相关的服务受影响就尴尬了），所以在上线前，用了将近一个上午的时间，整理了一个上线流程。在上线时能够提供一些清晰的帮助。&lt;/p&gt;&#xA;&lt;h2 id=&#34;上线步骤&#34;&gt;上线步骤&lt;/h2&gt;&#xA;&lt;h3 id=&#34;包安装&#34;&gt;包安装&lt;/h3&gt;&#xA;&lt;p&gt;安装grequests、itemadapter包&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Redis在windows下的安装操作以及PHP-Redis操作</title>
+				<link>http://localhost:3902/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/</link>
+				<pubDate>Sat, 01 Oct 2016 20:37:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/</guid>
+				<description>&lt;p&gt;Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &amp;ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

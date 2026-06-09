@@ -1,0 +1,419 @@
+---
+date: 2017-07-01T16:33:00+00:00
+categories: ["后端"]
+title: 微信开发之微信登录
+slug: weixinkaifazhiweixindenglu
+#description: nbspnbspnbspnbsp记得以前做微信开发还是在学习
+tags: ["oAuth2.0", "php", "微信"]
+featured: false
+draft: false
+excerpt: nbspnbspnbspnbsp记得以前做微信开发还是在学习期间做过的微信项目，作为学习，仅完成了其中自定义菜单的部分，如今在工作中由于项目需要，所以重新拿起了微信这部分。整合前面学习的过程中又完成了
+---
+
+&nbsp;&nbsp;&nbsp;&nbsp;记得以前做微信开发还是在学习期间做过的微信项目，作为学习，仅完成了其中自定义菜单的部分，如今在工作中由于项目需要，所以重新拿起了微信这部分。整合前面学习的过程中又完成了一些新的功能。这篇就记录一下，关于微信登录这部分的实现。
+
+
+
+
+
+<!--more-->
+
+[Meting autoplay="true"]
+
+[Music server="xiami" id="82479" type="song"/]
+
+[/Meting]
+
+&nbsp;&nbsp;&nbsp;&nbsp;文章里的基础知识来源于【微信公众平台文档】，[点我进入][1]
+
+
+
+## 几个概念 ##
+
+
+
+### 微信回调域名 ###
+
+在微信中，但凡是访问第三方网页用于获取**微信用户信息**的部分，均要使用**微信网页授权机制**
+
+
+
+
+
+> 如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑  --《微信公众平台》
+
+
+
+在公众号**开发->接口权限->功能服务**栏位找到**网页授权获取用户基本信息**，修改网页授权即可。
+
+**注意：这里的网页授权填写域名即可，不要填写任何`http`头部，诸如`http://`或者`https://`之类的**，不然会报**redirect uri 参数错误**
+
+### scope ###
+
+
+
+看过微信文档的朋友一定知道`scope`这个参数，这个参数是什么意思呢？官方文档中已经给了详细的解释，这里我稍微解释一下，`scope`大概可以理解为类型，获取用户信息的类型，`scope`分为两个类型，以下引自文档
+
+
+
+> 1、以`snsapi_base`为`scope`发起的网页授权，是用来获取进入页面的用户的`openid`的，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）
+
+> 2、以`snsapi_userinfo`为`scope`发起的网页授权，是用来获取用户的`基本信息`的。但这种授权需要用户`手动`同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。
+
+
+
+### access_token ###
+
+
+
+在微信网页授权中也有`access_token`，开发过微信接口的同学也知道，在微信开发中也有用到这个参数，但是这里的`access_token`和接口开发中的`access_token`不尽相同：
+
+
+
+> 1、微信网页授权是通过`OAuth2.0`机制实现的，在用户授权给公众号后，公众号可以获取到一个网页授权特有的接口调用凭证（网页授权`access_token`），通过网页授权`access_token`可以进行授权后接口调用，如获取用户基本信息；
+
+
+
+> 2、其他微信接口，需要通过基础支持中的“获取`access_token`”接口来获取到的普通`access_token`调用；
+
+
+
+附上一个简单的`OAuth2.0`的机制图
+
+
+
+![oAuth2.0](./918715088.jpg)
+
+
+
+### UnionID ###
+
+`UnionID`是个好东西，为什么说它是个好东西呢，因为有了`UnionID`才能统一微信用户在不同应用之间的信息，还是请看文档解释：
+
+
+
+> 如果开发者拥有多个移动应用、网站应用和公众帐号，可通过获取用户基本信息中的unionid来区分用户的唯一性，因为同一用户，对同一个微信开放平台下的不同应用（移动应用、网站应用和公众帐号），unionid是相同的
+
+
+
+### 特殊授权 ###
+
+分为以下几种情况：
+
+
+
+ 1. 如果scope为snsapi_base的时候，只能获取到用户的openid，如果公众号在开放平台绑定了开发者，那么这个时候会有UnionID
+
+ 2. 如果scope为snsapi_userinfo的时候，并且用户关注了该公众号的，获取用户信息则不需要用户进行确认
+
+
+
+呼~介绍了一下软(`基础`)文(`知识`)，下面来放干货了(`代码.jpg`)
+
+
+
+## 实现 ##
+
+
+
+### 跳转链接 ###
+
+比如我们在公众号里放置了项目，在特殊时候需要获取用户信息就要用到微信网页授权了，比如我们在微信公共控制器中有这么一段代码
+
+
+
+```
+
+// 如果当前登录断为微信端  并且用户ID为空则跳转至微信登录验证
+
+if(($this->weixin) && empty($user_id)) {
+
+    $url_encode = urlencode("https://xxx.com/index.php");
+
+
+
+    // scope为snsapi_base 仅获取用户openid
+
+	$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa318c6979e231ffa&redirect_uri=".$url_encode."&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+
+
+
+    // snsapi_userinfo 仅获取用户基本信息
+
+    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa318c6979e231ffa&redirect_uri=".$url_encode."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+    // 重定向
+
+    header("Location:".$url); 
+
+}
+
+```
+
+
+
+上述代码，如果用户确认同意（当`scope`为`snsapi_userinfo`时需要用户确认）后，便会主动发消息到我们的`授权url`中，我们在文件中用`$_GET`方式获取微信接口发来的参数即可
+
+
+
+### 获取用户信息 ###
+
+
+
+通过`code`获取用户`openid`和`access_token`
+
+
+
+```
+
+//获取code 拼接成url
+
+$token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $_appid . '&secret=' . $_secret . '&code=' . $code . '&grant_type=authorization_code';
+
+//curl方法获取数据返回数组
+
+$oneArr       = json_decode(file_get_contents($token_url), TRUE);
+
+$access_token = $oneArr['access_token'];
+
+$openid       = $oneArr['openid'];
+
+```
+
+上文中几个参数说明：
+
+
+
+ 1. `$_appid` 微信公众平台`appid`
+
+ 2. `$_secret` 微信公众平台`secret`
+
+ 3. `$code` 获得方式`$_GET['code']`；说明：`code`作为换取`access_token`的票据，每次用户授权带上的`code`将不一样，`code`只能使用一次，**5分钟**未被使用**自动过期**。 
+
+
+
+
+
+
+
+**注意**：此处如果`scope`为`snsapi_base`类型的话，那么走到这里就结束了。因为上文说过，类型是`snsapi_base`的话只能获得用户`openid`
+
+
+
+如果`scope`为`snsapi_userinfo`，那么继续根据`openid`和`access_token`获得用户信息
+
+
+
+```
+
+// 获取微信用户信息
+
+$get_user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token . '&openid=' . $openid . '&lang=zh_CN';
+
+$user_data = json_decode(file_get_contents($get_user_info_url), TRUE);
+
+```
+
+
+
+最终`$user_data`便是微信用户的信息了，下图以我的信息进行举例：
+
+
+
+![微信用户信息参数列表](./2547767947.png)
+
+
+
+## 关于PC扫码登录 ##
+
+
+
+### 申请流程 ###
+
+`PC端扫码登录`属于**开放平台**的应用了，已经不再是微信公众号的范畴，属于微信开放平台的业务，申请开通流程如下：
+
+
+
+ 1. 微信开放平台认证开发者资质，`300`一年(`扎心不?`)
+
+ 2. 认证完之后，还是在开放平台，进入**管理中心**，选择**网站应用**，创建一个应用即可
+
+ 3. 创建之后需要审核，审核通过获取应用`appid`和`secret`，具体有什么作用下文再说
+
+
+
+### 登录流程 ###
+
+
+
+ 1. 进入网站登录页，选择微信图标
+
+ 2. 弹出二维码
+
+ 3. 微信APP扫描确认登录
+
+
+
+### 功能实现 ###
+
+看之前，还是观摩一下**官方文档**最好，[点我《网站应用微信登录开发指南》][4]
+
+
+
+
+
+----------
+
+
+
+
+
+`等待ing...`
+
+`待ing...`
+
+`ing...`
+
+
+
+
+
+----------
+
+看完了吧？那么继续：
+
+
+
+引入微信`js`文件`<script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>`
+
+
+
+`script`部分，以下是我项目中实例，仅供参考，用了`layer`弹框插件
+
+```
+
+// 放置二维码位置
+
+
+
+
+
+
+
+/**
+
+ * 获取随机字母
+
+ * @param  int n 随机数个数
+
+ * @return string   随机数
+
+ */
+
+function generateMixed(n) {
+
+    var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
+     var res = "";
+
+     for(var i = 0; i < n ; i ++) {
+
+         var id = Math.ceil(Math.random()*35);
+
+         res += chars[id];
+
+     }
+
+     return res;
+
+}
+
+
+
+// 点击微信登录 弹出二维码
+
+function weixinlogin() {
+
+    var state = generateMixed(5);
+
+    var obj = new WxLogin({
+
+        id:"weixinlogin",
+
+        appid: "wx8dd64f7c761e424f",
+
+        scope: "snsapi_login",
+
+        redirect_uri: encodeURIComponent("https://xxx.com/weixin_oauth/index/open"), 
+
+        state: state,
+
+        style: "",
+
+        href: ""
+
+    });
+
+    layer.open({
+
+        type: 1,
+
+        title:'微信登陆',
+
+        area: ['350px', '500px'],
+
+        shadeClose: true, //点击遮罩关闭
+
+        content: $("#weixinlogin"),
+
+        btn:'',
+
+    });
+
+}
+
+```
+
+
+
+上述参数说明，文档中都有写，**可是我没写啊，用小学老师的话：多写一遍加深记忆。嗯！我也这么认为**（旁白：`强行凑字数就强行凑字数，找什么理由，哼~`）：
+
+
+
+ - `state` 用于保持请求和回调的状态，授权请求后原样带回给第三方。该参数可用于防止csrf攻击，建议第三方带上该参数，可设置为简单的随机数
+
+ - `id` 第三方页面显示二维码的容器id
+
+ - `appid` 应用id
+
+ - `scope` 应用授权作用域
+
+ - `redirect_uri` 重定向地址，需要进行`UrlEncode`
+
+ - `style` 提供"black"、"white"可选，默认为黑色文字描述
+
+ - `href` 自定义样式链接
+
+
+
+效果图：
+
+![PC二维码](./94182546.png)
+
+
+
+### 获取登录用户信息 ###
+
+`redirect_uri`这个地址就是我们确认登录后要跳转的地址了，就是我们微信登录最开始的 当`$this->weixin`（**判断是否微信端**）并且`$user_id`为空的时候，进行授权页回调，接下来的处理就和上面的`微信授权登录`一样了。然后用`UnionID`的机制来获取用户信息
+
+
+
+**注意：**在`pc登陆`这里获取**token**和**用户信息**的`appid`和`secret`一定要是**微信开放平台**应用的`appid`和`secret`噢
+
+
+
+## 总结来啦 ##
+
+
+
+### 没有抓住6月的尾巴，但总算是抓住了7月的开始，新的一月，加油~ ###

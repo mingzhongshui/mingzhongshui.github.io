@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8119&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>日常小功能 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbsp本文日常整理收录一些小功能，" />
+	<meta property="og:image" content="http://localhost:8119/"/>
+	<meta property="og:url" content="http://localhost:8119/posts---%E5%89%AF%E6%9C%AC/richangxiaogongneng/">
+	<meta property="og:site_name" content="命中水的个人博客">
+	<meta property="og:title" content="日常小功能">
+	<meta property="og:description" content="nbspnbspnbspnbsp本文日常整理收录一些小功能，">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts---副本">
+		<meta property="article:published_time" content="2018-06-21T17:32:00+00:00">
+		<meta property="article:modified_time" content="2018-06-21T17:32:00+00:00">
+		<meta property="article:tag" content="随笔">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="日常小功能">
+	<meta name="twitter:description" content="nbspnbspnbspnbsp本文日常整理收录一些小功能，">
+
+        <link href="http://localhost:8119/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8119/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:8119/">命中水的个人博客</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">日常小功能</h1>
+          <div class="meta">Posted on Jun 21, 2018</div>
+        </div>
+        
+        <section class="body">
+          <p>    本文日常整理收录一些小功能，持续更新&hellip;</p>
+<h2 id="前端ajax上传文件">前端ajax上传文件</h2>
+<h4 id="html">html</h4>
+<pre tabindex="0"><code>
+HTML
+
+&lt;tr&gt;
+
+    &lt;th class=&#34;six&#34;&gt;导入Excel表格&lt;/th&gt;
+
+     &lt;td class=&#34;indent&#34;&gt;&lt;input type=&#34;file&#34; name=&#34;excel_file&#34; id=&#34;excel_file&#34;/&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+</code></pre><h4 id="js">js</h4>
+<pre tabindex="0"><code>
+/**
+
+ * 上传文件
+
+ */
+
+$(&#34;#daoru&#34;).click(function(){
+
+    //用jQuery可以这样：
+
+    var fileInput=$(&#34;#excel_file&#34;)[0];
+
+    var file = fileInput.files[0];    //获得File对象(也就是你那个filemeta)，这里文件是单选的，如果是多选的需要遍历fileInput.files属性来获取每一个文件
+
+    var formData = new FormData();
+
+    formData.append(&#34;excel_file&#34;, file);    //FormData对象的append方法第一个参数相当于input的name属性，第二个参数就是value，可以是File对象
+
+    $.ajax({
+
+        type: &#34;POST&#34;,    //必须POST
+
+        dataType: &#39;json&#39;,
+
+        url: &#34;test.php&#34;,    //接收请求的URL
+
+        processData: false,    //必须设置
+
+        contentType: false,    //必须设置
+
+        data: formData,    //直接把formData对象作为data属性的值发送
+
+        success:function(data) {
+
+            
+
+        }
+
+    })
+
+})
+</code></pre><h4 id="php">php</h4>
+<pre tabindex="0"><code>
+$fileData = $_FILES[&#39;excel_file&#39;];
+
+$fileTmpAddr = $fileData[&#39;tmp_name&#39;];
+
+$flag = move_uploaded_file( $fileTmpAddr, $fileDesAddr );
+</code></pre><h2 id="下载文件">下载文件</h2>
+<pre tabindex="0"><code>
+/**
+
+ * 下载文件方法
+
+ * @param  string $file_name 文件名
+
+ * @param  string $path      文件路径
+
+ * @author 命中水、 
+
+ * @date(2016.12.26)
+
+ */
+
+function download_flie($file_name, $path) {
+
+    header(&#34;Content-type:text/html;charset=utf-8&#34;);
+
+    $file_name = iconv(&#34;utf-8&#34;,&#34;gb2312&#34;,$file_name);
+
+    $file_path = $path.$file_name;
+
+    if(!file_exists($file_path))
+
+    {
+
+        echo &#34;没有该文件文件&#34;;
+
+        return ;
+
+    } 
+
+    $fp = fopen($file_path,&#34;r&#34;);
+
+    $file_size = filesize($file_path);
+
+    //下载文件需要用到的头
+
+    Header(&#34;Content-type: application/octet-stream&#34;);
+
+    Header(&#34;Accept-Ranges: bytes&#34;);
+
+    Header(&#34;Accept-Length:&#34;.$file_size);
+
+    Header(&#34;Content-Disposition: attachment; filename=&#34;.$file_name);
+
+    $buffer = 1024;
+
+    $file_count = 0;
+
+    while( !feof( $fp ) &amp;&amp; $file_count &lt; $file_size)
+
+    {
+
+        $file_con 	 = fread($fp,$buffer);
+
+        $file_count += $buffer;
+
+        echo $file_con;
+
+    }
+
+    fclose($fp); 
+
+}
+</code></pre><h2 id="遍历指定目录文件">遍历指定目录文件</h2>
+<pre tabindex="0"><code>
+/**
+
+ * 遍历指定目录 列出所有文件
+
+ * @param  path $folderName 目录路径
+
+ * @return array            所有文件
+
+ */
+
+public function searchAllFile ( $folderName )
+
+{
+
+    $result = array();
+
+    $handle = opendir($folderName);
+
+    if ( $handle ) {
+
+        while ( ( $file = readdir ( $handle ) ) !== false ) {
+
+            if ( $file != &#39;.&#39; &amp;&amp; $file != &#39;..&#39;) {
+
+                $sonPath = $folderName . DIRECTORY_SEPARATOR . $file;
+
+                if ( is_dir ( $sonPath ) ){
+
+                    $result[&#39;dir&#39;][$sonPath] = $this-&gt;searchAllFile ( $sonPath );
+
+                } else {
+
+                    $result[&#39;file&#39;][] = $sonPath;
+
+                }
+
+            }
+
+        }
+
+        closedir($handle);
+
+    }
+
+    return $result;
+
+}
+</code></pre><h2 id="plupload上传">plupload上传</h2>
+<h3 id="前台">前台</h3>
+<p>html</p>
+<pre tabindex="0"><code>
+&lt;a href=&#34;javascript:;&#34; &gt;
+
+        ![](&lt;?php if ($dishes_data[)
+
+            &lt;?=base_url($dishes_data[&#39;photo_url&#39;]);?&gt;
+
+        &lt;?php endif ?&gt;&#39; /&gt;
+
+    &lt;/a&gt;
+</code></pre><p>js</p>
+<pre tabindex="0"><code>
+var uploader = new plupload.Uploader({
+
+    runtimes : &#39;html5,flash,silverlight,html4&#39;,
+
+    browse_button : &#39;pickfiles&#39;, // you can pass in id...
+
+    container: document.getElementById(&#39;container&#39;), // ... or DOM Element itself
+
+    url : &#39;&lt;?php echo module_url(&#39;dishes/main/upload_photo&#39;)?&gt;&#39;,
+
+    flash_swf_url : &#39;&lt;?php echo base_url(&#34;js/plupload/Moxie.swf&#34;);?&gt;&#39;,
+
+    silverlight_xap_url : &#39;&lt;?php echo base_url(&#34;js/plupload/Moxie.xap&#34;);?&gt;&#39;,       
+
+    filters : {
+
+      max_file_size : &#39;10mb&#39;,
+
+      mime_types: [
+
+        {title : &#34;Image files&#34;, extensions : &#34;jpg,png,jpeg&#34;},
+
+      ]
+
+    },
+
+    init: {
+
+        PostInit: function() {
+
+
+
+        },
+
+        FilesAdded: function(up, files) {
+
+            plupload.each(files, function(file) {
+
+              uploader.start();
+
+                return false;
+
+            });
+
+        },
+
+        FileUploaded: function(uploader,file,responseObject) {
+
+            var data = JSON.parse(responseObject.response);   
+
+            $(&#34;#pickfiles&#34;).attr(&#39;src&#39;, data.file_url);
+
+            $(&#34;#photo_url&#34;).val(data.url);
+
+        },
+
+        Error: function(up, err) {
+
+            alert(err.message);
+
+        }
+
+    }
+
+});
+
+uploader.init();
+</code></pre><h3 id="后台">后台</h3>
+<pre tabindex="0"><code>
+/**
+
+ * 上传图片
+
+ * @param  array   $allow_exts  支持的图片类型
+
+ * @param  paths   $file_path   图片存储目录
+
+ * @return array 
+
+ */
+
+function upload_img($allow_exts, $file_path)
+
+{
+
+    if(empty($allow_exts) || !is_array($allow_exts)) {
+
+        return [&#39;status&#39; =&gt; 202, &#39;msg&#39; =&gt; &#39;不是正确的文件类型&#39;];
+
+    }
+
+    // 上传文件信息
+
+    $upload_file   = $_FILES[&#39;file&#39;];
+
+
+
+    // 上传文件类型
+
+    $original_ext  = explode(&#39;/&#39;, $upload_file[&#39;type&#39;])[1];
+
+    $original_name = $upload_file[&#39;name&#39;];
+
+    // 检查文件类型
+
+    if (!in_array($original_ext, $allow_exts)) {
+
+        return [&#39;status&#39; =&gt; &#39;error&#39;, &#39;msg&#39; =&gt; &#39;文件类型不支持&#39;];
+
+    }
+
+    $file_name = random_str(8) . uniqid(&#39;&#39;, true) . &#39;.&#39; . $original_ext;
+
+    
+
+    // 检测字符编码
+
+    if (mb_detect_encoding($file_path, array(&#39;ASCII&#39;,&#39;GB2312&#39;,&#39;GBK&#39;,&#39;UTF-8&#39;)) == &#39;UTF-8&#39;) {
+
+        $file_path = iconv(&#34;UTF-8&#34;, &#34;GB2312//IGNORE&#34;, $file_path);
+
+    }
+
+
+
+    if (!file_exists($file_path)) {
+
+        mkdir($file_path, 0777, true);
+
+    }
+
+    // 获取文件名编码
+
+    $name_code = mb_detect_encoding($file_name, array(&#39;ASCII&#39;,&#39;GB2312&#39;,&#39;GBK&#39;,&#39;UTF-8&#39;));
+
+
+
+    /**
+
+     * 对文件名编码进行相应的转换
+
+     * 分别获取utf8和gbk文件名
+
+     */
+
+    if ($name_code != &#39;UTF-8&#39;) {
+
+        $utf8_name = iconv($name_code, &#39;UTF-8//IGNORE&#39;, $file_name);
+
+        $gbk_name  = iconv(&#39;UTF-8&#39;, &#39;GB2312//IGNORE&#39;, $utf8_name);
+
+    } else {
+
+        $gbk_name  = iconv(&#39;UTF-8&#39;, &#39;GB2312//IGNORE&#39;, $file_name);
+
+        $utf8_name = $file_name;
+
+    }
+
+
+
+    // 本地文件名
+
+    $local_file_path = rtrim($file_path, &#39;/&#39;) . &#39;/&#39; . $gbk_name;
+
+    // 保留文件名
+
+    $utf8_file_path  = rtrim($file_path, &#39;/&#39;) . &#39;/&#39; . $utf8_name;
+
+    // 移动临时文件
+
+    if (move_uploaded_file($upload_file[&#39;tmp_name&#39;], $local_file_path)) {
+
+        return [
+
+            &#39;status&#39;        =&gt; 200,
+
+            &#39;msg&#39;           =&gt; &#39;上传成功！&#39;,
+
+            &#39;path&#39;          =&gt; $utf8_file_path,
+
+            &#39;url&#39;           =&gt; base_url($utf8_file_path),
+
+            &#39;unique_name&#39;   =&gt; $utf8_name,
+
+            &#39;original_name&#39; =&gt; $original_name
+
+        ];
+
+    } else {
+
+        return [&#39;status&#39; =&gt; &#39;error&#39;, &#39;msg&#39; =&gt; &#39;上传失败！&#39;];
+
+    }
+
+}
+</code></pre><h2 id="删除文件">删除文件</h2>
+<pre tabindex="0"><code>
+/**
+
+ * 根据绝对路径删除目录中文件
+
+ * @param  string $file_path 文件相对路径
+
+ * @return bool   
+
+ * @author 命中水、 
+
+ * @date(2016-10-9 pm)         
+
+ */
+
+function delete_file( $file_path ) {
+
+	$file_path = get_absolute_path($file_path);
+
+	if( unlink( $file_path ) ) return TRUE;
+
+	return FALSE;	
+
+	
+
+}
+
+
+
+/**
+
+ * 取得文件绝对路径
+
+ * @param  string $file_path 文件路径 
+
+ * 例：/uploads/business_code/20161104032818.jpg
+
+ * @return string            文件绝对路径
+
+ * 例：E:\WWW\xxx\web\uploads\business_code\20161104032818.jpg
+
+ * @author 命中水、 
+
+ * @date(2016-11-4 am)
+
+ */
+
+function get_absolute_path( $file_path ) {
+
+	$file_path = str_replace(&#39;/&#39;, &#39;\\&#39;, $file_path);
+
+	$file_path = getcwd() . $file_path;  //转换绝对路径 
+
+	$absolute_path = iconv(&#34;UTF-8&#34;, &#34;GBK&#34;,$file_path);  //调整编码
+
+	return $absolute_path;
+
+}
+</code></pre><h2 id="自写表单验证">自写表单验证</h2>
+<pre tabindex="0"><code>
+if (!function_exists(&#39;form_validate&#39;)) {
+
+    /**
+
+     * 自写方法验证表单数据
+
+     * @param  array           $vali_rule 验证规则
+
+     * @param  string or array $method    接收数据方式 或者 待验证的数据
+
+     * @return boolean/array              true 或者 验证失败说明
+
+     */
+
+    function form_validate($vali_rule, $method = &#39;post&#39;)
+
+    {
+
+        if (!is_array($vali_rule)) {
+
+            return false;
+
+        }
+
+        $CI =&amp; get_instance();
+
+        if (is_array($method)) {
+
+            $data = $method;
+
+        } else {
+
+            $data = $CI-&gt;input-&gt;$method();
+
+        }
+
+        if ($data) {
+
+            foreach ($data as $key =&gt; $value) {
+
+                if (isset($vali_rule[$key]) &amp;&amp; !empty($vali_rule[$key])) {
+
+                    $rule_list = explode(&#39;|&#39;, $vali_rule[$key][&#39;rule&#39;]);
+
+                    $msg_list  = explode(&#39;|&#39;, $vali_rule[$key][&#39;msg&#39;]);
+
+                    foreach ($rule_list as $k =&gt; $rule) {
+
+                        if (!in_array(&#39;required&#39;, $rule_list) &amp;&amp; empty($value)) {
+
+                            continue;
+
+                        }
+
+
+
+                        if (validate_rule($rule, $value) === false) {
+
+                            return [
+
+                                &#39;status&#39; =&gt; &#39;error&#39;, 
+
+                                &#39;msg&#39;    =&gt; $msg_list[$k],
+
+                                // &#39;data&#39;   =&gt; $vali_rule[$key]
+
+                            ];
+
+                        };
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+}
+
+
+
+
+
+if (!function_exists(&#39;validate_rule&#39;)) {
+
+
+
+    /**
+
+     * 具体的验证规则
+
+     * @param  string $rule  验证规则名称
+
+     * @param  string $value 验证值
+
+     * @return boolean
+
+     */
+
+    function validate_rule($rule, $value)
+
+    {
+
+        $flag = true;
+
+        switch ($rule) {
+
+            case &#39;required&#39;:
+
+                if (empty($value)) {
+
+                    $flag = false;
+
+                }
+
+                break;
+
+            case &#39;phone&#39;:
+
+                if (!preg_match(&#34;/^1[345678]\d{9}$/&#34;, trim($value))) {
+
+                    $flag = false;
+
+                }
+
+                break;
+
+            case &#39;email&#39;:
+
+                if (!filter_var(trim($value), FILTER_VALIDATE_EMAIL)) {
+
+                    $flag = false;
+
+                }
+
+                break;
+
+            case &#39;int&#39;:
+
+                if (!filter_var(trim($value), FILTER_VALIDATE_INT)) {
+
+                    $flag = false;
+
+                }
+
+                break;
+
+            default:
+
+                # code...
+
+                break;
+
+        }
+
+        return $flag;
+
+    }
+
+}
+</code></pre><h2 id="根据ip获取城市">根据ip获取城市</h2>
+<pre tabindex="0"><code>
+$url = &#34;http://ip.taobao.com/service/getIpInfo.php?ip=&#34;.$ip;
+
+$ip  = json_decode(file_get_contents($url));   
+
+if((string)$ip-&gt;code==&#39;1&#39;){
+
+   return false;
+
+}
+
+return $ip-&gt;data-&gt;city;
+</code></pre>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

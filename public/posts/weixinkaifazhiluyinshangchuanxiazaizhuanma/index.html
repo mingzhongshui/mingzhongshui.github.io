@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之录音上传、下载、转码 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="nbspnbspnbspnbsp一年的时间里，前前后后都在搞" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之录音上传、下载、转码 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="
+    一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔&hellip;），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/weixinkaifazhiluyinshangchuanxiazaizhuanma/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="微信开发之录音上传、下载、转码">
-	<meta property="og:description" content="nbspnbspnbspnbsp一年的时间里，前前后后都在搞">
+	<meta property="og:description" content="一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔…），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2018-03-08T00:06:00+00:00">
 		<meta property="article:modified_time" content="2018-03-08T00:06:00+00:00">
-		<meta property="article:tag" content="记录">
+		<meta property="article:tag" content="Jssdk">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="微信开发">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="微信开发之录音上传、下载、转码">
-	<meta name="twitter:description" content="nbspnbspnbspnbsp一年的时间里，前前后后都在搞">
+	<meta name="twitter:description" content="一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔…），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -47,7 +58,7 @@
         </div>
         
         <section class="body">
-          <p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/3169903264.jpg" alt="wechat"></p>
+          <p><img src="./3169903264.jpg" alt="wechat"></p>
 <p>    一年的时间里，前前后后都在搞微信开发的相关模块，这不前一阵子，公司又开了个新项目，其中有一个就是类似于微信朋友圈的功能（我也不知道为啥要开发微信已有的功能啊，泪奔&hellip;），其中包含上传图片、录音、视频等，由于微信端上传图片和视频这块也是头一遭做，图片采用了微信的相关插件，视频嘛用的是百度的webupload插件，感觉也相当不错，采用了分片上传技术。今天这篇就主要介绍一下，录音的相关功能。</p>
 <h2 id="简单说明">简单说明</h2>
 <p>微信录音这块，其实面对这项功能的时候，不用我多说，都知道要先去看开发文档，查阅相关资料等准备工作；我先贴个地址，免得看我这篇文档的时候再去查找网页：[微信公众号开发-微信JS-SDK说明文档][2]。进入到这个页面找到第5小节，<strong>音频接口</strong>这里，就是本篇要说的东西了。</p>
@@ -83,7 +94,7 @@
 </ol>
 <p>看到以上，是不是觉得蛮多的，配合起来使用才提供了这么一个完整（好像也并不怎么完整，没有提供方便的转码及下载本地机制）的录音功能。好话说在前头：<code>你弄完了当你再去看这块代码的时候，发现还真他娘的乱啊。。。</code>所以，我写这篇记录的原因就在这里了，狗头.png</p>
 <p>还有一个就是<strong>接口权限</strong>（一张图片来表述，图片来源微信文档&hellip;）：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/4078787224.png" alt="接口权限"></p>
+<p><img src="./4078787224.png" alt="接口权限"></p>
 <h2 id="上传代码梳理">上传代码梳理</h2>
 <p>本章会以文字和代码的形式进行梳理，过程应该会蛮多的，不过看完之后直接拿去使用，问题也应该不大，如是说道。</p>
 <p>JS-SDK库的使用步骤，这里就不过多介绍了，文档里也有，也是简单整理下几个所需步骤吧：</p>
@@ -575,16 +586,16 @@ class Wechat
 </blockquote>
 <h4 id="下载-1">下载</h4>
 <p>通过这个网址下载ffmpeg.exe程序 <a href="https://ffmpeg.zeranoe.com/builds/">https://ffmpeg.zeranoe.com/builds/</a>，选择shared这个类型，如下图：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/2108572440.png" alt="ffmpeg下载页面"></p>
+<p><img src="./2108572440.png" alt="ffmpeg下载页面"></p>
 <p>下载完成后，解压在bin目录可以看到ffmpeg.exe</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/2759589053.png" alt="ffmpeg.exe"></p>
+<p><img src="./2759589053.png" alt="ffmpeg.exe"></p>
 <h4 id="转码-1">转码</h4>
 <p>cmd命令行转码：</p>
 <p>直接切换到ffmpeg.exe的目录，在命令行输入</p>
 <pre tabindex="0"><code>
 ffmpeg.exe -i E:\wode\ffmpeg\amr.amr E:\wode\ffmpeg\arm.mp3
 </code></pre><p>即可，就可以看到整个转码的过程。下图所示：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2018/03/2005365042.png" alt="cmd转码"></p>
+<p><img src="./2005365042.png" alt="cmd转码"></p>
 <p>php转码：</p>
 <p>那么如何利用php来调用exe软件来进行转码呢？很方便的是php提供了相应的函数，<code>exec</code>和<code>system</code>，他们都可以调用cmd的命令，比如调用ffmpeg.exe来进行转码：</p>
 <pre tabindex="0"><code>
@@ -768,7 +779,11 @@ class uploadQiniu
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              <li><a href="/tags/jssdk/">jssdk</a></li>
+              
+              <li><a href="/tags/php/">php</a></li>
+              
+              <li><a href="/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">微信开发</a></li>
               
             </ul>
           </nav>

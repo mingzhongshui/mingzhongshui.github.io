@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之微信公众号支付 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="nbspnbspnbspnbsp上月初的时候写过一篇关于微信" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/weixinkaifazhiweixingongzhonghaozhifu/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之微信公众号支付 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="    上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用通(啰)俗(里)易(啰)懂(嗦)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/weixinkaifazhiweixingongzhonghaozhifu/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="微信开发之微信公众号支付">
-	<meta property="og:description" content="nbspnbspnbspnbsp上月初的时候写过一篇关于微信">
+	<meta property="og:description" content=" 上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用通(啰)俗(里)易(啰)懂(嗦)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2017-08-04T19:11:00+00:00">
 		<meta property="article:modified_time" content="2017-08-04T19:11:00+00:00">
-		<meta property="article:tag" content="分享">
-		<meta property="article:tag" content="记录">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="微信支付">
+		<meta property="article:tag" content="支付">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="微信开发之微信公众号支付">
-	<meta name="twitter:description" content="nbspnbspnbspnbsp上月初的时候写过一篇关于微信">
+	<meta name="twitter:description" content=" 上月初的时候写过一篇关于[【微信开发之微信登陆】][1]的文章，文章里面大概用通(啰)俗(里)易(啰)懂(嗦)的话语讲述了关于在微信登陆这块的一些理论要点和代码实现。这次算是微信开发系列的延续篇，主要记录一下在工作中遇到的关于微信支付部分功能的实现">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -100,7 +109,7 @@
 </li>
 </ul>
 <p>我们先通过一张图了解一下微信支付的流程：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2126380761.png" alt="微信内网页支付时序图"></p>
+<p><img src="./2126380761.png" alt="微信内网页支付时序图"></p>
 <p>这张图相信小伙伴在浏览微信支付文档的时候已经看到过了，虽然从<code>用户点击支付按钮开始</code>到<code>微信支付系统确认支付完毕</code>中间经过要13步之多的过程，但是实际上这也是很有必要的，我们可以看到<code>支付</code>在任何时候都是需要重视的，因为这是一个关于<strong>钱</strong>的问题，只要涉及到了它，就必须确保它每一步的顺利执行和<code>安全性</code>。在我们快速开发功能的时候，有时候不得不压抑住我们想要窥探其具体实现的好奇心，只了解其中关键几步，以达到快速开发的目的，剩下的好奇心只能等课后了。</p>
 <p>总结了其中的关键几步，以便大家参(<code>快速</code>)考(<code>查阅</code>)，其中个把关键词均已红色字体标出</p>
 <ol>
@@ -128,7 +137,7 @@
 <h3 id="支付授权目录">支付授权目录</h3>
 <p><strong>支付授权目录</strong>，和上篇文章中说到的<code>登陆授权回调域</code>性质差不多，但是区别在于这里用于<code>支付授权</code>。</p>
 <p>现在的公众号支付授权目录配置已经从公众号迁移到了微信商户平台中，开发者可以在商户平台中进行配置，下图所示：</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2732342703.png" alt="配置示例"></p>
+<p><img src="./2732342703.png" alt="配置示例"></p>
 <p>具体公告，请点击：[微信支付开发配置页面迁移至商户平台][6]查看</p>
 <h3 id="其他几个点">其他几个点</h3>
 <ul>
@@ -146,7 +155,7 @@
 <p>终于来到<code>开坦克杀敌</code>的环节了，一阵莫名激动，能看到这里的小伙伴一定是真爱啊！~</p>
 <h3 id="jsapiphp">jsapi.php</h3>
 <p>为什么把这个文件单独提出来，因为它很重要啊(<code>博主君废话模式开启，23333</code>)，这个页面通俗点来说用于调起支付框，输入支付密码的操作。当我们下载好了<strong>PHP版</strong>的微信支付<code>SDK</code>的时候，打开目录大概会是这个<code>美丽的样子</code></p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/3168527903.png" alt="微信SDK目录"></p>
+<p><img src="./3168527903.png" alt="微信SDK目录"></p>
 <p>关键代码块：</p>
 <pre tabindex="0"><code>
 //②、统一下单
@@ -231,9 +240,9 @@ public function index($order_id) {
 }
 </code></pre><p>2、jsapi页面赋值</p>
 <p>大部分代码和原生的差不多，修改一小部分，包括引入各种类库等，这里为了方便展示，采用图片的形式列出</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/1711277958.png" alt="支付详情赋值"></p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/2469309384.jpg" alt="支付结果回调"></p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/08/3844700466.png" alt="隐藏地址共享"></p>
+<p><img src="./1711277958.png" alt="支付详情赋值"></p>
+<p><img src="./2469309384.jpg" alt="支付结果回调"></p>
+<p><img src="./3844700466.png" alt="隐藏地址共享"></p>
 <p>上面三张图一共做了四件事：</p>
 <ol>
 <li>
@@ -332,9 +341,11 @@ public function IsSuccess(){
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E5%88%86%E4%BA%AB/">分享</a></li>
+              <li><a href="/tags/php/">php</a></li>
               
-              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              <li><a href="/tags/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/">微信支付</a></li>
+              
+              <li><a href="/tags/%E6%94%AF%E4%BB%98/">支付</a></li>
               
             </ul>
           </nav>

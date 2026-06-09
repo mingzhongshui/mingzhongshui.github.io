@@ -1,36 +1,111 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Laravel &#43; Swoole 协程实战：一个多租户采集系统的真实落地方案 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="作为PHP开发者，我们迟早都会遇到一个瞬间代码没有报错，逻辑" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Laravel &#43; Swoole 协程实战：一个多租户采集系统的真实落地方案 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="
+作为 PHP 开发者，我们迟早都会遇到一个瞬间：
+
+
+
+
+代码没有报错，逻辑也没问题，但系统就是——慢。
+
+
+
+
+不是慢一点，是那种
+
+
+「明明只是检查 1000 个账号状态，却要跑半个小时」
+
+
+「服务器 CPU 不高，但请求就是排着队等」
+
+
+的慢。
+
+最近搞项目刚好遇到了一个业务场景，多租户系统中，根据账号采集数据，采集前先要确认账号是否有效（就像根据IP代理爬数据一样，爬数据前先确认代理是否有效），于是我按照以往的经验，很自然的写了这样一条链路：
+
+
+循环取出一个账号
+
+
+检测状态
+
+
+拉数据
+
+
+账号异常，再换下一个账号，重复执行1、2、3
+
+
+逻辑看似没问题，代码也很优雅。直到我测试的时候，跑了一次完整的任务。1000个账号，跑了30分钟还没跑完。我查看了CPU，内存也不高，但就是很慢。为什么呢？
+问题不在算力，而在于PHP在大量IO等待中，被迫排队！
+这个时候就是协程（Coroutine）大显身手的时候了。下文将结合业务和实战（编码）深入理解协程，并展示如何在Laravel中构建基于协程的高性能多租户采集系统。" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="Laravel &#43; Swoole 协程实战：一个多租户采集系统的真实落地方案">
-	<meta property="og:description" content="作为PHP开发者，我们迟早都会遇到一个瞬间代码没有报错，逻辑">
+	<meta property="og:description" content="作为 PHP 开发者，我们迟早都会遇到一个瞬间：
+代码没有报错，逻辑也没问题，但系统就是——慢。
+不是慢一点，是那种
+「明明只是检查 1000 个账号状态，却要跑半个小时」
+「服务器 CPU 不高，但请求就是排着队等」
+的慢。
+最近搞项目刚好遇到了一个业务场景，多租户系统中，根据账号采集数据，采集前先要确认账号是否有效（就像根据IP代理爬数据一样，爬数据前先确认代理是否有效），于是我按照以往的经验，很自然的写了这样一条链路：
+循环取出一个账号
+检测状态
+拉数据
+账号异常，再换下一个账号，重复执行1、2、3
+逻辑看似没问题，代码也很优雅。直到我测试的时候，跑了一次完整的任务。1000个账号，跑了30分钟还没跑完。我查看了CPU，内存也不高，但就是很慢。为什么呢？
+问题不在算力，而在于PHP在大量IO等待中，被迫排队！
+这个时候就是协程（Coroutine）大显身手的时候了。下文将结合业务和实战（编码）深入理解协程，并展示如何在Laravel中构建基于协程的高性能多租户采集系统。">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2026-01-24T11:23:00+00:00">
 		<meta property="article:modified_time" content="2026-01-24T11:23:00+00:00">
-		<meta property="article:tag" content="随笔">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="协程">
+		<meta property="article:tag" content="并发编程">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Laravel &#43; Swoole 协程实战：一个多租户采集系统的真实落地方案">
-	<meta name="twitter:description" content="作为PHP开发者，我们迟早都会遇到一个瞬间代码没有报错，逻辑">
+	<meta name="twitter:description" content="作为 PHP 开发者，我们迟早都会遇到一个瞬间：
+代码没有报错，逻辑也没问题，但系统就是——慢。
+不是慢一点，是那种
+「明明只是检查 1000 个账号状态，却要跑半个小时」
+「服务器 CPU 不高，但请求就是排着队等」
+的慢。
+最近搞项目刚好遇到了一个业务场景，多租户系统中，根据账号采集数据，采集前先要确认账号是否有效（就像根据IP代理爬数据一样，爬数据前先确认代理是否有效），于是我按照以往的经验，很自然的写了这样一条链路：
+循环取出一个账号
+检测状态
+拉数据
+账号异常，再换下一个账号，重复执行1、2、3
+逻辑看似没问题，代码也很优雅。直到我测试的时候，跑了一次完整的任务。1000个账号，跑了30分钟还没跑完。我查看了CPU，内存也不高，但就是很慢。为什么呢？
+问题不在算力，而在于PHP在大量IO等待中，被迫排队！
+这个时候就是协程（Coroutine）大显身手的时候了。下文将结合业务和实战（编码）深入理解协程，并展示如何在Laravel中构建基于协程的高性能多租户采集系统。">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -1078,7 +1153,11 @@ CPU: ▃▅▇▇▇▇▇▇▇▅▃▃▃▃▃ (持续高效利用)
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+              <li><a href="/tags/php/">php</a></li>
+              
+              <li><a href="/tags/%E5%8D%8F%E7%A8%8B/">协程</a></li>
+              
+              <li><a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li>
               
             </ul>
           </nav>

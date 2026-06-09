@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>聊聊redis在电商系统中的实战应用 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="一前言在我从事的工作经历中，其实接触的电商行业还挺多的，大概" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/liaoliaorediszaidianshangxitongzhongdeshizhanyingyong/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>聊聊redis在电商系统中的实战应用 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="一、前言
+在我从事的工作经历中，其实接触的电商行业还挺多的，大概占经历的6、70%左右。
+而在电商项目中，用到缓存的场景就很多了，像数据缓存、CDN缓存、页面缓存等等，redis是最常用的key-value数据库了，memechache虽然和redis同样都是内存数据库，但是使用的最多的还是redis。
+在使用redis之前，先简单了解下redis的特点和数据结构吧；" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/liaoliaorediszaidianshangxitongzhongdeshizhanyingyong/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="聊聊redis在电商系统中的实战应用">
-	<meta property="og:description" content="一前言在我从事的工作经历中，其实接触的电商行业还挺多的，大概">
+	<meta property="og:description" content="一、前言 在我从事的工作经历中，其实接触的电商行业还挺多的，大概占经历的6、70%左右。
+而在电商项目中，用到缓存的场景就很多了，像数据缓存、CDN缓存、页面缓存等等，redis是最常用的key-value数据库了，memechache虽然和redis同样都是内存数据库，但是使用的最多的还是redis。
+在使用redis之前，先简单了解下redis的特点和数据结构吧；">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2025-01-08T22:31:00+00:00">
 		<meta property="article:modified_time" content="2025-01-08T22:31:00+00:00">
-		<meta property="article:tag" content="记录">
+		<meta property="article:tag" content="Redis">
+		<meta property="article:tag" content="电商系统">
+		<meta property="article:tag" content="项目实战">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="聊聊redis在电商系统中的实战应用">
-	<meta name="twitter:description" content="一前言在我从事的工作经历中，其实接触的电商行业还挺多的，大概">
+	<meta name="twitter:description" content="一、前言 在我从事的工作经历中，其实接触的电商行业还挺多的，大概占经历的6、70%左右。
+而在电商项目中，用到缓存的场景就很多了，像数据缓存、CDN缓存、页面缓存等等，redis是最常用的key-value数据库了，memechache虽然和redis同样都是内存数据库，但是使用的最多的还是redis。
+在使用redis之前，先简单了解下redis的特点和数据结构吧；">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -523,7 +540,11 @@ for order in expired_orders:
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              <li><a href="/tags/redis/">redis</a></li>
+              
+              <li><a href="/tags/%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F/">电商系统</a></li>
+              
+              <li><a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a></li>
               
             </ul>
           </nav>

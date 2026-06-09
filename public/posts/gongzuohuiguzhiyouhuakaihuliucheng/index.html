@@ -1,36 +1,64 @@
 <!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3257&amp;path=livereload" data-no-instant defer></script>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>工作回顾之优化开户流程 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="前言众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐" />
-	<meta property="og:image" content="http://localhost:3257/"/>
-	<meta property="og:url" content="http://localhost:3257/posts/gongzuohuiguzhiyouhuakaihuliucheng/">
-	<meta property="og:site_name" content="命中水的个人博客">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>工作回顾之优化开户流程 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="前言
+众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐放，啥样的优化方式都有。而我虽然天天干着CURD的工作，和SQL天天打交道，其实说句实话，对SQL优化确实所会不多，只能算的上是皮毛。
+这不，什么不会就来什么，刚入职还在试用期的时候，老大派来一个任务
+：“小陈，我们有个开户的流程，从其他平台迁移过来，你对接下”
+：“好的，老大”
+：“对了，还有一个开户的动作，特别慢，要半小时甚至更久才能完成，你顺便优化一下”
+：“好的”
+什么开户？什么流程？什么优化，刚接到这个问题的我也是一头雾水，后面再深入了解了一下，大概明白了这个问题的来龙去脉" />
+	<meta property="og:image" content="http://localhost:3902/"/>
+	<meta property="og:url" content="http://localhost:3902/posts/gongzuohuiguzhiyouhuakaihuliucheng/">
+	<meta property="og:site_name" content="命中水、">
 	<meta property="og:title" content="工作回顾之优化开户流程">
-	<meta property="og:description" content="前言众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐">
+	<meta property="og:description" content="前言 众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐放，啥样的优化方式都有。而我虽然天天干着CURD的工作，和SQL天天打交道，其实说句实话，对SQL优化确实所会不多，只能算的上是皮毛。
+这不，什么不会就来什么，刚入职还在试用期的时候，老大派来一个任务
+：“小陈，我们有个开户的流程，从其他平台迁移过来，你对接下”
+：“好的，老大”
+：“对了，还有一个开户的动作，特别慢，要半小时甚至更久才能完成，你顺便优化一下”
+：“好的”
+什么开户？什么流程？什么优化，刚接到这个问题的我也是一头雾水，后面再深入了解了一下，大概明白了这个问题的来龙去脉">
 	<meta property="og:locale" content="en_us">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
 		<meta property="article:published_time" content="2025-04-10T14:16:00+00:00">
 		<meta property="article:modified_time" content="2025-04-10T14:16:00+00:00">
-		<meta property="article:tag" content="记录">
+		<meta property="article:tag" content="SQL优化">
+		<meta property="article:tag" content="Php">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="工作回顾之优化开户流程">
-	<meta name="twitter:description" content="前言众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐">
+	<meta name="twitter:description" content="前言 众所周知，SQL文化博大精深，SQL优化那阵算得上百花齐放，啥样的优化方式都有。而我虽然天天干着CURD的工作，和SQL天天打交道，其实说句实话，对SQL优化确实所会不多，只能算的上是皮毛。
+这不，什么不会就来什么，刚入职还在试用期的时候，老大派来一个任务
+：“小陈，我们有个开户的流程，从其他平台迁移过来，你对接下”
+：“好的，老大”
+：“对了，还有一个开户的动作，特别慢，要半小时甚至更久才能完成，你顺便优化一下”
+：“好的”
+什么开户？什么流程？什么优化，刚接到这个问题的我也是一头雾水，后面再深入了解了一下，大概明白了这个问题的来龙去脉">
 
-        <link href="http://localhost:3257/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3257/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="http://localhost:3257/">命中水的个人博客</a>
+		<a href="http://localhost:3902/">命中水、</a>
 	</div>
 	<nav>
+		
+		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+		
+		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+		
+		<a href="/archive/">归档</a>
+		
+		<a href="/about/">关于</a>
 		
 		
 	</nav>
@@ -326,7 +354,9 @@
           <nav class="nav tags">
             <ul class="tags">
               
-              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              <li><a href="/tags/sql%E4%BC%98%E5%8C%96/">SQL优化</a></li>
+              
+              <li><a href="/tags/php/">php</a></li>
               
             </ul>
           </nav>

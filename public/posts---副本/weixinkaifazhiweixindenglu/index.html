@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8119&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>微信开发之微信登录 - 命中水的个人博客</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="nbspnbspnbspnbsp记得以前做微信开发还是在学习" />
+	<meta property="og:image" content="http://localhost:8119/"/>
+	<meta property="og:url" content="http://localhost:8119/posts---%E5%89%AF%E6%9C%AC/weixinkaifazhiweixindenglu/">
+	<meta property="og:site_name" content="命中水的个人博客">
+	<meta property="og:title" content="微信开发之微信登录">
+	<meta property="og:description" content="nbspnbspnbspnbsp记得以前做微信开发还是在学习">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts---副本">
+		<meta property="article:published_time" content="2017-07-01T16:33:00+00:00">
+		<meta property="article:modified_time" content="2017-07-01T16:33:00+00:00">
+		<meta property="article:tag" content="记录">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="微信开发之微信登录">
+	<meta name="twitter:description" content="nbspnbspnbspnbsp记得以前做微信开发还是在学习">
+
+        <link href="http://localhost:8119/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8119/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://localhost:8119/">命中水的个人博客</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">微信开发之微信登录</h1>
+          <div class="meta">Posted on Jul 1, 2017</div>
+        </div>
+        
+        <section class="body">
+          <p>    记得以前做微信开发还是在学习期间做过的微信项目，作为学习，仅完成了其中自定义菜单的部分，如今在工作中由于项目需要，所以重新拿起了微信这部分。整合前面学习的过程中又完成了一些新的功能。这篇就记录一下，关于微信登录这部分的实现。</p>
+<p>[Meting autoplay=&ldquo;true&rdquo;]</p>
+<p>[Music server=&ldquo;xiami&rdquo; id=&ldquo;82479&rdquo; type=&ldquo;song&rdquo;/]</p>
+<p>[/Meting]</p>
+<p>    文章里的基础知识来源于【微信公众平台文档】，[点我进入][1]</p>
+<h2 id="几个概念">几个概念</h2>
+<h3 id="微信回调域名">微信回调域名</h3>
+<p>在微信中，但凡是访问第三方网页用于获取<strong>微信用户信息</strong>的部分，均要使用<strong>微信网页授权机制</strong></p>
+<blockquote>
+<p>如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑  &ndash;《微信公众平台》</p>
+</blockquote>
+<p>在公众号<strong>开发-&gt;接口权限-&gt;功能服务</strong>栏位找到<strong>网页授权获取用户基本信息</strong>，修改网页授权即可。</p>
+<p><strong>注意：这里的网页授权填写域名即可，不要填写任何<code>http</code>头部，诸如<code>http://</code>或者<code>https://</code>之类的</strong>，不然会报<strong>redirect uri 参数错误</strong></p>
+<h3 id="scope">scope</h3>
+<p>看过微信文档的朋友一定知道<code>scope</code>这个参数，这个参数是什么意思呢？官方文档中已经给了详细的解释，这里我稍微解释一下，<code>scope</code>大概可以理解为类型，获取用户信息的类型，<code>scope</code>分为两个类型，以下引自文档</p>
+<blockquote>
+<p>1、以<code>snsapi_base</code>为<code>scope</code>发起的网页授权，是用来获取进入页面的用户的<code>openid</code>的，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）</p>
+</blockquote>
+<blockquote>
+<p>2、以<code>snsapi_userinfo</code>为<code>scope</code>发起的网页授权，是用来获取用户的<code>基本信息</code>的。但这种授权需要用户<code>手动</code>同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。</p>
+</blockquote>
+<h3 id="access_token">access_token</h3>
+<p>在微信网页授权中也有<code>access_token</code>，开发过微信接口的同学也知道，在微信开发中也有用到这个参数，但是这里的<code>access_token</code>和接口开发中的<code>access_token</code>不尽相同：</p>
+<blockquote>
+<p>1、微信网页授权是通过<code>OAuth2.0</code>机制实现的，在用户授权给公众号后，公众号可以获取到一个网页授权特有的接口调用凭证（网页授权<code>access_token</code>），通过网页授权<code>access_token</code>可以进行授权后接口调用，如获取用户基本信息；</p>
+</blockquote>
+<blockquote>
+<p>2、其他微信接口，需要通过基础支持中的“获取<code>access_token</code>”接口来获取到的普通<code>access_token</code>调用；</p>
+</blockquote>
+<p>附上一个简单的<code>OAuth2.0</code>的机制图</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/07/918715088.jpg" alt="oAuth2.0"></p>
+<h3 id="unionid">UnionID</h3>
+<p><code>UnionID</code>是个好东西，为什么说它是个好东西呢，因为有了<code>UnionID</code>才能统一微信用户在不同应用之间的信息，还是请看文档解释：</p>
+<blockquote>
+<p>如果开发者拥有多个移动应用、网站应用和公众帐号，可通过获取用户基本信息中的unionid来区分用户的唯一性，因为同一用户，对同一个微信开放平台下的不同应用（移动应用、网站应用和公众帐号），unionid是相同的</p>
+</blockquote>
+<h3 id="特殊授权">特殊授权</h3>
+<p>分为以下几种情况：</p>
+<ol>
+<li>
+<p>如果scope为snsapi_base的时候，只能获取到用户的openid，如果公众号在开放平台绑定了开发者，那么这个时候会有UnionID</p>
+</li>
+<li>
+<p>如果scope为snsapi_userinfo的时候，并且用户关注了该公众号的，获取用户信息则不需要用户进行确认</p>
+</li>
+</ol>
+<p>呼~介绍了一下软(<code>基础</code>)文(<code>知识</code>)，下面来放干货了(<code>代码.jpg</code>)</p>
+<h2 id="实现">实现</h2>
+<h3 id="跳转链接">跳转链接</h3>
+<p>比如我们在公众号里放置了项目，在特殊时候需要获取用户信息就要用到微信网页授权了，比如我们在微信公共控制器中有这么一段代码</p>
+<pre tabindex="0"><code>
+// 如果当前登录断为微信端  并且用户ID为空则跳转至微信登录验证
+
+if(($this-&gt;weixin) &amp;&amp; empty($user_id)) {
+
+    $url_encode = urlencode(&#34;https://xxx.com/index.php&#34;);
+
+
+
+    // scope为snsapi_base 仅获取用户openid
+
+	$url = &#34;https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa318c6979e231ffa&amp;redirect_uri=&#34;.$url_encode.&#34;&amp;response_type=code&amp;scope=snsapi_base&amp;state=STATE#wechat_redirect&#34;;
+
+
+
+    // snsapi_userinfo 仅获取用户基本信息
+
+    $url = &#34;https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa318c6979e231ffa&amp;redirect_uri=&#34;.$url_encode.&#34;&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=STATE#wechat_redirect&#34;;
+
+    // 重定向
+
+    header(&#34;Location:&#34;.$url); 
+
+}
+</code></pre><p>上述代码，如果用户确认同意（当<code>scope</code>为<code>snsapi_userinfo</code>时需要用户确认）后，便会主动发消息到我们的<code>授权url</code>中，我们在文件中用<code>$_GET</code>方式获取微信接口发来的参数即可</p>
+<h3 id="获取用户信息">获取用户信息</h3>
+<p>通过<code>code</code>获取用户<code>openid</code>和<code>access_token</code></p>
+<pre tabindex="0"><code>
+//获取code 拼接成url
+
+$token_url = &#39;https://api.weixin.qq.com/sns/oauth2/access_token?appid=&#39; . $_appid . &#39;&amp;secret=&#39; . $_secret . &#39;&amp;code=&#39; . $code . &#39;&amp;grant_type=authorization_code&#39;;
+
+//curl方法获取数据返回数组
+
+$oneArr       = json_decode(file_get_contents($token_url), TRUE);
+
+$access_token = $oneArr[&#39;access_token&#39;];
+
+$openid       = $oneArr[&#39;openid&#39;];
+</code></pre><p>上文中几个参数说明：</p>
+<ol>
+<li>
+<p><code>$_appid</code> 微信公众平台<code>appid</code></p>
+</li>
+<li>
+<p><code>$_secret</code> 微信公众平台<code>secret</code></p>
+</li>
+<li>
+<p><code>$code</code> 获得方式<code>$_GET['code']</code>；说明：<code>code</code>作为换取<code>access_token</code>的票据，每次用户授权带上的<code>code</code>将不一样，<code>code</code>只能使用一次，<strong>5分钟</strong>未被使用<strong>自动过期</strong>。</p>
+</li>
+</ol>
+<p><strong>注意</strong>：此处如果<code>scope</code>为<code>snsapi_base</code>类型的话，那么走到这里就结束了。因为上文说过，类型是<code>snsapi_base</code>的话只能获得用户<code>openid</code></p>
+<p>如果<code>scope</code>为<code>snsapi_userinfo</code>，那么继续根据<code>openid</code>和<code>access_token</code>获得用户信息</p>
+<pre tabindex="0"><code>
+// 获取微信用户信息
+
+$get_user_info_url = &#39;https://api.weixin.qq.com/sns/userinfo?access_token=&#39; . $access_token . &#39;&amp;openid=&#39; . $openid . &#39;&amp;lang=zh_CN&#39;;
+
+$user_data = json_decode(file_get_contents($get_user_info_url), TRUE);
+</code></pre><p>最终<code>$user_data</code>便是微信用户的信息了，下图以我的信息进行举例：</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/07/2547767947.png" alt="微信用户信息参数列表"></p>
+<h2 id="关于pc扫码登录">关于PC扫码登录</h2>
+<h3 id="申请流程">申请流程</h3>
+<p><code>PC端扫码登录</code>属于<strong>开放平台</strong>的应用了，已经不再是微信公众号的范畴，属于微信开放平台的业务，申请开通流程如下：</p>
+<ol>
+<li>
+<p>微信开放平台认证开发者资质，<code>300</code>一年(<code>扎心不?</code>)</p>
+</li>
+<li>
+<p>认证完之后，还是在开放平台，进入<strong>管理中心</strong>，选择<strong>网站应用</strong>，创建一个应用即可</p>
+</li>
+<li>
+<p>创建之后需要审核，审核通过获取应用<code>appid</code>和<code>secret</code>，具体有什么作用下文再说</p>
+</li>
+</ol>
+<h3 id="登录流程">登录流程</h3>
+<ol>
+<li>
+<p>进入网站登录页，选择微信图标</p>
+</li>
+<li>
+<p>弹出二维码</p>
+</li>
+<li>
+<p>微信APP扫描确认登录</p>
+</li>
+</ol>
+<h3 id="功能实现">功能实现</h3>
+<p>看之前，还是观摩一下<strong>官方文档</strong>最好，[点我《网站应用微信登录开发指南》][4]</p>
+<hr>
+<p><code>等待ing...</code></p>
+<p><code>待ing...</code></p>
+<p><code>ing...</code></p>
+<hr>
+<p>看完了吧？那么继续：</p>
+<p>引入微信<code>js</code>文件<code>&lt;script src=&quot;https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js&quot;&gt;&lt;/script&gt;</code></p>
+<p><code>script</code>部分，以下是我项目中实例，仅供参考，用了<code>layer</code>弹框插件</p>
+<pre tabindex="0"><code>
+// 放置二维码位置
+
+
+
+
+
+
+
+/**
+
+ * 获取随机字母
+
+ * @param  int n 随机数个数
+
+ * @return string   随机数
+
+ */
+
+function generateMixed(n) {
+
+    var chars = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;,&#39;G&#39;,&#39;H&#39;,&#39;I&#39;,&#39;J&#39;,&#39;K&#39;,&#39;L&#39;,&#39;M&#39;,&#39;N&#39;,&#39;O&#39;,&#39;P&#39;,&#39;Q&#39;,&#39;R&#39;,&#39;S&#39;,&#39;T&#39;,&#39;U&#39;,&#39;V&#39;,&#39;W&#39;,&#39;X&#39;,&#39;Y&#39;,&#39;Z&#39;];
+
+     var res = &#34;&#34;;
+
+     for(var i = 0; i &lt; n ; i ++) {
+
+         var id = Math.ceil(Math.random()*35);
+
+         res += chars[id];
+
+     }
+
+     return res;
+
+}
+
+
+
+// 点击微信登录 弹出二维码
+
+function weixinlogin() {
+
+    var state = generateMixed(5);
+
+    var obj = new WxLogin({
+
+        id:&#34;weixinlogin&#34;,
+
+        appid: &#34;wx8dd64f7c761e424f&#34;,
+
+        scope: &#34;snsapi_login&#34;,
+
+        redirect_uri: encodeURIComponent(&#34;https://xxx.com/weixin_oauth/index/open&#34;), 
+
+        state: state,
+
+        style: &#34;&#34;,
+
+        href: &#34;&#34;
+
+    });
+
+    layer.open({
+
+        type: 1,
+
+        title:&#39;微信登陆&#39;,
+
+        area: [&#39;350px&#39;, &#39;500px&#39;],
+
+        shadeClose: true, //点击遮罩关闭
+
+        content: $(&#34;#weixinlogin&#34;),
+
+        btn:&#39;&#39;,
+
+    });
+
+}
+</code></pre><p>上述参数说明，文档中都有写，<strong>可是我没写啊，用小学老师的话：多写一遍加深记忆。嗯！我也这么认为</strong>（旁白：<code>强行凑字数就强行凑字数，找什么理由，哼~</code>）：</p>
+<ul>
+<li>
+<p><code>state</code> 用于保持请求和回调的状态，授权请求后原样带回给第三方。该参数可用于防止csrf攻击，建议第三方带上该参数，可设置为简单的随机数</p>
+</li>
+<li>
+<p><code>id</code> 第三方页面显示二维码的容器id</p>
+</li>
+<li>
+<p><code>appid</code> 应用id</p>
+</li>
+<li>
+<p><code>scope</code> 应用授权作用域</p>
+</li>
+<li>
+<p><code>redirect_uri</code> 重定向地址，需要进行<code>UrlEncode</code></p>
+</li>
+<li>
+<p><code>style</code> 提供&quot;black&quot;、&ldquo;white&quot;可选，默认为黑色文字描述</p>
+</li>
+<li>
+<p><code>href</code> 自定义样式链接</p>
+</li>
+</ul>
+<p>效果图：</p>
+<p><img src="https://www.cxiansheng.cn/usr/uploads/2017/07/94182546.png" alt="PC二维码"></p>
+<h3 id="获取登录用户信息">获取登录用户信息</h3>
+<p><code>redirect_uri</code>这个地址就是我们确认登录后要跳转的地址了，就是我们微信登录最开始的 当<code>$this-&gt;weixin</code>（<strong>判断是否微信端</strong>）并且<code>$user_id</code>为空的时候，进行授权页回调，接下来的处理就和上面的<code>微信授权登录</code>一样了。然后用<code>UnionID</code>的机制来获取用户信息</p>
+<p><strong>注意：<strong>在<code>pc登陆</code>这里获取</strong>token</strong>和<strong>用户信息</strong>的<code>appid</code>和<code>secret</code>一定要是<strong>微信开放平台</strong>应用的<code>appid</code>和<code>secret</code>噢</p>
+<h2 id="总结来啦">总结来啦</h2>
+<h3 id="没有抓住6月的尾巴但总算是抓住了7月的开始新的一月加油">没有抓住6月的尾巴，但总算是抓住了7月的开始，新的一月，加油~</h3>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/%E8%AE%B0%E5%BD%95/">记录</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

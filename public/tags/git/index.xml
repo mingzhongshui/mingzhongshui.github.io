@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Git on 命中水、</title>
+		<link>http://localhost:3902/tags/git/</link>
+		<description>Recent content in Git on 命中水、</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 25 Feb 2019 11:52:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:3902/tags/git/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>【Git】工作中99%能用到的git命令</title>
+				<link>http://localhost:3902/posts/gitgongzuozhong99nengyongdaodegitmingling/</link>
+				<pubDate>Mon, 25 Feb 2019 11:52:00 +0000</pubDate>
+				<guid>http://localhost:3902/posts/gitgongzuozhong99nengyongdaodegitmingling/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;./4149774481.jpg&#34; alt=&#34;git&#34;&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
