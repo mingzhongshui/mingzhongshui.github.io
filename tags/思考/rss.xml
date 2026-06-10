@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>思考 on 命中水、</title><link>https://mingzhongshui.github.io/tags/%E6%80%9D%E8%80%83/</link><description>Recent content in 思考 on 命中水、</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 11 Aug 2019 17:37:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E6%80%9D%E8%80%83/rss.xml" rel="self" type="application/rss+xml"/><item><title>一个小业务场景带来的思考</title><link>https://mingzhongshui.github.io/posts/yigexiaoyewuchangjingdailaidesikao/</link><pubDate>Sun, 11 Aug 2019 17:37:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/yigexiaoyewuchangjingdailaidesikao/</guid><description>&lt;p&gt;最近在用layui做后台，有遇到这么个场景，就是上传图片，并保存到oss的，很简单也很常见的一个小功能。但即使是这么个小功能也有点费脑筋，主要有以下几点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;对layui上传文件插件的不熟悉&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对业务场景的想象不够严谨&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对自身服务器配置状况的无视&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;本篇博文就来说一下，就是这么个小问题，也让我有点伤脑筋的原因。&lt;/p&gt;</description></item></channel></rss>

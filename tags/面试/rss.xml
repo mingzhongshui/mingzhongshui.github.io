@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>面试 on 命中水、</title><link>https://mingzhongshui.github.io/tags/%E9%9D%A2%E8%AF%95/</link><description>Recent content in 面试 on 命中水、</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 28 May 2018 21:46:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E9%9D%A2%E8%AF%95/rss.xml" rel="self" type="application/rss+xml"/><item><title>PHP相关面试题总结</title><link>https://mingzhongshui.github.io/posts/phpxiangguanmianshitizongjie/</link><pubDate>Mon, 28 May 2018 21:46:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/phpxiangguanmianshitizongjie/</guid><description>&lt;h2 id="数据库"&gt;数据库
+&lt;a class="header-anchor" href="#%e6%95%b0%e6%8d%ae%e5%ba%93"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="btree和hash索引的区别"&gt;Btree和hash索引的区别
+&lt;a class="header-anchor" href="#btree%e5%92%8chash%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;Hash&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高，而Btree索引需要经过多次的磁盘IO，但是innodb和myisam之所以没有采用它，是因为它存在着好多缺点&lt;/p&gt;
+
+ &lt;/blockquote&gt;</description></item></channel></rss>

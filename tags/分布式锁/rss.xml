@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>分布式锁 on 命中水、</title><link>https://mingzhongshui.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link><description>Recent content in 分布式锁 on 命中水、</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 05 Mar 2025 22:43:00 +0000</lastBuildDate><atom:link href="https://mingzhongshui.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/rss.xml" rel="self" type="application/rss+xml"/><item><title>工作回顾之账单号怎么重复了？</title><link>https://mingzhongshui.github.io/posts/gongzuohuiguzhizhangdanhaozenmechongfule/</link><pubDate>Wed, 05 Mar 2025 22:43:00 +0000</pubDate><guid>https://mingzhongshui.github.io/posts/gongzuohuiguzhizhangdanhaozenmechongfule/</guid><description>&lt;h2 id="一引言"&gt;一、引言
+&lt;a class="header-anchor" href="#%e4%b8%80%e5%bc%95%e8%a8%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;不管是在电商系统、还是物业系统中都会存在一个账单的东西，账单号是每一个账单的标识，这个标识是唯一的、且不可重复的。&lt;/p&gt;
+&lt;p&gt;在电商系统中，账单号就等同于订单号；在物业系统中，账单号就是每一次向业主催缴费的账单。&lt;/p&gt;
+&lt;p&gt;这个账单号一旦重复结果可以说是灾难级的，在物业系统中，收费的时候，明明不是这个业主的钱，怎么多算了；而另一个业主的钱甚至少算，或者该缴的费用被其他业主缴了等等，涉及到钱的问题那就是大问题了。&lt;/p&gt;
+&lt;p&gt;这篇文章，我们就来具体分析下这个问题，并给出解决方案。&lt;/p&gt;</description></item></channel></rss>

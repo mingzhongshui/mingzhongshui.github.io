@@ -1,115 +1,286 @@
-<!doctype html><html><head lang=en><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名) - 命中水、</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="    前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。"><meta property="og:image" content="https://mingzhongshui.github.io/"><meta property="og:url" content="https://mingzhongshui.github.io/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/"><meta property="og:site_name" content="命中水、"><meta property="og:title" content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)"><meta property="og:description" content=" 前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2016-11-09T20:24:00+00:00"><meta property="article:modified_time" content="2016-11-09T20:24:00+00:00"><meta property="article:tag" content="Apache2"><meta property="article:tag" content="Linux"><meta property="article:tag" content="域名绑定"><meta name=twitter:card content="summary"><meta name=twitter:title content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)"><meta name=twitter:description content=" 前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。"><link href=https://mingzhongshui.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://mingzhongshui.github.io/css/main.92c7e6f6f5baede55d6238ba492bcbd00e10ca39a6bbdec527692bfc9564a927.css></head><body><div class=content><header><div class=main><a href=https://mingzhongshui.github.io/>命中水、</a></div><nav><a href=/categories/%E5%89%8D%E7%AB%AF/>前端</a>
-<a href=/categories/%E5%90%8E%E7%AB%AF/>后端</a>
-<a href=/archive/>归档</a>
-<a href=/about/>关于</a></nav></header><main><article><div class=post-container><div class=post-content><div class=title><h1 class=title>Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)</h1><div class=meta>Posted on Nov 9, 2016</div></div><section class=body><p>    前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。</p><h2 id=前言>前言</h2><p>    自己的服务器是通用的文件结构，一键安装的<strong>lamp</strong>集成环境，具体是什么，不记得了，遇到问题的时候就去百度，网上大多数说的是和<strong>window</strong>下配置虚拟域名的方法是差不多的，但是我的服务器是<strong>apache2</strong>的，没有httpd.conf这个文件，因为第一次弄这个，所以有点难办。但值得庆幸的是，最后还是搞定了。此文就简单介绍下，我遇到的问题及解决方法.</p><h2 id=几个知识点>几个知识点</h2><h3 id=软链接和硬链接>软链接和硬链接</h3><h4 id=简介>简介</h4><p>    <strong>软链接</strong>文件有点像<code>Windows</code>的快捷方式。它实际上是一个特殊的文件。在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息。</p><p>    <strong>硬连接</strong>是指通过索引节点来进行连接。在<code>Linux</code>的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(<code>Inode Index</code>)。在<code>Linux</code>中，多个文件名指向同一索引节点是存在的。硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。</p><h4 id=命令参数>命令参数</h4><p>必要参数:</p><pre tabindex=0><code>
-ln -b 删除，覆盖以前建立的链接
-
-ln -d 允许超级用户制作目录的硬链接
-
-ln -f 强制执行
-
-ln -i 交互模式，文件存在则提示用户是否覆盖
-
-ln -n 把符号链接视为一般目录
-
-ln -s 软链接(符号链接)
-
-ln -v 显示详细的处理过程
-</code></pre><h4 id=特点>特点</h4><p>软链接</p><ol><li><p>以路径的形式存在，类似于Windows操作系统中的快捷方式</p></li><li><p>跨文件系统</p></li><li><p>对一个不存在的文件名进行链接</p></li><li><p>对目录进行链接</p></li><li><p>保持每一处链接文件的同步性</p></li></ol><p>硬链接</p><ol><li><p>以文件副本的形式存在，但不占用实际空间</p></li><li><p>不允许给目录创建硬链接</p></li><li><p>硬链接只有在同一个文件系统中才能创建</p></li><li><p>保持每一处链接文件的同步性</p></li></ol><h4 id=注意>注意</h4><ol><li><p><code>ln命令</code>会保持每一处链接文件的同步性，也就是说，不论改动了哪一处，其它的文件都会发生相同的变化</p></li><li><p><code>ln的链接</code>又分软链接和硬链接两种，软链接就是<strong>ln –s 源文件 目标文件</strong>，它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接 <strong>ln 源文件 目标文件</strong>，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</p></li></ol><h3 id=apache2目录结构>apache2目录结构</h3><p><img src=http://cxiansheng.cn/usr/uploads/2016/11/2103702455.jpg alt=apache2目录结构></p><ul><li><p><code>apache2.conf</code> <code>apache</code>配置文件</p></li><li><p><code>conf-available、conf-enabled</code> <code>apache</code>配置目录</p></li><li><p><code>sites-available、sites-enabled</code> <code>apache</code>配置域名站点目录</p></li><li><p><code>mods-available、mods-enabled</code> <code>apache</code>功能模块目录</p></li><li><p><code>ports.conf</code> <code>apache</code>配置端口</p></li></ul><h2 id=多域名绑定实现>多域名绑定实现</h2><p>    假设绑定<code>cxiansheng.cn</code>和<code>demo.cxiansheng.cn</code>到服务器上</p><h3 id=准备工作>准备工作</h3><ul><li><p>将<code>https://www.cxiansheng.cn</code> 与 <code>http://www.demo.cxiansheng.cn</code> 的DNS解析到服务器IP上。</p></li><li><p>在<code>/etc/apache2/sites-available/</code>目录，创建2个文件,文件名分别用<code>cxiansheng.conf</code>和 <code>demo.conf</code></p></li></ul><h3 id=配置文件>配置文件</h3><p>在<code>cxiansheng.conf</code>文件中输入以下内容(<strong>不要真的自己输入啊喂！~</strong>)</p><pre tabindex=0><code>
-&lt;VirtualHost *:80&gt;
-
- 	 ServerAdmin webmaster@localhost
-
-	 ServerName cxiansheng.cn
-
-	 DocumentRoot /var/www/cxiansheng
-
-	 &lt;Directory /&gt;
-
-		 Options FollowSymLinks
-
-	 	 DirectoryIndex index.php index.html index.htm
-
- 		 AllowOverride None
-
-	 &lt;/Directory&gt;
-
-	 &lt;Directory /var/www/cxiansheng&gt;  
-
-		# Options Indexes FollowSymLinks MultiViews
-
-		Options FollowSymLinks
-
-		RewriteEngine On
-
-		RewriteCond %{REQUEST_FILENAME} !-f
-
-		RewriteCond %{REQUEST_FILENAME} !-d
-
-		RewriteRule . index.php
-
-  		AllowOverride All
-
-		Order allow,deny
-
-		allow from all
-
-	&lt;/Directory&gt;
-
-
-
-	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-
-	&lt;Directory &#34;/usr/lib/cgi-bin&#34;&gt;
-
-		AllowOverride None
-
-		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-
-		Order allow,deny
-
-		Allow from all
-
-	&lt;/Directory&gt;
-
-
-
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-
-
-
-	# Possible values include: debug, info, notice, warn, error, crit,
-
-	# alert, emerg.
-
-	LogLevel warn
-
-
-
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-
-
-	Alias /doc/ &#34;/usr/share/doc/&#34;
-
-	&lt;Directory &#34;/usr/share/doc/&#34;&gt;
-
-		Options Indexes MultiViews FollowSymLinks
-
-		AllowOverride None
-
-		Order deny,allow
-
-		Deny from all
-
-		Allow from 127.0.0.0/255.0.0.0 ::1/128
-
-	&lt;/Directory&gt;
-
-&lt;/VirtualHost&gt;
-</code></pre><h4 id=提示>提示</h4><ul><li><p><code>ServerName</code> 后面输入域名</p></li><li><p><code>DocumentRoot</code> 写目录在服务器相对路径</p></li><li><p><code>Directory</code> 第二段的这里也要写目录的相对路径</p></li><li><p><code>demo.conf</code> 同上，修改相应的位置即可</p></li></ul><h3 id=建立软链接>建立软链接</h3><p>    在<code>/etc/apache2/sites_enabled/</code>中创建<code>ln</code>链接：</p><pre tabindex=0><code>
-ln -s /etc/apache2/sites-available/cxiansheng.conf /etc/apache2/sites-enabled/cxiansheng.conf
-
-ln -s /etc/apache2/sites-available/demo.conf /etc/apache2/sites-enabled/demo.conf
-</code></pre><h3 id=重启apache>重启apache</h3><pre><code>/etc/init.d/apache2 restart
-</code></pre><h3 id=输入网址>输入网址</h3><p><img src=http://cxiansheng.cn/usr/uploads/2016/11/3543322545.jpg alt=链接成功></p><h2 id=总结>总结</h2><p>    linux系统是个<code>big guy</code>，要快速入坑才行啊！！！</p><h2 id=资源>资源</h2><ol><li>[硬链接和软连接][3]</li></ol></section><div class=post-tags><nav class="nav tags"><ul class=tags><li><a href=/tags/apache2/>apache2</a></li><li><a href=/tags/linux/>linux</a></li><li><a href=/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/>域名绑定</a></li></ul></nav></div></div></div></article></main><footer><div style=display:flex></div><div class=footer-info>2026 <a href=https://github.com/athul/archie>Archie Theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></footer></div></body></html>
+<!doctype html><html lang=zh-CN data-theme=dark><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: dark)"><meta name=generator content="Hugo 0.163.0"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/favicon_16x16_next.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/favicon_32_32_next.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/apple_touch_icon_next.png><meta itemprop=name content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)"><meta itemprop=description content="保持简单的易用性和强大的功能。"><meta name=description content="保持简单的易用性和强大的功能。"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="https://mingzhongshui.github.io/imgs/me_avatar.jpg"><meta itemprop=keywords content="apache2,linux,域名绑定"><meta property="og:type" content="article"><meta property="og:title" content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)"><meta property="og:description" content="保持简单的易用性和强大的功能。"><meta property="og:image" content="/imgs/me_avatar.jpg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="https://mingzhongshui.github.io/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/"><meta property="og:site_name" content="命中水、"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="mingzhongshui"><meta property="article:published_time" content="2016-11-09 20:24:00 +0000 UTC"><meta property="article:modified_time" content="2016-11-09 20:24:00 +0000 UTC"><link type=text/css rel=stylesheet href=https://mingzhongshui.github.io/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=https://mingzhongshui.github.io/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=https://mingzhongshui.github.io/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1781083426"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><link rel=stylesheet type=text/css href="/css/custom_style.css?=1781083426"><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名) - 命中水、</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>命中水、</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>你的努力要配上你的梦想</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-front-end"><a href=/categories/%E5%89%8D%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-laptop-code hvr-icon"></i>前端</a></li><li class="menu-item menu-item-backend-end"><a href=/categories/%E5%90%8E%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-server hvr-icon"></i>后端</a></li><li class="menu-item menu-item-archives"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>62</span></a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-commonweal"><a href=/404.html class=hvr-icon-pulse rel=section><i class="fa fa-heartbeat hvr-icon"></i>公益 404</a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#前言>前言</a></li><li><a href=#几个知识点>几个知识点</a><ul><li><a href=#软链接和硬链接>软链接和硬链接</a><ul><li><a href=#简介>简介</a></li><li><a href=#命令参数>命令参数</a></li><li><a href=#特点>特点</a></li><li><a href=#注意>注意</a></li></ul></li><li><a href=#apache2目录结构>apache2目录结构</a></li></ul></li><li><a href=#多域名绑定实现>多域名绑定实现</a><ul><li><a href=#准备工作>准备工作</a></li><li><a href=#配置文件>配置文件</a><ul><li><a href=#提示>提示</a></li></ul></li><li><a href=#建立软链接>建立软链接</a></li><li><a href=#重启apache>重启apache</a></li><li><a href=#输入网址>输入网址</a></li></ul></li><li><a href=#总结>总结</a></li><li><a href=#资源>资源</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=mingzhongshui src=/imgs/img-lazy-loading.gif data-src=/imgs/me_avatar.jpg><p class=site-author-name itemprop=name>mingzhongshui</p><div class=site-description itemprop=description>保持简单的易用性和强大的功能。</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>62</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>105</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"><span class=links-of-social-item><a href=https://github.com/mingzhongshui title="Github → https://github.com/mingzhongshui" rel=noopener class=hvr-icon-pulse target=_blank><i class="fab fa-github fa-fw hvr-icon"></i>
+Github
+</a></span><span class=links-of-social-item><a href=mailto:in1993summer@163.com title="E-Mail → mailto:in1993summer@163.com" rel=noopener class=hvr-icon-pulse target=_blank><i class="fa fa-envelope fa-fw hvr-icon"></i>
+E-Mail</a></span></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/big/by_nc_sa.svg alt=共享知识></a></div><div class="links-of-blogroll site-overview-item animated"><div class=links-of-blogroll-title><i class="fa fa-globe fa-fw"></i>
+友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://gitee.com/hugo-next/hugo-theme-next title=https://gitee.com/hugo-next/hugo-theme-next target=_blank>Hugo-NexT</a></li><li class=links-of-blogroll-item><a href=https://lisenhui.cn title=https://lisenhui.cn target=_blank>凡梦星尘空间站</a></li></ul></div><div class="mydefined animated" itemprop=custom></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2016-07-02 16:01:00 +0000 UTC"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=132091></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=296></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2026-01-24 11:23:00 +0000 UTC"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-i18n-translate class=button title=多语言翻译><i class="fas fa-globe"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><a href=https://github.com/hugo-next rel="noopener external nofollow noreferrer" target=_blank title="Follow me on GitHub" class="exturl github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0 0 115 115h15l12 27L250 250V0z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4l13.9-13.8C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8z" fill="currentColor" class="octo-body"/></svg></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=https://mingzhongshui.github.io/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/me_avatar.jpg"><meta itemprop=name content="mingzhongshui"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="mingzhongshui"><meta itemprop=description content="保持简单的易用性和强大的功能。"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)"><meta itemprop=description content="    前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。"></span><header class=post-header><h1 class=post-title itemprop="name headline">Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)
+<a href=https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/posts/2016-11-09-linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/index.md rel="noopener external nofollow noreferrer" target=_blank class="exturl post-edit-link" title=编辑><i class="fa fa-pen-nib"></i></a></h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2016-11-09 20:24:00 +00:00" itemprop="dateCreated datePublished" datetime="2016-11-09 20:24:00 +0000 UTC">2016-11-09
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/%E5%90%8E%E7%AB%AF/ itemprop=url rel=index><span itemprop=name>后端</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>1648</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>4分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><p>    前阵子买了域名，好不容易等到管局审核通过，结果在域名绑定到服务器上的时候又出现了些许问题，百度无果，无奈之下请教了大神，弄通了软、硬链接，了解了apache2的目录结构及特性，才得以解决。</p><a id=more></a><h2 id=前言>前言
+<a class=header-anchor href=#%e5%89%8d%e8%a8%80></a></h2><p>    自己的服务器是通用的文件结构，一键安装的<strong>lamp</strong>集成环境，具体是什么，不记得了，遇到问题的时候就去百度，网上大多数说的是和<strong>window</strong>下配置虚拟域名的方法是差不多的，但是我的服务器是<strong>apache2</strong>的，没有httpd.conf这个文件，因为第一次弄这个，所以有点难办。但值得庆幸的是，最后还是搞定了。此文就简单介绍下，我遇到的问题及解决方法.</p><h2 id=几个知识点>几个知识点
+<a class=header-anchor href=#%e5%87%a0%e4%b8%aa%e7%9f%a5%e8%af%86%e7%82%b9></a></h2><h3 id=软链接和硬链接>软链接和硬链接
+<a class=header-anchor href=#%e8%bd%af%e9%93%be%e6%8e%a5%e5%92%8c%e7%a1%ac%e9%93%be%e6%8e%a5></a></h3><h4 id=简介>简介
+<a class=header-anchor href=#%e7%ae%80%e4%bb%8b></a></h4><p>    <strong>软链接</strong>文件有点像<code>Windows</code>的快捷方式。它实际上是一个特殊的文件。在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息。</p><p>    <strong>硬连接</strong>是指通过索引节点来进行连接。在<code>Linux</code>的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(<code>Inode Index</code>)。在<code>Linux</code>中，多个文件名指向同一索引节点是存在的。硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。</p><h4 id=命令参数>命令参数
+<a class=header-anchor href=#%e5%91%bd%e4%bb%a4%e5%8f%82%e6%95%b0></a></h4><p>必要参数:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1> 1</a>
+</span><span class=lnt id=hl-0-2><a class=lnlinks href=#hl-0-2> 2</a>
+</span><span class=lnt id=hl-0-3><a class=lnlinks href=#hl-0-3> 3</a>
+</span><span class=lnt id=hl-0-4><a class=lnlinks href=#hl-0-4> 4</a>
+</span><span class=lnt id=hl-0-5><a class=lnlinks href=#hl-0-5> 5</a>
+</span><span class=lnt id=hl-0-6><a class=lnlinks href=#hl-0-6> 6</a>
+</span><span class=lnt id=hl-0-7><a class=lnlinks href=#hl-0-7> 7</a>
+</span><span class=lnt id=hl-0-8><a class=lnlinks href=#hl-0-8> 8</a>
+</span><span class=lnt id=hl-0-9><a class=lnlinks href=#hl-0-9> 9</a>
+</span><span class=lnt id=hl-0-10><a class=lnlinks href=#hl-0-10>10</a>
+</span><span class=lnt id=hl-0-11><a class=lnlinks href=#hl-0-11>11</a>
+</span><span class=lnt id=hl-0-12><a class=lnlinks href=#hl-0-12>12</a>
+</span><span class=lnt id=hl-0-13><a class=lnlinks href=#hl-0-13>13</a>
+</span><span class=lnt id=hl-0-14><a class=lnlinks href=#hl-0-14>14</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -b 删除，覆盖以前建立的链接
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -d 允许超级用户制作目录的硬链接
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -f 强制执行
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -i 交互模式，文件存在则提示用户是否覆盖
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -n 把符号链接视为一般目录
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -s 软链接(符号链接)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -v 显示详细的处理过程</span></span></code></pre></td></tr></table></div></div><h4 id=特点>特点
+<a class=header-anchor href=#%e7%89%b9%e7%82%b9></a></h4><p>软链接</p><ol><li><p>以路径的形式存在，类似于Windows操作系统中的快捷方式</p></li><li><p>跨文件系统</p></li><li><p>对一个不存在的文件名进行链接</p></li><li><p>对目录进行链接</p></li><li><p>保持每一处链接文件的同步性</p></li></ol><p>硬链接</p><ol><li><p>以文件副本的形式存在，但不占用实际空间</p></li><li><p>不允许给目录创建硬链接</p></li><li><p>硬链接只有在同一个文件系统中才能创建</p></li><li><p>保持每一处链接文件的同步性</p></li></ol><h4 id=注意>注意
+<a class=header-anchor href=#%e6%b3%a8%e6%84%8f></a></h4><ol><li><p><code>ln命令</code>会保持每一处链接文件的同步性，也就是说，不论改动了哪一处，其它的文件都会发生相同的变化</p></li><li><p><code>ln的链接</code>又分软链接和硬链接两种，软链接就是<strong>ln –s 源文件 目标文件</strong>，它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接 <strong>ln 源文件 目标文件</strong>，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</p></li></ol><h3 id=apache2目录结构>apache2目录结构
+<a class=header-anchor href=#apache2%e7%9b%ae%e5%bd%95%e7%bb%93%e6%9e%84></a></h3><p><img src=/imgs/img-lazy-loading.gif data-src=./2103702455.jpg alt=apache2目录结构></p><ul><li><p><code>apache2.conf</code> <code>apache</code>配置文件</p></li><li><p><code>conf-available、conf-enabled</code> <code>apache</code>配置目录</p></li><li><p><code>sites-available、sites-enabled</code> <code>apache</code>配置域名站点目录</p></li><li><p><code>mods-available、mods-enabled</code> <code>apache</code>功能模块目录</p></li><li><p><code>ports.conf</code> <code>apache</code>配置端口</p></li></ul><h2 id=多域名绑定实现>多域名绑定实现
+<a class=header-anchor href=#%e5%a4%9a%e5%9f%9f%e5%90%8d%e7%bb%91%e5%ae%9a%e5%ae%9e%e7%8e%b0></a></h2><p>    假设绑定<code>cxiansheng.cn</code>和<code>demo.cxiansheng.cn</code>到服务器上</p><h3 id=准备工作>准备工作
+<a class=header-anchor href=#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c></a></h3><ul><li><p>将<code>https://www.cxiansheng.cn</code> 与 <code>http://www.demo.cxiansheng.cn</code> 的DNS解析到服务器IP上。</p></li><li><p>在<code>/etc/apache2/sites-available/</code>目录，创建2个文件,文件名分别用<code>cxiansheng.conf</code>和 <code>demo.conf</code></p></li></ul><h3 id=配置文件>配置文件
+<a class=header-anchor href=#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6></a></h3><p>在<code>cxiansheng.conf</code>文件中输入以下内容(<strong>不要真的自己输入啊喂！~</strong>)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1> 1</a>
+</span><span class=lnt id=hl-1-2><a class=lnlinks href=#hl-1-2> 2</a>
+</span><span class=lnt id=hl-1-3><a class=lnlinks href=#hl-1-3> 3</a>
+</span><span class=lnt id=hl-1-4><a class=lnlinks href=#hl-1-4> 4</a>
+</span><span class=lnt id=hl-1-5><a class=lnlinks href=#hl-1-5> 5</a>
+</span><span class=lnt id=hl-1-6><a class=lnlinks href=#hl-1-6> 6</a>
+</span><span class=lnt id=hl-1-7><a class=lnlinks href=#hl-1-7> 7</a>
+</span><span class=lnt id=hl-1-8><a class=lnlinks href=#hl-1-8> 8</a>
+</span><span class=lnt id=hl-1-9><a class=lnlinks href=#hl-1-9> 9</a>
+</span><span class=lnt id=hl-1-10><a class=lnlinks href=#hl-1-10>10</a>
+</span><span class=lnt id=hl-1-11><a class=lnlinks href=#hl-1-11>11</a>
+</span><span class=lnt id=hl-1-12><a class=lnlinks href=#hl-1-12>12</a>
+</span><span class=lnt id=hl-1-13><a class=lnlinks href=#hl-1-13>13</a>
+</span><span class=lnt id=hl-1-14><a class=lnlinks href=#hl-1-14>14</a>
+</span><span class=lnt id=hl-1-15><a class=lnlinks href=#hl-1-15>15</a>
+</span><span class=lnt id=hl-1-16><a class=lnlinks href=#hl-1-16>16</a>
+</span><span class=lnt id=hl-1-17><a class=lnlinks href=#hl-1-17>17</a>
+</span><span class=lnt id=hl-1-18><a class=lnlinks href=#hl-1-18>18</a>
+</span><span class=lnt id=hl-1-19><a class=lnlinks href=#hl-1-19>19</a>
+</span><span class=lnt id=hl-1-20><a class=lnlinks href=#hl-1-20>20</a>
+</span><span class=lnt id=hl-1-21><a class=lnlinks href=#hl-1-21>21</a>
+</span><span class=lnt id=hl-1-22><a class=lnlinks href=#hl-1-22>22</a>
+</span><span class=lnt id=hl-1-23><a class=lnlinks href=#hl-1-23>23</a>
+</span><span class=lnt id=hl-1-24><a class=lnlinks href=#hl-1-24>24</a>
+</span><span class=lnt id=hl-1-25><a class=lnlinks href=#hl-1-25>25</a>
+</span><span class=lnt id=hl-1-26><a class=lnlinks href=#hl-1-26>26</a>
+</span><span class=lnt id=hl-1-27><a class=lnlinks href=#hl-1-27>27</a>
+</span><span class=lnt id=hl-1-28><a class=lnlinks href=#hl-1-28>28</a>
+</span><span class=lnt id=hl-1-29><a class=lnlinks href=#hl-1-29>29</a>
+</span><span class=lnt id=hl-1-30><a class=lnlinks href=#hl-1-30>30</a>
+</span><span class=lnt id=hl-1-31><a class=lnlinks href=#hl-1-31>31</a>
+</span><span class=lnt id=hl-1-32><a class=lnlinks href=#hl-1-32>32</a>
+</span><span class=lnt id=hl-1-33><a class=lnlinks href=#hl-1-33>33</a>
+</span><span class=lnt id=hl-1-34><a class=lnlinks href=#hl-1-34>34</a>
+</span><span class=lnt id=hl-1-35><a class=lnlinks href=#hl-1-35>35</a>
+</span><span class=lnt id=hl-1-36><a class=lnlinks href=#hl-1-36>36</a>
+</span><span class=lnt id=hl-1-37><a class=lnlinks href=#hl-1-37>37</a>
+</span><span class=lnt id=hl-1-38><a class=lnlinks href=#hl-1-38>38</a>
+</span><span class=lnt id=hl-1-39><a class=lnlinks href=#hl-1-39>39</a>
+</span><span class=lnt id=hl-1-40><a class=lnlinks href=#hl-1-40>40</a>
+</span><span class=lnt id=hl-1-41><a class=lnlinks href=#hl-1-41>41</a>
+</span><span class=lnt id=hl-1-42><a class=lnlinks href=#hl-1-42>42</a>
+</span><span class=lnt id=hl-1-43><a class=lnlinks href=#hl-1-43>43</a>
+</span><span class=lnt id=hl-1-44><a class=lnlinks href=#hl-1-44>44</a>
+</span><span class=lnt id=hl-1-45><a class=lnlinks href=#hl-1-45>45</a>
+</span><span class=lnt id=hl-1-46><a class=lnlinks href=#hl-1-46>46</a>
+</span><span class=lnt id=hl-1-47><a class=lnlinks href=#hl-1-47>47</a>
+</span><span class=lnt id=hl-1-48><a class=lnlinks href=#hl-1-48>48</a>
+</span><span class=lnt id=hl-1-49><a class=lnlinks href=#hl-1-49>49</a>
+</span><span class=lnt id=hl-1-50><a class=lnlinks href=#hl-1-50>50</a>
+</span><span class=lnt id=hl-1-51><a class=lnlinks href=#hl-1-51>51</a>
+</span><span class=lnt id=hl-1-52><a class=lnlinks href=#hl-1-52>52</a>
+</span><span class=lnt id=hl-1-53><a class=lnlinks href=#hl-1-53>53</a>
+</span><span class=lnt id=hl-1-54><a class=lnlinks href=#hl-1-54>54</a>
+</span><span class=lnt id=hl-1-55><a class=lnlinks href=#hl-1-55>55</a>
+</span><span class=lnt id=hl-1-56><a class=lnlinks href=#hl-1-56>56</a>
+</span><span class=lnt id=hl-1-57><a class=lnlinks href=#hl-1-57>57</a>
+</span><span class=lnt id=hl-1-58><a class=lnlinks href=#hl-1-58>58</a>
+</span><span class=lnt id=hl-1-59><a class=lnlinks href=#hl-1-59>59</a>
+</span><span class=lnt id=hl-1-60><a class=lnlinks href=#hl-1-60>60</a>
+</span><span class=lnt id=hl-1-61><a class=lnlinks href=#hl-1-61>61</a>
+</span><span class=lnt id=hl-1-62><a class=lnlinks href=#hl-1-62>62</a>
+</span><span class=lnt id=hl-1-63><a class=lnlinks href=#hl-1-63>63</a>
+</span><span class=lnt id=hl-1-64><a class=lnlinks href=#hl-1-64>64</a>
+</span><span class=lnt id=hl-1-65><a class=lnlinks href=#hl-1-65>65</a>
+</span><span class=lnt id=hl-1-66><a class=lnlinks href=#hl-1-66>66</a>
+</span><span class=lnt id=hl-1-67><a class=lnlinks href=#hl-1-67>67</a>
+</span><span class=lnt id=hl-1-68><a class=lnlinks href=#hl-1-68>68</a>
+</span><span class=lnt id=hl-1-69><a class=lnlinks href=#hl-1-69>69</a>
+</span><span class=lnt id=hl-1-70><a class=lnlinks href=#hl-1-70>70</a>
+</span><span class=lnt id=hl-1-71><a class=lnlinks href=#hl-1-71>71</a>
+</span><span class=lnt id=hl-1-72><a class=lnlinks href=#hl-1-72>72</a>
+</span><span class=lnt id=hl-1-73><a class=lnlinks href=#hl-1-73>73</a>
+</span><span class=lnt id=hl-1-74><a class=lnlinks href=#hl-1-74>74</a>
+</span><span class=lnt id=hl-1-75><a class=lnlinks href=#hl-1-75>75</a>
+</span><span class=lnt id=hl-1-76><a class=lnlinks href=#hl-1-76>76</a>
+</span><span class=lnt id=hl-1-77><a class=lnlinks href=#hl-1-77>77</a>
+</span><span class=lnt id=hl-1-78><a class=lnlinks href=#hl-1-78>78</a>
+</span><span class=lnt id=hl-1-79><a class=lnlinks href=#hl-1-79>79</a>
+</span><span class=lnt id=hl-1-80><a class=lnlinks href=#hl-1-80>80</a>
+</span><span class=lnt id=hl-1-81><a class=lnlinks href=#hl-1-81>81</a>
+</span><span class=lnt id=hl-1-82><a class=lnlinks href=#hl-1-82>82</a>
+</span><span class=lnt id=hl-1-83><a class=lnlinks href=#hl-1-83>83</a>
+</span><span class=lnt id=hl-1-84><a class=lnlinks href=#hl-1-84>84</a>
+</span><span class=lnt id=hl-1-85><a class=lnlinks href=#hl-1-85>85</a>
+</span><span class=lnt id=hl-1-86><a class=lnlinks href=#hl-1-86>86</a>
+</span><span class=lnt id=hl-1-87><a class=lnlinks href=#hl-1-87>87</a>
+</span><span class=lnt id=hl-1-88><a class=lnlinks href=#hl-1-88>88</a>
+</span><span class=lnt id=hl-1-89><a class=lnlinks href=#hl-1-89>89</a>
+</span><span class=lnt id=hl-1-90><a class=lnlinks href=#hl-1-90>90</a>
+</span><span class=lnt id=hl-1-91><a class=lnlinks href=#hl-1-91>91</a>
+</span><span class=lnt id=hl-1-92><a class=lnlinks href=#hl-1-92>92</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>&lt;</span><span class=n>VirtualHost</span> <span class=o>*</span><span class=p>:</span><span class=mi>80</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> 	 <span class=n>ServerAdmin</span> <span class=n>webmaster</span><span class=err>@</span><span class=n>localhost</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	 <span class=n>ServerName</span> <span class=n>cxiansheng</span><span class=o>.</span><span class=n>cn</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	 <span class=n>DocumentRoot</span> <span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>www</span><span class=o>/</span><span class=n>cxiansheng</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	 <span class=o>&lt;</span><span class=ne>Directory</span> <span class=o>/&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		 <span class=n>Options</span> <span class=n>FollowSymLinks</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	 	 <span class=n>DirectoryIndex</span> <span class=n>index</span><span class=o>.</span><span class=n>php</span> <span class=n>index</span><span class=o>.</span><span class=n>html</span> <span class=n>index</span><span class=o>.</span><span class=n>htm</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> 		 <span class=n>AllowOverride</span> <span class=n>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	 <span class=o>&lt;/</span><span class=ne>Directory</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	 <span class=o>&lt;</span><span class=ne>Directory</span> <span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>www</span><span class=o>/</span><span class=n>cxiansheng</span><span class=o>&gt;</span>  
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1># Options Indexes FollowSymLinks MultiViews</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Options</span> <span class=n>FollowSymLinks</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>RewriteEngine</span> <span class=n>On</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>RewriteCond</span> <span class=o>%</span><span class=p>{</span><span class=n>REQUEST_FILENAME</span><span class=p>}</span> <span class=o>!-</span><span class=n>f</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>RewriteCond</span> <span class=o>%</span><span class=p>{</span><span class=n>REQUEST_FILENAME</span><span class=p>}</span> <span class=o>!-</span><span class=n>d</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>RewriteRule</span> <span class=o>.</span> <span class=n>index</span><span class=o>.</span><span class=n>php</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  		<span class=n>AllowOverride</span> <span class=n>All</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Order</span> <span class=n>allow</span><span class=p>,</span><span class=n>deny</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>allow</span> <span class=n>from</span> <span class=n>all</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=o>&lt;/</span><span class=ne>Directory</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>ScriptAlias</span> <span class=o>/</span><span class=n>cgi</span><span class=o>-</span><span class=n>bin</span><span class=o>/</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>cgi</span><span class=o>-</span><span class=n>bin</span><span class=o>/</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=o>&lt;</span><span class=ne>Directory</span> <span class=s2>&#34;/usr/lib/cgi-bin&#34;</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>AllowOverride</span> <span class=n>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Options</span> <span class=o>+</span><span class=n>ExecCGI</span> <span class=o>-</span><span class=n>MultiViews</span> <span class=o>+</span><span class=n>SymLinksIfOwnerMatch</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Order</span> <span class=n>allow</span><span class=p>,</span><span class=n>deny</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Allow</span> <span class=n>from</span> <span class=n>all</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=o>&lt;/</span><span class=ne>Directory</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>ErrorLog</span> <span class=o>$</span><span class=p>{</span><span class=n>APACHE_LOG_DIR</span><span class=p>}</span><span class=o>/</span><span class=n>error</span><span class=o>.</span><span class=n>log</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># Possible values include: debug, info, notice, warn, error, crit,</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># alert, emerg.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>LogLevel</span> <span class=n>warn</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>CustomLog</span> <span class=o>$</span><span class=p>{</span><span class=n>APACHE_LOG_DIR</span><span class=p>}</span><span class=o>/</span><span class=n>access</span><span class=o>.</span><span class=n>log</span> <span class=n>combined</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>Alias</span> <span class=o>/</span><span class=n>doc</span><span class=o>/</span> <span class=s2>&#34;/usr/share/doc/&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=o>&lt;</span><span class=ne>Directory</span> <span class=s2>&#34;/usr/share/doc/&#34;</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Options</span> <span class=n>Indexes</span> <span class=n>MultiViews</span> <span class=n>FollowSymLinks</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>AllowOverride</span> <span class=n>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Order</span> <span class=n>deny</span><span class=p>,</span><span class=n>allow</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Deny</span> <span class=n>from</span> <span class=n>all</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>Allow</span> <span class=n>from</span> <span class=mf>127.0</span><span class=o>.</span><span class=mf>0.0</span><span class=o>/</span><span class=mf>255.0</span><span class=o>.</span><span class=mf>0.0</span> <span class=p>::</span><span class=mi>1</span><span class=o>/</span><span class=mi>128</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=o>&lt;/</span><span class=ne>Directory</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>&lt;/</span><span class=n>VirtualHost</span><span class=o>&gt;</span></span></span></code></pre></td></tr></table></div></div><h4 id=提示>提示
+<a class=header-anchor href=#%e6%8f%90%e7%a4%ba></a></h4><ul><li><p><code>ServerName</code> 后面输入域名</p></li><li><p><code>DocumentRoot</code> 写目录在服务器相对路径</p></li><li><p><code>Directory</code> 第二段的这里也要写目录的相对路径</p></li><li><p><code>demo.conf</code> 同上，修改相应的位置即可</p></li></ul><h3 id=建立软链接>建立软链接
+<a class=header-anchor href=#%e5%bb%ba%e7%ab%8b%e8%bd%af%e9%93%be%e6%8e%a5></a></h3><p>    在<code>/etc/apache2/sites_enabled/</code>中创建<code>ln</code>链接：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1>1</a>
+</span><span class=lnt id=hl-2-2><a class=lnlinks href=#hl-2-2>2</a>
+</span><span class=lnt id=hl-2-3><a class=lnlinks href=#hl-2-3>3</a>
+</span><span class=lnt id=hl-2-4><a class=lnlinks href=#hl-2-4>4</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -s /etc/apache2/sites-available/cxiansheng.conf /etc/apache2/sites-enabled/cxiansheng.conf
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ln -s /etc/apache2/sites-available/demo.conf /etc/apache2/sites-enabled/demo.conf</span></span></code></pre></td></tr></table></div></div><h3 id=重启apache>重启apache
+<a class=header-anchor href=#%e9%87%8d%e5%90%afapache></a></h3><pre><code>/etc/init.d/apache2 restart
+</code></pre><h3 id=输入网址>输入网址
+<a class=header-anchor href=#%e8%be%93%e5%85%a5%e7%bd%91%e5%9d%80></a></h3><p><img src=/imgs/img-lazy-loading.gif data-src=./3543322545.jpg alt=链接成功></p><h2 id=总结>总结
+<a class=header-anchor href=#%e6%80%bb%e7%bb%93></a></h2><p>    linux系统是个<code>big guy</code>，要快速入坑才行啊！！！</p><h2 id=资源>资源
+<a class=header-anchor href=#%e8%b5%84%e6%ba%90></a></h2><ol><li>[硬链接和软连接][3]</li></ol></div><footer class=post-footer><div class=post-tags><a href=/tags/apache2/>apache2
+</a><a href=/tags/linux/>linux
+</a><a href=/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/>域名绑定</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=reward-container><div><i class="fa-solid fa-mug-hot"></i>请我喝杯咖啡吧 ヾ(^▽^*)))</div><button>
+赞赏</button><div class=post-reward><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/ali-pay.png alt="mingzhongshui - 支付宝">
+<span>支付宝</span></div><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/wechat-pay.png alt="mingzhongshui - 微信">
+<span>微信</span></div></div></div><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)</li><li class=post-copyright-author><strong>本文作者： </strong>mingzhongshui</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=https://mingzhongshui.github.io/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/ title=Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)>https://mingzhongshui.github.io/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=followme><span>欢迎关注我的其它发布渠道</span><div class=social-list><div class=social-item><a target=_blank class=social-link href=/images/wechat_channel.jpg><span class=icon><i class="fab fa-weixin"></i>
+</span><span class=label>WeChat</span></a></div><div class=social-item><a target=_blank class=social-link href=/rss.xml><span class=icon><i class="fa fa-rss"></i>
+</span><span class=label>RSS</span></a></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/posts/linuxchangyongminglingzongjie/ rel=next title=Linux常用命令总结><i class="fa fa-chevron-left"></i> Linux常用命令总结</a></div><div class="post-nav-prev post-nav-item"><a href=/posts/zhifubaozhifuzongjiedemopian/ rel=prev title=支付宝支付总结（demo篇）>支付宝支付总结（demo篇）
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div></main><footer class=footer><div class=footer-inner><div id=i18n-translate class=i18n-translate><i class="fa fa-language"></i><div id=lang-select class=lang-select><div id=lang-selected class=selected-option><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=selected-language>简体中文</span>
+<i class="fa fa-chevron-down"></i></div><div id=lang-options class=lang-options><div class=lang-option lang-code=zh-cn lang-name=简体中文 lang-url=/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=lang-name>简体中文</span></div></div></div></div><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>mingzhongshui</span></div><div class=powered-by>由 <a href=https://gohugo.io title=0.163.0 target=_blank>Hugo</a> & <a href=https://github.com/hugo-next/hugo-theme-next title=4.8.3 target=_blank>Hugo NexT.Gemini</a> 强力驱动</div><div class=beian><a href=https://beian.miit.gov.cn target=_blank>粤ICP备 18047355-1 号</a>
+<img src=/imgs/gongan.png alt=沪公网安备>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011402009770" target=_blank>沪公网安备 31011402009770 号</a></div><div class=vendors-list><a target=_blank href=https://vercel.com title=Vercel><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/vercel.svg alt=Vercel>
+</a><a target=_blank href=https://upyun.com title=又拍云><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/upyun.png alt=又拍云>
+</a><a target=_blank href=https://github.com title=Github><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/github.svg alt=Github>
+</a><span>提供CDN/云资源支持</span></div><div class=custom-footer>Website source code <a href=https://github.com/hugo-next/hugo-theme-next/blob/develop/exampleSite/layouts/partials/custom_footer.html target=_blank>here</a></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":false,"expired":false,"isHome":false,"isPage":true,"path":"linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming","permalink":"https://mingzhongshui.github.io/posts/linuxfuwuqiyumingbangdingzhidingmuluubuntuxiaapache2bangdingduoyuming/","title":"Linux服务器域名绑定指定目录(ubuntu下apache2绑定多域名)","toc":true,"waline":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"2.15.8"}}}</script><script type=text/javascript src=https://mingzhongshui.github.io/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=https://mingzhongshui.github.io/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":true,"hostname":"https://mingzhongshui.github.io/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":true,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"https://mingzhongshui.github.io/js/3rd"}},"version":"4.8.3","waline":{"cfg":{"emoji":false,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"serverurl":null,"sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"2.15.8"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"2.15.8"}}}</script><script type=text/javascript src="/js/main.min.js?=1781083426" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1781083426" defer></script></body></html>

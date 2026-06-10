@@ -1,166 +1,396 @@
-<!doctype html><html><head lang=en><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>聊一聊我是如何从0到1搭建公司爬虫项目的 - 命中水、</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="一、前言
+<!doctype html><html lang=zh-CN data-theme=dark><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: dark)"><meta name=generator content="Hugo 0.163.0"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/favicon_16x16_next.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/favicon_32_32_next.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/apple_touch_icon_next.png><meta itemprop=name content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta itemprop=description content="保持简单的易用性和强大的功能。"><meta name=description content="保持简单的易用性和强大的功能。"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="https://mingzhongshui.github.io/imgs/me_avatar.jpg"><meta itemprop=keywords content="python,scrapy,scrapy-redis,selenium,爬虫"><meta property="og:type" content="article"><meta property="og:title" content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta property="og:description" content="保持简单的易用性和强大的功能。"><meta property="og:image" content="/imgs/me_avatar.jpg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/"><meta property="og:site_name" content="命中水、"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="mingzhongshui"><meta property="article:published_time" content="2025-05-30 14:12:00 +0000 UTC"><meta property="article:modified_time" content="2025-05-30 14:12:00 +0000 UTC"><link type=text/css rel=stylesheet href=https://mingzhongshui.github.io/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=https://mingzhongshui.github.io/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=https://mingzhongshui.github.io/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1781083426"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><link rel=stylesheet type=text/css href="/css/custom_style.css?=1781083426"><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>聊一聊我是如何从0到1搭建公司爬虫项目的 - 命中水、</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>命中水、</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>你的努力要配上你的梦想</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-front-end"><a href=/categories/%E5%89%8D%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-laptop-code hvr-icon"></i>前端</a></li><li class="menu-item menu-item-backend-end"><a href=/categories/%E5%90%8E%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-server hvr-icon"></i>后端</a></li><li class="menu-item menu-item-archives"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>62</span></a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-commonweal"><a href=/404.html class=hvr-icon-pulse rel=section><i class="fa fa-heartbeat hvr-icon"></i>公益 404</a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#一前言>一、前言</a></li><li><a href=#二起因>二、起因</a></li><li><a href=#三python优势>三、Python优势</a><ul><li><a href=#1语言层面的优势>1、语言层面的优势</a><ul><li><a href=#字符串处理能力>字符串处理能力</a></li><li><a href=#开发效率>开发效率</a></li></ul></li><li><a href=#2生态工具链>2、生态工具链</a><ul><li><a href=#应对爬虫的灵活性>应对爬虫的灵活性</a></li><li><a href=#动态执行js>动态执行js</a></li><li><a href=#ip轮换便捷性>IP轮换便捷性</a></li></ul></li><li><a href=#3大数据处理>3、大数据处理</a><ul><li><a href=#分布式扩展>分布式扩展</a></li><li><a href=#无缝对接数据管道>无缝对接数据管道</a></li></ul></li></ul></li><li><a href=#四学习>四、学习</a></li><li><a href=#五简单实战>五、简单实战</a></li><li><a href=#六着手开发>六、着手开发</a><ul><li><a href=#关键问题>关键问题</a></li><li><a href=#scrapy-crawlera>Scrapy-Crawlera</a><ul><li><a href=#crawlear的核心功能>Crawlear的核心功能</a></li><li><a href=#安装与配置>安装与配置</a></li><li><a href=#适用场景>适用场景</a></li></ul></li></ul></li><li><a href=#七需求升级>七、需求升级</a><ul><li><a href=#selenium>selenium</a></li><li><a href=#splash>Splash</a><ul><li><a href=#核心功能>核心功能</a></li><li><a href=#splash-和-selenium-的区别>Splash 和 Selenium 的区别</a></li></ul></li><li><a href=#后续>后续</a><ul><li><a href=#坑>坑</a></li></ul></li></ul></li><li><a href=#八不足之处>八、不足之处</a></li><li><a href=#九总结>九、总结</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=mingzhongshui src=/imgs/img-lazy-loading.gif data-src=/imgs/me_avatar.jpg><p class=site-author-name itemprop=name>mingzhongshui</p><div class=site-description itemprop=description>保持简单的易用性和强大的功能。</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>62</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>105</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"><span class=links-of-social-item><a href=https://github.com/mingzhongshui title="Github → https://github.com/mingzhongshui" rel=noopener class=hvr-icon-pulse target=_blank><i class="fab fa-github fa-fw hvr-icon"></i>
+Github
+</a></span><span class=links-of-social-item><a href=mailto:in1993summer@163.com title="E-Mail → mailto:in1993summer@163.com" rel=noopener class=hvr-icon-pulse target=_blank><i class="fa fa-envelope fa-fw hvr-icon"></i>
+E-Mail</a></span></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/big/by_nc_sa.svg alt=共享知识></a></div><div class="links-of-blogroll site-overview-item animated"><div class=links-of-blogroll-title><i class="fa fa-globe fa-fw"></i>
+友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://gitee.com/hugo-next/hugo-theme-next title=https://gitee.com/hugo-next/hugo-theme-next target=_blank>Hugo-NexT</a></li><li class=links-of-blogroll-item><a href=https://lisenhui.cn title=https://lisenhui.cn target=_blank>凡梦星尘空间站</a></li></ul></div><div class="mydefined animated" itemprop=custom></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2016-07-02 16:01:00 +0000 UTC"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=132091></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=296></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2026-01-24 11:23:00 +0000 UTC"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-i18n-translate class=button title=多语言翻译><i class="fas fa-globe"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><a href=https://github.com/hugo-next rel="noopener external nofollow noreferrer" target=_blank title="Follow me on GitHub" class="exturl github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0 0 115 115h15l12 27L250 250V0z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4l13.9-13.8C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8z" fill="currentColor" class="octo-body"/></svg></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/me_avatar.jpg"><meta itemprop=name content="mingzhongshui"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="mingzhongshui"><meta itemprop=description content="保持简单的易用性和强大的功能。"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta itemprop=description content="一、前言
+
 在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。
 在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。
 今天就来讲一下我是怎么从0到1实现整个爬虫架构的。
 
-首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。
-"><meta property="og:image" content="https://mingzhongshui.github.io/"><meta property="og:url" content="https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/"><meta property="og:site_name" content="命中水、"><meta property="og:title" content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta property="og:description" content="一、前言 在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。
-在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。
-今天就来讲一下我是怎么从0到1实现整个爬虫架构的。
-首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-05-30T14:12:00+00:00"><meta property="article:modified_time" content="2025-05-30T14:12:00+00:00"><meta property="article:tag" content="Python"><meta property="article:tag" content="Scrapy"><meta property="article:tag" content="Scrapy-Redis"><meta property="article:tag" content="Selenium"><meta property="article:tag" content="爬虫"><meta name=twitter:card content="summary"><meta name=twitter:title content="聊一聊我是如何从0到1搭建公司爬虫项目的"><meta name=twitter:description content="一、前言 在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。
-在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。
-今天就来讲一下我是怎么从0到1实现整个爬虫架构的。
-首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。"><link href=https://mingzhongshui.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://mingzhongshui.github.io/css/main.92c7e6f6f5baede55d6238ba492bcbd00e10ca39a6bbdec527692bfc9564a927.css></head><body><div class=content><header><div class=main><a href=https://mingzhongshui.github.io/>命中水、</a></div><nav><a href=/categories/%E5%89%8D%E7%AB%AF/>前端</a>
-<a href=/categories/%E5%90%8E%E7%AB%AF/>后端</a>
-<a href=/archive/>归档</a>
-<a href=/about/>关于</a></nav></header><main><article><div class=post-container><div class=post-content><div class=title><h1 class=title>聊一聊我是如何从0到1搭建公司爬虫项目的</h1><div class=meta>Posted on May 30, 2025</div></div><section class=body><h2 id=一前言>一、前言</h2><p>在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。</p><p>在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。</p><p>今天就来讲一下我是怎么从0到1实现整个爬虫架构的。</p><blockquote><p>首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。</p></blockquote><h2 id=二起因>二、起因</h2><p>在加入C公司一年后，到了年终总结阶段，项目经理要找团队的每个人聊过去的一年中主要的业绩和贡献，其实就是谈绩效了。在对话中我清晰的记得，当项目经理问到我</p><p>：“对自身有什么规划或者对自己在团队内的职责有什么想说的”</p><p>的时候，我脑海中一个想法已经酝酿了好久，我说</p><p>：“我想多做一些有挑战性的事情”</p><p>其实不太敢明说，目前在工作中的事情太顺风顺水了，不怎么用点脑子就能完成（因为主要负责的是公司内部系统的开发，所以高并发、分布式什么的几乎接触不到）</p><p>就是这样一句话在不久后起了波澜</p><p>公司主要是做跨境电商的，在亚马逊平台销售自己的产品。既然是电商行业，那就少不了要爬取竞品数据，分析对手的产品、评价、销量等，这时候就需要爬虫出马了。上层有了这个决定之后，落实下来就到了我们小组身上了。</p><p>最开始是计划用php做爬虫的，但是后面了解到爬虫不是php的长处，python才是。而且python提供非常完整的生态链来处理爬虫。下面我列举下我当时了解到python为什么适合爬虫的原因，而且也是我后面说服leader用python做爬虫的理由：</p><h2 id=三python优势>三、Python优势</h2><h3 id=1语言层面的优势>1、语言层面的优势</h3><h4 id=字符串处理能力>字符串处理能力</h4><p>原生支持正则表达式（re模块），举个例子：</p><p>python中获取页面中的单价</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>import</span> re
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;price:(\d+)&#39;</span>, html)  <span style=color:#75715e># 一行代码提取价格</span>
-</span></span></code></pre></div><h4 id=开发效率>开发效率</h4><p>动态类型 + 丰富的内置数据结构（字典/列表/集合），可以更快的编写爬虫代码</p><p>再举个例子，python提取a标签中的href</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span>links <span style=color:#f92672>=</span> [a[<span style=color:#e6db74>&#39;href&#39;</span>] <span style=color:#66d9ef>for</span> a <span style=color:#f92672>in</span> soup<span style=color:#f92672>.</span>select(<span style=color:#e6db74>&#39;a&#39;</span>)]
-</span></span></code></pre></div><p>php实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span>
-</span></span><span style=display:flex><span>$doc <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>DOMDocument</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>@</span>$doc<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>loadHTML</span>($html); <span style=color:#75715e>// @抑制解析警告
-</span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>$links <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>$anchorTags <span style=color:#f92672>=</span> $doc<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getElementsByTagName</span>(<span style=color:#e6db74>&#39;a&#39;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>foreach</span> ($anchorTags <span style=color:#66d9ef>as</span> $a) {
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    $href <span style=color:#f92672>=</span> $a<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getAttribute</span>(<span style=color:#e6db74>&#39;href&#39;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#66d9ef>empty</span>($href)) {
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        $links[] <span style=color:#f92672>=</span> $href;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// 输出结果
-</span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>print_r</span>($links);
-</span></span></code></pre></div><p>python一行解决的问题，php需要8行。哪个便利一目了然吧</p><h3 id=2生态工具链>2、生态工具链</h3><p>| 工具 | 作用 | 优势 |</p><p>| &mdash;&mdash;&mdash;&mdash;- | &mdash;&mdash;&mdash;&mdash;&ndash; | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; |</p><p>| Requests | HTTP请求 | 人类友好的API，会话保持自动处理 |</p><p>| BeautifulSoup | HTML解析 | 容错性强，find_all比xpath更直观 |</p><p>| Scrapy | 全功能爬虫框架 | 内置异步、中间件、管道等完整架构 |</p><p>| Selenuim | 动态页面渲染 | 模拟浏览器行为 |</p><p>| PyQuery | JQuery式选择器 | 对前端开发者更友好 |</p><h4 id=应对爬虫的灵活性>应对爬虫的灵活性</h4><p>快速切换解析方案</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 应对网站改版，快速更换解析方式</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>parse</span>(html):
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>:
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> css_select(html)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span> ParseError:
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> xpath_parse(html)  <span style=color:#75715e># 备用方案</span>
-</span></span></code></pre></div><h4 id=动态执行js>动态执行js</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 使用PyExecJS执行加密算法</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>import</span> execjs
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>ctx <span style=color:#f92672>=</span> execjs<span style=color:#f92672>.</span>compile(<span style=color:#e6db74>&#34;&#34;&#34;
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    function decrypt(t) {
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>        return CryptoJS.AES.decrypt(t, &#39;key&#39;).toString();
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    }
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>decrypted <span style=color:#f92672>=</span> ctx<span style=color:#f92672>.</span>call(<span style=color:#e6db74>&#34;decrypt&#34;</span>, encrypted_str)
-</span></span></code></pre></div><h4 id=ip轮换便捷性>IP轮换便捷性</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 使用代理中间件示例（Scrapy）</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ProxyMiddleware</span>:
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>process_request</span>(self, request, spider):
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        request<span style=color:#f92672>.</span>meta[<span style=color:#e6db74>&#39;proxy&#39;</span>] <span style=color:#f92672>=</span> random<span style=color:#f92672>.</span>choice(proxy_pool)
-</span></span></code></pre></div><h3 id=3大数据处理>3、大数据处理</h3><h4 id=分布式扩展>分布式扩展</h4><ul><li><p>Scrapy-Redis 实现分布式爬虫</p></li><li><p>celery调度异步任务</p></li></ul><h4 id=无缝对接数据管道>无缝对接数据管道</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 爬取后直接进入分析流程</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>import</span> pandas <span style=color:#66d9ef>as</span> pd
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>data <span style=color:#f92672>=</span> pd<span style=color:#f92672>.</span>DataFrame(scraped_items)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>data<span style=color:#f92672>.</span>groupby(<span style=color:#e6db74>&#39;category&#39;</span>)<span style=color:#f92672>.</span>sum()<span style=color:#f92672>.</span>plot(kind<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;bar&#39;</span>)
-</span></span></code></pre></div><p>基于以上优势，在当时做爬虫用python可以说是最好的选择了。</p><h2 id=四学习>四、学习</h2><p>那确定了语言，现在就开始准备了，团队内没有会python的咋整？</p><p>学呗！</p><p>我和团队内的另外一个php同事开始自学起了python，首先确定学习路线</p><ol><li><p>python语法</p></li><li><p>python爬虫框架scrapy</p></li><li><p>Xpath语法</p></li><li><p>反爬</p></li><li><p>代理</p></li></ol><p>就这样用了一个月时间，基本上把这些东西都过了一遍，一个月之间我总结了一些关于python及爬虫的知识：</p><ul><li><p><a href=https://www.cxiansheng.cn/server/550>Python scrapy框架学习笔记及简单实战 - 命中水</a></p></li><li><p><a href=https://www.cxiansheng.cn/server/561>Python学习笔记（基础） - 命中水</a></p></li><li><p><a href=https://www.cxiansheng.cn/server/563>Python学习笔记（常用扩展） - 命中水</a></p></li></ul><p>后面又整理了反爬的套路及应对措施：<a href=https://www.cxiansheng.cn/server/569>Python爬虫研究 - 命中水</a></p><p>以上都是接口爬虫，后面了解到需要爬页面，然后又学习了页面爬虫</p><ul><li><a href=https://www.cxiansheng.cn/server/580>Python如何爬取动态网站？ - 命中水</a></li></ul><p>在学习的过程中，尝试爬了自己的网站，源码在<a href=https://gitee.com/mingzhongshui/Python-scrapy-demo>Python scrapy demo: Python scrapy框架实战demo</a></p><p>这一个月中走到哪都是我学习爬虫的身影，地铁上刷B站视频、晚上回家学习python语法、周末自己练习爬爬简书啥的，甚至做梦都梦到爬虫成功了。现在回忆起来真是佩服我自己</p><h2 id=五简单实战>五、简单实战</h2><p>接下来，产品经理需求下来了，根据亚马逊商品ASIN爬评论，看看学习成果咋样（一个月中另一个php同事没啥进展，后面就我自己开发了）</p><ol><li><p>基于scrapy开发的爬虫脚本</p></li><li><p>初始化爬取链接</p></li><li><p>xpath获取关键数据</p></li><li><p>数据通过管道写入mongodb</p></li></ol><p>基于scrapy我很快完成了ASIN评论的爬取，但是因为评论过多，有时候爬取到一两页就显示爬取失败了，因为我没加代理，然后选择了快代理作为我们最开始的代理方（没有建立自己的代理ip库是因为当时自己参考过一版别人的源码，做出来的效果发现那些免费的代理ip质量都不太高，所以后面就选择了收费的），快代理有多种模式可选择，具体可以去官网参考下<a href=https://www.kuaidaili.com/>快代理 - 企业级HTTP代理IP云服务_专注IP代理11年</a></p><p>既然方案没问题，那就开始大刀阔斧的干了</p><h2 id=六着手开发>六、着手开发</h2><p>需求是提前往内部系统里录ASIN，然后每天定时根据这些ASIN爬取评论数据，重复的替换掉</p><p>OK，既然需求定了，那就开始整理下设计架构了（这时候公司招的专业的python同事入场了）经过了多次的沟通，整理架构如下：</p><p><img src=https://cxiansheng.cn/usr/uploads/2026/01/3396164285.png alt=爬虫架构图.png></p><p>于此，框架基本完成，主要增加：</p><ol><li><p>使用scrapy-redis分布式爬虫增加爬取效率</p></li><li><p>接口API使用Flask框架</p></li><li><p>接口采用celery异步队列</p></li></ol><h3 id=关键问题>关键问题</h3><p>过了一段时间， 此架构基本落地了，但是遇到个问题，就算使用了专业的ip代理工具，但是有时候爬取质量和效率还不是那么好。不得不说，亚马逊的反爬机制还是挺厉害的。基于此前提下，我们产生了更换ip代理商的想法，于是我们发现了scrapy_crawlera。</p><h3 id=scrapy-crawlera>Scrapy-Crawlera</h3><p>Scrapy-Crawlera 是一个 <strong>Scrapy 中间件</strong>，用于与 Crawlera（Smart Proxy）服务集成，帮助爬虫开发者高效处理反爬机制（如 IP 封禁、验证码、动态渲染等）。Crawlera 是 Zyte（原 Scrapinghub）提供的 <strong>智能代理服务</strong>，可以自动管理代理池、处理请求头、执行 JavaScript 渲染等</p><h4 id=crawlear的核心功能>Crawlear的核心功能</h4><h5 id=智能代理轮换>智能代理轮换</h5><ul><li><p>自动切换 <strong>全球代理 IP</strong>（覆盖 100+ 国家）</p></li><li><p>避免 IP 被封，支持高并发请求</p></li><li><p>自动重试失败的请求</p></li></ul><h5 id=自动反反爬>自动反反爬</h5><ul><li><p>动态调整请求头（User-Agent、Referer、Cookies）</p></li><li><p>处理 JavaScript 渲染（类似无头浏览器）</p></li><li><p>绕过 Cloudflare、Akamai 等防护</p></li></ul><h5 id=请求优化>请求优化</h5><ul><li><p>自动管理会话（Session）</p></li><li><p>支持 HTTP/HTTPS/SOCKS5</p></li><li><p>提供 <strong>请求统计</strong>（成功率、延迟、封禁率）</p></li></ul><h4 id=安装与配置>安装与配置</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>
-</span></span><span style=display:flex><span>pip install scrapy-crawlera
-</span></span></code></pre></div><h6 id=scrapy配置>scrapy配置</h6><pre tabindex=0><code>
-# 启用 Crawlera 中间件
+  
+    首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。
 
-DOWNLOADER_MIDDLEWARES = {
-
-    &#39;scrapy_crawlera.CrawleraMiddleware&#39;: 300
-
-}
-
-
-
-# 设置 Crawlera API Key（需注册 Zyte 获取）
-
-CRAWLERA_ENABLED = True
-
-CRAWLERA_APIKEY = &#39;你的API_KEY&#39;
-
-
-
-# 调整爬虫并发（Crawlera 默认限制 5 并发）
-
-CONCURRENT_REQUESTS = 32
-
-CONCURRENT_REQUESTS_PER_DOMAIN = 32
-
-AUTOTHROTTLE_ENABLED = False  # 关闭自动限速
-</code></pre><h4 id=适用场景>适用场景</h4><ul><li><p><strong>企业级爬虫</strong>（需要高稳定性）</p></li><li><p><strong>反爬严格的网站</strong>（如电商、社交媒体）</p></li><li><p><strong>不想管理代理池</strong>（减少运维成本）</p></li></ul><p>使用scrapy-clawlera的前提，就是需要去<a href=https://dash.scrapinghub.com/account/signup>Zyte</a>注册一个用户（我之前用的时候叫scrapyinghub，现在改名了），然后购买付费，按请求收费。比如200W个请求，<strong>400美刀</strong>，我记得我们巅峰时期一个月的代理费都干到过<strong>4000多</strong>人民币。但是这钱花的也值，爬取效率杠杠的！</p><p>scrapy-clawlear除了贵几乎没有缺点。</p><h2 id=七需求升级>七、需求升级</h2><p>过了没多久，新需求又来了，公司在亚马逊有店铺，运营同学每次都要去亚马逊后台下载报表数据，我们有7、8个店铺的数据，亚马逊要求又很严格，每个店铺、站点都只能在同一个IP登录，如果不同IP登录了店铺后台，亚马逊可能会封禁账号，到时候申诉就会很麻烦。</p><p>所以需要这不就来了，要求爬虫自动抓取后台报表数据。保存在数据库，运营在同学在内部系统直接查看即可。</p><p>因为这个是需要登录账号之后进行的操作，所以接下来的处理就是需要模仿浏览器用户行为了，也就是页面爬虫。</p><p>说起页面爬虫，那就不得不提到selenimu了</p><h3 id=selenium>selenium</h3><blockquote><p><strong>Selenium</strong> 是一个用于 <strong>自动化 Web 浏览器操作</strong> 的开源工具集，主要用于 <strong>Web 应用程序测试</strong> 和 <strong>浏览器自动化</strong>。它支持多种编程语言（如 Python、Java、C#、JavaScript 等），可以模拟用户在浏览器中的操作，如点击、输入、导航等。</p></blockquote><p>通俗点来讲就是你可以编写程序来模仿浏览器的用户行为，比如有个网站有个签到功能，每天签到可以得积分，然后你就可以用程序模拟这个动作，每天打开网页，在指定位置，点击签到。这个行为用户可以是无感知的，用户就算在操作电脑，也不会发现你运行了脚本，打开了网页。因为这些动作都是后台运行的。</p><p>python使用selenium代码如下：</p><pre tabindex=0><code>
-# -*- coding: utf-8 -*-
-
-
-
-# 引入selenium webdriver类
-
-from selenium import webdriver
-
-
-
-# 引入火狐浏览器配置类
-
-from selenium.webdriver import FirefoxOptions
-
-# 实例化一个配置项
-
-options = FirefoxOptions()
-
-# 设置无需打开浏览器（如何想调试就把这个配置注释掉）
-
-options.add_argument(&#39;--headless&#39;)
-
-
-
-# 设置浏览器类型为火狐
-
-browser = webdriver.Firefox(firefox_options=options)
-
-
-
-# 打开一个网址
-
-browser.get(&#39;https://item.jd.com/100008348542.html&#39;)
-
-# 获取网页源码
-
-source = browser.page_source
-
-
-
-print(source)
-</code></pre><p>具体如何使用详情参考我之前的文章：<a href=https://www.cxiansheng.cn/server/580>Python如何爬取动态网站？ - 命中水</a></p><p>除了selenium之外呢，python还有另外一种方式也可以获取页面上的数据</p><h3 id=splash>Splash</h3><blockquote><p><strong>Splash</strong> 是一个基于 <strong>Lua</strong> 的轻量级 JavaScript 渲染服务，由 Scrapy 团队开发，主要用于 <strong>动态网页的抓取</strong>。它通过 <strong>HTTP API</strong> 或 <strong>Scrapy-Splash 中间件</strong> 与爬虫集成，能够执行 JavaScript 并返回渲染后的页面内容。</p></blockquote><h4 id=核心功能>核心功能</h4><ul><li><p>渲染 JavaScript 动态内容（如 React、Vue 生成的页面）。</p></li><li><p>支持截图、延迟加载、自定义 Lua 脚本。</p></li><li><p>通过 Docker 快速部署，资源占用较低。</p></li></ul><p>那我们到底该如何选择呢？请看下面splash和selenium的对比</p><h4 id=splash-和-selenium-的区别>Splash 和 Selenium 的区别</h4><p>| <strong>特性</strong> | <strong>Splash</strong> | <strong>Selenium</strong> |</p><p>| :&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; | :&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; | :&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; |</p><p>| <strong>定位</strong> | 专为爬虫设计的轻量级渲染服务 | 浏览器自动化工具，兼顾测试和爬虫 |</p><p>| <strong>架构</strong> | 基于 HTTP API 的无头浏览器服务 | 直接控制本地/远程浏览器实例 |</p><p>| <strong>性能</strong> | 更高（无图形界面，资源占用少） | 较低（启动完整浏览器） |</p><p>| <strong>编程语言支持</strong> | 通过 Lua 脚本或 HTTP 请求交互 | 支持多语言（Python/Java/C#等） |</p><p>| <strong>JavaScript 执行</strong> | 高效，但功能有限（依赖 Lua 脚本） | 完整支持，可模拟用户操作 |</p><p>| <strong>部署复杂度</strong> | 需 Docker 或独立服务 | 需浏览器驱动（如 chromedriver） |</p><p>| <strong>适用场景</strong> | 大规模爬虫（高并发、无交互需求） | 需要交互的测试或爬虫（如点击登录） |</p><p>通过以上表格我们可以看出：</p><ul><li><p><strong>爬虫优先 Splash</strong>：轻量、高效、适合大规模数据采集</p></li><li><p><strong>交互优先 Selenium</strong>：功能全面、适合测试或复杂操作</p></li><li><p><strong>反爬严格时</strong>：Selenium 更接近真实用户，但 Splash 可通过 Lua 脚本伪装请求头。</p></li></ul><p>以我们那个场景为例，涉及到用户交互的动作（登录），最终我们选择了selenium。</p><h3 id=后续>后续</h3><p>后续就是这个需求以selenium登录，然后拿到登录用户信息，再调用报表接口查询数据。</p><p>然后将这个脚本放在windows任务计划中，每天定时去执行。数据上传到接口，保存到数据库中。</p><p>建立异常机制，页面改变或接口报错，发邮件到负责人或开发人邮箱中。</p><h4 id=坑>坑</h4><p>哦对了，这里还有一个坑，我记得当时我离职前也都没有解决。</p><p>因为亚马逊后台登录地址的限制，每个账号只能在同一个IP登录，所以我们是部署了跟站点数量相对应的虚拟机，比如我们有8个站点账号，就部署了8个windows虚拟机。每次都要从远程桌面中登录进去，一旦代码有什么地方要调整或者定时任务要调整，那就要耗费大量的时间去一个一个登录进去操作，windows远程桌面有时候还很卡，所以每次操作都很痛苦。</p><p>至于为什么要搭建远程windows虚拟主机，是因为运营同学也是用这个方式登录后台的。</p><h2 id=八不足之处>八、不足之处</h2><p>虽然项目已经成功上线，并运行了一年多，但是还是有不足的。针对这个项目来说</p><ol><li><p>亚马逊页面有时候会变化，过一两个月就会调整，所以有时候爬取失败了我们是后知后觉</p></li><li><p>后台页面爬虫，维护是个硬伤</p></li></ol><p>针对问题1，现在来看的话我觉得可以引入以下几点：</p><ul><li><p>设置警报当关键元素获取失败率超过阈值时通知</p></li><li><p>保留详细的错误日志和页面快照</p></li><li><p>定期运行测试爬虫检查关键元素是否存在</p></li><li><p>训练模型识别页面各元素位置</p></li><li><p>使用视觉定位(如Selenium截图后分析)</p></li></ul><p>前几个还好说，就是费点力，代码调整+人工。后两个的话，就要再花费一番功夫了。</p><p>针对问题2，我记得当时是没有在虚拟机上搭建git的，原因也不记得了，如果要调整的话</p><ol><li>虚拟主机搭建git，远程仓库代码更新时，自动同步更新虚拟主机代码</li></ol><h2 id=九总结>九、总结</h2><p>以上就是我当时在接触到爬虫项目的全部过程了，真的是参与感满满了。上线的时候就是那种看着自己的孩子一步一步长大成人的感觉。</p><p>好了，以上就是本文的全部内容了，下次再见吧！~</p><hr><p><strong>作者</strong>：命中水</p><p><strong>版权声明</strong>：转载请注明出处，欢迎技术交流</p></section><div class=post-tags><nav class="nav tags"><ul class=tags><li><a href=/tags/python/>python</a></li><li><a href=/tags/scrapy/>scrapy</a></li><li><a href=/tags/scrapy-redis/>scrapy-redis</a></li><li><a href=/tags/selenium/>selenium</a></li><li><a href=/tags/%E7%88%AC%E8%99%AB/>爬虫</a></li></ul></nav></div></div></div></article></main><footer><div style=display:flex></div><div class=footer-info>2026 <a href=https://github.com/athul/archie>Archie Theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></footer></div></body></html>
+  "></span><header class=post-header><h1 class=post-title itemprop="name headline">聊一聊我是如何从0到1搭建公司爬虫项目的
+<a href=https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/posts/2025-05-30-liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/index.md rel="noopener external nofollow noreferrer" target=_blank class="exturl post-edit-link" title=编辑><i class="fa fa-pen-nib"></i></a></h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2025-05-30 14:12:00 +00:00" itemprop="dateCreated datePublished" datetime="2025-05-30 14:12:00 +0000 UTC">2025-05-30
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/%E5%90%8E%E7%AB%AF/ itemprop=url rel=index><span itemprop=name>后端</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>5423</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>11分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><h2 id=一前言>一、前言
+<a class=header-anchor href=#%e4%b8%80%e5%89%8d%e8%a8%80></a></h2><p>在工作的这么多年中，其实有很少能接触到挑战自我的项目。在小公司当个小组长，无非就是curd、部署项目、搭建gitlab、review同事代码等繁琐的工作，偶尔写写前端。大公司的话，工作内容其实就没这么繁琐了，部署项目有运维，页面有前端同事，review有部门leader，工作中80%的时间都是curd，当然会有一些小型的基于需求的项目来做，但都是能力范围之内的。</p><p>在我这短暂的开发生涯中，还真就遇到过那么一次让我觉得非常有挑战性的事，那就是从php转python，从0到1实现爬虫架构。从结果上来说，虽然达不到100%的爬取成功率，但整个过程也可以说是倾尽了全力，当然这也是我为数不多的我绞尽脑汁想完成的项目（主要是这个项目完成之后的绩效比较诱人，咳咳咳~），而且我对新东西、新事物都有种想挑战一下的心态。</p><p>今天就来讲一下我是怎么从0到1实现整个爬虫架构的。</p><blockquote><p>首先声明：我是主导者、也是参与者，当然后期还有更专业的python同事一起加入，帮我调优，给我优化意见，最终才合力完成的这个项目，不是我一个人的功劳。</p></blockquote><a id=more></a><h2 id=二起因>二、起因
+<a class=header-anchor href=#%e4%ba%8c%e8%b5%b7%e5%9b%a0></a></h2><p>在加入C公司一年后，到了年终总结阶段，项目经理要找团队的每个人聊过去的一年中主要的业绩和贡献，其实就是谈绩效了。在对话中我清晰的记得，当项目经理问到我</p><p>：“对自身有什么规划或者对自己在团队内的职责有什么想说的”</p><p>的时候，我脑海中一个想法已经酝酿了好久，我说</p><p>：“我想多做一些有挑战性的事情”</p><p>其实不太敢明说，目前在工作中的事情太顺风顺水了，不怎么用点脑子就能完成（因为主要负责的是公司内部系统的开发，所以高并发、分布式什么的几乎接触不到）</p><p>就是这样一句话在不久后起了波澜</p><p>公司主要是做跨境电商的，在亚马逊平台销售自己的产品。既然是电商行业，那就少不了要爬取竞品数据，分析对手的产品、评价、销量等，这时候就需要爬虫出马了。上层有了这个决定之后，落实下来就到了我们小组身上了。</p><p>最开始是计划用php做爬虫的，但是后面了解到爬虫不是php的长处，python才是。而且python提供非常完整的生态链来处理爬虫。下面我列举下我当时了解到python为什么适合爬虫的原因，而且也是我后面说服leader用python做爬虫的理由：</p><h2 id=三python优势>三、Python优势
+<a class=header-anchor href=#%e4%b8%89python%e4%bc%98%e5%8a%bf></a></h2><h3 id=1语言层面的优势>1、语言层面的优势
+<a class=header-anchor href=#1%e8%af%ad%e8%a8%80%e5%b1%82%e9%9d%a2%e7%9a%84%e4%bc%98%e5%8a%bf></a></h3><h4 id=字符串处理能力>字符串处理能力
+<a class=header-anchor href=#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%a4%84%e7%90%86%e8%83%bd%e5%8a%9b></a></h4><p>原生支持正则表达式（re模块），举个例子：</p><p>python中获取页面中的单价</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1>1</a>
+</span><span class=lnt id=hl-0-2><a class=lnlinks href=#hl-0-2>2</a>
+</span><span class=lnt id=hl-0-3><a class=lnlinks href=#hl-0-3>3</a>
+</span><span class=lnt id=hl-0-4><a class=lnlinks href=#hl-0-4>4</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>re</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>re</span><span class=o>.</span><span class=n>findall</span><span class=p>(</span><span class=sa>r</span><span class=s1>&#39;price:(\d+)&#39;</span><span class=p>,</span> <span class=n>html</span><span class=p>)</span>  <span class=c1># 一行代码提取价格</span></span></span></code></pre></td></tr></table></div></div><h4 id=开发效率>开发效率
+<a class=header-anchor href=#%e5%bc%80%e5%8f%91%e6%95%88%e7%8e%87></a></h4><p>动态类型 + 丰富的内置数据结构（字典/列表/集合），可以更快的编写爬虫代码</p><p>再举个例子，python提取a标签中的href</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span><span class=lnt id=hl-1-2><a class=lnlinks href=#hl-1-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>links</span> <span class=o>=</span> <span class=p>[</span><span class=n>a</span><span class=p>[</span><span class=s1>&#39;href&#39;</span><span class=p>]</span> <span class=k>for</span> <span class=n>a</span> <span class=ow>in</span> <span class=n>soup</span><span class=o>.</span><span class=n>select</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>)]</span></span></span></code></pre></td></tr></table></div></div><p>php实现</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1> 1</a>
+</span><span class=lnt id=hl-2-2><a class=lnlinks href=#hl-2-2> 2</a>
+</span><span class=lnt id=hl-2-3><a class=lnlinks href=#hl-2-3> 3</a>
+</span><span class=lnt id=hl-2-4><a class=lnlinks href=#hl-2-4> 4</a>
+</span><span class=lnt id=hl-2-5><a class=lnlinks href=#hl-2-5> 5</a>
+</span><span class=lnt id=hl-2-6><a class=lnlinks href=#hl-2-6> 6</a>
+</span><span class=lnt id=hl-2-7><a class=lnlinks href=#hl-2-7> 7</a>
+</span><span class=lnt id=hl-2-8><a class=lnlinks href=#hl-2-8> 8</a>
+</span><span class=lnt id=hl-2-9><a class=lnlinks href=#hl-2-9> 9</a>
+</span><span class=lnt id=hl-2-10><a class=lnlinks href=#hl-2-10>10</a>
+</span><span class=lnt id=hl-2-11><a class=lnlinks href=#hl-2-11>11</a>
+</span><span class=lnt id=hl-2-12><a class=lnlinks href=#hl-2-12>12</a>
+</span><span class=lnt id=hl-2-13><a class=lnlinks href=#hl-2-13>13</a>
+</span><span class=lnt id=hl-2-14><a class=lnlinks href=#hl-2-14>14</a>
+</span><span class=lnt id=hl-2-15><a class=lnlinks href=#hl-2-15>15</a>
+</span><span class=lnt id=hl-2-16><a class=lnlinks href=#hl-2-16>16</a>
+</span><span class=lnt id=hl-2-17><a class=lnlinks href=#hl-2-17>17</a>
+</span><span class=lnt id=hl-2-18><a class=lnlinks href=#hl-2-18>18</a>
+</span><span class=lnt id=hl-2-19><a class=lnlinks href=#hl-2-19>19</a>
+</span><span class=lnt id=hl-2-20><a class=lnlinks href=#hl-2-20>20</a>
+</span><span class=lnt id=hl-2-21><a class=lnlinks href=#hl-2-21>21</a>
+</span><span class=lnt id=hl-2-22><a class=lnlinks href=#hl-2-22>22</a>
+</span><span class=lnt id=hl-2-23><a class=lnlinks href=#hl-2-23>23</a>
+</span><span class=lnt id=hl-2-24><a class=lnlinks href=#hl-2-24>24</a>
+</span><span class=lnt id=hl-2-25><a class=lnlinks href=#hl-2-25>25</a>
+</span><span class=lnt id=hl-2-26><a class=lnlinks href=#hl-2-26>26</a>
+</span><span class=lnt id=hl-2-27><a class=lnlinks href=#hl-2-27>27</a>
+</span><span class=lnt id=hl-2-28><a class=lnlinks href=#hl-2-28>28</a>
+</span><span class=lnt id=hl-2-29><a class=lnlinks href=#hl-2-29>29</a>
+</span><span class=lnt id=hl-2-30><a class=lnlinks href=#hl-2-30>30</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$doc</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>DOMDocument</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>@</span><span class=nv>$doc</span><span class=o>-&gt;</span><span class=na>loadHTML</span><span class=p>(</span><span class=nv>$html</span><span class=p>);</span> <span class=c1>// @抑制解析警告
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$links</span> <span class=o>=</span> <span class=k>array</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$anchorTags</span> <span class=o>=</span> <span class=nv>$doc</span><span class=o>-&gt;</span><span class=na>getElementsByTagName</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>foreach</span> <span class=p>(</span><span class=nv>$anchorTags</span> <span class=k>as</span> <span class=nv>$a</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nv>$href</span> <span class=o>=</span> <span class=nv>$a</span><span class=o>-&gt;</span><span class=na>getAttribute</span><span class=p>(</span><span class=s1>&#39;href&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>empty</span><span class=p>(</span><span class=nv>$href</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nv>$links</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$href</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 输出结果
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>print_r</span><span class=p>(</span><span class=nv>$links</span><span class=p>);</span></span></span></code></pre></td></tr></table></div></div><p>python一行解决的问题，php需要8行。哪个便利一目了然吧</p><h3 id=2生态工具链>2、生态工具链
+<a class=header-anchor href=#2%e7%94%9f%e6%80%81%e5%b7%a5%e5%85%b7%e9%93%be></a></h3><p>| 工具 | 作用 | 优势 |</p><p>| &mdash;&mdash;&mdash;&mdash;- | &mdash;&mdash;&mdash;&mdash;&ndash; | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; |</p><p>| Requests | HTTP请求 | 人类友好的API，会话保持自动处理 |</p><p>| BeautifulSoup | HTML解析 | 容错性强，find_all比xpath更直观 |</p><p>| Scrapy | 全功能爬虫框架 | 内置异步、中间件、管道等完整架构 |</p><p>| Selenuim | 动态页面渲染 | 模拟浏览器行为 |</p><p>| PyQuery | JQuery式选择器 | 对前端开发者更友好 |</p><h4 id=应对爬虫的灵活性>应对爬虫的灵活性
+<a class=header-anchor href=#%e5%ba%94%e5%af%b9%e7%88%ac%e8%99%ab%e7%9a%84%e7%81%b5%e6%b4%bb%e6%80%a7></a></h4><p>快速切换解析方案</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1> 1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2> 2</a>
+</span><span class=lnt id=hl-3-3><a class=lnlinks href=#hl-3-3> 3</a>
+</span><span class=lnt id=hl-3-4><a class=lnlinks href=#hl-3-4> 4</a>
+</span><span class=lnt id=hl-3-5><a class=lnlinks href=#hl-3-5> 5</a>
+</span><span class=lnt id=hl-3-6><a class=lnlinks href=#hl-3-6> 6</a>
+</span><span class=lnt id=hl-3-7><a class=lnlinks href=#hl-3-7> 7</a>
+</span><span class=lnt id=hl-3-8><a class=lnlinks href=#hl-3-8> 8</a>
+</span><span class=lnt id=hl-3-9><a class=lnlinks href=#hl-3-9> 9</a>
+</span><span class=lnt id=hl-3-10><a class=lnlinks href=#hl-3-10>10</a>
+</span><span class=lnt id=hl-3-11><a class=lnlinks href=#hl-3-11>11</a>
+</span><span class=lnt id=hl-3-12><a class=lnlinks href=#hl-3-12>12</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 应对网站改版，快速更换解析方式</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>parse</span><span class=p>(</span><span class=n>html</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>css_select</span><span class=p>(</span><span class=n>html</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=n>ParseError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>xpath_parse</span><span class=p>(</span><span class=n>html</span><span class=p>)</span>  <span class=c1># 备用方案</span></span></span></code></pre></td></tr></table></div></div><h4 id=动态执行js>动态执行js
+<a class=header-anchor href=#%e5%8a%a8%e6%80%81%e6%89%a7%e8%a1%8cjs></a></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1> 1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2> 2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3> 3</a>
+</span><span class=lnt id=hl-4-4><a class=lnlinks href=#hl-4-4> 4</a>
+</span><span class=lnt id=hl-4-5><a class=lnlinks href=#hl-4-5> 5</a>
+</span><span class=lnt id=hl-4-6><a class=lnlinks href=#hl-4-6> 6</a>
+</span><span class=lnt id=hl-4-7><a class=lnlinks href=#hl-4-7> 7</a>
+</span><span class=lnt id=hl-4-8><a class=lnlinks href=#hl-4-8> 8</a>
+</span><span class=lnt id=hl-4-9><a class=lnlinks href=#hl-4-9> 9</a>
+</span><span class=lnt id=hl-4-10><a class=lnlinks href=#hl-4-10>10</a>
+</span><span class=lnt id=hl-4-11><a class=lnlinks href=#hl-4-11>11</a>
+</span><span class=lnt id=hl-4-12><a class=lnlinks href=#hl-4-12>12</a>
+</span><span class=lnt id=hl-4-13><a class=lnlinks href=#hl-4-13>13</a>
+</span><span class=lnt id=hl-4-14><a class=lnlinks href=#hl-4-14>14</a>
+</span><span class=lnt id=hl-4-15><a class=lnlinks href=#hl-4-15>15</a>
+</span><span class=lnt id=hl-4-16><a class=lnlinks href=#hl-4-16>16</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用PyExecJS执行加密算法</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>execjs</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>ctx</span> <span class=o>=</span> <span class=n>execjs</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    function decrypt(t) {
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>        return CryptoJS.AES.decrypt(t, &#39;key&#39;).toString();
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    }
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>decrypted</span> <span class=o>=</span> <span class=n>ctx</span><span class=o>.</span><span class=n>call</span><span class=p>(</span><span class=s2>&#34;decrypt&#34;</span><span class=p>,</span> <span class=n>encrypted_str</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div><h4 id=ip轮换便捷性>IP轮换便捷性
+<a class=header-anchor href=#ip%e8%bd%ae%e6%8d%a2%e4%be%bf%e6%8d%b7%e6%80%a7></a></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1>1</a>
+</span><span class=lnt id=hl-5-2><a class=lnlinks href=#hl-5-2>2</a>
+</span><span class=lnt id=hl-5-3><a class=lnlinks href=#hl-5-3>3</a>
+</span><span class=lnt id=hl-5-4><a class=lnlinks href=#hl-5-4>4</a>
+</span><span class=lnt id=hl-5-5><a class=lnlinks href=#hl-5-5>5</a>
+</span><span class=lnt id=hl-5-6><a class=lnlinks href=#hl-5-6>6</a>
+</span><span class=lnt id=hl-5-7><a class=lnlinks href=#hl-5-7>7</a>
+</span><span class=lnt id=hl-5-8><a class=lnlinks href=#hl-5-8>8</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用代理中间件示例（Scrapy）</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ProxyMiddleware</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>process_request</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>request</span><span class=p>,</span> <span class=n>spider</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>request</span><span class=o>.</span><span class=n>meta</span><span class=p>[</span><span class=s1>&#39;proxy&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>choice</span><span class=p>(</span><span class=n>proxy_pool</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div><h3 id=3大数据处理>3、大数据处理
+<a class=header-anchor href=#3%e5%a4%a7%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86></a></h3><h4 id=分布式扩展>分布式扩展
+<a class=header-anchor href=#%e5%88%86%e5%b8%83%e5%bc%8f%e6%89%a9%e5%b1%95></a></h4><ul><li><p>Scrapy-Redis 实现分布式爬虫</p></li><li><p>celery调度异步任务</p></li></ul><h4 id=无缝对接数据管道>无缝对接数据管道
+<a class=header-anchor href=#%e6%97%a0%e7%bc%9d%e5%af%b9%e6%8e%a5%e6%95%b0%e6%8d%ae%e7%ae%a1%e9%81%93></a></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a class=lnlinks href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a class=lnlinks href=#hl-6-2>2</a>
+</span><span class=lnt id=hl-6-3><a class=lnlinks href=#hl-6-3>3</a>
+</span><span class=lnt id=hl-6-4><a class=lnlinks href=#hl-6-4>4</a>
+</span><span class=lnt id=hl-6-5><a class=lnlinks href=#hl-6-5>5</a>
+</span><span class=lnt id=hl-6-6><a class=lnlinks href=#hl-6-6>6</a>
+</span><span class=lnt id=hl-6-7><a class=lnlinks href=#hl-6-7>7</a>
+</span><span class=lnt id=hl-6-8><a class=lnlinks href=#hl-6-8>8</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 爬取后直接进入分析流程</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pandas</span> <span class=k>as</span> <span class=nn>pd</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>DataFrame</span><span class=p>(</span><span class=n>scraped_items</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>data</span><span class=o>.</span><span class=n>groupby</span><span class=p>(</span><span class=s1>&#39;category&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>sum</span><span class=p>()</span><span class=o>.</span><span class=n>plot</span><span class=p>(</span><span class=n>kind</span><span class=o>=</span><span class=s1>&#39;bar&#39;</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div><p>基于以上优势，在当时做爬虫用python可以说是最好的选择了。</p><h2 id=四学习>四、学习
+<a class=header-anchor href=#%e5%9b%9b%e5%ad%a6%e4%b9%a0></a></h2><p>那确定了语言，现在就开始准备了，团队内没有会python的咋整？</p><p>学呗！</p><p>我和团队内的另外一个php同事开始自学起了python，首先确定学习路线</p><ol><li><p>python语法</p></li><li><p>python爬虫框架scrapy</p></li><li><p>Xpath语法</p></li><li><p>反爬</p></li><li><p>代理</p></li></ol><p>就这样用了一个月时间，基本上把这些东西都过了一遍，一个月之间我总结了一些关于python及爬虫的知识：</p><ul><li><p><a href=https://mingzhongshui.github.io/posts/python_scrapykuangjiaxuexibijijijiandanshizhan/ title="Python scrapy框架学习笔记及简单实战 - 命中水">Python scrapy框架学习笔记及简单实战 - 命中水</a></p></li><li><p><a href=https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/ title="Python学习笔记（基础） - 命中水">Python学习笔记（基础） - 命中水</a></p></li><li><p><a href=https://mingzhongshui.github.io/posts/pythonxuexibijichangyongkuozhan/ title="Python学习笔记（常用扩展） - 命中水">Python学习笔记（常用扩展） - 命中水</a></p></li></ul><p>后面又整理了反爬的套路及应对措施：
+<a href=https://mingzhongshui.github.io/posts/pythonpachongyanjiu/ title="Python爬虫研究 - 命中水"><strong>Python爬虫研究</strong> - 命中水</a></p><p>以上都是接口爬虫，后面了解到需要爬页面，然后又学习了页面爬虫</p><ul><li><a href=https://mingzhongshui.github.io/posts/pythonruhepaqudongtaiwangzhan/ title="Python如何爬取动态网站？ - 命中水">Python如何爬取动态网站？ - 命中水</a></li></ul><p>在学习的过程中，尝试爬了自己的网站，源码在
+<a href=https://gitee.com/mingzhongshui/Python-scrapy-demo title="Python scrapy demo: Python scrapy框架实战demo" rel="noopener external nofollow noreferrer" target=_blank class=exturl>Python scrapy demo: Python scrapy框架实战demo
+<i class="fa fa-external-link-alt"></i></a></p><p>这一个月中走到哪都是我学习爬虫的身影，地铁上刷B站视频、晚上回家学习python语法、周末自己练习爬爬简书啥的，甚至做梦都梦到爬虫成功了。现在回忆起来真是佩服我自己</p><h2 id=五简单实战>五、简单实战
+<a class=header-anchor href=#%e4%ba%94%e7%ae%80%e5%8d%95%e5%ae%9e%e6%88%98></a></h2><p>接下来，产品经理需求下来了，根据亚马逊商品ASIN爬评论，看看学习成果咋样（一个月中另一个php同事没啥进展，后面就我自己开发了）</p><ol><li><p>基于scrapy开发的爬虫脚本</p></li><li><p>初始化爬取链接</p></li><li><p>xpath获取关键数据</p></li><li><p>数据通过管道写入mongodb</p></li></ol><p>基于scrapy我很快完成了ASIN评论的爬取，但是因为评论过多，有时候爬取到一两页就显示爬取失败了，因为我没加代理，然后选择了快代理作为我们最开始的代理方（没有建立自己的代理ip库是因为当时自己参考过一版别人的源码，做出来的效果发现那些免费的代理ip质量都不太高，所以后面就选择了收费的），快代理有多种模式可选择，具体可以去官网参考下
+<a href=https://www.kuaidaili.com/ title="快代理 - 企业级HTTP代理IP云服务_专注IP代理11年" rel="noopener external nofollow noreferrer" target=_blank class=exturl>快代理 - 企业级HTTP代理IP云服务_专注IP代理11年
+<i class="fa fa-external-link-alt"></i></a></p><p>既然方案没问题，那就开始大刀阔斧的干了</p><h2 id=六着手开发>六、着手开发
+<a class=header-anchor href=#%e5%85%ad%e7%9d%80%e6%89%8b%e5%bc%80%e5%8f%91></a></h2><p>需求是提前往内部系统里录ASIN，然后每天定时根据这些ASIN爬取评论数据，重复的替换掉</p><p>OK，既然需求定了，那就开始整理下设计架构了（这时候公司招的专业的python同事入场了）经过了多次的沟通，整理架构如下：</p><p><img src=/imgs/img-lazy-loading.gif data-src=./3396164285.png alt=爬虫架构图.png></p><p>于此，框架基本完成，主要增加：</p><ol><li><p>使用scrapy-redis分布式爬虫增加爬取效率</p></li><li><p>接口API使用Flask框架</p></li><li><p>接口采用celery异步队列</p></li></ol><h3 id=关键问题>关键问题
+<a class=header-anchor href=#%e5%85%b3%e9%94%ae%e9%97%ae%e9%a2%98></a></h3><p>过了一段时间， 此架构基本落地了，但是遇到个问题，就算使用了专业的ip代理工具，但是有时候爬取质量和效率还不是那么好。不得不说，亚马逊的反爬机制还是挺厉害的。基于此前提下，我们产生了更换ip代理商的想法，于是我们发现了scrapy_crawlera。</p><h3 id=scrapy-crawlera>Scrapy-Crawlera
+<a class=header-anchor href=#scrapy-crawlera></a></h3><p>Scrapy-Crawlera 是一个 <strong>Scrapy 中间件</strong>，用于与 Crawlera（Smart Proxy）服务集成，帮助爬虫开发者高效处理反爬机制（如 IP 封禁、验证码、动态渲染等）。Crawlera 是 Zyte（原 Scrapinghub）提供的 <strong>智能代理服务</strong>，可以自动管理代理池、处理请求头、执行 JavaScript 渲染等</p><h4 id=crawlear的核心功能>Crawlear的核心功能
+<a class=header-anchor href=#crawlear%e7%9a%84%e6%a0%b8%e5%bf%83%e5%8a%9f%e8%83%bd></a></h4><h5 id=智能代理轮换>智能代理轮换
+<a class=header-anchor href=#%e6%99%ba%e8%83%bd%e4%bb%a3%e7%90%86%e8%bd%ae%e6%8d%a2></a></h5><ul><li><p>自动切换 <strong>全球代理 IP</strong>（覆盖 100+ 国家）</p></li><li><p>避免 IP 被封，支持高并发请求</p></li><li><p>自动重试失败的请求</p></li></ul><h5 id=自动反反爬>自动反反爬
+<a class=header-anchor href=#%e8%87%aa%e5%8a%a8%e5%8f%8d%e5%8f%8d%e7%88%ac></a></h5><ul><li><p>动态调整请求头（User-Agent、Referer、Cookies）</p></li><li><p>处理 JavaScript 渲染（类似无头浏览器）</p></li><li><p>绕过 Cloudflare、Akamai 等防护</p></li></ul><h5 id=请求优化>请求优化
+<a class=header-anchor href=#%e8%af%b7%e6%b1%82%e4%bc%98%e5%8c%96></a></h5><ul><li><p>自动管理会话（Session）</p></li><li><p>支持 HTTP/HTTPS/SOCKS5</p></li><li><p>提供 <strong>请求统计</strong>（成功率、延迟、封禁率）</p></li></ul><h4 id=安装与配置>安装与配置
+<a class=header-anchor href=#%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae></a></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a class=lnlinks href=#hl-7-1>1</a>
+</span><span class=lnt id=hl-7-2><a class=lnlinks href=#hl-7-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pip install scrapy-crawlera</span></span></code></pre></td></tr></table></div></div><h6 id=scrapy配置>scrapy配置
+<a class=header-anchor href=#scrapy%e9%85%8d%e7%bd%ae></a></h6><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a class=lnlinks href=#hl-8-1> 1</a>
+</span><span class=lnt id=hl-8-2><a class=lnlinks href=#hl-8-2> 2</a>
+</span><span class=lnt id=hl-8-3><a class=lnlinks href=#hl-8-3> 3</a>
+</span><span class=lnt id=hl-8-4><a class=lnlinks href=#hl-8-4> 4</a>
+</span><span class=lnt id=hl-8-5><a class=lnlinks href=#hl-8-5> 5</a>
+</span><span class=lnt id=hl-8-6><a class=lnlinks href=#hl-8-6> 6</a>
+</span><span class=lnt id=hl-8-7><a class=lnlinks href=#hl-8-7> 7</a>
+</span><span class=lnt id=hl-8-8><a class=lnlinks href=#hl-8-8> 8</a>
+</span><span class=lnt id=hl-8-9><a class=lnlinks href=#hl-8-9> 9</a>
+</span><span class=lnt id=hl-8-10><a class=lnlinks href=#hl-8-10>10</a>
+</span><span class=lnt id=hl-8-11><a class=lnlinks href=#hl-8-11>11</a>
+</span><span class=lnt id=hl-8-12><a class=lnlinks href=#hl-8-12>12</a>
+</span><span class=lnt id=hl-8-13><a class=lnlinks href=#hl-8-13>13</a>
+</span><span class=lnt id=hl-8-14><a class=lnlinks href=#hl-8-14>14</a>
+</span><span class=lnt id=hl-8-15><a class=lnlinks href=#hl-8-15>15</a>
+</span><span class=lnt id=hl-8-16><a class=lnlinks href=#hl-8-16>16</a>
+</span><span class=lnt id=hl-8-17><a class=lnlinks href=#hl-8-17>17</a>
+</span><span class=lnt id=hl-8-18><a class=lnlinks href=#hl-8-18>18</a>
+</span><span class=lnt id=hl-8-19><a class=lnlinks href=#hl-8-19>19</a>
+</span><span class=lnt id=hl-8-20><a class=lnlinks href=#hl-8-20>20</a>
+</span><span class=lnt id=hl-8-21><a class=lnlinks href=#hl-8-21>21</a>
+</span><span class=lnt id=hl-8-22><a class=lnlinks href=#hl-8-22>22</a>
+</span><span class=lnt id=hl-8-23><a class=lnlinks href=#hl-8-23>23</a>
+</span><span class=lnt id=hl-8-24><a class=lnlinks href=#hl-8-24>24</a>
+</span><span class=lnt id=hl-8-25><a class=lnlinks href=#hl-8-25>25</a>
+</span><span class=lnt id=hl-8-26><a class=lnlinks href=#hl-8-26>26</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 启用 Crawlera 中间件
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>DOWNLOADER_MIDDLEWARES = {
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    &#39;scrapy_crawlera.CrawleraMiddleware&#39;: 300
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 设置 Crawlera API Key（需注册 Zyte 获取）
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>CRAWLERA_ENABLED = True
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>CRAWLERA_APIKEY = &#39;你的API_KEY&#39;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 调整爬虫并发（Crawlera 默认限制 5 并发）
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>CONCURRENT_REQUESTS = 32
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>CONCURRENT_REQUESTS_PER_DOMAIN = 32
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>AUTOTHROTTLE_ENABLED = False  # 关闭自动限速</span></span></code></pre></td></tr></table></div></div><h4 id=适用场景>适用场景
+<a class=header-anchor href=#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af></a></h4><ul><li><p><strong>企业级爬虫</strong>（需要高稳定性）</p></li><li><p><strong>反爬严格的网站</strong>（如电商、社交媒体）</p></li><li><p><strong>不想管理代理池</strong>（减少运维成本）</p></li></ul><p>使用scrapy-clawlera的前提，就是需要去
+<a href=https://dash.scrapinghub.com/account/signup title=Zyte rel="noopener external nofollow noreferrer" target=_blank class=exturl>Zyte
+<i class="fa fa-external-link-alt"></i>
+</a>注册一个用户（我之前用的时候叫scrapyinghub，现在改名了），然后购买付费，按请求收费。比如200W个请求，<strong>400美刀</strong>，我记得我们巅峰时期一个月的代理费都干到过<strong>4000多</strong>人民币。但是这钱花的也值，爬取效率杠杠的！</p><p>scrapy-clawlear除了贵几乎没有缺点。</p><h2 id=七需求升级>七、需求升级
+<a class=header-anchor href=#%e4%b8%83%e9%9c%80%e6%b1%82%e5%8d%87%e7%ba%a7></a></h2><p>过了没多久，新需求又来了，公司在亚马逊有店铺，运营同学每次都要去亚马逊后台下载报表数据，我们有7、8个店铺的数据，亚马逊要求又很严格，每个店铺、站点都只能在同一个IP登录，如果不同IP登录了店铺后台，亚马逊可能会封禁账号，到时候申诉就会很麻烦。</p><p>所以需要这不就来了，要求爬虫自动抓取后台报表数据。保存在数据库，运营在同学在内部系统直接查看即可。</p><p>因为这个是需要登录账号之后进行的操作，所以接下来的处理就是需要模仿浏览器用户行为了，也就是页面爬虫。</p><p>说起页面爬虫，那就不得不提到selenimu了</p><h3 id=selenium>selenium
+<a class=header-anchor href=#selenium></a></h3><blockquote><p><strong>Selenium</strong> 是一个用于 <strong>自动化 Web 浏览器操作</strong> 的开源工具集，主要用于 <strong>Web 应用程序测试</strong> 和 <strong>浏览器自动化</strong>。它支持多种编程语言（如 Python、Java、C#、JavaScript 等），可以模拟用户在浏览器中的操作，如点击、输入、导航等。</p></blockquote><p>通俗点来讲就是你可以编写程序来模仿浏览器的用户行为，比如有个网站有个签到功能，每天签到可以得积分，然后你就可以用程序模拟这个动作，每天打开网页，在指定位置，点击签到。这个行为用户可以是无感知的，用户就算在操作电脑，也不会发现你运行了脚本，打开了网页。因为这些动作都是后台运行的。</p><p>python使用selenium代码如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a class=lnlinks href=#hl-9-1> 1</a>
+</span><span class=lnt id=hl-9-2><a class=lnlinks href=#hl-9-2> 2</a>
+</span><span class=lnt id=hl-9-3><a class=lnlinks href=#hl-9-3> 3</a>
+</span><span class=lnt id=hl-9-4><a class=lnlinks href=#hl-9-4> 4</a>
+</span><span class=lnt id=hl-9-5><a class=lnlinks href=#hl-9-5> 5</a>
+</span><span class=lnt id=hl-9-6><a class=lnlinks href=#hl-9-6> 6</a>
+</span><span class=lnt id=hl-9-7><a class=lnlinks href=#hl-9-7> 7</a>
+</span><span class=lnt id=hl-9-8><a class=lnlinks href=#hl-9-8> 8</a>
+</span><span class=lnt id=hl-9-9><a class=lnlinks href=#hl-9-9> 9</a>
+</span><span class=lnt id=hl-9-10><a class=lnlinks href=#hl-9-10>10</a>
+</span><span class=lnt id=hl-9-11><a class=lnlinks href=#hl-9-11>11</a>
+</span><span class=lnt id=hl-9-12><a class=lnlinks href=#hl-9-12>12</a>
+</span><span class=lnt id=hl-9-13><a class=lnlinks href=#hl-9-13>13</a>
+</span><span class=lnt id=hl-9-14><a class=lnlinks href=#hl-9-14>14</a>
+</span><span class=lnt id=hl-9-15><a class=lnlinks href=#hl-9-15>15</a>
+</span><span class=lnt id=hl-9-16><a class=lnlinks href=#hl-9-16>16</a>
+</span><span class=lnt id=hl-9-17><a class=lnlinks href=#hl-9-17>17</a>
+</span><span class=lnt id=hl-9-18><a class=lnlinks href=#hl-9-18>18</a>
+</span><span class=lnt id=hl-9-19><a class=lnlinks href=#hl-9-19>19</a>
+</span><span class=lnt id=hl-9-20><a class=lnlinks href=#hl-9-20>20</a>
+</span><span class=lnt id=hl-9-21><a class=lnlinks href=#hl-9-21>21</a>
+</span><span class=lnt id=hl-9-22><a class=lnlinks href=#hl-9-22>22</a>
+</span><span class=lnt id=hl-9-23><a class=lnlinks href=#hl-9-23>23</a>
+</span><span class=lnt id=hl-9-24><a class=lnlinks href=#hl-9-24>24</a>
+</span><span class=lnt id=hl-9-25><a class=lnlinks href=#hl-9-25>25</a>
+</span><span class=lnt id=hl-9-26><a class=lnlinks href=#hl-9-26>26</a>
+</span><span class=lnt id=hl-9-27><a class=lnlinks href=#hl-9-27>27</a>
+</span><span class=lnt id=hl-9-28><a class=lnlinks href=#hl-9-28>28</a>
+</span><span class=lnt id=hl-9-29><a class=lnlinks href=#hl-9-29>29</a>
+</span><span class=lnt id=hl-9-30><a class=lnlinks href=#hl-9-30>30</a>
+</span><span class=lnt id=hl-9-31><a class=lnlinks href=#hl-9-31>31</a>
+</span><span class=lnt id=hl-9-32><a class=lnlinks href=#hl-9-32>32</a>
+</span><span class=lnt id=hl-9-33><a class=lnlinks href=#hl-9-33>33</a>
+</span><span class=lnt id=hl-9-34><a class=lnlinks href=#hl-9-34>34</a>
+</span><span class=lnt id=hl-9-35><a class=lnlinks href=#hl-9-35>35</a>
+</span><span class=lnt id=hl-9-36><a class=lnlinks href=#hl-9-36>36</a>
+</span><span class=lnt id=hl-9-37><a class=lnlinks href=#hl-9-37>37</a>
+</span><span class=lnt id=hl-9-38><a class=lnlinks href=#hl-9-38>38</a>
+</span><span class=lnt id=hl-9-39><a class=lnlinks href=#hl-9-39>39</a>
+</span><span class=lnt id=hl-9-40><a class=lnlinks href=#hl-9-40>40</a>
+</span><span class=lnt id=hl-9-41><a class=lnlinks href=#hl-9-41>41</a>
+</span><span class=lnt id=hl-9-42><a class=lnlinks href=#hl-9-42>42</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># -*- coding: utf-8 -*-
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 引入selenium webdriver类
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>from selenium import webdriver
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 引入火狐浏览器配置类
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>from selenium.webdriver import FirefoxOptions
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 实例化一个配置项
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>options = FirefoxOptions()
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 设置无需打开浏览器（如何想调试就把这个配置注释掉）
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>options.add_argument(&#39;--headless&#39;)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 设置浏览器类型为火狐
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>browser = webdriver.Firefox(firefox_options=options)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 打开一个网址
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>browser.get(&#39;https://item.jd.com/100008348542.html&#39;)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 获取网页源码
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>source = browser.page_source
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>print(source)</span></span></code></pre></td></tr></table></div></div><p>具体如何使用详情参考我之前的文章：
+<a href=https://www.cxiansheng.cn/server/580 title="Python如何爬取动态网站？ - 命中水" rel="noopener external nofollow noreferrer" target=_blank class=exturl>Python如何爬取动态网站？ - 命中水
+<i class="fa fa-external-link-alt"></i></a></p><p>除了selenium之外呢，python还有另外一种方式也可以获取页面上的数据</p><h3 id=splash>Splash
+<a class=header-anchor href=#splash></a></h3><blockquote><p><strong>Splash</strong> 是一个基于 <strong>Lua</strong> 的轻量级 JavaScript 渲染服务，由 Scrapy 团队开发，主要用于 <strong>动态网页的抓取</strong>。它通过 <strong>HTTP API</strong> 或 <strong>Scrapy-Splash 中间件</strong> 与爬虫集成，能够执行 JavaScript 并返回渲染后的页面内容。</p></blockquote><h4 id=核心功能>核心功能
+<a class=header-anchor href=#%e6%a0%b8%e5%bf%83%e5%8a%9f%e8%83%bd></a></h4><ul><li><p>渲染 JavaScript 动态内容（如 React、Vue 生成的页面）。</p></li><li><p>支持截图、延迟加载、自定义 Lua 脚本。</p></li><li><p>通过 Docker 快速部署，资源占用较低。</p></li></ul><p>那我们到底该如何选择呢？请看下面splash和selenium的对比</p><h4 id=splash-和-selenium-的区别>Splash 和 Selenium 的区别
+<a class=header-anchor href=#splash-%e5%92%8c-selenium-%e7%9a%84%e5%8c%ba%e5%88%ab></a></h4><p>| <strong>特性</strong> | <strong>Splash</strong> | <strong>Selenium</strong> |</p><p>| :&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; | :&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; | :&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; |</p><p>| <strong>定位</strong> | 专为爬虫设计的轻量级渲染服务 | 浏览器自动化工具，兼顾测试和爬虫 |</p><p>| <strong>架构</strong> | 基于 HTTP API 的无头浏览器服务 | 直接控制本地/远程浏览器实例 |</p><p>| <strong>性能</strong> | 更高（无图形界面，资源占用少） | 较低（启动完整浏览器） |</p><p>| <strong>编程语言支持</strong> | 通过 Lua 脚本或 HTTP 请求交互 | 支持多语言（Python/Java/C#等） |</p><p>| <strong>JavaScript 执行</strong> | 高效，但功能有限（依赖 Lua 脚本） | 完整支持，可模拟用户操作 |</p><p>| <strong>部署复杂度</strong> | 需 Docker 或独立服务 | 需浏览器驱动（如 chromedriver） |</p><p>| <strong>适用场景</strong> | 大规模爬虫（高并发、无交互需求） | 需要交互的测试或爬虫（如点击登录） |</p><p>通过以上表格我们可以看出：</p><ul><li><p><strong>爬虫优先 Splash</strong>：轻量、高效、适合大规模数据采集</p></li><li><p><strong>交互优先 Selenium</strong>：功能全面、适合测试或复杂操作</p></li><li><p><strong>反爬严格时</strong>：Selenium 更接近真实用户，但 Splash 可通过 Lua 脚本伪装请求头。</p></li></ul><p>以我们那个场景为例，涉及到用户交互的动作（登录），最终我们选择了selenium。</p><h3 id=后续>后续
+<a class=header-anchor href=#%e5%90%8e%e7%bb%ad></a></h3><p>后续就是这个需求以selenium登录，然后拿到登录用户信息，再调用报表接口查询数据。</p><p>然后将这个脚本放在windows任务计划中，每天定时去执行。数据上传到接口，保存到数据库中。</p><p>建立异常机制，页面改变或接口报错，发邮件到负责人或开发人邮箱中。</p><h4 id=坑>坑
+<a class=header-anchor href=#%e5%9d%91></a></h4><p>哦对了，这里还有一个坑，我记得当时我离职前也都没有解决。</p><p>因为亚马逊后台登录地址的限制，每个账号只能在同一个IP登录，所以我们是部署了跟站点数量相对应的虚拟机，比如我们有8个站点账号，就部署了8个windows虚拟机。每次都要从远程桌面中登录进去，一旦代码有什么地方要调整或者定时任务要调整，那就要耗费大量的时间去一个一个登录进去操作，windows远程桌面有时候还很卡，所以每次操作都很痛苦。</p><p>至于为什么要搭建远程windows虚拟主机，是因为运营同学也是用这个方式登录后台的。</p><h2 id=八不足之处>八、不足之处
+<a class=header-anchor href=#%e5%85%ab%e4%b8%8d%e8%b6%b3%e4%b9%8b%e5%a4%84></a></h2><p>虽然项目已经成功上线，并运行了一年多，但是还是有不足的。针对这个项目来说</p><ol><li><p>亚马逊页面有时候会变化，过一两个月就会调整，所以有时候爬取失败了我们是后知后觉</p></li><li><p>后台页面爬虫，维护是个硬伤</p></li></ol><p>针对问题1，现在来看的话我觉得可以引入以下几点：</p><ul><li><p>设置警报当关键元素获取失败率超过阈值时通知</p></li><li><p>保留详细的错误日志和页面快照</p></li><li><p>定期运行测试爬虫检查关键元素是否存在</p></li><li><p>训练模型识别页面各元素位置</p></li><li><p>使用视觉定位(如Selenium截图后分析)</p></li></ul><p>前几个还好说，就是费点力，代码调整+人工。后两个的话，就要再花费一番功夫了。</p><p>针对问题2，我记得当时是没有在虚拟机上搭建git的，原因也不记得了，如果要调整的话</p><ol><li>虚拟主机搭建git，远程仓库代码更新时，自动同步更新虚拟主机代码</li></ol><h2 id=九总结>九、总结
+<a class=header-anchor href=#%e4%b9%9d%e6%80%bb%e7%bb%93></a></h2><p>以上就是我当时在接触到爬虫项目的全部过程了，真的是参与感满满了。上线的时候就是那种看着自己的孩子一步一步长大成人的感觉。</p><p>好了，以上就是本文的全部内容了，下次再见吧！~</p><hr><p><strong>作者</strong>：命中水</p><p><strong>版权声明</strong>：转载请注明出处，欢迎技术交流</p></div><footer class=post-footer><div class=post-tags><a href=/tags/python/>python
+</a><a href=/tags/scrapy/>scrapy
+</a><a href=/tags/scrapy-redis/>scrapy-redis
+</a><a href=/tags/selenium/>selenium
+</a><a href=/tags/%E7%88%AC%E8%99%AB/>爬虫</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=reward-container><div><i class="fa-solid fa-mug-hot"></i>请我喝杯咖啡吧 ヾ(^▽^*)))</div><button>
+赞赏</button><div class=post-reward><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/ali-pay.png alt="mingzhongshui - 支付宝">
+<span>支付宝</span></div><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/wechat-pay.png alt="mingzhongshui - 微信">
+<span>微信</span></div></div></div><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+聊一聊我是如何从0到1搭建公司爬虫项目的</li><li class=post-copyright-author><strong>本文作者： </strong>mingzhongshui</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/ title=聊一聊我是如何从0到1搭建公司爬虫项目的>https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=followme><span>欢迎关注我的其它发布渠道</span><div class=social-list><div class=social-item><a target=_blank class=social-link href=/images/wechat_channel.jpg><span class=icon><i class="fab fa-weixin"></i>
+</span><span class=label>WeChat</span></a></div><div class=social-item><a target=_blank class=social-link href=/rss.xml><span class=icon><i class="fa fa-rss"></i>
+</span><span class=label>RSS</span></a></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/posts/yifendcatadminbuquanshiyongshuoming/ rel=next title=一份dcatadmin不全使用说明><i class="fa fa-chevron-left"></i> 一份dcatadmin不全使用说明</a></div><div class="post-nav-prev post-nav-item"><a href=/posts/gongzuohuiguzhiyouhuakaihuliucheng/ rel=prev title=工作回顾之优化开户流程>工作回顾之优化开户流程
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div></main><footer class=footer><div class=footer-inner><div id=i18n-translate class=i18n-translate><i class="fa fa-language"></i><div id=lang-select class=lang-select><div id=lang-selected class=selected-option><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=selected-language>简体中文</span>
+<i class="fa fa-chevron-down"></i></div><div id=lang-options class=lang-options><div class=lang-option lang-code=zh-cn lang-name=简体中文 lang-url=/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=lang-name>简体中文</span></div></div></div></div><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>mingzhongshui</span></div><div class=powered-by>由 <a href=https://gohugo.io title=0.163.0 target=_blank>Hugo</a> & <a href=https://github.com/hugo-next/hugo-theme-next title=4.8.3 target=_blank>Hugo NexT.Gemini</a> 强力驱动</div><div class=beian><a href=https://beian.miit.gov.cn target=_blank>粤ICP备 18047355-1 号</a>
+<img src=/imgs/gongan.png alt=沪公网安备>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011402009770" target=_blank>沪公网安备 31011402009770 号</a></div><div class=vendors-list><a target=_blank href=https://vercel.com title=Vercel><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/vercel.svg alt=Vercel>
+</a><a target=_blank href=https://upyun.com title=又拍云><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/upyun.png alt=又拍云>
+</a><a target=_blank href=https://github.com title=Github><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/github.svg alt=Github>
+</a><span>提供CDN/云资源支持</span></div><div class=custom-footer>Website source code <a href=https://github.com/hugo-next/hugo-theme-next/blob/develop/exampleSite/layouts/partials/custom_footer.html target=_blank>here</a></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":false,"expired":false,"isHome":false,"isPage":true,"path":"liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi","permalink":"https://mingzhongshui.github.io/posts/liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi/","title":"聊一聊我是如何从0到1搭建公司爬虫项目的","toc":true,"waline":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"2.15.8"}}}</script><script type=text/javascript src=https://mingzhongshui.github.io/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=https://mingzhongshui.github.io/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":true,"hostname":"https://mingzhongshui.github.io/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":true,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"https://mingzhongshui.github.io/js/3rd"}},"version":"4.8.3","waline":{"cfg":{"emoji":false,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"serverurl":null,"sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"2.15.8"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"2.15.8"}}}</script><script type=text/javascript src="/js/main.min.js?=1781083426" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1781083426" defer></script></body></html>
