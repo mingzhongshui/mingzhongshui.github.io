@@ -1588,7 +1588,7 @@ AI 在我反馈问题后，帮我调整为：
 
 登录
 
-![image-20251223114030780.png](https://cxiansheng.cn/usr/uploads/2026/01/972399472.png)
+![image-20251223114030780.png](./972399472.png)
 
 
 
@@ -1596,19 +1596,19 @@ AI 在我反馈问题后，帮我调整为：
 
 聊天首页
 
-![image-20251223114119055.png](https://cxiansheng.cn/usr/uploads/2026/01/2065645332.png)
+![image-20251223114119055.png](./2065645332.png)
 
 
 
 翻译配置
 
-![image-20251223114155843.png](https://cxiansheng.cn/usr/uploads/2026/01/3702242519.png)
+![image-20251223114155843.png](./3702242519.png)
 
 
 
 自动回复配置
 
-![image-20251223114232951.png](https://cxiansheng.cn/usr/uploads/2026/01/1781166712.png)
+![image-20251223114232951.png](./1781166712.png)
 
 
 

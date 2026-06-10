@@ -332,15 +332,15 @@ data.groupby('category').sum().plot(kind='bar')
 
 
 
-- [Python scrapy框架学习笔记及简单实战 - 命中水](https://www.cxiansheng.cn/server/550)
+- [Python scrapy框架学习笔记及简单实战 - 命中水]({{< ref "/posts/2020-02-05-python_scrapykuangjiaxuexibijijijiandanshizhan" >}})
 
-- [Python学习笔记（基础） - 命中水](https://www.cxiansheng.cn/server/561)
+- [Python学习笔记（基础） - 命中水]({{< ref "/posts/2025-05-30-liaoyiliaowoshiruhecong0dao1dajiangongsipachongxiangmudi" >}})
 
-- [Python学习笔记（常用扩展） - 命中水](https://www.cxiansheng.cn/server/563)
+- [Python学习笔记（常用扩展） - 命中水]({{< ref "/posts/2020-03-08-pythonxuexibijichangyongkuozhan" >}})
 
 
 
-后面又整理了反爬的套路及应对措施：[Python爬虫研究 - 命中水](https://www.cxiansheng.cn/server/569)
+后面又整理了反爬的套路及应对措施：[**Python爬虫研究** - 命中水]({{< ref "/posts/2020-03-09-pythonpachongyanjiu" >}})
 
 
 
@@ -348,7 +348,7 @@ data.groupby('category').sum().plot(kind='bar')
 
 
 
-- [Python如何爬取动态网站？ - 命中水](https://www.cxiansheng.cn/server/580)
+- [Python如何爬取动态网站？ - 命中水]({{< ref "/posts/2020-06-09-pythonruhepaqudongtaiwangzhan" >}})
 
 
 
@@ -398,7 +398,7 @@ OK，既然需求定了，那就开始整理下设计架构了（这时候公司
 
 
 
-![爬虫架构图.png](https://cxiansheng.cn/usr/uploads/2026/01/3396164285.png)
+![爬虫架构图.png](./3396164285.png)
 
 
 

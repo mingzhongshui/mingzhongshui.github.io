@@ -1,92 +1,37 @@
-<!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Redis在windows下的安装操作以及PHP-Redis操作 - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。" />
-	<meta property="og:image" content="http://localhost:3902/"/>
-	<meta property="og:url" content="http://localhost:3902/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/">
-	<meta property="og:site_name" content="命中水、">
-	<meta property="og:title" content="Redis在windows下的安装操作以及PHP-Redis操作">
-	<meta property="og:description" content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。">
-	<meta property="og:locale" content="en_us">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2016-10-01T20:37:00+00:00">
-		<meta property="article:modified_time" content="2016-10-01T20:37:00+00:00">
-		<meta property="article:tag" content="Php">
-		<meta property="article:tag" content="Redis">
-		<meta property="article:tag" content="Windows">
-		<meta property="article:tag" content="后端">
-
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Redis在windows下的安装操作以及PHP-Redis操作">
-	<meta name="twitter:description" content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。">
-
-        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
-</head>
-<body>
-        <div class="content"><header>
-	<div class="main">
-		<a href="http://localhost:3902/">命中水、</a>
-	</div>
-	<nav>
-		
-		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-		
-		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
-		
-		<a href="/archive/">归档</a>
-		
-		<a href="/about/">关于</a>
-		
-		
-	</nav>
-</header>
-
-<main>
-  <article>
-    <div class="post-container">
-      
-      <div class="post-content">
-        <div class="title">
-          <h1 class="title">Redis在windows下的安装操作以及PHP-Redis操作</h1>
-          <div class="meta">Posted on Oct 1, 2016</div>
-        </div>
-        
-        <section class="body">
-          <p>Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。</p>
-<h2 id="windows下redis安装">windows下redis安装</h2>
-<p>    首先我们需要下载一个Redis在windows系统上的安装文件。github地址：[Redis在windows下的安装文件][1]根据自己的系统选择下载，解压打开后得到如下文件结构：</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/2649301304.png" alt="redis安装文件结构"></p>
-<p>    然后我们把这些文件移动到我们所想要移动的文件夹下，<code>ctrl+R</code>输入<code>cmd</code>打开<code>cmd</code>命令窗口，切换到我们磁盘中对应的<code>redis</code>目录下，键入<code>redis-server redis.windows.conf</code> 然后回车，弹出下图提示，则证明启动成功。</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/3656832151.png" alt="redis安装成功CMD界面"></p>
-<h2 id="windows下cmd操作redis">windows下cmd操作redis</h2>
-<p>windows下调出redis cmd命令操作有两种方式：</p>
-<p>第一种：调出cmd，找到redis文件位置，键入redis-cli.exe -h localhost -p 6379  <strong>回车</strong>，运行成功如下图所示：</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/2147622796.png" alt="MVC~IR)6STW3LED8WEQF%LH.png"></p>
-<p>第二种：相比较第一种就来的简单了，直接到redis所在的文件夹下，双击redis-cli.exe文件，会出现以下窗口，证明运行成功<img src="http://cxiansheng.cn//usr/uploads/2016/10/3564393495.png" alt="运行redis-cli.exe成功界面"></p>
-<h2 id="php-redis之安装扩展">PHP-redis之安装扩展</h2>
-<h3 id="如何找正确的redis扩展">如何找正确的redis扩展？</h3>
-<p>首先看两个参数，打开页面版的phpinfo</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2025/05/6913744.png" alt="phpinfo部分截图"></p>
-<p>搜索<code>extension Build</code>找到这个配置对应的信息。比如我的是：<code>API320190902,TS,VC15</code>，注意TS和VC15两个参数</p>
-<p>打开redis版本库地址：[http://windows.php.net/downloads/pecl/releases/redis/][6]，找到与当前php版本对应的redis版本</p>
-<p><img src="https://www.cxiansheng.cn/usr/uploads/2025/05/1650079320.png" alt="redis版本部分截图"></p>
-<p>php_redis-5.3.1-7.4-ts-vc15-x64.zip</p>
-<p>我本地php版本是7.4，系统是64位，<code>phpinfo</code>中的<code>extension build</code>中的两个参数是<code>TS</code>和<code>VC15</code>，对比来看就是我选中的这个。</p>
-<p>回归正题，php5版本对应的redis下载成功后，解压获得如图两个文件（php7+ 下载的redis解压后只有一个<code>php_redis.dll</code>文件，按照下面相同的方法配置，因为没有<code>php_igbinary.dll</code>，所以并不需要引入。），把这两个文件移动到php的ext目录下</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/3417732923.png" alt="php-redis 扩展包"></p>
-<p>    移动完成后顺势在当前文件夹后退一格的目录下，找到php.ini文件，在引用扩展处加上这两个.dll的引用，具体下图：(<strong>这里说一下，引入的时候一定要把前面的分号去掉</strong>)</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/3617475430.png" alt="php.ini引入redis扩展"></p>
-<p>重启apache，网页上打开php的配置(<strong>php代码中写入phpinfo()运行即可</strong>)搜索redis会查询到redis的相关信息则说明php-redis扩展安装成功;</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/2623052587.png" alt="31JI~%YTX7L`FF}D2J6R1XG.png"></p>
-<h2 id="php-redis之代码操作">PHP-redis之代码操作</h2>
-<p>    在以上的php-redis扩展安装成功后，就可以使用php语言来操作redis了，具体代码操作如下：</p>
-<pre><code>&lt;?php
+<!doctype html><html lang=zh-CN data-theme=dark><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=12107&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: dark)"><meta name=generator content="Hugo 0.163.0"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/favicon_16x16_next.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/favicon_32_32_next.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/apple_touch_icon_next.png><meta itemprop=name content="Redis在windows下的安装操作以及PHP-Redis操作"><meta itemprop=description content="保持简单的易用性和强大的功能。"><meta name=description content="保持简单的易用性和强大的功能。"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="http://localhost:12107/imgs/me_avatar.jpg"><meta itemprop=keywords content="php,redis,windows,后端"><meta property="og:type" content="article"><meta property="og:title" content="Redis在windows下的安装操作以及PHP-Redis操作"><meta property="og:description" content="保持简单的易用性和强大的功能。"><meta property="og:image" content="/imgs/me_avatar.jpg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="http://localhost:12107/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/"><meta property="og:site_name" content="命中水、"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="mingzhongshui"><meta property="article:published_time" content="2016-10-01 20:37:00 +0000 +0000"><meta property="article:modified_time" content="2016-10-01 20:37:00 +0000 +0000"><link type=text/css rel=stylesheet href=http://localhost:12107/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=http://localhost:12107/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=http://localhost:12107/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.css?=1781070464"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><link rel=stylesheet type=text/css href="/css/custom_style.css?=1781070464"><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>Redis在windows下的安装操作以及PHP-Redis操作 - 命中水、</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>命中水、</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>你的努力要配上你的梦想</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-front-end"><a href=/categories/%E5%89%8D%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-laptop-code hvr-icon"></i>前端</a></li><li class="menu-item menu-item-backend-end"><a href=/categories/%E5%90%8E%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-server hvr-icon"></i>后端</a></li><li class="menu-item menu-item-archives"><a href=/archive/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>62</span></a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-commonweal"><a href=/404.html class=hvr-icon-pulse rel=section><i class="fa fa-heartbeat hvr-icon"></i>公益 404</a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#windows下redis安装>windows下redis安装</a></li><li><a href=#windows下cmd操作redis>windows下cmd操作redis</a></li><li><a href=#php-redis之安装扩展>PHP-redis之安装扩展</a><ul><li><a href=#如何找正确的redis扩展>如何找正确的redis扩展？</a></li></ul></li><li><a href=#php-redis之代码操作>PHP-redis之代码操作</a></li><li><a href=#总结>总结</a></li><li><a href=#附录>附录</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=mingzhongshui src=/imgs/img-lazy-loading.gif data-src=/imgs/me_avatar.jpg><p class=site-author-name itemprop=name>mingzhongshui</p><div class=site-description itemprop=description>保持简单的易用性和强大的功能。</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>62</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>105</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"><span class=links-of-social-item><a href=https://github.com/mingzhongshui title="Github → https://github.com/mingzhongshui" rel=noopener class=hvr-icon-pulse target=_blank><i class="fab fa-github fa-fw hvr-icon"></i>
+Github
+</a></span><span class=links-of-social-item><a href=mailto:in1993summer@163.com title="E-Mail → mailto:in1993summer@163.com" rel=noopener class=hvr-icon-pulse target=_blank><i class="fa fa-envelope fa-fw hvr-icon"></i>
+E-Mail</a></span></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/big/by_nc_sa.svg alt=共享知识></a></div><div class="links-of-blogroll site-overview-item animated"><div class=links-of-blogroll-title><i class="fa fa-globe fa-fw"></i>
+友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://gitee.com/hugo-next/hugo-theme-next title=https://gitee.com/hugo-next/hugo-theme-next target=_blank>Hugo-NexT</a></li><li class=links-of-blogroll-item><a href=https://lisenhui.cn title=https://lisenhui.cn target=_blank>凡梦星尘空间站</a></li></ul></div><div class="mydefined animated" itemprop=custom></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2016-07-02 16:01:00 +0000 +0000"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=132091></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=296></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2026-01-24 11:23:00 +0000 +0000"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-i18n-translate class=button title=多语言翻译><i class="fas fa-globe"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><a href=https://github.com/hugo-next rel="noopener external nofollow noreferrer" target=_blank title="Follow me on GitHub" class="exturl github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0 0 115 115h15l12 27L250 250V0z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4l13.9-13.8C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8z" fill="currentColor" class="octo-body"/></svg></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=http://localhost:12107/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/me_avatar.jpg"><meta itemprop=name content="mingzhongshui"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="mingzhongshui"><meta itemprop=description content="保持简单的易用性和强大的功能。"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="Redis在windows下的安装操作以及PHP-Redis操作"><meta itemprop=description content="Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。"></span><header class=post-header><h1 class=post-title itemprop="name headline">Redis在windows下的安装操作以及PHP-Redis操作
+<a href=https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/posts/2016-10-01-rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/index.md rel="noopener external nofollow noreferrer" target=_blank class="exturl post-edit-link" title=编辑><i class="fa fa-pen-nib"></i></a></h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2016-10-01 20:37:00 +00:00" itemprop="dateCreated datePublished" datetime="2016-10-01 20:37:00 +0000 +0000">2016-10-01
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/%E5%90%8E%E7%AB%AF/ itemprop=url rel=index><span itemprop=name>后端</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>1681</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>4分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><p>Redis是一个高性能的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &ndash;有序集合)和hash（哈希类型）。由于Redis在存储功能上的强大，它多用于一些缓存机制、队列、订阅等场景。我们这篇文章就简要介绍下Redis在windows系统上的安装和应用，以及在windows系统上用PHP对Redis的一些简单操作。</p><a id=more></a><h2 id=windows下redis安装>windows下redis安装
+<a class=header-anchor href=#windows%e4%b8%8bredis%e5%ae%89%e8%a3%85></a></h2><p>    首先我们需要下载一个Redis在windows系统上的安装文件。github地址：[Redis在windows下的安装文件][1]根据自己的系统选择下载，解压打开后得到如下文件结构：</p><p><img src=/imgs/img-lazy-loading.gif data-src=./2649301304.png alt=redis安装文件结构></p><p>    然后我们把这些文件移动到我们所想要移动的文件夹下，<code>ctrl+R</code>输入<code>cmd</code>打开<code>cmd</code>命令窗口，切换到我们磁盘中对应的<code>redis</code>目录下，键入<code>redis-server redis.windows.conf</code> 然后回车，弹出下图提示，则证明启动成功。</p><p><img src=/imgs/img-lazy-loading.gif data-src=./3656832151.png alt=redis安装成功CMD界面></p><h2 id=windows下cmd操作redis>windows下cmd操作redis
+<a class=header-anchor href=#windows%e4%b8%8bcmd%e6%93%8d%e4%bd%9credis></a></h2><p>windows下调出redis cmd命令操作有两种方式：</p><p>第一种：调出cmd，找到redis文件位置，键入redis-cli.exe -h localhost -p 6379 <strong>回车</strong>，运行成功如下图所示：</p><p><img src=/imgs/img-lazy-loading.gif data-src=./2147622796.png alt=MVC~IR)6STW3LED8WEQF%LH.png></p><p>第二种：相比较第一种就来的简单了，直接到redis所在的文件夹下，双击redis-cli.exe文件，会出现以下窗口，证明运行成功<img src=/imgs/img-lazy-loading.gif data-src=./3564393495.png alt=运行redis-cli.exe成功界面></p><h2 id=php-redis之安装扩展>PHP-redis之安装扩展
+<a class=header-anchor href=#php-redis%e4%b9%8b%e5%ae%89%e8%a3%85%e6%89%a9%e5%b1%95></a></h2><h3 id=如何找正确的redis扩展>如何找正确的redis扩展？
+<a class=header-anchor href=#%e5%a6%82%e4%bd%95%e6%89%be%e6%ad%a3%e7%a1%ae%e7%9a%84redis%e6%89%a9%e5%b1%95></a></h3><p>首先看两个参数，打开页面版的phpinfo</p><p>搜索<code>extension Build</code>找到这个配置对应的信息。比如我的是：<code>API320190902,TS,VC15</code>，注意TS和VC15两个参数</p><p>打开redis版本库地址：[http://windows.php.net/downloads/pecl/releases/redis/][6]，找到与当前php版本对应的redis版本</p><p>php_redis-5.3.1-7.4-ts-vc15-x64.zip</p><p>我本地php版本是7.4，系统是64位，<code>phpinfo</code>中的<code>extension build</code>中的两个参数是<code>TS</code>和<code>VC15</code>，对比来看就是我选中的这个。</p><p>回归正题，php5版本对应的redis下载成功后，解压获得如图两个文件（php7+ 下载的redis解压后只有一个<code>php_redis.dll</code>文件，按照下面相同的方法配置，因为没有<code>php_igbinary.dll</code>，所以并不需要引入。），把这两个文件移动到php的ext目录下</p><p><img src=/imgs/img-lazy-loading.gif data-src=./3417732923.png alt="php-redis 扩展包"></p><p>    移动完成后顺势在当前文件夹后退一格的目录下，找到php.ini文件，在引用扩展处加上这两个.dll的引用，具体下图：(<strong>这里说一下，引入的时候一定要把前面的分号去掉</strong>)</p><p><img src=/imgs/img-lazy-loading.gif data-src=./3617475430.png alt=php.ini引入redis扩展></p><p>重启apache，网页上打开php的配置(<strong>php代码中写入phpinfo()运行即可</strong>)搜索redis会查询到redis的相关信息则说明php-redis扩展安装成功;</p><p><img src=/imgs/img-lazy-loading.gif data-src=./2623052587.png alt="31JI~%YTX7L`FF}D2J6R1XG.png"></p><h2 id=php-redis之代码操作>PHP-redis之代码操作
+<a class=header-anchor href=#php-redis%e4%b9%8b%e4%bb%a3%e7%a0%81%e6%93%8d%e4%bd%9c></a></h2><p>    在以上的php-redis扩展安装成功后，就可以使用php语言来操作redis了，具体代码操作如下：</p><pre><code>&lt;?php
 
   //php操作redis简单示例
 
@@ -97,74 +42,29 @@
   $redis-&gt;set('name', '王二小');
 
   echo $redis-&gt;get('name');
-</code></pre>
-<p>页面输出：</p>
-<p><img src="http://cxiansheng.cn//usr/uploads/2016/10/511623079.png" alt="页面输出redis结果"></p>
-<p>    这样，以上redis在windows下的简单操作就完结了，网上不乏类似的文章，为了不让自己以后用到的时候辛辛苦苦去找，干脆自己整理一下，随时查看起来也方便；</p>
-<h2 id="总结">总结</h2>
-<ol>
-<li>
-<p>第一个坑：在用cmd操作redis的时候，之前那个开启redis服务的cmd窗口不能关闭哦，关闭意味着把redis服务也关闭了；</p>
-</li>
-<li>
-<p>第二个坑：在下载php-redis扩展包的时候要下载和自己php版本相同的redis包，不然也启动不了；</p>
-</li>
-<li>
-<p>第三个坑：引用redis扩展的时候一定记得把extension前面的分号去掉，不然就表示没引用咯；</p>
-</li>
-<li>
-<p>第四个坑：就当温馨提醒吧：步骤也不多，一步一步走，一蹴而就出了错误也不好排查不是；</p>
-</li>
-</ol>
-<h2 id="附录">附录</h2>
-<p>参考文章：</p>
-<ol>
-<li>
-<p>[redis详解及windows下的安装与简单使用——PHP程序员的笔记][13]</p>
-</li>
-<li>
-<p>[windows下安装redis——yun007][14]</p>
-</li>
-<li>
-<p>[windows下安装redis出现的问题以及解决办法——铁锚][15]</p>
-</li>
-</ol>
-        </section>
-        <div class="post-tags">
-          
-          
-          <nav class="nav tags">
-            <ul class="tags">
-              
-              <li><a href="/tags/php/">php</a></li>
-              
-              <li><a href="/tags/redis/">redis</a></li>
-              
-              <li><a href="/tags/windows/">windows</a></li>
-              
-              <li><a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a></li>
-              
-            </ul>
-          </nav>
-          
-          
-        </div>
-      </div>
-
-      
-      
-    </div>
-
-    </article>
-</main>
-<footer>
-  <div style="display:flex"></div>
-  <div class="footer-info">
-    2026  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
-  </div>
-</footer>
-
-</div>
-    </body>
-</html>
+</code></pre><p>页面输出：</p><p><img src=/imgs/img-lazy-loading.gif data-src=./511623079.png alt=页面输出redis结果></p><p>    这样，以上redis在windows下的简单操作就完结了，网上不乏类似的文章，为了不让自己以后用到的时候辛辛苦苦去找，干脆自己整理一下，随时查看起来也方便；</p><h2 id=总结>总结
+<a class=header-anchor href=#%e6%80%bb%e7%bb%93></a></h2><ol><li><p>第一个坑：在用cmd操作redis的时候，之前那个开启redis服务的cmd窗口不能关闭哦，关闭意味着把redis服务也关闭了；</p></li><li><p>第二个坑：在下载php-redis扩展包的时候要下载和自己php版本相同的redis包，不然也启动不了；</p></li><li><p>第三个坑：引用redis扩展的时候一定记得把extension前面的分号去掉，不然就表示没引用咯；</p></li><li><p>第四个坑：就当温馨提醒吧：步骤也不多，一步一步走，一蹴而就出了错误也不好排查不是；</p></li></ol><h2 id=附录>附录
+<a class=header-anchor href=#%e9%99%84%e5%bd%95></a></h2><p>参考文章：</p><ol><li><p>[redis详解及windows下的安装与简单使用——PHP程序员的笔记][13]</p></li><li><p>[windows下安装redis——yun007][14]</p></li><li><p>[windows下安装redis出现的问题以及解决办法——铁锚][15]</p></li></ol></div><footer class=post-footer><div class=post-tags><a href=/tags/php/>php
+</a><a href=/tags/redis/>redis
+</a><a href=/tags/windows/>windows
+</a><a href=/tags/%E5%90%8E%E7%AB%AF/>后端</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=reward-container><div><i class="fa-solid fa-mug-hot"></i>请我喝杯咖啡吧 ヾ(^▽^*)))</div><button>
+赞赏</button><div class=post-reward><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/ali-pay.png alt="mingzhongshui - 支付宝">
+<span>支付宝</span></div><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/wechat-pay.png alt="mingzhongshui - 微信">
+<span>微信</span></div></div></div><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+Redis在windows下的安装操作以及PHP-Redis操作</li><li class=post-copyright-author><strong>本文作者： </strong>mingzhongshui</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=http://localhost:12107/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/ title=Redis在windows下的安装操作以及PHP-Redis操作>http://localhost:12107/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=followme><span>欢迎关注我的其它发布渠道</span><div class=social-list><div class=social-item><a target=_blank class=social-link href=/images/wechat_channel.jpg><span class=icon><i class="fab fa-weixin"></i>
+</span><span class=label>WeChat</span></a></div><div class=social-item><a target=_blank class=social-link href=/rss.xml><span class=icon><i class="fa fa-rss"></i>
+</span><span class=label>RSS</span></a></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/posts/pluploadqiangdadeqianduanshangchuanzujian/ rel=next title=plupload—强大的前端上传组件><i class="fa fa-chevron-left"></i> plupload—强大的前端上传组件</a></div><div class="post-nav-prev post-nav-item"><a href=/posts/jsshixianyemiansousuodingwei/ rel=prev title=JS实现页面搜索+定位>JS实现页面搜索+定位
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div></main><footer class=footer><div class=footer-inner><div id=i18n-translate class=i18n-translate><i class="fa fa-language"></i><div id=lang-select class=lang-select><div id=lang-selected class=selected-option><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=selected-language>简体中文</span>
+<i class="fa fa-chevron-down"></i></div><div id=lang-options class=lang-options><div class=lang-option lang-code=zh-cn lang-name=简体中文 lang-url=/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=lang-name>简体中文</span></div></div></div></div><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>mingzhongshui</span></div><div class=powered-by>由 <a href=https://gohugo.io title=0.163.0 target=_blank>Hugo</a> & <a href=https://github.com/hugo-next/hugo-theme-next title=4.8.3 target=_blank>Hugo NexT.Gemini</a> 强力驱动</div><div class=beian><a href=https://beian.miit.gov.cn target=_blank>粤ICP备 18047355-1 号</a>
+<img src=/imgs/gongan.png alt=沪公网安备>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011402009770" target=_blank>沪公网安备 31011402009770 号</a></div><div class=vendors-list><a target=_blank href=https://vercel.com title=Vercel><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/vercel.svg alt=Vercel>
+</a><a target=_blank href=https://upyun.com title=又拍云><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/upyun.png alt=又拍云>
+</a><a target=_blank href=https://github.com title=Github><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/github.svg alt=Github>
+</a><span>提供CDN/云资源支持</span></div><div class=custom-footer>Website source code <a href=https://github.com/hugo-next/hugo-theme-next/blob/develop/exampleSite/layouts/partials/custom_footer.html target=_blank>here</a></div></div></footer><script class=next-config data-name=page type=application/json>{"comments":false,"expired":false,"isHome":false,"isPage":true,"path":"rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo","permalink":"http://localhost:12107/posts/rediszaiwindowsxiadeanzhuangcaozuoyijiphprediscaozuo/","title":"Redis在windows下的安装操作以及PHP-Redis操作","toc":true,"waline":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"2.15.8"}}}</script><script type=text/javascript src=http://localhost:12107/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=http://localhost:12107/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":true,"hostname":"http://localhost:12107/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":true,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"http://localhost:12107/js/3rd"}},"version":"4.8.3","waline":{"cfg":{"emoji":false,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"serverurl":null,"sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"2.15.8"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"2.15.8"}}}</script><script type=text/javascript src="/js/main.js?=1781070465" defer></script></body></html>

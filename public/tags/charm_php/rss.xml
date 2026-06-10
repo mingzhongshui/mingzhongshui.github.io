@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Charm_PHP on 命中水、</title><link>http://localhost:12107/tags/charm_php/</link><description>Recent content in Charm_PHP on 命中水、</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Nov 2017 11:04:00 +0000</lastBuildDate><atom:link href="http://localhost:12107/tags/charm_php/rss.xml" rel="self" type="application/rss+xml"/><item><title>charm_PHP，一个还有诸多问题的PHP MVC框架</title><link>http://localhost:12107/posts/charm_phpyigehaiyouzhuduowentidephp_mvckuangjia/</link><pubDate>Sat, 11 Nov 2017 11:04:00 +0000</pubDate><guid>http://localhost:12107/posts/charm_phpyigehaiyouzhuduowentidephp_mvckuangjia/</guid><description>&lt;h1 id="charm_php"&gt;charm_PHP
+&lt;a class="header-anchor" href="#charm_php"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="介绍"&gt;介绍
+&lt;a class="header-anchor" href="#%e4%bb%8b%e7%bb%8d"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;一个简单的MVC框架，框架中实现了C和V层，M层使用composer的PHP组件——
+&lt;a href="https://packagist.org/packages/catfan/medoo" title="Medoo" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Medoo
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;，实现了一些简单的设计模式，单一入口、自动加载。&lt;/p&gt;
+&lt;p&gt;本框架遵循
+&lt;a href="https://www.cxiansheng.cn/server/293" title="PSR规范" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ PSR规范
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;，使用
+&lt;a href="http://www.php.net/manual/zh/language.namespaces.rationale.php" title="命名空间" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 命名空间
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;来规范类于类之间的互相合作；&lt;/p&gt;</description></item></channel></rss>

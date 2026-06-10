@@ -106,7 +106,7 @@ ln -v 显示详细的处理过程
 
 ### apache2目录结构 ###
 
- ![apache2目录结构](http://cxiansheng.cn/usr/uploads/2016/11/2103702455.jpg)
+ ![apache2目录结构](./2103702455.jpg)
 
 
 
@@ -278,7 +278,7 @@ ln -s /etc/apache2/sites-available/demo.conf /etc/apache2/sites-enabled/demo.con
 
 ### 输入网址 ###
 
-![链接成功](http://cxiansheng.cn/usr/uploads/2016/11/3543322545.jpg)
+![链接成功](./3543322545.jpg)
 
 
 

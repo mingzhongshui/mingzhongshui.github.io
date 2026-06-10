@@ -1,0 +1,33 @@
+theme = "hugo-theme-diary"
+
+baseURL = 'https://mingzhongshui.github.io/'
+locale = 'en-us'
+title = '命中水、'
+ignoreLogs = ['warning-goldmark-raw-html']
+
+[params]
+  archives = { enabled = true }
+  mainSections = ["posts"]
+  BookSection = ""
+
+  [params.author]
+    name = "命中水"
+    email = "in1993summer@163.com"   # 可换成你的邮箱
+
+[menu]
+  [[menu.main]]
+    name = "前端"
+    url = "/categories/前端/"
+    weight = 1
+  [[menu.main]]
+    name = "后端"
+    url = "/categories/后端/"
+    weight = 2
+  [[menu.main]]
+    name = "归档"
+    url = "/archive/"
+    weight = 3
+  [[menu.main]]
+    name = "关于"
+    url = "/about/"
+    weight = 4

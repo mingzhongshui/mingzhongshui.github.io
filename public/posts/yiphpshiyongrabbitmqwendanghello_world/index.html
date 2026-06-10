@@ -1,243 +1,208 @@
-<!DOCTYPE html>
-<html><head lang="en"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3902&amp;path=livereload" data-no-instant defer></script>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>[译]PHP使用RabbitMQ文档--Hello World - 命中水、</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。
-英文地址：[RabbitMQ tutorial - &ldquo;Hello World!&rdquo; — RabbitMQ][1]" />
-	<meta property="og:image" content="http://localhost:3902/"/>
-	<meta property="og:url" content="http://localhost:3902/posts/yiphpshiyongrabbitmqwendanghello_world/">
-	<meta property="og:site_name" content="命中水、">
-	<meta property="og:title" content="[译]PHP使用RabbitMQ文档--Hello World">
-	<meta property="og:description" content="这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。
-英文地址：[RabbitMQ tutorial - “Hello World!” — RabbitMQ][1]">
-	<meta property="og:locale" content="en_us">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2019-05-30T21:16:00+00:00">
-		<meta property="article:modified_time" content="2019-05-30T21:16:00+00:00">
-		<meta property="article:tag" content="RabbitMQ">
-		<meta property="article:tag" content="翻译">
-
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="[译]PHP使用RabbitMQ文档--Hello World">
-	<meta name="twitter:description" content="这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。
-英文地址：[RabbitMQ tutorial - “Hello World!” — RabbitMQ][1]">
-
-        <link href="http://localhost:3902/css/fonts.11a1877508139eac0b5b4852ceb110c35641b3533321e66e39149e901ed5756b.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:3902/css/main.e174c89d1fad318f874d22964b6f0f070a8491ff9295c2ceb1de9bcf885989a4.css" />
-</head>
-<body>
-        <div class="content"><header>
-	<div class="main">
-		<a href="http://localhost:3902/">命中水、</a>
-	</div>
-	<nav>
-		
-		<a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-		
-		<a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
-		
-		<a href="/archive/">归档</a>
-		
-		<a href="/about/">关于</a>
-		
-		
-	</nav>
-</header>
-
-<main>
-  <article>
-    <div class="post-container">
-      
-      <div class="post-content">
-        <div class="title">
-          <h1 class="title">[译]PHP使用RabbitMQ文档--Hello World</h1>
-          <div class="meta">Posted on May 30, 2019</div>
-        </div>
-        
-        <section class="body">
-          <p>这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。</p>
-<p>英文地址：[RabbitMQ tutorial - &ldquo;Hello World!&rdquo; — RabbitMQ][1]</p>
-<h2 id="介绍">介绍</h2>
-<p>RabbitMQ是一个消息代理，它接收和转发消息，你可以把它当做邮局。当您要发出的邮件放在邮箱中时，您的身份可以是先生或者女士，邮递员最终会把这封邮件发送到您的收件人。在这个比喻中，RabbitMQ是一个邮局、邮箱、快递员。</p>
-<p>RabbitMQ和邮局之间的区别在于，它处理的方式不是纸张，而是接受，存储和转发二进制数据-消息。</p>
-<p>RabbitMQ和一般的消息传递使用了一些术语：</p>
-<ul>
-<li>
-<p>生产只意味着发送，发送消息的程序是一个生产者;</p>
-</li>
-<li>
-<p>队列是RabbitMQ中邮箱的名称。虽然消息流经RabbitMQ和您的程序，但他们只是存储在队列中。A队列仅由主机的存储器和磁盘限制约束，它本质上是一个比较大的消息缓冲器。多个生产者可以发送消息到队列，多个消费者也可以同时从队列中接收数据。这就是我们代表队列的方式</p>
-</li>
-<li>
-<p>消费和接收意思相近，一个消费者是一个程序，主要作用是等待接收消息</p>
-</li>
-</ul>
-<p>注意：生产者，消费者和代理不必在同一台主机上，实际上在大多数应用程序中也不是这样，应用程序也可以是生产者和消费者。</p>
-<h2 id="hello-world">Hello World</h2>
-<p>（使用php-amqplib客户端）</p>
-<p>在本教程的这一部分中，我们将编写两个程序，一个生产者用来发送单个消息，一个消费者接收消息并打印。我们将忽略php-amqplib API中的一些细节，专注于这个简单的开始。</p>
-<p>在下图中，P是我们的生产者，C是我们的消费者，中间的红框是一个队列&ndash;RabbitMQ代表消费者的消息缓冲区。</p>
-<p><img src="./3689783100.png" alt="one.png"></p>
-<p>php-amqplib客户端库</p>
-<p>RabbitMQ有多种协议。本教程介绍了AMQP 0-9-1，它是一种开放的，通用的消息传递协议。RabbitMQ有多种不同语言的客户端，我们在本教程使用php-amqplib，并使用composer进行依赖管理。</p>
-<p>将一个composer文件添加到你的项目中：</p>
-<pre tabindex="0"><code>
-{
-
-    &#34;require&#34;: {
-
-        &#34;php-amqplib/php-amqplib&#34;: &#34;&gt;=2.6.1&#34;
-
-    }
-
-}
-</code></pre><p>假如你已经安装composer并且运行正常，你可以运行下面的命令：</p>
-<pre tabindex="0"><code>
-composer.phar install
-</code></pre><p>也有适用于windows的composer安装程序；</p>
-<p>现在我们也已经安装了php-amqplib库，现在我们可以写一些代码：</p>
-<h3 id="发送">发送</h3>
-<p><img src="./2117985321.png" alt="sending.png"></p>
-<p>我们将调用我们的消息发布者（发送者）send.php，和我们的消息接收者receive.php。发布者将连接到RabbitMQ，发送一些简单的消息，然后退出。</p>
-<p>在send.php中，我们需要包含库并且use必要的类：</p>
-<pre tabindex="0"><code>
-require_once __DIR__ . &#39;/vendor/autoload.php&#39;;
-
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-
-use PhpAmqpLib\Message\AMQPMessage;
-</code></pre><p>然后我们可以创建到服务器的连接：</p>
-<pre tabindex="0"><code>
-$connection = new AMQPStreamConnection(&#39;localhost&#39;, 5672, &#39;guest&#39;, &#39;guest&#39;);
-
-$channel = $connection-&gt;channel();
-</code></pre><p>这个连接抽象(abstracts )socket连接，并为我们负责协议版本协商和身份验证等。我们连接到本地代理&ndash;本地主机(localhost)，如果我们想要连接到其他主机，我们只需要指定名称或ip地址即可。</p>
-<p>下一步我们创建一个通道(channel)，这是完成大多数任务API所在的地方。</p>
-<p>发送的时候，我们必须声明一个队列让我们发送，我们可以让发布者发送消息到队列中：</p>
-<pre tabindex="0"><code>
-$channel-&gt;queue_declare(&#39;hello&#39;, false, false, false, false);
-
-
-
-$msg = new AMQPMessage(&#39;Hello World!&#39;);
-
-$channel-&gt;basic_publish($msg, &#39;&#39;, &#39;hello&#39;);
-
-
-
-echo &#34; [x] Sent &#39;Hello World!&#39;\n&#34;;
-</code></pre><p>声明队列是幂等元的&ndash;只有在它不存在的时候才会创建。消息内容是一个字节数组，</p>
-<p>因此你可以存放任意你喜欢的内容。</p>
-<p>最后，我们关闭这个通道和连接；</p>
-<pre tabindex="0"><code>
-$channel-&gt;close();
-
-$connection-&gt;close();
-</code></pre><p>[这是在github上的send.php代码][5]</p>
-<h3 id="发送失败">发送失败</h3>
-<p>如果你是第一次使用RabbitMQ并且运行失败，也许你会抓耳挠腮想到底是哪里出了问题。也许代理启动时没有足够的磁盘空间（默认情况下RabbitMQ至少需要200M磁盘空间）因此拒绝接收消息。这时候你需要检查日志文件并相应的减少一些限制，此[配置文档][6]会教你如何设置<code>disk_free_limit</code>。</p>
-<h2 id="接收">接收</h2>
-<p>这是我们的消息发布者。我们的接收者正在监听来自于RabbitMQ的消息，因此与发布单个消息的发布者不同，我们将持续运行监听消息并打印出来。</p>
-<p><img src="./2860580453.png" alt="receiving.png"></p>
-<p>代码包含和引用的文件几乎和send.php相同：</p>
-<pre tabindex="0"><code>
-require_once __DIR__ . &#39;/vendor/autoload.php&#39;;
-
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-</code></pre><p>和发布者的代码设置一样，我们打开一个连接(connection)和一个通道(channel)，并声明我们要监听的队列，注意，这里监听的队列要和send.php中的队列一致。</p>
-<pre tabindex="0"><code>
-$connection = new AMQPStreamConnection(&#39;localhost&#39;, 5672, &#39;guest&#39;, &#39;guest&#39;);
-
-$channel = $connection-&gt;channel();
-
-
-
-$channel-&gt;queue_declare(&#39;hello&#39;, false, false, false, false);
-
-
-
-echo &#34; [*] Waiting for messages. To exit press CTRL+C\n&#34;;
-</code></pre><p>注意，我们在这里也声明了队列，因为我们要确保在发布者运行之前先启动消费者。我们尝试消费消息之前要确认队列是否存在。</p>
-<p>我们将告诉服务器从队列向我们传递消息，我们将定义一个回调函数，来接收从服务器接收到的消息。请记住，消息是从服务器异步发送到客户端的。</p>
-<pre tabindex="0"><code>
-$callback = function ($msg) {
-
-  echo &#39; [x] Received &#39;, $msg-&gt;body, &#34;\n&#34;;
-
-};
-
-
-
-$channel-&gt;basic_consume(&#39;hello&#39;, &#39;&#39;, false, true, false, false, $callback);
-
-
-
-while (count($channel-&gt;callbacks)) {
-
-    $channel-&gt;wait();
-
-}
-</code></pre><p>我们设置$channel阻塞运行并等待。每当我们收到一条消息时，我们的回调函数<code>$callback</code>将传递收到的消息。</p>
-<p>[这是在github上receive.php代码][8]</p>
-<h2 id="运行">运行</h2>
-<p>现在我们运行这两个文件。在终端中，运行消费者(接收者)：</p>
-<pre tabindex="0"><code>
-php receive.php
-</code></pre><p>然后运行发布者：</p>
-<pre tabindex="0"><code>
-php send.php
-</code></pre><p>消费脚本(receive.php)将通过RabbitMQ获取并打印发布者发送的消息，接收者将持续运行，等待消息(使用ctrl + c)退出，尝试用另外一个终端运行send.php</p>
-<h3 id="列出队列">列出队列</h3>
-<p>你也许想知道RabbitMQ上有多少个队列以及他们中有多少条消息，你可以使用<code>rabbitmqctl</code>工具：</p>
-<pre tabindex="0"><code>
-sudo rabbitmqctl list_queues
-</code></pre><p>windows上命令如下（进入bin目录）:</p>
-<pre tabindex="0"><code>
-rabbitmqctl.bat list_queues
-</code></pre><p>是时候转到第二部分来构建一个简单的工作队列了。</p>
-<h2 id="生产非适用性免责声明">生产[非]适用性免责声明</h2>
-<p>请记住，本教程和其他教程一样都是教程。他们一次只展示一个概念，可能会过度简化而忽略其他事项。例如，为了简洁起见，在很大程度上省略了像连接管理，错误处理，连接恢复，并发等问题。这种简化的代码并不代表可以生产使用了。</p>
-<p>在使用程序之前，请先查看其它[文档][9]。我们特别推荐以下指南：[发布者确认和消费致谢][10]，[生产检查表][11]和[监控][12]。</p>
-<h2 id="获得帮助并提供反馈">获得帮助并提供反馈</h2>
-<p>如果您对本教程或者RabbitMQ其它方面有疑问，请不要犹豫，在[RabbitMQ邮箱列表][13]中咨询他们。</p>
-<h2 id="帮助我们改进文档">帮助我们改进文档</h2>
-<p>如果你想对网站做出改进，可以在GitHub找到它的来源，fork一个仓库，并提交拉取请求即可。谢谢！</p>
-        </section>
-        <div class="post-tags">
-          
-          
-          <nav class="nav tags">
-            <ul class="tags">
-              
-              <li><a href="/tags/rabbitmq/">RabbitMQ</a></li>
-              
-              <li><a href="/tags/%E7%BF%BB%E8%AF%91/">翻译</a></li>
-              
-            </ul>
-          </nav>
-          
-          
-        </div>
-      </div>
-
-      
-      
-    </div>
-
-    </article>
-</main>
-<footer>
-  <div style="display:flex"></div>
-  <div class="footer-info">
-    2026  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
-  </div>
-</footer>
-
-</div>
-    </body>
-</html>
+<!doctype html><html lang=zh-CN data-theme=dark><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=12107&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: dark)"><meta name=generator content="Hugo 0.163.0"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/favicon_16x16_next.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/favicon_32_32_next.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/apple_touch_icon_next.png><meta itemprop=name content="[译]PHP使用RabbitMQ文档--Hello World"><meta itemprop=description content="保持简单的易用性和强大的功能。"><meta name=description content="保持简单的易用性和强大的功能。"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="http://localhost:12107/imgs/me_avatar.jpg"><meta itemprop=keywords content="RabbitMQ,翻译"><meta property="og:type" content="article"><meta property="og:title" content="[译]PHP使用RabbitMQ文档--Hello World"><meta property="og:description" content="保持简单的易用性和强大的功能。"><meta property="og:image" content="/imgs/me_avatar.jpg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="http://localhost:12107/posts/yiphpshiyongrabbitmqwendanghello_world/"><meta property="og:site_name" content="命中水、"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="mingzhongshui"><meta property="article:published_time" content="2019-05-30 21:16:00 +0000 +0000"><meta property="article:modified_time" content="2019-05-30 21:16:00 +0000 +0000"><link type=text/css rel=stylesheet href=http://localhost:12107/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=http://localhost:12107/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=http://localhost:12107/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.css?=1781070465"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><link rel=stylesheet type=text/css href="/css/custom_style.css?=1781070465"><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>[译]PHP使用RabbitMQ文档--Hello World - 命中水、</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>命中水、</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>你的努力要配上你的梦想</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-front-end"><a href=/categories/%E5%89%8D%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-laptop-code hvr-icon"></i>前端</a></li><li class="menu-item menu-item-backend-end"><a href=/categories/%E5%90%8E%E7%AB%AF class=hvr-icon-pulse rel=section><i class="fa fa-server hvr-icon"></i>后端</a></li><li class="menu-item menu-item-archives"><a href=/archive/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>62</span></a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-commonweal"><a href=/404.html class=hvr-icon-pulse rel=section><i class="fa fa-heartbeat hvr-icon"></i>公益 404</a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#介绍>介绍</a></li><li><a href=#hello-world>Hello World</a><ul><li><a href=#发送>发送</a></li><li><a href=#发送失败>发送失败</a></li></ul></li><li><a href=#接收>接收</a></li><li><a href=#运行>运行</a><ul><li><a href=#列出队列>列出队列</a></li></ul></li><li><a href=#生产非适用性免责声明>生产[非]适用性免责声明</a></li><li><a href=#获得帮助并提供反馈>获得帮助并提供反馈</a></li><li><a href=#帮助我们改进文档>帮助我们改进文档</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=mingzhongshui src=/imgs/img-lazy-loading.gif data-src=/imgs/me_avatar.jpg><p class=site-author-name itemprop=name>mingzhongshui</p><div class=site-description itemprop=description>保持简单的易用性和强大的功能。</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>62</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>105</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"><span class=links-of-social-item><a href=https://github.com/mingzhongshui title="Github → https://github.com/mingzhongshui" rel=noopener class=hvr-icon-pulse target=_blank><i class="fab fa-github fa-fw hvr-icon"></i>
+Github
+</a></span><span class=links-of-social-item><a href=mailto:in1993summer@163.com title="E-Mail → mailto:in1993summer@163.com" rel=noopener class=hvr-icon-pulse target=_blank><i class="fa fa-envelope fa-fw hvr-icon"></i>
+E-Mail</a></span></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/big/by_nc_sa.svg alt=共享知识></a></div><div class="links-of-blogroll site-overview-item animated"><div class=links-of-blogroll-title><i class="fa fa-globe fa-fw"></i>
+友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://gitee.com/hugo-next/hugo-theme-next title=https://gitee.com/hugo-next/hugo-theme-next target=_blank>Hugo-NexT</a></li><li class=links-of-blogroll-item><a href=https://lisenhui.cn title=https://lisenhui.cn target=_blank>凡梦星尘空间站</a></li></ul></div><div class="mydefined animated" itemprop=custom></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2016-07-02 16:01:00 +0000 +0000"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=132091></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=296></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2026-01-24 11:23:00 +0000 +0000"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-i18n-translate class=button title=多语言翻译><i class="fas fa-globe"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><a href=https://github.com/hugo-next rel="noopener external nofollow noreferrer" target=_blank title="Follow me on GitHub" class="exturl github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0 0 115 115h15l12 27L250 250V0z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4l13.9-13.8C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8z" fill="currentColor" class="octo-body"/></svg></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=http://localhost:12107/posts/yiphpshiyongrabbitmqwendanghello_world/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/me_avatar.jpg"><meta itemprop=name content="mingzhongshui"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="mingzhongshui"><meta itemprop=description content="保持简单的易用性和强大的功能。"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="[译]PHP使用RabbitMQ文档--Hello World"><meta itemprop=description content="这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。
+英文地址：[RabbitMQ tutorial - &ldquo;Hello World!&rdquo; — RabbitMQ][1]"></span><header class=post-header><h1 class=post-title itemprop="name headline">[译]PHP使用RabbitMQ文档--Hello World
+<a href=https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/posts/2019-05-30-yiphpshiyongrabbitmqwendanghello_world/index.md rel="noopener external nofollow noreferrer" target=_blank class="exturl post-edit-link" title=编辑><i class="fa fa-pen-nib"></i></a></h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2019-05-30 21:16:00 +00:00" itemprop="dateCreated datePublished" datetime="2019-05-30 21:16:00 +0000 +0000">2019-05-30
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/%E6%97%A5%E5%B8%B8/ itemprop=url rel=index><span itemprop=name>其他/后端/日常</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>2606</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>6分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/posts/yiphpshiyongrabbitmqwendanghello_world/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><p>这是一篇翻译在PHP中如何使用RabbitMQ的文档。有些地方加了一些自己的理解，但意思应该不差。本人水平有限，如有翻译不当还请谅解。</p><p>英文地址：[RabbitMQ tutorial - &ldquo;Hello World!&rdquo; — RabbitMQ][1]</p><a id=more></a><h2 id=介绍>介绍
+<a class=header-anchor href=#%e4%bb%8b%e7%bb%8d></a></h2><p>RabbitMQ是一个消息代理，它接收和转发消息，你可以把它当做邮局。当您要发出的邮件放在邮箱中时，您的身份可以是先生或者女士，邮递员最终会把这封邮件发送到您的收件人。在这个比喻中，RabbitMQ是一个邮局、邮箱、快递员。</p><p>RabbitMQ和邮局之间的区别在于，它处理的方式不是纸张，而是接受，存储和转发二进制数据-消息。</p><p>RabbitMQ和一般的消息传递使用了一些术语：</p><ul><li><p>生产只意味着发送，发送消息的程序是一个生产者;</p></li><li><p>队列是RabbitMQ中邮箱的名称。虽然消息流经RabbitMQ和您的程序，但他们只是存储在队列中。A队列仅由主机的存储器和磁盘限制约束，它本质上是一个比较大的消息缓冲器。多个生产者可以发送消息到队列，多个消费者也可以同时从队列中接收数据。这就是我们代表队列的方式</p></li><li><p>消费和接收意思相近，一个消费者是一个程序，主要作用是等待接收消息</p></li></ul><p>注意：生产者，消费者和代理不必在同一台主机上，实际上在大多数应用程序中也不是这样，应用程序也可以是生产者和消费者。</p><h2 id=hello-world>Hello World
+<a class=header-anchor href=#hello-world></a></h2><p>（使用php-amqplib客户端）</p><p>在本教程的这一部分中，我们将编写两个程序，一个生产者用来发送单个消息，一个消费者接收消息并打印。我们将忽略php-amqplib API中的一些细节，专注于这个简单的开始。</p><p>在下图中，P是我们的生产者，C是我们的消费者，中间的红框是一个队列&ndash;RabbitMQ代表消费者的消息缓冲区。</p><p><img src=/imgs/img-lazy-loading.gif data-src=./3689783100.png alt=one.png></p><p>php-amqplib客户端库</p><p>RabbitMQ有多种协议。本教程介绍了AMQP 0-9-1，它是一种开放的，通用的消息传递协议。RabbitMQ有多种不同语言的客户端，我们在本教程使用php-amqplib，并使用composer进行依赖管理。</p><p>将一个composer文件添加到你的项目中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1> 1</a>
+</span><span class=lnt id=hl-0-2><a class=lnlinks href=#hl-0-2> 2</a>
+</span><span class=lnt id=hl-0-3><a class=lnlinks href=#hl-0-3> 3</a>
+</span><span class=lnt id=hl-0-4><a class=lnlinks href=#hl-0-4> 4</a>
+</span><span class=lnt id=hl-0-5><a class=lnlinks href=#hl-0-5> 5</a>
+</span><span class=lnt id=hl-0-6><a class=lnlinks href=#hl-0-6> 6</a>
+</span><span class=lnt id=hl-0-7><a class=lnlinks href=#hl-0-7> 7</a>
+</span><span class=lnt id=hl-0-8><a class=lnlinks href=#hl-0-8> 8</a>
+</span><span class=lnt id=hl-0-9><a class=lnlinks href=#hl-0-9> 9</a>
+</span><span class=lnt id=hl-0-10><a class=lnlinks href=#hl-0-10>10</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    &#34;require&#34;: {
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        &#34;php-amqplib/php-amqplib&#34;: &#34;&gt;=2.6.1&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>}</span></span></code></pre></td></tr></table></div></div><p>假如你已经安装composer并且运行正常，你可以运行下面的命令：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span><span class=lnt id=hl-1-2><a class=lnlinks href=#hl-1-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>composer.phar install</span></span></code></pre></td></tr></table></div></div><p>也有适用于windows的composer安装程序；</p><p>现在我们也已经安装了php-amqplib库，现在我们可以写一些代码：</p><h3 id=发送>发送
+<a class=header-anchor href=#%e5%8f%91%e9%80%81></a></h3><p><img src=/imgs/img-lazy-loading.gif data-src=./2117985321.png alt=sending.png></p><p>我们将调用我们的消息发布者（发送者）send.php，和我们的消息接收者receive.php。发布者将连接到RabbitMQ，发送一些简单的消息，然后退出。</p><p>在send.php中，我们需要包含库并且use必要的类：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1>1</a>
+</span><span class=lnt id=hl-2-2><a class=lnlinks href=#hl-2-2>2</a>
+</span><span class=lnt id=hl-2-3><a class=lnlinks href=#hl-2-3>3</a>
+</span><span class=lnt id=hl-2-4><a class=lnlinks href=#hl-2-4>4</a>
+</span><span class=lnt id=hl-2-5><a class=lnlinks href=#hl-2-5>5</a>
+</span><span class=lnt id=hl-2-6><a class=lnlinks href=#hl-2-6>6</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>require_once</span> <span class=n>__DIR__</span> <span class=o>.</span> <span class=s1>&#39;/vendor/autoload.php&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>use</span> <span class=n>PhpAmqpLib</span>\<span class=n>Connection</span>\<span class=n>AMQPStreamConnection</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>use</span> <span class=n>PhpAmqpLib</span>\<span class=n>Message</span>\<span class=n>AMQPMessage</span><span class=p>;</span></span></span></code></pre></td></tr></table></div></div><p>然后我们可以创建到服务器的连接：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1>1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2>2</a>
+</span><span class=lnt id=hl-3-3><a class=lnlinks href=#hl-3-3>3</a>
+</span><span class=lnt id=hl-3-4><a class=lnlinks href=#hl-3-4>4</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$connection = new AMQPStreamConnection(&#39;localhost&#39;, 5672, &#39;guest&#39;, &#39;guest&#39;);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel = $connection-&gt;channel();</span></span></code></pre></td></tr></table></div></div><p>这个连接抽象(abstracts )socket连接，并为我们负责协议版本协商和身份验证等。我们连接到本地代理&ndash;本地主机(localhost)，如果我们想要连接到其他主机，我们只需要指定名称或ip地址即可。</p><p>下一步我们创建一个通道(channel)，这是完成大多数任务API所在的地方。</p><p>发送的时候，我们必须声明一个队列让我们发送，我们可以让发布者发送消息到队列中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1> 1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2> 2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3> 3</a>
+</span><span class=lnt id=hl-4-4><a class=lnlinks href=#hl-4-4> 4</a>
+</span><span class=lnt id=hl-4-5><a class=lnlinks href=#hl-4-5> 5</a>
+</span><span class=lnt id=hl-4-6><a class=lnlinks href=#hl-4-6> 6</a>
+</span><span class=lnt id=hl-4-7><a class=lnlinks href=#hl-4-7> 7</a>
+</span><span class=lnt id=hl-4-8><a class=lnlinks href=#hl-4-8> 8</a>
+</span><span class=lnt id=hl-4-9><a class=lnlinks href=#hl-4-9> 9</a>
+</span><span class=lnt id=hl-4-10><a class=lnlinks href=#hl-4-10>10</a>
+</span><span class=lnt id=hl-4-11><a class=lnlinks href=#hl-4-11>11</a>
+</span><span class=lnt id=hl-4-12><a class=lnlinks href=#hl-4-12>12</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel-&gt;queue_declare(&#39;hello&#39;, false, false, false, false);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$msg = new AMQPMessage(&#39;Hello World!&#39;);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel-&gt;basic_publish($msg, &#39;&#39;, &#39;hello&#39;);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>echo &#34; [x] Sent &#39;Hello World!&#39;\n&#34;;</span></span></code></pre></td></tr></table></div></div><p>声明队列是幂等元的&ndash;只有在它不存在的时候才会创建。消息内容是一个字节数组，</p><p>因此你可以存放任意你喜欢的内容。</p><p>最后，我们关闭这个通道和连接；</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1>1</a>
+</span><span class=lnt id=hl-5-2><a class=lnlinks href=#hl-5-2>2</a>
+</span><span class=lnt id=hl-5-3><a class=lnlinks href=#hl-5-3>3</a>
+</span><span class=lnt id=hl-5-4><a class=lnlinks href=#hl-5-4>4</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel-&gt;close();
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$connection-&gt;close();</span></span></code></pre></td></tr></table></div></div><p>[这是在github上的send.php代码][5]</p><h3 id=发送失败>发送失败
+<a class=header-anchor href=#%e5%8f%91%e9%80%81%e5%a4%b1%e8%b4%a5></a></h3><p>如果你是第一次使用RabbitMQ并且运行失败，也许你会抓耳挠腮想到底是哪里出了问题。也许代理启动时没有足够的磁盘空间（默认情况下RabbitMQ至少需要200M磁盘空间）因此拒绝接收消息。这时候你需要检查日志文件并相应的减少一些限制，此[配置文档][6]会教你如何设置<code>disk_free_limit</code>。</p><h2 id=接收>接收
+<a class=header-anchor href=#%e6%8e%a5%e6%94%b6></a></h2><p>这是我们的消息发布者。我们的接收者正在监听来自于RabbitMQ的消息，因此与发布单个消息的发布者不同，我们将持续运行监听消息并打印出来。</p><p><img src=/imgs/img-lazy-loading.gif data-src=./2860580453.png alt=receiving.png></p><p>代码包含和引用的文件几乎和send.php相同：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a class=lnlinks href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a class=lnlinks href=#hl-6-2>2</a>
+</span><span class=lnt id=hl-6-3><a class=lnlinks href=#hl-6-3>3</a>
+</span><span class=lnt id=hl-6-4><a class=lnlinks href=#hl-6-4>4</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>require_once</span> <span class=n>__DIR__</span> <span class=o>.</span> <span class=s1>&#39;/vendor/autoload.php&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>use</span> <span class=n>PhpAmqpLib</span>\<span class=n>Connection</span>\<span class=n>AMQPStreamConnection</span><span class=p>;</span></span></span></code></pre></td></tr></table></div></div><p>和发布者的代码设置一样，我们打开一个连接(connection)和一个通道(channel)，并声明我们要监听的队列，注意，这里监听的队列要和send.php中的队列一致。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a class=lnlinks href=#hl-7-1> 1</a>
+</span><span class=lnt id=hl-7-2><a class=lnlinks href=#hl-7-2> 2</a>
+</span><span class=lnt id=hl-7-3><a class=lnlinks href=#hl-7-3> 3</a>
+</span><span class=lnt id=hl-7-4><a class=lnlinks href=#hl-7-4> 4</a>
+</span><span class=lnt id=hl-7-5><a class=lnlinks href=#hl-7-5> 5</a>
+</span><span class=lnt id=hl-7-6><a class=lnlinks href=#hl-7-6> 6</a>
+</span><span class=lnt id=hl-7-7><a class=lnlinks href=#hl-7-7> 7</a>
+</span><span class=lnt id=hl-7-8><a class=lnlinks href=#hl-7-8> 8</a>
+</span><span class=lnt id=hl-7-9><a class=lnlinks href=#hl-7-9> 9</a>
+</span><span class=lnt id=hl-7-10><a class=lnlinks href=#hl-7-10>10</a>
+</span><span class=lnt id=hl-7-11><a class=lnlinks href=#hl-7-11>11</a>
+</span><span class=lnt id=hl-7-12><a class=lnlinks href=#hl-7-12>12</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$connection = new AMQPStreamConnection(&#39;localhost&#39;, 5672, &#39;guest&#39;, &#39;guest&#39;);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel = $connection-&gt;channel();
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel-&gt;queue_declare(&#39;hello&#39;, false, false, false, false);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>echo &#34; [*] Waiting for messages. To exit press CTRL+C\n&#34;;</span></span></code></pre></td></tr></table></div></div><p>注意，我们在这里也声明了队列，因为我们要确保在发布者运行之前先启动消费者。我们尝试消费消息之前要确认队列是否存在。</p><p>我们将告诉服务器从队列向我们传递消息，我们将定义一个回调函数，来接收从服务器接收到的消息。请记住，消息是从服务器异步发送到客户端的。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a class=lnlinks href=#hl-8-1> 1</a>
+</span><span class=lnt id=hl-8-2><a class=lnlinks href=#hl-8-2> 2</a>
+</span><span class=lnt id=hl-8-3><a class=lnlinks href=#hl-8-3> 3</a>
+</span><span class=lnt id=hl-8-4><a class=lnlinks href=#hl-8-4> 4</a>
+</span><span class=lnt id=hl-8-5><a class=lnlinks href=#hl-8-5> 5</a>
+</span><span class=lnt id=hl-8-6><a class=lnlinks href=#hl-8-6> 6</a>
+</span><span class=lnt id=hl-8-7><a class=lnlinks href=#hl-8-7> 7</a>
+</span><span class=lnt id=hl-8-8><a class=lnlinks href=#hl-8-8> 8</a>
+</span><span class=lnt id=hl-8-9><a class=lnlinks href=#hl-8-9> 9</a>
+</span><span class=lnt id=hl-8-10><a class=lnlinks href=#hl-8-10>10</a>
+</span><span class=lnt id=hl-8-11><a class=lnlinks href=#hl-8-11>11</a>
+</span><span class=lnt id=hl-8-12><a class=lnlinks href=#hl-8-12>12</a>
+</span><span class=lnt id=hl-8-13><a class=lnlinks href=#hl-8-13>13</a>
+</span><span class=lnt id=hl-8-14><a class=lnlinks href=#hl-8-14>14</a>
+</span><span class=lnt id=hl-8-15><a class=lnlinks href=#hl-8-15>15</a>
+</span><span class=lnt id=hl-8-16><a class=lnlinks href=#hl-8-16>16</a>
+</span><span class=lnt id=hl-8-17><a class=lnlinks href=#hl-8-17>17</a>
+</span><span class=lnt id=hl-8-18><a class=lnlinks href=#hl-8-18>18</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$callback = function ($msg) {
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  echo &#39; [x] Received &#39;, $msg-&gt;body, &#34;\n&#34;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>};
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$channel-&gt;basic_consume(&#39;hello&#39;, &#39;&#39;, false, true, false, false, $callback);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>while (count($channel-&gt;callbacks)) {
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    $channel-&gt;wait();
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>}</span></span></code></pre></td></tr></table></div></div><p>我们设置$channel阻塞运行并等待。每当我们收到一条消息时，我们的回调函数<code>$callback</code>将传递收到的消息。</p><p>[这是在github上receive.php代码][8]</p><h2 id=运行>运行
+<a class=header-anchor href=#%e8%bf%90%e8%a1%8c></a></h2><p>现在我们运行这两个文件。在终端中，运行消费者(接收者)：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a class=lnlinks href=#hl-9-1>1</a>
+</span><span class=lnt id=hl-9-2><a class=lnlinks href=#hl-9-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>php receive.php</span></span></code></pre></td></tr></table></div></div><p>然后运行发布者：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a class=lnlinks href=#hl-10-1>1</a>
+</span><span class=lnt id=hl-10-2><a class=lnlinks href=#hl-10-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>php send.php</span></span></code></pre></td></tr></table></div></div><p>消费脚本(receive.php)将通过RabbitMQ获取并打印发布者发送的消息，接收者将持续运行，等待消息(使用ctrl + c)退出，尝试用另外一个终端运行send.php</p><h3 id=列出队列>列出队列
+<a class=header-anchor href=#%e5%88%97%e5%87%ba%e9%98%9f%e5%88%97></a></h3><p>你也许想知道RabbitMQ上有多少个队列以及他们中有多少条消息，你可以使用<code>rabbitmqctl</code>工具：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a class=lnlinks href=#hl-11-1>1</a>
+</span><span class=lnt id=hl-11-2><a class=lnlinks href=#hl-11-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sudo rabbitmqctl list_queues</span></span></code></pre></td></tr></table></div></div><p>windows上命令如下（进入bin目录）:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a class=lnlinks href=#hl-12-1>1</a>
+</span><span class=lnt id=hl-12-2><a class=lnlinks href=#hl-12-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>rabbitmqctl.bat list_queues</span></span></code></pre></td></tr></table></div></div><p>是时候转到第二部分来构建一个简单的工作队列了。</p><h2 id=生产非适用性免责声明>生产[非]适用性免责声明
+<a class=header-anchor href=#%e7%94%9f%e4%ba%a7%e9%9d%9e%e9%80%82%e7%94%a8%e6%80%a7%e5%85%8d%e8%b4%a3%e5%a3%b0%e6%98%8e></a></h2><p>请记住，本教程和其他教程一样都是教程。他们一次只展示一个概念，可能会过度简化而忽略其他事项。例如，为了简洁起见，在很大程度上省略了像连接管理，错误处理，连接恢复，并发等问题。这种简化的代码并不代表可以生产使用了。</p><p>在使用程序之前，请先查看其它[文档][9]。我们特别推荐以下指南：[发布者确认和消费致谢][10]，[生产检查表][11]和[监控][12]。</p><h2 id=获得帮助并提供反馈>获得帮助并提供反馈
+<a class=header-anchor href=#%e8%8e%b7%e5%be%97%e5%b8%ae%e5%8a%a9%e5%b9%b6%e6%8f%90%e4%be%9b%e5%8f%8d%e9%a6%88></a></h2><p>如果您对本教程或者RabbitMQ其它方面有疑问，请不要犹豫，在[RabbitMQ邮箱列表][13]中咨询他们。</p><h2 id=帮助我们改进文档>帮助我们改进文档
+<a class=header-anchor href=#%e5%b8%ae%e5%8a%a9%e6%88%91%e4%bb%ac%e6%94%b9%e8%bf%9b%e6%96%87%e6%a1%a3></a></h2><p>如果你想对网站做出改进，可以在GitHub找到它的来源，fork一个仓库，并提交拉取请求即可。谢谢！</p></div><footer class=post-footer><div class=post-tags><a href=/tags/rabbitmq/>RabbitMQ
+</a><a href=/tags/%E7%BF%BB%E8%AF%91/>翻译</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=reward-container><div><i class="fa-solid fa-mug-hot"></i>请我喝杯咖啡吧 ヾ(^▽^*)))</div><button>
+赞赏</button><div class=post-reward><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/ali-pay.png alt="mingzhongshui - 支付宝">
+<span>支付宝</span></div><div class=post-reward-item><img src=/imgs/img-lazy-loading.gif data-src=/imgs/wechat-pay.png alt="mingzhongshui - 微信">
+<span>微信</span></div></div></div><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+[译]PHP使用RabbitMQ文档--Hello World</li><li class=post-copyright-author><strong>本文作者： </strong>mingzhongshui</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=http://localhost:12107/posts/yiphpshiyongrabbitmqwendanghello_world/ title="[译]PHP使用RabbitMQ文档--Hello World">http://localhost:12107/posts/yiphpshiyongrabbitmqwendanghello_world/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=followme><span>欢迎关注我的其它发布渠道</span><div class=social-list><div class=social-item><a target=_blank class=social-link href=/images/wechat_channel.jpg><span class=icon><i class="fab fa-weixin"></i>
+</span><span class=label>WeChat</span></a></div><div class=social-item><a target=_blank class=social-link href=/rss.xml><span class=icon><i class="fa fa-rss"></i>
+</span><span class=label>RSS</span></a></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/posts/yigexiaoyewuchangjingdailaidesikao/ rel=next title=一个小业务场景带来的思考><i class="fa fa-chevron-left"></i> 一个小业务场景带来的思考</a></div><div class="post-nav-prev post-nav-item"><a href=/posts/gitgongzuozhong99nengyongdaodegitmingling/ rel=prev title=【Git】工作中99%能用到的git命令>【Git】工作中99%能用到的git命令
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div></main><footer class=footer><div class=footer-inner><div id=i18n-translate class=i18n-translate><i class="fa fa-language"></i><div id=lang-select class=lang-select><div id=lang-selected class=selected-option><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=selected-language>简体中文</span>
+<i class="fa fa-chevron-down"></i></div><div id=lang-options class=lang-options><div class=lang-option lang-code=zh-cn lang-name=简体中文 lang-url=/posts/yiphpshiyongrabbitmqwendanghello_world/><span class="flag-icon flag-icon-zh-cn"></span>
+<span class=lang-name>简体中文</span></div></div></div></div><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>mingzhongshui</span></div><div class=powered-by>由 <a href=https://gohugo.io title=0.163.0 target=_blank>Hugo</a> & <a href=https://github.com/hugo-next/hugo-theme-next title=4.8.3 target=_blank>Hugo NexT.Gemini</a> 强力驱动</div><div class=beian><a href=https://beian.miit.gov.cn target=_blank>粤ICP备 18047355-1 号</a>
+<img src=/imgs/gongan.png alt=沪公网安备>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011402009770" target=_blank>沪公网安备 31011402009770 号</a></div><div class=vendors-list><a target=_blank href=https://vercel.com title=Vercel><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/vercel.svg alt=Vercel>
+</a><a target=_blank href=https://upyun.com title=又拍云><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/upyun.png alt=又拍云>
+</a><a target=_blank href=https://github.com title=Github><img src=/imgs/img-lazy-loading.gif data-src=/imgs/vendors/github.svg alt=Github>
+</a><span>提供CDN/云资源支持</span></div><div class=custom-footer>Website source code <a href=https://github.com/hugo-next/hugo-theme-next/blob/develop/exampleSite/layouts/partials/custom_footer.html target=_blank>here</a></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":false,"expired":false,"isHome":false,"isPage":true,"path":"yiphpshiyongrabbitmqwendanghello_world","permalink":"http://localhost:12107/posts/yiphpshiyongrabbitmqwendanghello_world/","title":"[译]PHP使用RabbitMQ文档--Hello World","toc":true,"waline":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"2.15.8"}}}</script><script type=text/javascript src=http://localhost:12107/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=http://localhost:12107/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":true,"hostname":"http://localhost:12107/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":true,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"http://localhost:12107/js/3rd"}},"version":"4.8.3","waline":{"cfg":{"emoji":false,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"serverurl":null,"sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"2.15.8"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"2.15.8"}}}</script><script type=text/javascript src="/js/main.js?=1781070465" defer></script><script type=text/javascript src="/js/clipboard.js?=1781070465" defer></script></body></html>

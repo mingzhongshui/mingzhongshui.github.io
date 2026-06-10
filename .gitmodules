@@ -1,3 +1,24 @@
-[submodule "themes/archie"]
-	path = themes/archie
-	url = https://github.com/athul/archie.git
+; [submodule "themes/archie"]
+; 	path = themes/archie
+; 	url = https://github.com/athul/archie.git
+[submodule "themes/hugo-theme-dream"]
+	path = themes/hugo-theme-dream
+	url = https://github.com/g1eny0ung/hugo-theme-dream.git
+[submodule "themes/hugo-theme-stack"]
+	path = themes/hugo-theme-stack
+	url = https://github.com/CaiJimmy/hugo-theme-stack.git
+[submodule "themes/roadster"]
+	path = themes/roadster
+	url = https://github.com/mansoorbarri/roadster.git
+[submodule "themes/hugo-book"]
+	path = themes/hugo-book
+	url = https://github.com/alex-shpak/hugo-book.git
+[submodule "themes/hugo-theme-diary"]
+	path = themes/hugo-theme-diary
+	url = https://github.com/AmazingRise/hugo-theme-diary.git
+[submodule "themes/PaperMod"]
+	path = themes/PaperMod
+	url = https://github.com/adityatelange/hugo-PaperMod.git
+[submodule "themes/hugo-theme-next"]
+	path = themes/hugo-theme-next
+	url = https://github.com/hugo-next/hugo-theme-next.git

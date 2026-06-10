@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>服务器 on 命中水、</title><link>http://localhost:12107/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</link><description>Recent content in 服务器 on 命中水、</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Fri, 23 Oct 2020 21:04:00 +0000</lastBuildDate><atom:link href="http://localhost:12107/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/rss.xml" rel="self" type="application/rss+xml"/><item><title>记一次上线方（流）案（程）</title><link>http://localhost:12107/posts/jiyicishangxianfangliuancheng/</link><pubDate>Fri, 23 Oct 2020 21:04:00 +0000</pubDate><guid>http://localhost:12107/posts/jiyicishangxianfangliuancheng/</guid><description>&lt;h2 id="前言"&gt;前言
+&lt;a class="header-anchor" href="#%e5%89%8d%e8%a8%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;为了简化后续爬虫项目上线的步骤和流程，把爬虫API和定时任务的项目整合在一块了，由于涉及到相关的服务较多，也需要遵循修改服务、启动的先后顺序（不然该启动的服务没开，后续相关的服务受影响就尴尬了），所以在上线前，用了将近一个上午的时间，整理了一个上线流程。在上线时能够提供一些清晰的帮助。&lt;/p&gt;
+&lt;h2 id="上线步骤"&gt;上线步骤
+&lt;a class="header-anchor" href="#%e4%b8%8a%e7%ba%bf%e6%ad%a5%e9%aa%a4"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="包安装"&gt;包安装
+&lt;a class="header-anchor" href="#%e5%8c%85%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;安装grequests、itemadapter包&lt;/p&gt;</description></item><item><title>Linux常用命令总结</title><link>http://localhost:12107/posts/linuxchangyongminglingzongjie/</link><pubDate>Thu, 10 Nov 2016 22:16:00 +0000</pubDate><guid>http://localhost:12107/posts/linuxchangyongminglingzongjie/</guid><description>&lt;p&gt;Linux常用命令总结&lt;/p&gt;</description></item></channel></rss>

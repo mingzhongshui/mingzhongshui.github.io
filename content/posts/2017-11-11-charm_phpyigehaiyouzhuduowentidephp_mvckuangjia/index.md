@@ -92,7 +92,7 @@ excerpt: charmPHP介绍一个简单的MVC框架，框架中实现了C和V层，M
 
 
 
-![init ](https://i.imgur.com/dt9CeaZ.png)
+![init ](./dt9CeaZ.png)
 
 
 

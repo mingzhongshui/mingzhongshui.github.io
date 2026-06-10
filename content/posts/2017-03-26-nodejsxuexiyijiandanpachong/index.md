@@ -230,7 +230,7 @@ http.get(url, function(res) {
 
 
 
-![运行结果.jpg](http://cxiansheng.cn/usr/uploads/2017/03/2569809494.jpg)
+![运行结果.jpg](./2569809494.jpg)
 
 
 

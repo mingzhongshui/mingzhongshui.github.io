@@ -56,13 +56,13 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 &nbsp;&nbsp;&nbsp;&nbsp;定时任务在win图标，附件->系统工具->定时任务
 
-![打开定时.png](http://cxiansheng.cn/usr/uploads/2016/10/1504715844.png)
+![打开定时.png](./1504715844.png)
 
 
 
 
 
-![XBN56X2(Z435C8$~F~IFQFN.png](http://cxiansheng.cn/usr/uploads/2016/10/612270033.png)
+![XBN56X2(Z435C8$~F~IFQFN.png](./612270033.png)
 
 
 
@@ -70,7 +70,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 
 
-![常规.png](http://cxiansheng.cn/usr/uploads/2016/10/3476344242.png)
+![常规.png](./3476344242.png)
 
 
 
@@ -78,7 +78,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 
 
-![触发器.png](http://cxiansheng.cn/usr/uploads/2016/10/197817638.png)
+![触发器.png](./197817638.png)
 
 
 
@@ -86,7 +86,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 
 
-![操作.png](http://cxiansheng.cn/usr/uploads/2016/10/3554479068.png)
+![操作.png](./3554479068.png)
 
 
 
@@ -96,7 +96,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 
 
-![输入密码.png](http://cxiansheng.cn/usr/uploads/2016/10/343284940.png)
+![输入密码.png](./343284940.png)
 
 
 
@@ -106,7 +106,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 
 
-![任务计划程序库2.png](http://cxiansheng.cn/usr/uploads/2016/10/1478568755.png)
+![任务计划程序库2.png](./1478568755.png)
 
 
 
@@ -120,7 +120,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 
 
-![任务计划程序库3.png](http://cxiansheng.cn/usr/uploads/2016/10/1261784752.png)
+![任务计划程序库3.png](./1261784752.png)
 
 
 
@@ -128,7 +128,7 @@ D:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump --opt -u root --password=123456 anna
 
 &nbsp;&nbsp;&nbsp;&nbsp;找到.bat文件，双击，查看生成文件目录
 
-![展示.png](http://cxiansheng.cn/usr/uploads/2016/10/1998409220.png)
+![展示.png](./1998409220.png)
 
 
 

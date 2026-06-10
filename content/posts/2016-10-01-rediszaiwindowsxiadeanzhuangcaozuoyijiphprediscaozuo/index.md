@@ -28,7 +28,7 @@ Redis是一个高性能的key-value存储系统。和Memcached类似，它支持
 
 
 
-![redis安装文件结构](http://cxiansheng.cn//usr/uploads/2016/10/2649301304.png)
+![redis安装文件结构](./2649301304.png)
 
 
 
@@ -36,7 +36,7 @@ Redis是一个高性能的key-value存储系统。和Memcached类似，它支持
 
 
 
-![redis安装成功CMD界面](http://cxiansheng.cn//usr/uploads/2016/10/3656832151.png)
+![redis安装成功CMD界面](./3656832151.png)
 
 
 
@@ -50,11 +50,11 @@ windows下调出redis cmd命令操作有两种方式：
 
 第一种：调出cmd，找到redis文件位置，键入redis-cli.exe -h localhost -p 6379  **回车**，运行成功如下图所示：
 
-![MVC~IR)6STW3LED8WEQF%LH.png](http://cxiansheng.cn//usr/uploads/2016/10/2147622796.png)
+![MVC~IR)6STW3LED8WEQF%LH.png](./2147622796.png)
 
 
 
-第二种：相比较第一种就来的简单了，直接到redis所在的文件夹下，双击redis-cli.exe文件，会出现以下窗口，证明运行成功![运行redis-cli.exe成功界面](http://cxiansheng.cn//usr/uploads/2016/10/3564393495.png)
+第二种：相比较第一种就来的简单了，直接到redis所在的文件夹下，双击redis-cli.exe文件，会出现以下窗口，证明运行成功![运行redis-cli.exe成功界面](./3564393495.png)
 
 
 
@@ -68,22 +68,11 @@ windows下调出redis cmd命令操作有两种方式：
 
 首先看两个参数，打开页面版的phpinfo
 
-
-
-![phpinfo部分截图](https://www.cxiansheng.cn/usr/uploads/2025/05/6913744.png)
-
-
-
 搜索`extension Build`找到这个配置对应的信息。比如我的是：`API320190902,TS,VC15`，注意TS和VC15两个参数
 
 
 
 打开redis版本库地址：[http://windows.php.net/downloads/pecl/releases/redis/][6]，找到与当前php版本对应的redis版本
-
-
-
-![redis版本部分截图](https://www.cxiansheng.cn/usr/uploads/2025/05/1650079320.png)
-
 
 
 php_redis-5.3.1-7.4-ts-vc15-x64.zip
@@ -96,19 +85,19 @@ php_redis-5.3.1-7.4-ts-vc15-x64.zip
 
 回归正题，php5版本对应的redis下载成功后，解压获得如图两个文件（php7+ 下载的redis解压后只有一个`php_redis.dll`文件，按照下面相同的方法配置，因为没有`php_igbinary.dll`，所以并不需要引入。），把这两个文件移动到php的ext目录下
 
-![php-redis 扩展包](http://cxiansheng.cn//usr/uploads/2016/10/3417732923.png)
+![php-redis 扩展包](./3417732923.png)
 
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;移动完成后顺势在当前文件夹后退一格的目录下，找到php.ini文件，在引用扩展处加上这两个.dll的引用，具体下图：(**这里说一下，引入的时候一定要把前面的分号去掉**)
 
-![php.ini引入redis扩展](http://cxiansheng.cn//usr/uploads/2016/10/3617475430.png)
+![php.ini引入redis扩展](./3617475430.png)
 
 
 
 重启apache，网页上打开php的配置(**php代码中写入phpinfo()运行即可**)搜索redis会查询到redis的相关信息则说明php-redis扩展安装成功;
 
-![31JI~%YTX7L`FF}D2J6R1XG.png](http://cxiansheng.cn//usr/uploads/2016/10/2623052587.png)
+![31JI~%YTX7L`FF}D2J6R1XG.png](./2623052587.png)
 
 
 
@@ -136,7 +125,7 @@ php_redis-5.3.1-7.4-ts-vc15-x64.zip
 
 页面输出：
 
-![页面输出redis结果](http://cxiansheng.cn//usr/uploads/2016/10/511623079.png)
+![页面输出redis结果](./511623079.png)
 
 
 
