@@ -3126,31 +3126,11 @@ header.header {
 }
 
 .footer-inner .vendors-list a:nth-child(1) img {
-  width: 50px;
-}
-
-@media (max-width: 767px) {
-  .footer-inner .vendors-list a:nth-child(1) img {
-    width: 40px;
-  }
-}
-
-.footer-inner .vendors-list a:nth-child(2) img {
-  width: 43px;
-}
-
-@media (max-width: 767px) {
-  .footer-inner .vendors-list a:nth-child(2) img {
-    width: 33px;
-  }
-}
-
-.footer-inner .vendors-list a:nth-child(3) img {
   width: 14px;
 }
 
 @media (max-width: 767px) {
-  .footer-inner .vendors-list a:nth-child(3) img {
+  .footer-inner .vendors-list a:nth-child(1) img {
     width: 4px;
   }
 }
