@@ -7,11 +7,9 @@ featured: false
 draft: false
 ---
 
-# 不需要服务器，免费搭建自己的博客网站
+# 从 Typecho 迁移到 GitHub Pages 的完整记录
 
-## 从 Typecho 迁移到 GitHub Pages 的完整记录
-
-### 前言
+## 前言
 
 我的云服务器到期了。上面跑着一个 Typecho 博客，文章不多，撑死几十篇。续费一年几百块，就为了托管一堆静态 HTML 页面 —— 怎么算都亏。
 
@@ -22,7 +20,7 @@ draft: false
 <!--more-->
 ---
 
-### 为什么是 Hugo + GitHub Pages？
+## 为什么是 Hugo + GitHub Pages？
 
 备选方案不少。Hexo 生态成熟但构建慢，VuePress 偏文档站点，Jekyll 是 GitHub Pages 亲儿子但本地环境折腾人。
 
@@ -39,7 +37,7 @@ Hugo 几个优点戳中我：
 
 ---
 
-### 一、迁移思路
+## 一、迁移思路
 
 三步走：
 
@@ -51,7 +49,7 @@ Hugo 几个优点戳中我：
 
 ---
 
-### 二、从 Typecho 导出文章
+## 二、从 Typecho 导出文章
 
 GitHub 上有个 **typecho-to-markdown** 工具，能直接从 Typecho 数据库批量导出Markdown文件，每个文件都带Front Matter 元数据。跑完之后目录长这样：
 
@@ -77,9 +75,9 @@ tags: [随笔]
 
 ---
 
-### 三、搭建 Hugo
+## 三、搭建 Hugo
 
-#### 3.1 安装
+### 3.1 安装
 
 各平台都一行命令的事：
 
@@ -89,7 +87,7 @@ tags: [随笔]
 
 注意装 **extended** 版，有些主题编译 SCSS 需要它。
 
-#### 3.2 创建站点
+### 3.2 创建站点
 
 ```bash
 hugo new site my-blog
@@ -97,7 +95,7 @@ cd my-blog
 git init
 ```
 
-#### 3.3 选主题
+### 3.3 选主题
 
 我用了 **hugo-theme-next**，就是 Hexo 那个 NexT 主题的 Hugo 移植版，简洁耐看。如果你喜欢其他风格，PaperMod 和 Stack 也都不错。
 
@@ -113,13 +111,13 @@ git submodule add https://github.com/hugo-next/hugo-theme-next.git themes/hugo-t
 theme: hugo-theme-next
 ```
 
-#### 3.4 导入文章
+### 3.4 导入文章
 
 把导出的 `.md` 文件扔进 `content/posts/`，先不管格式，让 Hugo 跑起来再说。
 
 ---
 
-### 四、处理图片 —— 整个迁移最头疼的部分
+## 四、处理图片 —— 整个迁移最头疼的部分
 
 Typecho 的图片存在 `uploads/` 下，按年/月分目录。文章里引用的是完整 URL：
 
@@ -155,7 +153,7 @@ posts/文章slug/
 
 ---
 
-### 五、处理分类和标签
+## 五、处理分类和标签
 
 使用**typecho-to-markdown** 导出的Front Matter 元数据没有分类，标签页不完整，这时候可以写个SQL来取出标题对应的分类和标签，再写个脚本匹配文章标题，批量往 Front Matter 里补 `categories` 和 `tags`；脚本我放到最后。补全分类和标签的元数据如下
 
@@ -172,9 +170,9 @@ tags: ["php", "协程", "并发编程"]
 
 ---
 
-### 六、Hugo 配置
+## 六、Hugo 配置
 
-#### 6.1 `hugo.yaml` 基础配置
+### 6.1 `hugo.yaml` 基础配置
 
 ```yaml
 baseURL: https://www.cxiansheng.cn/
@@ -211,19 +209,19 @@ locale: zh-cn
 
 菜单项根据你的分类来调，我主要写前端和后端，所以分了两个入口。
 
-#### 6.2 关于页
+### 6.2 关于页
 
 直接建 `content/about.md`，普通的 Markdown 文件，随便写。
 
 ---
 
-### 七、部署到 GitHub Pages
+## 七、部署到 GitHub Pages
 
-#### 7.1 建仓库
+### 7.1 建仓库
 
 创建一个名为 `<你的用户名>.github.io` 的**公开**仓库。必须是 public，除非你开了 GitHub Pro（Pro 支持私有仓库的 Pages）。
 
-#### 7.2 GitHub Actions 自动部署
+### 7.2 GitHub Actions 自动部署
 
 在项目根目录创建 `.github/workflows/deploy.yml`：
 
@@ -269,7 +267,7 @@ jobs:
 - `peaceiris/actions-gh-pages@v4` 会把 `./public` 目录推到 `gh-pages` 分支，GitHub Pages 从那个分支读内容
 - `hugo-version` 写死一个具体版本号，避免某天 CI 突然拉取新版 Hugo 导致构建行为变化
 
-#### 7.3 推送
+### 7.3 推送
 
 ```bash
 git add .
@@ -281,9 +279,9 @@ git push origin main
 
 ---
 
-### 八、绑定自定义域名
+## 八、绑定自定义域名
 
-#### 8.1 DNS 解析
+### 8.1 DNS 解析
 
 在域名服务商加一条 CNAME 记录：
 
@@ -293,11 +291,11 @@ git push origin main
 
 如果你想把 apex domain（不带 www 的裸域名）也指向博客，需要用 A 记录指向 GitHub Pages 的 IP。但 GitHub 的 IP 偶尔会变，更稳妥的做法是统一用 www 子域名，然后做 301 跳转。
 
-#### 8.2 GitHub 侧配置
+### 8.2 GitHub 侧配置
 
 仓库 **Settings → Pages → Custom domain**，填入 `www.你的域名`，保存。
 
-#### 8.3 CNAME 文件
+### 8.3 CNAME 文件
 
 GitHub 有个烦人的问题：每次部署后 Custom domain 设置可能丢失。解决方法是在 `static/` 目录下放一个 `CNAME` 文件，内容是：
 
@@ -307,37 +305,37 @@ www.cxiansheng.cn
 
 这样每次构建生成的站点根目录都带着这个文件，GitHub 自动识别。
 
-#### 8.4 HTTPS
+### 8.4 HTTPS
 
 DNS 生效后，勾选 **Enforce HTTPS**。GitHub 通过 Let's Encrypt 自动签发证书，不用自己操心续期。
 
 ---
 
-### 九、遇到的几个坑
+## 九、遇到的几个坑
 
-#### 9.1 列表页摘要被截断
+### 9.1 列表页摘要被截断
 
 Hugo 默认取 `<!--more-->` 之前的内容作为摘要。如果文章没写这个标记，Hugo 会按字数自动截断，经常断在奇怪的位置。
 
 解决：在需要断开的地方手动加 `<!--more-->`。
 
-#### 9.2 分类页菜单不高亮
+### 9.2 分类页菜单不高亮
 
 点进 `/categories/前端/` 后，顶部菜单栏的"前端"没有高亮。原因是主题模板只判断了 `section` 类型，没处理 `term`（分类术语页）。
 
 在主题的 `menu.html` 里找到判断条件，加上 `or .Kind == "term"` 就行。
 
-#### 9.3 端口冲突
+### 9.3 端口冲突
 
 `hugo server` 默认 1313。如果被占用了，Hugo 会自动切到 1314、1315……看终端输出确认实际端口就行，不是 bug。
 
-#### 9.4 配置项更名
+### 9.4 配置项更名
 
 Hugo v0.158.0 起 `languageCode` 改成了 `locale`，`languageName` 改成了 `label`。如果启动时有 warning 提示字段过期，照提示改过来就行，一分钟的事。
 
 ---
 
-### 十、总结
+## 十、总结
 
 整个迁移花了大半天，大头耗在处理图片和调配置上。迁移之后：
 
@@ -350,9 +348,9 @@ Hugo v0.158.0 起 `languageCode` 改成了 `locale`，`languageName` 改成了 `
 
 ---
 
-### 十一、处理脚本
+## 十一、处理脚本
 
-#### 11.1 脚本一：文章分层脚本
+### 11.1 脚本一：文章分层脚本
 
 **文件名**：`migrate_to_page_bundles.py`
 
@@ -437,7 +435,7 @@ if __name__ == "__main__":
     main()
 ```
 
-#### 11.2 脚本二：图片资源移动到 `index.md` 同级目录
+### 11.2 脚本二：图片资源移动到 `index.md` 同级目录
 
 **文件名**：`migrate_images.py`
 
@@ -577,7 +575,7 @@ if __name__ == "__main__":
     main()
 ```
 
-#### 11.3 脚本三：根据 JSON 更新 `index.md` 中的 `categories` 和 `tags`
+### 11.3 脚本三：根据 JSON 更新 `index.md` 中的 `categories` 和 `tags`
 
 **文件名**：`update_categories_tags.py`
 
@@ -810,7 +808,7 @@ if __name__ == "__main__":
     main()
 ```
 
-#### 11.4 使用说明汇总
+### 11.4 使用说明汇总
 
 | 脚本                         | 用途                             | 运行命令                                                     |
 | ---------------------------- | -------------------------------- | ------------------------------------------------------------ |
@@ -825,7 +823,7 @@ if __name__ == "__main__":
 - 脚本二需要 `content/uploads/` 目录存在
 - 脚本三需要准备 `categories_tags.json` 文件
 
-### 附录：相关链接
+## 附录：相关链接
 
 - [Hugo 官方文档](https://gohugo.io/)
 - [GitHub Pages 文档](https://pages.github.com/)
