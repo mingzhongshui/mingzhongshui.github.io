@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>不需要服务器，免费搭建自己的博客网站</title><url>/posts/2026-06-11-mianfeidajianzijidebokewangzhan/</url><categories><category>后端</category></categories><tags><tag>gitHub pages</tag><tag>博客搭建</tag></tags><content type="html">  不需要服务器，免费搭建自己的博客网站 从 Typecho 迁移到 GitHub Pages 的完整记录 前言 我的云服务器到期了。上面跑着一个 Typecho 博客，文章不多，撑死几十篇。续费一年几百块，就为了托管一堆静态 HTML 页面 —— 怎么算都亏。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>不需要服务器，免费搭建自己的博客网站</title><url>/posts/2026-06-11-mianfeidajianzijidebokewangzhan/</url><categories><category>后端</category></categories><tags><tag>gitHub pages</tag><tag>博客搭建</tag></tags><content type="html">  从 Typecho 迁移到 GitHub Pages 的完整记录 前言 我的云服务器到期了。上面跑着一个 Typecho 博客，文章不多，撑死几十篇。续费一年几百块，就为了托管一堆静态 HTML 页面 —— 怎么算都亏。
 于是决定搬家。新方案的要求很简单：不花钱、不用维护服务器、写文章不费劲。
 最终选了 GitHub Pages + Hugo。这篇文章记录整个迁移过程，踩过的坑和处理思路都写清楚。如果你也打算把自己博客从动态系统迁出来，直接照着来就行。
 为什么是 Hugo + GitHub Pages？ 备选方案不少。Hexo 生态成熟但构建慢，VuePress 偏文档站点，Jekyll 是 GitHub Pages 亲儿子但本地环境折腾人。
@@ -8,7 +8,7 @@ Hugo 几个优点戳中我：
 一、迁移思路 三步走：
 导出数据 —— 从 Typecho 把文章捞出来，转成 Markdown 本地搭建 —— Hugo 建站，导入文章，处理图片和元数据 部署上线 —— 推到 GitHub Pages，绑域名，开 HTTPS 下面按顺序展开，重点说容易出问题的地方。
 二、从 Typecho 导出文章 GitHub 上有个 typecho-to-markdown 工具，能直接从 Typecho 数据库批量导出Markdown文件，每个文件都带Front Matter 元数据。跑完之后目录长这样：
-1 2 3 4 posts/ ├── 2019-05-30.md ├── 2021-03-03.md └── 2025-04-10.md …  </content></entry><entry><title>Laravel + Swoole 协程实战：一个多租户采集系统的真实落地方案</title><url>/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/</url><categories><category>后端</category></categories><tags><tag>php</tag><tag>协程</tag><tag>并发编程</tag></tags><content type="html">   作为 PHP 开发者，我们迟早都会遇到一个瞬间：
+1 2 3 4 posts/ ├── 2019-05-30.md ├── 2021-03-03.md └── 2025-04-10.md 每个文件头部自带 Front …  </content></entry><entry><title>Laravel + Swoole 协程实战：一个多租户采集系统的真实落地方案</title><url>/posts/laravel__swoole_xiechengshizhanyigeduozuhucaijixitongdezhenshiluodifangan/</url><categories><category>后端</category></categories><tags><tag>php</tag><tag>协程</tag><tag>并发编程</tag></tags><content type="html">   作为 PHP 开发者，我们迟早都会遇到一个瞬间：
 代码没有报错，逻辑也没问题，但系统就是——慢。
 不是慢一点，是那种
 「明明只是检查 1000 个账号状态，却要跑半个小时」
