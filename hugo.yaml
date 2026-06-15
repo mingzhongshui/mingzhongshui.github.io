@@ -531,11 +531,11 @@ params:
     beian:
       enable: true
       # ICP 备案的具体信息
-      icp: 粤ICP备 18047355-1 号
+      icp: 豫ICP备2025160243号
       # 公安网备的省份简称
-      provinceAbbr: 沪
+      provinceAbbr: 豫
       # 公安网备案号
-      gonganNum: 31011402009770
+      #gonganNum: 31011402009770
 
     # 站点支持供应商列表
     # Vendors list who support website. 
@@ -665,7 +665,7 @@ params:
     # Donate type
     # Usage: `name:image url`
     reward:
-      wechatpay: /imgs/wechat-pay.png
+      #wechatpay: /imgs/wechat-pay.png
       alipay: /imgs/ali-pay.png
       #paypal: /images/paypal.png
       #bitcoin: /images/bitcoin.png
