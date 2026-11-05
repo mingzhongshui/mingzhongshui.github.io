@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>陈明辉 · 后端开发工程师 · 作品集</title>
+<meta name="description" content="陈明辉，8 年后端开发经验，主攻 PHP / Laravel。多租户 SaaS、电商交易、数据采集三类复杂业务的独立交付者。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="陈明辉 · 后端开发工程师 · 作品集">
+<meta property="og:description" content="8 年后端经验，多租户 SaaS / 电商交易 / 数据采集，一个人能走完从架构到部署的整条链路。">
+<meta property="og:url" content="https://www.cxiansheng.cn/portfolio/">
+<meta property="og:site_name" content="命中水、">
+<meta name="twitter:card" content="summary">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --sub:#5c5c5c;
+    --faint:#787878;
+    --line:#e8e8e6;
+    --accent:#1f4e79;
+    --soft:#f6f8fa;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 26px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(31,78,121,.25)}
+  a:hover{border-bottom-color:var(--accent)}
+  a.plain{border:none}
+
+  /* ---------- hero ---------- */
+  .hero{padding:56px 0 34px}
+  .back{display:inline-block;font-size:13px;color:var(--faint);border:none;margin-bottom:34px;letter-spacing:.02em}
+  .back:hover{color:var(--accent)}
+  h1{
+    font-size:38px;line-height:1.25;margin:0 0 10px;
+    letter-spacing:.01em;font-weight:700;
+  }
+  .tagline{font-size:15px;color:var(--accent);margin:0 0 20px;letter-spacing:.04em}
+  .lead{font-size:16.5px;color:var(--sub);margin:0 0 26px;max-width:640px}
+  .links{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--faint)}
+  .links a{color:var(--sub);border-bottom-color:var(--line)}
+  .links a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+  /* ---------- stats ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+    background:var(--soft);border-radius:10px;overflow:hidden;
+    margin:10px 0 8px;
+  }
+  .stat{padding:20px 18px;background:var(--soft)}
+  .stat b{display:block;font-size:25px;line-height:1.2;color:var(--accent);font-weight:700;letter-spacing:-.01em}
+  .stat span{display:block;font-size:12.5px;color:var(--faint);margin-top:5px;line-height:1.5}
+
+  /* ---------- section ---------- */
+  .sec-title{
+    font-size:12px;letter-spacing:.18em;color:var(--faint);
+    margin:58px 0 4px;font-weight:600;text-transform:uppercase;
+  }
+
+  /* ---------- case ---------- */
+  .case{padding:44px 0 8px;border-top:1px solid var(--line);margin-top:34px}
+  .case:first-of-type{margin-top:26px}
+  .case h2{
+    font-size:23px;line-height:1.45;margin:0 0 6px;font-weight:700;letter-spacing:.01em;
+  }
+  .kicker{font-size:13px;color:var(--faint);margin:0 0 20px;letter-spacing:.03em}
+  .result{
+    background:var(--soft);
+    border-left:3px solid var(--accent);
+    padding:14px 18px;margin:0 0 26px;
+    font-size:15px;color:var(--ink);border-radius:0 6px 6px 0;
+  }
+  .result b{color:var(--accent);font-weight:600}
+  h3{
+    font-size:13px;letter-spacing:.12em;color:var(--accent);
+    margin:26px 0 8px;font-weight:600;
+  }
+  .case p{margin:0 0 14px;color:var(--sub)}
+  .case p strong{color:var(--ink);font-weight:600}
+  ol.steps{margin:0 0 6px;padding-left:22px;color:var(--sub)}
+  ol.steps li{margin:0 0 12px;padding-left:4px}
+  ol.steps li strong{color:var(--ink);font-weight:600}
+  .note{
+    margin:22px 0 0;padding:14px 18px;background:#fbfbfa;
+    border:1px solid var(--line);border-radius:6px;
+    font-size:14.5px;color:var(--sub);
+  }
+  .note b{color:var(--ink);font-weight:600}
+
+  /* ---------- stack ---------- */
+  .stack{display:grid;grid-template-columns:88px 1fr;gap:10px 18px;margin-top:18px;font-size:14.5px}
+  .stack dt{color:var(--faint);font-size:13px;letter-spacing:.06em;padding-top:2px}
+  .stack dd{margin:0;color:var(--sub)}
+  .stack code,code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13.5px;background:var(--soft);padding:1px 6px;border-radius:4px;color:var(--ink);
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:64px;padding:34px 0 70px;border-top:1px solid var(--line);
+    font-size:14px;color:var(--faint);
+  }
+  footer p{margin:0 0 8px}
+  footer a{color:var(--sub);border-bottom-color:var(--line)}
+  footer a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+  @media (max-width:640px){
+    .hero{padding:36px 0 24px}
+    h1{font-size:30px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .case h2{font-size:20px}
+    .stack{grid-template-columns:1fr;gap:2px}
+    .stack dt{margin-top:10px}
+    body{font-size:15.5px;line-height:1.8}
+  }
+  @media print{
+    .back,.links{display:none}
+    body{font-size:11pt}
+    .case{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <a class="back" href="/">← 返回博客</a>
+    <h1>陈明辉</h1>
+    <p class="tagline">后端开发工程师 · PHP / Laravel · 8 年</p>
+    <p class="lead">
+      做过 100+ 租户的物业 SaaS，做过跨境电商 ERP，也做过从 0 到 1 的数据采集系统。
+      擅长把业务流程拆清楚，然后用最少的代码把它跑稳 —— 一个人能走完从架构到部署的整条链路。
+    </p>
+    <div class="links">
+      <span>深圳 · 可即时到岗</span>
+      <a href="mailto:in1993summer@163.com">in1993summer@163.com</a>
+      <a href="https://github.com/mingzhongshui">GitHub</a>
+      <a href="https://www.cxiansheng.cn">技术博客</a>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="关键数据">
+    <div class="stat"><b>8 年</b><span>后端开发经验</span></div>
+    <div class="stat"><b>100+</b><span>租户的在跑 SaaS 系统</span></div>
+    <div class="stat"><b>98%</b><span>采集系统稳定成功率</span></div>
+    <div class="stat"><b>60+</b><span>篇原创技术文章</span></div>
+  </section>
+
+  <p class="sec-title">Selected Work</p>
+
+  <!-- ================= CASE 1 ================= -->
+  <article class="case" id="crawler">
+    <h2>从 0 到 1 搭建亚马逊数据采集系统</h2>
+    <p class="kicker">跨境电商 ERP · 2019 – 2021 · 主导架构与核心开发</p>
+
+    <p class="result">
+      <b>采集成功率 98%</b>，后台报表人力成本下降 70%，数据入库效率提升 50%。
+    </p>
+
+    <h3>背景</h3>
+    <p>
+      跨境电商 ERP 需要持续的亚马逊商品、评论和经营报表数据。原来的做法是人工下载、人工整理，
+      数据滞后，覆盖也不全。公司提出需求时，团队里没有人做过成规模的采集。
+    </p>
+
+    <h3>我的角色</h3>
+    <p>
+      主动提出转 Python 承接这个方向，负责架构设计并完成核心开发；后期有一名 Python 同事加入协作调优。
+    </p>
+
+    <h3>关键决策</h3>
+    <ol class="steps">
+      <li>
+        <strong>用 Scrapy-Redis，而不是自研调度。</strong>
+        自研能省掉学习成本，但队列、去重、断点续爬都要自己造。在只有一个人的情况下，
+        把有限的精力放在反爬和稳定性上，比造轮子划算。
+      </li>
+      <li>
+        <strong>前台采集和后台报表拆成两条链路。</strong>
+        前台是 HTML 解析，后台是登录态加文件下载，两者失败模式完全不同。混在一起会让重试逻辑失控，
+        所以后台单独用 Selenium 模拟浏览器完成下载与回传。
+      </li>
+      <li>
+        <strong>把反爬当成持续运营，而不是一次性工程。</strong>
+        动态代理池和请求特征混淆只是入场券。真正的稳定性来自监控：成功率跌破阈值就告警，
+        自动降速而不是硬刚。
+      </li>
+    </ol>
+
+    <h3>结果</h3>
+    <p>
+      采集成功率稳定在 98% 以上；报表环节人力成本下降 70%；Supervisor 集群加 MongoDB 分片，
+      数据入库效率提升 50%。这套系统后来一直支撑着选品和广告分析的数据底座。
+    </p>
+
+    <p class="note">
+      <b>如果重做一次：</b>我会在第一天就加上采集质量看板。采集系统最难的不是爬下来，是
+      <b>证明数据是准的</b> —— 这个认知是后来做多租户采集时才真正补上的。
+    </p>
+  </article>
+
+  <!-- ================= CASE 2 ================= -->
+  <article class="case" id="onboarding">
+    <h2>100+ 租户物业 SaaS 的开户流程重构</h2>
+    <p class="kicker">多租户 SaaS · 2021 – 2024 · 主导方案与落地</p>
+
+    <p class="result">
+      开户时长从<b>半小时以上压缩到分钟级</b>，整体效率提升 90%，成为后续租户迁移的标准流程。
+    </p>
+
+    <h3>背景</h3>
+    <p>
+      这套物业系统服务 100 多个租户。每开一个新租户，要跨多个模块初始化数据、校验第三方接口、分配权限，
+      全流程同步串行。客户等半小时是常态，一线实施的同事怨声很大。
+    </p>
+
+    <h3>我的角色</h3>
+    <p>
+      主导方案设计与落地，从问题定位、链路重设计到上线验收全程负责。
+    </p>
+
+    <h3>关键决策</h3>
+    <ol class="steps">
+      <li>
+        <strong>先做流程拆解，不急着优化 SQL。</strong>
+        把开户拆成「校验 — 初始化 — 授权 — 通知」四段，用耗时打点找出真正的瓶颈。
+        结论是：大头在串行的远程调用和循环里的重复查询，不在数据库本身。
+      </li>
+      <li>
+        <strong>可并行的环节异步化，用状态机兜底。</strong>
+        异步化会带来最终一致性问题，所以引入开户状态机和补偿任务：
+        任何一步失败都能重试到确定状态，而不是让用户面对一个「不知道成没成」的页面。
+      </li>
+      <li>
+        <strong>把进度做成可见的。</strong>
+        技术上做到分钟级已经达标，但用户感知的是「有没有反馈」。
+        加上进度展示之后，同样的耗时，投诉量明显下降。
+      </li>
+    </ol>
+
+    <h3>结果</h3>
+    <p>
+      开户从半小时级降到分钟级，效率提升 90%。这套流程后来又用于历史租户的批量迁移，
+      把一次性的性能优化变成了可复用的实施标准。
+    </p>
+
+    <p class="note">
+      <b>沉淀下来的判断：</b>性能问题的第一现场往往不在数据库，而在<b>调用链的形状</b>。
+      先画清楚链路，再谈优化手段 —— 反过来做，很容易优化了一个本来就不慢的环节。
+    </p>
+  </article>
+
+  <!-- ================= CASE 3 ================= -->
+  <article class="case" id="chat">
+    <h2>AI 辅助下的实时聊天系统全栈交付</h2>
+    <p class="kicker">独立交付 · 2025 · 一个人完成前端 + 后端 + 部署</p>
+
+    <p class="result">
+      在<b>没有前端经验</b>的前提下，单人交付一套含 WebSocket 实时推送、多语言、复杂状态管理的聊天系统，<b>按期上线</b>。
+    </p>
+
+    <h3>背景</h3>
+    <p>
+      接的一个项目，需要聊天窗口加后台管理端。后端我有把握，但前端我只在入行时碰过 HTML 和 CSS，
+      工作之后一直做后端，样式和交互早就丢了。
+    </p>
+
+    <h3>我的角色</h3>
+    <p>
+      独立交付，从需求沟通、方案设计到开发、部署、验收，全流程一个人。
+    </p>
+
+    <h3>关键决策</h3>
+    <ol class="steps">
+      <li>
+        <strong>先写交互清单，再让 AI 生成代码。</strong>
+        这一步是关键。直接说「帮我写个聊天界面」，拿到的是漂亮但跑不通的静态页；
+        先把状态、事件、边界条件列成清单，AI 产出的一次通过率会高得多。
+      </li>
+      <li>
+        <strong>AI 负责起草，人负责判断。</strong>
+        组件骨架、样式、多语言文案交给 AI；消息顺序、断线重连、已读回执、并发发送这些逻辑必须自己设计
+        —— 这恰恰是 AI 最容易写出「看起来对、实际会丢消息」的地方。
+      </li>
+      <li>
+        <strong>把验收标准前置。</strong>
+        每完成一个模块就先自测一遍再往下走，避免最后一次性联调时才发现状态管理已经烂了。
+      </li>
+    </ol>
+
+    <h3>结果</h3>
+    <p>
+      按期交付，客户验收通过。更重要的是，这套流程被我固化了下来：
+      <strong>先定验收标准 → 让 AI 批量产出 → 人工收敛</strong>。它现在是我接任何一个陌生技术栈项目时的默认打法。
+    </p>
+
+    <p class="note">
+      <b>对 AI 的理解：</b>它提升的是<b>起草速度</b>，不是<b>判断力</b>。
+      它让人从「不会写」变成「能写出来」，但能不能交付，仍然取决于你有没有能力定义清楚「什么叫做对了」。
+    </p>
+  </article>
+
+  <!-- ================= STACK ================= -->
+  <p class="sec-title">Stack</p>
+  <dl class="stack">
+    <dt>语言</dt>
+    <dd>PHP（Laravel / Lumen / Yii2 / CodeIgniter）、Python（Scrapy / Flask / Celery）、Java</dd>
+    <dt>数据</dt>
+    <dd>MySQL、Redis、MongoDB、RabbitMQ</dd>
+    <dt>工程</dt>
+    <dd>Docker、Nginx、Git、CI/CD、Supervisor、Linux</dd>
+    <dt>方向</dt>
+    <dd>多租户架构、高并发与协程、数据采集与反爬、AI 辅助开发与 LLM 应用集成</dd>
+  </dl>
+
+  <footer>
+    <p>目前在找后端 / 全栈方向的岗位，深圳优先，可即时到岗。</p>
+    <p>
+      <a href="mailto:in1993summer@163.com">in1993summer@163.com</a> ·
+      <a href="https://github.com/mingzhongshui">GitHub</a> ·
+      <a href="https://www.cxiansheng.cn">cxiansheng.cn</a>
+    </p>
+    <p style="color:#b8b8b8;font-size:12.5px;margin-top:18px">© 2026 陈明辉</p>
+  </footer>
+
+</div>
+</body>
+</html>
