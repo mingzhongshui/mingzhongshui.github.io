@@ -220,6 +220,11 @@ menus:
       pageRef: /archive
       pre: archive
       weight: 4
+    - identifier: portfolio
+      name: 作品集
+      pageRef: /portfolio
+      pre: portfolio
+      weight: 5
     - identifier: about
       name: 关于
       pageRef: /about
